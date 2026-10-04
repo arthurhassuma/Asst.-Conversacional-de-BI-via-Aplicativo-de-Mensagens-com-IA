@@ -1,0 +1,13 @@
+-- A criação do login e senha parametrizada ocorre em scripts/manage_db.py.
+ALTER ROLE readonly_agent NOSUPERUSER NOCREATEDB NOCREATEROLE NOREPLICATION NOBYPASSRLS;
+ALTER ROLE readonly_agent SET default_transaction_read_only = on;
+ALTER ROLE readonly_agent SET statement_timeout = '3s';
+ALTER ROLE readonly_agent SET lock_timeout = '1s';
+ALTER ROLE readonly_agent SET search_path = pg_catalog, public;
+REVOKE CREATE ON SCHEMA public FROM PUBLIC;
+REVOKE ALL ON SCHEMA public FROM readonly_agent;
+GRANT USAGE ON SCHEMA public TO readonly_agent;
+REVOKE ALL ON ALL TABLES IN SCHEMA public FROM readonly_agent;
+REVOKE ALL ON ALL SEQUENCES IN SCHEMA public FROM readonly_agent;
+GRANT SELECT ON clientes, contratos, pedidos, faturamento, indicadores_operacionais TO readonly_agent;
+-- Sem grants automáticos: novas tabelas precisam de revisão explícita.

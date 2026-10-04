@@ -1,0 +1,36 @@
+[build-system]
+requires = ["setuptools>=75"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pac-bi-assistant"
+version = "0.1.0"
+description = "Assistente conversacional de BI com dados sintéticos"
+requires-python = ">=3.11"
+dependencies = [
+  "google-genai>=1.75,<2", "fastapi>=0.115,<1", "uvicorn>=0.34,<1",
+  "python-telegram-bot>=22,<23", "psycopg[binary]>=3.2,<4",
+  "pglast>=7,<8", "Faker>=33,<40", "pydantic-settings>=2.7,<3"
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8,<10", "pytest-asyncio>=0.25,<2", "httpx>=0.28,<1", "ruff>=0.11,<1"]
+
+[project.scripts]
+bi-cli = "app.cli:main"
+bi-db = "scripts.manage_db:main"
+bi-telegram = "app.telegram_bot:main"
+
+[tool.setuptools.packages.find]
+include = ["app*", "scripts*"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+markers = ["integration: requer PostgreSQL de teste configurado"]
+
+[tool.ruff]
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F", "I"]
