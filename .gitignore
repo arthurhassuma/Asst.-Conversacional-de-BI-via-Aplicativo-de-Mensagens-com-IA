@@ -1,0 +1,40 @@
+# Credenciais e configuracao local (publique somente exemplos sem segredos)
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+credentials*.json
+secrets*.json
+
+# Ambientes, banco local, logs e backups
+.venv/
+venv/
+.local/
+*.log
+*.dump
+*.backup
+*.sqlite
+*.sqlite3
+
+# Artefatos Python e ferramentas
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+.coverage
+.coverage.*
+htmlcov/
+coverage.xml
+build/
+dist/
+
+# Editor e sistema operacional
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+~$*
