@@ -1,5 +1,9 @@
 # Assistente Conversacional de BI — PAC Extensionista VIII
 
+Repositório de continuidade: [arthurhassuma/pac_privado](https://github.com/arthurhassuma/pac_privado).
+Em 04/10/2026, a importação foi validada com **65 testes aprovados**, incluindo PostgreSQL real.
+Veja [publicação e verificação atual](docs/publicacao-github.md), [testes automáticos](https://github.com/arthurhassuma/pac_privado/actions) e [roteiro de entrega até dezembro](docs/roteiro-entrega-dezembro.md).
+
 MVP acadêmico em português do Brasil: **Telegram → FastAPI → Gemini → PostgreSQL 16**. Base B2B integralmente sintética, inspirada em serviços de desenvolvimento de software. Escopo implementado: Fases 0–3. Não inclui avaliação acadêmica, conjunto de perguntas ou experimentos da Fase 4.
 
 O provedor foi alterado de Anthropic para Gemini por decisão do usuário para usar a cota gratuita. A proposta original permanece preservada. Veja a [justificativa e detalhes da migração](docs/migracao-gemini.md).
