@@ -18,6 +18,7 @@ O cluster estava parado antes da revisão, foi iniciado para as verificações e
 - Diagnóstico executado contra o banco real: conexão somente leitura e metadados confirmados. As seis verificações de consistência retornaram zero ocorrências.
 - `ruff check app scripts tests`, `compileall` e `git diff --check` passaram; `pip check` não encontrou conflitos de dependências.
 - Revisão independente identificou que o alias `total` não comprova soma ou moeda. A apresentação foi corrigida para frase neutra, com regressões para média de horas e variação percentual; não acrescenta `R$`, percentuais ou afirmações de soma pelo alias.
+- A primeira execução no GitHub passou em 76 testes e falhou no caso de configuração ausente: o teste herdava `DATABASE_URL` do processo CI, pois `_env_file=None` só desativa dotenv. A falha foi reproduzida localmente e a fixture passou a definir credenciais vazias explicitamente. O teste também injeta uma variável ambiente para cobrir essa situação. O resultado da execução remota atual deve ser conferido nos checks da proposta de mudança.
 
 ## Limites da verificação
 

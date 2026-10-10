@@ -4,6 +4,7 @@ import json
 
 import httpx
 import pytest
+from pydantic import SecretStr
 from telegram import Bot
 from telegram.request import HTTPXRequest
 
@@ -51,8 +52,18 @@ async def test_invalid_and_missing_configuration_never_calls_providers(monkeypat
 
     for name in ("check_database", "check_gemini", "check_telegram"):
         monkeypatch.setattr(diagnostic, name, forbidden)
+    # _env_file=None desativa apenas dotenv, não as variáveis do processo/CI.
+    monkeypatch.setenv("DATABASE_URL", "postgresql://configuracao-ambiente/bi")
     report = await diagnostic.diagnose(
-        Settings(_env_file=None, telegram_allowed_user_ids="id-invalido"), test_connections=True
+        Settings(
+            _env_file=None,
+            database_url="",
+            gemini_api_key="",
+            telegram_bot_token="",
+            telegram_webhook_secret="",
+            telegram_allowed_user_ids="id-invalido",
+        ),
+        test_connections=True,
     )
     assert all(item["status"] == "pendente" for item in report.values())
 
@@ -132,9 +143,7 @@ async def test_quota_error_and_incomplete_schema_are_not_reported_as_connected(m
     )
     monkeypatch.setattr(diagnostic.genai, "Client", lambda **kw: client)
     monkeypatch.setattr(diagnostic.DatabaseTools, "get_schema", lambda self: {"tables": {}})
-    settings = configured().model_copy(
-        update={"telegram_bot_token": Settings(_env_file=None).telegram_bot_token}
-    )
+    settings = configured().model_copy(update={"telegram_bot_token": SecretStr("")})
     report = await diagnostic.diagnose(settings, test_connections=True)
     assert report["gemini"]["status"] == "falhou"
     assert "cota" in report["gemini"]["detalhe"]
