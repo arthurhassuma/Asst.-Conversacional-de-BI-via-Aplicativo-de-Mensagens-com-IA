@@ -248,7 +248,9 @@ class BIAgent:
                     break
                 continue
             try:
-                text = render_answer(parse_json(response), results, plan["metric"])
+                text = render_answer(
+                    parse_json(response), results, plan["metric"], measure=plan["measure"]
+                )
                 # Histórico recebe a resposta de fato vista pelo gestor.
                 messages.append({"role": "assistant", "content": text})
                 return text, messages[len(history) :]

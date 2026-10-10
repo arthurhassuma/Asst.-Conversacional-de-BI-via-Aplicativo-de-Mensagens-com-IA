@@ -4,6 +4,8 @@ Repositório de continuidade: [arthurhassuma/pac_privado](https://github.com/art
 Em 04/10/2026, a importação foi validada com **65 testes aprovados**, incluindo PostgreSQL real.
 Veja [publicação e verificação atual](docs/publicacao-github.md), [testes automáticos](https://github.com/arthurhassuma/pac_privado/actions) e [roteiro de entrega até dezembro](docs/roteiro-entrega-dezembro.md).
 
+Revisão de 10/10/2026: [comparação com a proposta aprovada](docs/comparacao-proposta.md) e [verificação da continuidade](docs/verificacao-2026-10-10.md). Foram aprovados 77 testes com PostgreSQL real e APIs externas simuladas. A conexão Gemini/Telegram em outro ambiente foi informada pelo usuário; não foi reproduzida com credenciais externas nesta revisão.
+
 MVP acadêmico em português do Brasil: **Telegram → FastAPI → Gemini → PostgreSQL 16**. Base B2B integralmente sintética, inspirada em serviços de desenvolvimento de software. Escopo implementado: Fases 0–3. Não inclui avaliação acadêmica, conjunto de perguntas ou experimentos da Fase 4.
 
 O provedor foi alterado de Anthropic para Gemini por decisão do usuário para usar a cota gratuita. A proposta original permanece preservada. Veja a [justificativa e detalhes da migração](docs/migracao-gemini.md).
@@ -93,6 +95,19 @@ O polling usa python-telegram-bot e encaminha cada update ao webhook FastAPI loc
 
 Saúde de processo/configuração: `http://127.0.0.1:8000/health`. Esse endpoint não confirma conectividade Gemini/banco. `/start`, `/help` e `/limpar` funcionam no Telegram. Mensagens de grupos e usuários fora da allowlist são ignoradas.
 
+### Diagnóstico no ambiente conectado
+
+Execute na raiz do checkout que contém o `.env` usado pelo bot:
+
+```powershell
+# Apenas configuração; não faz chamadas de rede
+python -m scripts.check_connections
+# Verifica PostgreSQL, resposta do Gemini e autenticação Telegram
+python -m scripts.check_connections --testar-conexoes
+```
+
+`configurado` significa somente presença/formato; `confirmado` significa que a conexão indicada respondeu. `pendente` ou `falhou` produz código de saída diferente de zero e orientação em português. O comando não exibe credenciais, não envia mensagens, não consome updates e não altera o webhook. A opção de teste consome uma chamada da cota Gemini e respeita o projeto configurado; não verifica nem muda seu plano de cobrança. Ainda é necessário realizar o teste funcional abaixo para comprovar SQL e entrega das respostas.
+
 ## Webhook público
 
 Disponibilize o backend por HTTPS com proxy/túnel de sua escolha e configure TELEGRAM_WEBHOOK_URL. Mantenha o segredo apenas no backend e no registro do Telegram; não o coloque na URL.
@@ -110,6 +125,7 @@ O endpoint exige `X-Telegram-Bot-Api-Secret-Token`. A fila tem capacidade limita
 - Planejamento sem tools exige métrica, medida e período com evidência literal do pedido/histórico antes de permitir SQL. Reconhecer a intenção continua dependendo do modelo; interpretação semântica exige a avaliação futura.
 - Erros SQL voltam ao modelo como tool_result para autocorreção limitada. Detalhes do PostgreSQL ficam no contexto interno, não na resposta ao gestor.
 - O modelo retorna somente referência ao resultado. O backend produz a introdução e os registros, sem incorporar prosa livre do modelo. Números e datas vêm das células; Decimal mantém todos os dígitos. O agente não arredonda na resposta. SQL pode arredondar se o usuário pedir.
+- Agregados únicos com alias `total` recebem uma frase natural conforme a métrica e a medida, por exemplo faturamento ou quantidade de clientes. O valor é copiado integralmente da célula; o renderizador não deduz soma, moeda ou percentual pelo alias. Detalhamentos, NULL e resultados parciais mantêm o formato de registros e seus avisos.
 - Essa garantia de origem numérica **não comprova a correção semântica do SQL**: escolher filtros ou joins errados continua possível e deverá ser medido na Fase 4. Resultados parciais são identificados; NULL não é convertido em zero.
 - Acesso administrativo fica nos comandos de setup; não há tool administrativa. Logs da aplicação omitem textos, SQL e credenciais. O PostgreSQL pode registrar SQL com erro; os logs locais estão em `.local/` ignorado.
 
@@ -128,9 +144,9 @@ python -c "import os,pytest; from app.config import Settings; os.environ['TEST_D
 
 Use somente a base sintética deste projeto. A suíte verifica negação de DML/DDL, timeout real, limite de linhas, precisão decimal, autocorreção, ambiguidade, sessões, webhook e o fluxo completo com PostgreSQL real e APIs Gemini/Telegram simuladas na rede. Também verifica o protocolo nativo do SDK Gemini, preservação de assinaturas, chamadas paralelas e erros de cota/permissão. Isso não substitui o teste manual real.
 
-## Teste manual real — pendente
+## Teste manual real — registro de evidência
 
-O usuário autorizou seguir para o teste real com Gemini; a execução depende de configurar as credenciais locais. Nenhum teste simulado comprova acesso à API externa. Quando a chave e o token estiverem disponíveis:
+O usuário informou conexão Gemini/Telegram em outro ambiente. Nesta revisão não foram usadas credenciais externas, e o GitHub não contém a configuração do processo em execução. Nenhum teste simulado comprova acesso à API externa. No ambiente já conectado, conclua e registre o roteiro:
 
 1. Execute setup, validação, backend e polling (ou webhook HTTPS).
 2. Em chat privado, envie `/start` e `Qual o faturamento?`; confirme a pergunta sobre período.

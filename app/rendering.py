@@ -31,7 +31,7 @@ def cell_text(value) -> str:
     return value.replace("\n", " ").replace("\r", " ")
 
 
-def render_answer(payload: dict, results: dict, metric: str) -> str:
+def render_answer(payload: dict, results: dict, metric: str, *, measure: str | None = None) -> str:
     if (
         not isinstance(payload, dict)
         or set(payload) != {"kind", "result_id"}
@@ -45,6 +45,37 @@ def render_answer(payload: dict, results: dict, metric: str) -> str:
     lines = [f"Consultei {METRICS[metric]} no período informado."]
     if not result["rows"]:
         return "\n".join(lines + ["Nenhum registro foi encontrado para esses filtros."])
+    # Frases controladas para um único agregado. O modelo não escreve nem arredonda
+    # o valor; detalhes, NULLs e resultados parciais continuam no formato de registros.
+    subjects = {
+        ("faturamento", "valor"): "faturamento emitido",
+        ("recebimentos", "valor"): "recebimentos",
+        ("pedidos", "valor"): "valor dos pedidos de serviços",
+        ("pedidos", "quantidade"): "quantidade de pedidos de serviços",
+        ("contratos", "valor"): "valor contratado",
+        ("contratos", "quantidade"): "quantidade de contratos",
+        ("clientes", "quantidade"): "quantidade de clientes",
+        ("horas", "horas_previstas"): "horas previstas",
+        ("horas", "horas_realizadas"): "horas realizadas",
+        ("chamados", "chamados_abertos"): "quantidade de chamados abertos",
+        ("chamados", "chamados_resolvidos"): "quantidade de chamados resolvidos",
+    }
+    subject = subjects.get((metric, measure))
+    if (
+        subject
+        and not result.get("truncated")
+        and len(result["rows"]) == 1
+        and len(result["rows"][0]) == 1
+        and result["columns"] == ["total"]
+    ):
+        value = result["rows"][0][0]
+        if re.fullmatch(r"-?\d+(?:\.\d+)?", str(value)):
+            # O alias total também pode vir de AVG ou de uma variação. Não inferir
+            # soma, moeda ou porcentagem somente pelo alias ou pelo plano do LLM.
+            text = f"No período informado, o resultado para {subject} é {cell_text(value)}."
+            if len(text) > 12000:
+                raise InvalidAnswer("Resultado extenso. Solicite um resumo ou refine os filtros.")
+            return text
     # Cabeçalhos livres poderiam esconder números gerados (inclusive por extenso).
     # Use rótulos fixos; a lista de colunas segue disponível na evidência interna.
     lines.append("Os campos de cada registro aparecem na ordem da consulta:")

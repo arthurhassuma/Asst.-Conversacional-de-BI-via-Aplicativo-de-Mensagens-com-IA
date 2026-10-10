@@ -33,3 +33,78 @@ def test_numeric_alias_is_not_printed_and_empty_does_not_imply_zero():
     assert "999" not in text
     assert "Nenhum registro" in text
     assert "0" not in text
+
+
+@pytest.mark.parametrize(
+    ("metric", "measure", "value", "expected"),
+    [
+        (
+            "faturamento",
+            "valor",
+            "123456789.123456",
+            "No período informado, o resultado para faturamento emitido é 123456789,123456.",
+        ),
+        (
+            "clientes",
+            "quantidade",
+            30,
+            "No período informado, o resultado para quantidade de clientes é 30.",
+        ),
+        (
+            "horas",
+            "horas_realizadas",
+            "0.00",
+            "No período informado, o resultado para horas realizadas é 0,00.",
+        ),
+    ],
+)
+def test_scalar_answer_uses_natural_portuguese_and_exact_cell(metric, measure, value, expected):
+    text = render_answer(
+        {"kind": "answer", "result_id": "q1"},
+        {"q1": {"columns": ["total"], "rows": [[value]], "truncated": False}},
+        metric,
+        measure=measure,
+    )
+    assert text == expected
+
+
+@pytest.mark.parametrize("value", [None, "valor desconhecido"])
+def test_missing_or_textual_scalar_is_not_presented_as_money(value):
+    text = render_answer(
+        {"kind": "answer", "result_id": "q1"},
+        {"q1": {"columns": ["total"], "rows": [[value]], "truncated": False}},
+        "faturamento",
+        measure="valor",
+    )
+    assert "R$" not in text
+    assert "0" not in text
+
+
+def test_partial_scalar_still_has_warning_instead_of_claiming_total():
+    text = render_answer(
+        {"kind": "answer", "result_id": "q1"},
+        {"q1": {"columns": ["total"], "rows": [["12.3456"]], "truncated": True}},
+        "faturamento",
+        measure="valor",
+    )
+    assert "Resultado parcial" in text
+    assert "12,3456" in text
+    assert "foi de" not in text
+
+
+@pytest.mark.parametrize(
+    ("metric", "measure", "value"),
+    [("horas", "horas_realizadas", "3.125"), ("faturamento", "valor", "12.345678")],
+)
+def test_alias_total_does_not_prove_sum_or_currency(metric, measure, value):
+    # AVG(horas_realizadas) AS total e variação percentual AS total são
+    # resultados possíveis: o alias não certifica a operação nem a unidade.
+    text = render_answer(
+        {"kind": "answer", "result_id": "q1"},
+        {"q1": {"columns": ["total"], "rows": [[value]], "truncated": False}},
+        metric,
+        measure=measure,
+    )
+    assert "somaram" not in text
+    assert "R$" not in text
+    assert value.replace(".", ",") in text

@@ -110,8 +110,7 @@ async def test_webhook_to_postgres_to_telegram_with_simulated_external_apis():
                 assert result.status_code == 200
                 await app.state.queue.join()
     assert telegram_messages == [
-        f"Consultei clientes no período informado.\n"
-        f"Os campos de cada registro aparecem na ordem da consulta:\nTotal: {expected}"
+        f"No período informado, o resultado para quantidade de clientes é {expected}."
     ]
     tool_result = model_requests[-1]["contents"][-1]["parts"][0]["functionResponse"]
     assert tool_result["response"]["rows"] == [[expected]]
