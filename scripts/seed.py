@@ -7,7 +7,20 @@ from random import Random
 from faker import Faker
 
 
-def generate_data(seed: int = 42, clients: int = 30) -> dict[str, list[dict]]:
+def generate_data(
+    seed: int = 42,
+    clients: int = 30,
+    *,
+    profile: str = "original",
+    start_month: str = "2025-01",
+    end_month: str = "2026-10",
+) -> dict[str, list[dict]]:
+    if profile == "comparativo":
+        from scripts.comparative_seed import generate_comparative_data
+
+        return generate_comparative_data(seed, clients, start_month, end_month)
+    if profile != "original":
+        raise ValueError("Perfil desconhecido. Use original ou comparativo.")
     if not 1 <= clients <= 1000:
         raise ValueError("A quantidade de clientes deve estar entre um e mil.")
     fake = Faker("pt_BR")

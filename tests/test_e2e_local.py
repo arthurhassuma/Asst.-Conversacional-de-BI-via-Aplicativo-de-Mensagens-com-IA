@@ -119,7 +119,7 @@ async def test_webhook_to_postgres_to_telegram_with_simulated_external_apis():
 
 
 @pytest.mark.integration
-@pytest.mark.parametrize("year", [2025, 2026])
+@pytest.mark.parametrize("year", [2025, 2026, 2027])
 async def test_composite_question_uses_postgres_counts_and_preserves_each_metric(year):
     dsn = os.getenv("TEST_DATABASE_URL")
     if not dsn:
@@ -147,11 +147,12 @@ async def test_composite_question_uses_postgres_counts_and_preserves_each_metric
     assert "pedidos" in orders and "faturamento" in revenue
     assert f"01/08/{year} a 31/08/{year}" in orders
     assert f"01/08/{year} a 31/08/{year}" in revenue
-    if year == 2026:
-        assert expected == [(0, 0), (None, 0)]
+    if expected == [(0, 0), (None, 0)]:
         assert "Nenhum registro" in orders and "Nenhum registro" in revenue
         assert "não informado" not in text
     else:
         assert expected[0][1] > 0 and expected[1][1] > 0
         assert f"Quantidade: {expected[0][0]}" in orders
         assert f"Total: {str(expected[1][0]).replace('.', ',')}" in revenue
+    if year == 2027:
+        assert expected == [(0, 0), (None, 0)]

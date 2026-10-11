@@ -1,0 +1,679 @@
+{
+  "perfil": "comparativo-v1",
+  "inicio": "2025-01",
+  "fim": "2026-10",
+  "meses": 22,
+  "fotografia_status": "2026-10-31",
+  "cenario_sintetico": true,
+  "contagens": {
+    "clientes": 100,
+    "contratos": 681,
+    "pedidos": 5100,
+    "faturamento": 5809,
+    "indicadores_operacionais": 1700
+  },
+  "mensal": [
+    {
+      "mes": "2025-01",
+      "novos_clientes": 4,
+      "contratos_iniciados": 32,
+      "pedidos": 89,
+      "valor_pedidos": "491091.98",
+      "faturamento_emitido": "453231.00",
+      "recebimentos": "245989.99",
+      "horas_previstas": "3126.00",
+      "horas_realizadas": "3256.71",
+      "chamados_abertos": 1137,
+      "chamados_resolvidos": 900,
+      "status": {
+        "contratos": {
+          "ativo": 11,
+          "cancelado": 11,
+          "concluido": 10
+        },
+        "pedidos": {
+          "aprovado": 13,
+          "entregue": 76,
+          "cancelado": 7
+        },
+        "faturamento": {
+          "aberta": 32,
+          "paga": 62,
+          "cancelada": 8
+        }
+      }
+    },
+    {
+      "mes": "2025-02",
+      "novos_clientes": 4,
+      "contratos_iniciados": 20,
+      "pedidos": 99,
+      "valor_pedidos": "588121.39",
+      "faturamento_emitido": "555036.49",
+      "recebimentos": "343320.44",
+      "horas_previstas": "3980.00",
+      "horas_realizadas": "4082.42",
+      "chamados_abertos": 1338,
+      "chamados_resolvidos": 1032,
+      "status": {
+        "contratos": {
+          "ativo": 6,
+          "concluido": 8,
+          "cancelado": 6
+        },
+        "pedidos": {
+          "entregue": 83,
+          "aprovado": 16,
+          "cancelado": 9
+        },
+        "faturamento": {
+          "paga": 89,
+          "aberta": 35,
+          "cancelada": 9
+        }
+      }
+    },
+    {
+      "mes": "2025-03",
+      "novos_clientes": 4,
+      "contratos_iniciados": 20,
+      "pedidos": 110,
+      "valor_pedidos": "736206.76",
+      "faturamento_emitido": "681568.09",
+      "recebimentos": "533215.84",
+      "horas_previstas": "4132.00",
+      "horas_realizadas": "4154.98",
+      "chamados_abertos": 1194,
+      "chamados_resolvidos": 940,
+      "status": {
+        "contratos": {
+          "concluido": 6,
+          "cancelado": 7,
+          "ativo": 7
+        },
+        "pedidos": {
+          "entregue": 95,
+          "cancelado": 10,
+          "aprovado": 15
+        },
+        "faturamento": {
+          "paga": 91,
+          "aberta": 31,
+          "cancelada": 11
+        }
+      }
+    },
+    {
+      "mes": "2025-04",
+      "novos_clientes": 4,
+      "contratos_iniciados": 24,
+      "pedidos": 134,
+      "valor_pedidos": "831228.24",
+      "faturamento_emitido": "767663.22",
+      "recebimentos": "500581.96",
+      "horas_previstas": "4931.00",
+      "horas_realizadas": "5239.10",
+      "chamados_abertos": 1530,
+      "chamados_resolvidos": 1200,
+      "status": {
+        "contratos": {
+          "cancelado": 9,
+          "ativo": 8,
+          "concluido": 7
+        },
+        "pedidos": {
+          "entregue": 119,
+          "cancelado": 10,
+          "aprovado": 15
+        },
+        "faturamento": {
+          "aberta": 49,
+          "paga": 112,
+          "cancelada": 15
+        }
+      }
+    },
+    {
+      "mes": "2025-05",
+      "novos_clientes": 4,
+      "contratos_iniciados": 24,
+      "pedidos": 142,
+      "valor_pedidos": "790452.01",
+      "faturamento_emitido": "734481.31",
+      "recebimentos": "561330.36",
+      "horas_previstas": "5516.00",
+      "horas_realizadas": "5670.12",
+      "chamados_abertos": 1593,
+      "chamados_resolvidos": 1248,
+      "status": {
+        "contratos": {
+          "ativo": 7,
+          "concluido": 10,
+          "cancelado": 7
+        },
+        "pedidos": {
+          "entregue": 122,
+          "cancelado": 14,
+          "aprovado": 20
+        },
+        "faturamento": {
+          "paga": 108,
+          "cancelada": 15,
+          "aberta": 42
+        }
+      }
+    },
+    {
+      "mes": "2025-06",
+      "novos_clientes": 4,
+      "contratos_iniciados": 24,
+      "pedidos": 153,
+      "valor_pedidos": "1067806.76",
+      "faturamento_emitido": "973033.68",
+      "recebimentos": "649208.38",
+      "horas_previstas": "6115.00",
+      "horas_realizadas": "6128.78",
+      "chamados_abertos": 1926,
+      "chamados_resolvidos": 1524,
+      "status": {
+        "contratos": {
+          "concluido": 7,
+          "cancelado": 8,
+          "ativo": 9
+        },
+        "pedidos": {
+          "aprovado": 19,
+          "entregue": 134,
+          "cancelado": 15
+        },
+        "faturamento": {
+          "aberta": 57,
+          "cancelada": 21,
+          "paga": 124
+        }
+      }
+    },
+    {
+      "mes": "2025-07",
+      "novos_clientes": 4,
+      "contratos_iniciados": 28,
+      "pedidos": 173,
+      "valor_pedidos": "1073202.04",
+      "faturamento_emitido": "964582.06",
+      "recebimentos": "729392.34",
+      "horas_previstas": "6861.00",
+      "horas_realizadas": "7012.03",
+      "chamados_abertos": 2402,
+      "chamados_resolvidos": 1900,
+      "status": {
+        "contratos": {
+          "cancelado": 11,
+          "ativo": 9,
+          "concluido": 8
+        },
+        "pedidos": {
+          "entregue": 152,
+          "aprovado": 21,
+          "cancelado": 19
+        },
+        "faturamento": {
+          "paga": 141,
+          "aberta": 44,
+          "cancelada": 16
+        }
+      }
+    },
+    {
+      "mes": "2025-08",
+      "novos_clientes": 4,
+      "contratos_iniciados": 28,
+      "pedidos": 185,
+      "valor_pedidos": "1325067.05",
+      "faturamento_emitido": "1239387.25",
+      "recebimentos": "897881.27",
+      "horas_previstas": "7195.00",
+      "horas_realizadas": "7341.63",
+      "chamados_abertos": 2339,
+      "chamados_resolvidos": 1797,
+      "status": {
+        "contratos": {
+          "ativo": 8,
+          "concluido": 12,
+          "cancelado": 8
+        },
+        "pedidos": {
+          "entregue": 164,
+          "cancelado": 13,
+          "aprovado": 21
+        },
+        "faturamento": {
+          "paga": 165,
+          "aberta": 60,
+          "cancelada": 16
+        }
+      }
+    },
+    {
+      "mes": "2025-09",
+      "novos_clientes": 4,
+      "contratos_iniciados": 28,
+      "pedidos": 198,
+      "valor_pedidos": "1357127.66",
+      "faturamento_emitido": "1236199.63",
+      "recebimentos": "840419.52",
+      "horas_previstas": "8041.00",
+      "horas_realizadas": "8123.85",
+      "chamados_abertos": 2305,
+      "chamados_resolvidos": 1785,
+      "status": {
+        "contratos": {
+          "concluido": 8,
+          "cancelado": 9,
+          "ativo": 11
+        },
+        "pedidos": {
+          "entregue": 178,
+          "cancelado": 12,
+          "aprovado": 20
+        },
+        "faturamento": {
+          "cancelada": 19,
+          "aberta": 61,
+          "paga": 156
+        }
+      }
+    },
+    {
+      "mes": "2025-10",
+      "novos_clientes": 4,
+      "contratos_iniciados": 30,
+      "pedidos": 204,
+      "valor_pedidos": "1437670.78",
+      "faturamento_emitido": "1299248.12",
+      "recebimentos": "863309.78",
+      "horas_previstas": "8420.00",
+      "horas_realizadas": "8654.61",
+      "chamados_abertos": 2442,
+      "chamados_resolvidos": 1903,
+      "status": {
+        "contratos": {
+          "cancelado": 13,
+          "ativo": 10,
+          "concluido": 7
+        },
+        "pedidos": {
+          "entregue": 172,
+          "cancelado": 24,
+          "aprovado": 32
+        },
+        "faturamento": {
+          "paga": 158,
+          "cancelada": 25,
+          "aberta": 86
+        }
+      }
+    },
+    {
+      "mes": "2025-11",
+      "novos_clientes": 4,
+      "contratos_iniciados": 32,
+      "pedidos": 222,
+      "valor_pedidos": "1755069.26",
+      "faturamento_emitido": "1640796.64",
+      "recebimentos": "1254730.13",
+      "horas_previstas": "8773.00",
+      "horas_realizadas": "8968.11",
+      "chamados_abertos": 2642,
+      "chamados_resolvidos": 2053,
+      "status": {
+        "contratos": {
+          "ativo": 9,
+          "concluido": 14,
+          "cancelado": 9
+        },
+        "pedidos": {
+          "aprovado": 23,
+          "entregue": 199,
+          "cancelado": 21
+        },
+        "faturamento": {
+          "aberta": 58,
+          "paga": 186,
+          "cancelada": 22
+        }
+      }
+    },
+    {
+      "mes": "2025-12",
+      "novos_clientes": 4,
+      "contratos_iniciados": 31,
+      "pedidos": 225,
+      "valor_pedidos": "1381919.54",
+      "faturamento_emitido": "1256408.75",
+      "recebimentos": "901452.73",
+      "horas_previstas": "9553.00",
+      "horas_realizadas": "9729.70",
+      "chamados_abertos": 2727,
+      "chamados_resolvidos": 2120,
+      "status": {
+        "contratos": {
+          "concluido": 9,
+          "cancelado": 10,
+          "ativo": 12
+        },
+        "pedidos": {
+          "entregue": 198,
+          "aprovado": 27,
+          "cancelado": 27
+        },
+        "faturamento": {
+          "aberta": 85,
+          "paga": 186,
+          "cancelada": 25
+        }
+      }
+    },
+    {
+      "mes": "2026-01",
+      "novos_clientes": 4,
+      "contratos_iniciados": 34,
+      "pedidos": 250,
+      "valor_pedidos": "1714906.89",
+      "faturamento_emitido": "1574099.74",
+      "recebimentos": "1154254.99",
+      "horas_previstas": "10100.00",
+      "horas_realizadas": "10077.93",
+      "chamados_abertos": 2999,
+      "chamados_resolvidos": 2578,
+      "status": {
+        "contratos": {
+          "cancelado": 15,
+          "ativo": 11,
+          "concluido": 8
+        },
+        "pedidos": {
+          "entregue": 219,
+          "cancelado": 23,
+          "aprovado": 31
+        },
+        "faturamento": {
+          "paga": 195,
+          "aberta": 77,
+          "cancelada": 23
+        }
+      }
+    },
+    {
+      "mes": "2026-02",
+      "novos_clientes": 4,
+      "contratos_iniciados": 35,
+      "pedidos": 255,
+      "valor_pedidos": "1733715.03",
+      "faturamento_emitido": "1597527.02",
+      "recebimentos": "995528.02",
+      "horas_previstas": "10518.00",
+      "horas_realizadas": "10909.86",
+      "chamados_abertos": 2956,
+      "chamados_resolvidos": 2509,
+      "status": {
+        "contratos": {
+          "ativo": 10,
+          "concluido": 16,
+          "cancelado": 9
+        },
+        "pedidos": {
+          "entregue": 225,
+          "cancelado": 24,
+          "aprovado": 30
+        },
+        "faturamento": {
+          "paga": 211,
+          "cancelada": 26,
+          "aberta": 94
+        }
+      }
+    },
+    {
+      "mes": "2026-03",
+      "novos_clientes": 4,
+      "contratos_iniciados": 33,
+      "pedidos": 256,
+      "valor_pedidos": "1830479.43",
+      "faturamento_emitido": "1655341.43",
+      "recebimentos": "1250214.61",
+      "horas_previstas": "11104.00",
+      "horas_realizadas": "11243.54",
+      "chamados_abertos": 3243,
+      "chamados_resolvidos": 2799,
+      "status": {
+        "contratos": {
+          "concluido": 10,
+          "cancelado": 11,
+          "ativo": 12
+        },
+        "pedidos": {
+          "entregue": 224,
+          "cancelado": 26,
+          "aprovado": 32
+        },
+        "faturamento": {
+          "paga": 197,
+          "aberta": 79,
+          "cancelada": 28
+        }
+      }
+    },
+    {
+      "mes": "2026-04",
+      "novos_clientes": 4,
+      "contratos_iniciados": 37,
+      "pedidos": 277,
+      "valor_pedidos": "2049000.04",
+      "faturamento_emitido": "1911615.01",
+      "recebimentos": "1340387.09",
+      "horas_previstas": "11093.00",
+      "horas_realizadas": "11588.40",
+      "chamados_abertos": 3358,
+      "chamados_resolvidos": 2880,
+      "status": {
+        "contratos": {
+          "cancelado": 17,
+          "ativo": 12,
+          "concluido": 8
+        },
+        "pedidos": {
+          "aprovado": 32,
+          "entregue": 245,
+          "cancelado": 20
+        },
+        "faturamento": {
+          "aberta": 88,
+          "paga": 245,
+          "cancelada": 28
+        }
+      }
+    },
+    {
+      "mes": "2026-05",
+      "novos_clientes": 4,
+      "contratos_iniciados": 37,
+      "pedidos": 272,
+      "valor_pedidos": "1859971.31",
+      "faturamento_emitido": "1721673.70",
+      "recebimentos": "1312792.37",
+      "horas_previstas": "11750.00",
+      "horas_realizadas": "11816.89",
+      "chamados_abertos": 3334,
+      "chamados_resolvidos": 2883,
+      "status": {
+        "contratos": {
+          "ativo": 11,
+          "concluido": 18,
+          "cancelado": 8
+        },
+        "pedidos": {
+          "entregue": 241,
+          "aprovado": 31,
+          "cancelado": 31
+        },
+        "faturamento": {
+          "aberta": 75,
+          "paga": 223,
+          "cancelada": 26
+        }
+      }
+    },
+    {
+      "mes": "2026-06",
+      "novos_clientes": 4,
+      "contratos_iniciados": 32,
+      "pedidos": 261,
+      "valor_pedidos": "2022905.54",
+      "faturamento_emitido": "1854713.12",
+      "recebimentos": "1163821.45",
+      "horas_previstas": "10683.00",
+      "horas_realizadas": "11021.42",
+      "chamados_abertos": 3050,
+      "chamados_resolvidos": 2657,
+      "status": {
+        "contratos": {
+          "concluido": 11,
+          "cancelado": 12,
+          "ativo": 9
+        },
+        "pedidos": {
+          "entregue": 226,
+          "cancelado": 30,
+          "aprovado": 35
+        },
+        "faturamento": {
+          "paga": 196,
+          "aberta": 113,
+          "cancelada": 27
+        }
+      }
+    },
+    {
+      "mes": "2026-07",
+      "novos_clientes": 4,
+      "contratos_iniciados": 39,
+      "pedidos": 284,
+      "valor_pedidos": "1973314.15",
+      "faturamento_emitido": "1813661.65",
+      "recebimentos": "1365056.28",
+      "horas_previstas": "11595.00",
+      "horas_realizadas": "11901.18",
+      "chamados_abertos": 3480,
+      "chamados_resolvidos": 2971,
+      "status": {
+        "contratos": {
+          "cancelado": 19,
+          "ativo": 13,
+          "concluido": 7
+        },
+        "pedidos": {
+          "entregue": 254,
+          "cancelado": 28,
+          "aprovado": 30
+        },
+        "faturamento": {
+          "paga": 239,
+          "cancelada": 28,
+          "aberta": 76
+        }
+      }
+    },
+    {
+      "mes": "2026-08",
+      "novos_clientes": 4,
+      "contratos_iniciados": 39,
+      "pedidos": 289,
+      "valor_pedidos": "2227554.05",
+      "faturamento_emitido": "2060162.05",
+      "recebimentos": "1372786.38",
+      "horas_previstas": "11208.00",
+      "horas_realizadas": "11812.29",
+      "chamados_abertos": 3131,
+      "chamados_resolvidos": 2712,
+      "status": {
+        "contratos": {
+          "ativo": 12,
+          "concluido": 20,
+          "cancelado": 7
+        },
+        "pedidos": {
+          "entregue": 252,
+          "cancelado": 26,
+          "aprovado": 37
+        },
+        "faturamento": {
+          "aberta": 104,
+          "paga": 243,
+          "cancelada": 30
+        }
+      }
+    },
+    {
+      "mes": "2026-09",
+      "novos_clientes": 4,
+      "contratos_iniciados": 33,
+      "pedidos": 277,
+      "valor_pedidos": "2199530.03",
+      "faturamento_emitido": "2049580.40",
+      "recebimentos": "1449561.35",
+      "horas_previstas": "11531.00",
+      "horas_realizadas": "12207.55",
+      "chamados_abertos": 3520,
+      "chamados_resolvidos": 3056,
+      "status": {
+        "contratos": {
+          "concluido": 12,
+          "cancelado": 13,
+          "ativo": 8
+        },
+        "pedidos": {
+          "aprovado": 34,
+          "entregue": 243,
+          "cancelado": 26
+        },
+        "faturamento": {
+          "aberta": 77,
+          "paga": 235,
+          "cancelada": 24
+        }
+      }
+    },
+    {
+      "mes": "2026-10",
+      "novos_clientes": 4,
+      "contratos_iniciados": 41,
+      "pedidos": 295,
+      "valor_pedidos": "2401621.96",
+      "faturamento_emitido": "2195601.02",
+      "recebimentos": "1853525.57",
+      "horas_previstas": "12381.00",
+      "horas_realizadas": "12852.27",
+      "chamados_abertos": 3234,
+      "chamados_resolvidos": 2774,
+      "status": {
+        "contratos": {
+          "cancelado": 21,
+          "ativo": 14,
+          "concluido": 6
+        },
+        "pedidos": {
+          "entregue": 261,
+          "aprovado": 34,
+          "cancelado": 35
+        },
+        "faturamento": {
+          "paga": 243,
+          "cancelada": 32,
+          "aberta": 107
+        }
+      }
+    }
+  ],
+  "seed": 42,
+  "content_sha256": "bbef709101afee9888a6232c2d5a5736b241384a9fed9a9eb468d1190a9ab30a"
+}

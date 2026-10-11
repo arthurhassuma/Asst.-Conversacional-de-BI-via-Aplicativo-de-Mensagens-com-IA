@@ -60,6 +60,12 @@ bi-db validate
 
 ## CLI local
 
+### Base ampliada para comparativos
+
+O [perfil comparativo](docs/base-comparativa.md) cobre **janeiro de 2025 a outubro de 2026 (22 meses)**, com 100 clientes, 681 contratos, 5.100 pedidos, 5.809 notas e 1.700 indicadores. Todos os meses incluem os status previstos no schema. Outubro inteiro é um cenário sintético, inclusive datas posteriores a 11/10/2026.
+
+Prepare um banco separado seguindo o documento. A carga usa `bi-db seed --profile comparativo --clients 100 --start-month 2025-01 --end-month 2026-10 --env-file .env.comparativo`; `bi-db coverage --env-file .env.comparativo` audita a cobertura mensal. O perfil padrão continua preservando os dados dos experimentos anteriores. Há [consultas SQL de comparação](docs/consultas-base-comparativa.sql) e [resumo mensal](docs/base-comparativa-resumo.json).
+
 ```powershell
 bi-cli
 ```
@@ -72,7 +78,7 @@ pergunta, por exemplo: `Qual o total de pedidos e o faturamento emitido em agost
 `E do mês de agosto?` mantém as métricas e o ano do período anterior. Quando falta uma
 medida, o esclarecimento indica a métrica pendente e mantém o restante do pedido.
 As respostas mostram o período e distinguem ausência de registros de campos não
-preenchidos. A base sintética tem pedidos e faturamento emitido em 2024/2025: em
+preenchidos. O perfil original tem pedidos e faturamento emitido em 2024/2025: em
 09/10/2026, `mês passado` corresponde a setembro de 2026 e não encontra registros.
 Totais simples usam consultas padronizadas; filtros adicionais e análises detalhadas
 continuam usando o executor SQL restrito. Veja os [testes reais de outubro](docs/verificacao.md).

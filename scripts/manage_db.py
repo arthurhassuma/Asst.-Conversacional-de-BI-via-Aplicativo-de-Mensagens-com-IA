@@ -8,6 +8,7 @@ from psycopg import sql
 
 from app.cli_support import PortugueseArgumentParser
 from app.config import Settings
+from scripts.comparative_seed import TABLE_DATES, coverage_report
 from scripts.seed import generate_data
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -34,10 +35,22 @@ def initialize(conn, password: str):
     )
 
 
-def seed_database(conn, seed: int = 42, clients: int = 30):
+def seed_database(
+    conn,
+    seed: int = 42,
+    clients: int = 30,
+    *,
+    profile: str = "original",
+    start_month: str = "2025-01",
+    end_month: str = "2026-10",
+):
     if conn.execute("SELECT EXISTS(SELECT 1 FROM clientes)").fetchone()[0]:
         raise ValueError("A base já contém clientes; a carga foi recusada para preservar dados.")
-    data = generate_data(seed, clients)
+    data = generate_data(
+        seed, clients, profile=profile, start_month=start_month, end_month=end_month
+    )
+    if profile == "comparativo":
+        coverage_report(data, start_month, end_month)
     with conn.cursor() as cur:
         for table, rows in data.items():
             columns = list(rows[0])
@@ -48,6 +61,19 @@ def seed_database(conn, seed: int = 42, clients: int = 30):
             )
             cur.executemany(query, [[row[col] for col in columns] for row in rows])
     return {table: len(rows) for table, rows in data.items()}
+
+
+def database_coverage(conn, start: str = "2025-01", end: str = "2026-10"):
+    """Auditoria administrativa da base comparativa, sem usar a API de IA."""
+    from psycopg.rows import dict_row
+
+    conn.execute("SET LOCAL statement_timeout = '8000ms'")
+    data = {}
+    with conn.cursor(row_factory=dict_row) as cur:
+        for table in TABLE_DATES:
+            cur.execute(sql.SQL("SELECT * FROM {} ORDER BY id").format(sql.Identifier(table)))
+            data[table] = cur.fetchall()
+    return coverage_report(data, start, end)
 
 
 def validate_data(conn):
@@ -75,11 +101,20 @@ def validate_data(conn):
 
 def main():
     parser = PortugueseArgumentParser(description="Administração da base sintética de BI")
-    parser.add_argument("command", choices=["init", "seed", "validate"])
+    parser.add_argument("command", choices=["init", "seed", "validate", "coverage"])
     parser.add_argument("--seed", type=int, default=42)
-    parser.add_argument("--clients", type=int, default=30)
+    parser.add_argument(
+        "--clients",
+        type=int,
+        default=None,
+        help="Padrão: 30 no perfil original, 100 no comparativo.",
+    )
+    parser.add_argument("--profile", choices=["original", "comparativo"], default="original")
+    parser.add_argument("--start-month", default="2025-01")
+    parser.add_argument("--end-month", default="2026-10")
+    parser.add_argument("--env-file", default=".env", help="Arquivo local de configuração.")
     args = parser.parse_args()
-    settings = Settings()
+    settings = Settings(_env_file=args.env_file)
     dsn = settings.admin_database_url.get_secret_value()
     if not dsn:
         parser.exit(1, "Configure ADMIN_DATABASE_URL no arquivo .env.\n")
@@ -89,8 +124,24 @@ def main():
                 initialize(conn, settings.readonly_password.get_secret_value())
                 result = {"status": "Schema e role somente leitura criados."}
             elif args.command == "seed":
-                result = seed_database(conn, args.seed, args.clients)
+                clients = (
+                    args.clients
+                    if args.clients is not None
+                    else (100 if args.profile == "comparativo" else 30)
+                )
+                result = seed_database(
+                    conn,
+                    args.seed,
+                    clients,
+                    profile=args.profile,
+                    start_month=args.start_month,
+                    end_month=args.end_month,
+                )
                 validate_data(conn)
+            elif args.command == "coverage":
+                conn.execute("SET TRANSACTION READ ONLY")
+                validate_data(conn)
+                result = database_coverage(conn, args.start_month, args.end_month)
             else:
                 result = validate_data(conn)
         print(json.dumps(result, ensure_ascii=False))
