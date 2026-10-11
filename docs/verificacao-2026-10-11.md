@@ -21,9 +21,11 @@ Esses testes comprovam propriedades de engenharia. Não comprovam a meta acadêm
 
 Uma rodada de desenvolvimento foi iniciada no checkout isolado `/workspace/pac_privado-desenvolvimento`, com o commit publicado e configuração original. A versão passou nos 107 testes e no lint também nesse ambiente; as 34 referências foram validadas.
 
-A execução `20261011T151909Z-5411e2fc` registrou D01–D07 como corretos e foi interrompida em D08, com código de saída 2. O modelo resolvido observado nos primeiros checkpoints foi `gemini-3.5-flash-lite`. O relatório remoto precisa registrar o motivo terminal, integridade final e cobertura antes de qualquer interpretação de resultados. Não há taxa oficial disponível para essa rodada parcial. O teste reservado ainda não foi executado.
+A execução `20261011T151909Z-5411e2fc` registrou D01–D07 como corretos e foi interrompida em D08, com código de saída 2 e `provider_error_400`. O modelo resolvido observado foi `gemini-3.5-flash-lite`. A tentativa SQL de D08 correspondeu ao gabarito, mas nenhum resultado foi selecionado antes do erro externo. A base permaneceu inalterada. Não há taxa oficial disponível para essa rodada parcial. O teste reservado ainda não foi executado.
 
-Os artefatos brutos permanecem em `.local/evaluation/` no ambiente em nuvem. O relatório revisado será incorporado em `docs/experimentos/` quando publicado pelo ambiente de origem.
+Os artefatos brutos permanecem em `.local/evaluation/` no ambiente em nuvem. O [relatório revisado](experimentos/2026-10-11-desenvolvimento.md) e seu JSON resumido foram incorporados do commit remoto `8b6fcc5`. O HTTP 400 não constitui evidência de cota (HTTP 429); o rastreamento original não conservou sua causa detalhada. Uma reprodução direcionada de D08 foi autorizada para diagnóstico de integração, preservando esta rodada.
+
+Os arquivos JSON passam a usar LF explicitamente em `.gitattributes`, para conservar o hash de bytes entre checkouts Windows/Linux. O conteúdo congelado do conjunto v1.0.0 permanece idêntico ao blob Git executado na nuvem.
 
 ## Cronograma e limites
 
