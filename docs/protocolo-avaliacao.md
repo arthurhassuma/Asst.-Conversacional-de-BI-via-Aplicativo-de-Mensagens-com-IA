@@ -29,7 +29,7 @@ Os artefatos contêm consultas e resultados sintéticos. Devem permanecer locais
 
 ## Critérios
 
-Execution accuracy é a proporção de casos de resposta inteiramente corretos entre os 16 planejados da partição. Um caso com várias métricas só passa se todas coincidirem. Conversas também precisam acertar o esclarecimento inicial. Comparação usa o resultado escolhido para renderização, sem premiar uma consulta correta que foi descartada pelo agente.
+Execution accuracy é a proporção de casos de resposta inteiramente corretos entre os 16 planejados da partição. A arquitetura avaliada é híbrida: o modelo planeja as consultas; totais simples usam SQL de templates e análises usam SQL gerado pelo modelo. A taxa global mede o sistema completo; não deve ser apresentada como taxa exclusiva de geração livre de SQL. O trace registra qual caminho foi usado. Um caso com várias métricas só passa se todas coincidirem. Conversas também precisam acertar o esclarecimento inicial. Comparação usa o resultado escolhido para renderização, sem premiar uma consulta correta que foi descartada pelo agente.
 
 Aliases não importam. Valores decimais são comparados sem arredondamento/tolerância; NULL difere de zero. Duplicatas são preservadas. Ordenação importa quando declarada (rankings/séries); quantidade e posição das colunas precisam coincidir. A coluna auxiliar canônica `registros`, usada pelo prompt e pelo renderer, é validada como contagem inteira não negativa e retirada antes da comparação. Contagem zero não pode ocultar um valor de negócio diferente de zero/NULL. Resultados truncados reprovam. Acurácia de esclarecimento usa os quatro casos exclusivos de esclarecimento como denominador próprio.
 
