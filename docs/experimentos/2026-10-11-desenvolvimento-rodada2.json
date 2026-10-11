@@ -1,0 +1,327 @@
+{
+  "artifact_sha256": {
+    "cases.jsonl": "e6f8c2be584144e4a2922cea5ea23f05b0af6d9356919994fb3c6c0ef90b10ea",
+    "database_after.json": "476ab5caf64895ad5a16fd745ecd49b32112904e749c6a0edd47328c0507aa7b",
+    "manifest.json": "cd7e309652c5b9a61975c7a6bd3eef30a7b594c03923979dcf09ee15626d3575",
+    "summary.json": "801ee586d57b116721acb52a0009e4686379d6133914a10d095261ae65ee6a4b",
+    "summary.md": "42e1262c675a28ee41936f4a2d6ac2f1009569ced5c365fd15831266c300f35e"
+  },
+  "case_limit": 20,
+  "case_results": [
+    {
+      "agent_ms_per_turn": [
+        1173.4150459815282
+      ],
+      "id": "D01",
+      "passed": true,
+      "sdk_calls": 1,
+      "status": "passed"
+    },
+    {
+      "agent_ms_per_turn": [
+        825.3258719923906
+      ],
+      "id": "D02",
+      "passed": true,
+      "sdk_calls": 1,
+      "status": "passed"
+    },
+    {
+      "agent_ms_per_turn": [
+        2404.716560005909
+      ],
+      "id": "D03",
+      "passed": true,
+      "sdk_calls": 4,
+      "status": "passed"
+    },
+    {
+      "agent_ms_per_turn": [
+        2769.1123929980677
+      ],
+      "id": "D04",
+      "passed": true,
+      "sdk_calls": 4,
+      "status": "passed"
+    },
+    {
+      "agent_ms_per_turn": [
+        838.4104589931667
+      ],
+      "id": "D05",
+      "passed": true,
+      "sdk_calls": 1,
+      "status": "passed"
+    },
+    {
+      "agent_ms_per_turn": [
+        1025.1850169734098
+      ],
+      "id": "D06",
+      "passed": true,
+      "sdk_calls": 1,
+      "status": "passed"
+    },
+    {
+      "agent_ms_per_turn": [
+        2520.4746289819013
+      ],
+      "id": "D07",
+      "passed": true,
+      "sdk_calls": 4,
+      "status": "passed"
+    },
+    {
+      "agent_ms_per_turn": [
+        2514.039336994756
+      ],
+      "id": "D08",
+      "passed": true,
+      "sdk_calls": 4,
+      "status": "passed"
+    },
+    {
+      "agent_ms_per_turn": [
+        2338.597789988853
+      ],
+      "id": "D09",
+      "passed": true,
+      "sdk_calls": 4,
+      "status": "passed"
+    },
+    {
+      "agent_ms_per_turn": [
+        2022.5534540077206
+      ],
+      "id": "D10",
+      "passed": false,
+      "sdk_calls": 4,
+      "status": "provider_error"
+    },
+    {
+      "agent_ms_per_turn": [],
+      "id": "D11",
+      "passed": null,
+      "sdk_calls": 0,
+      "status": "not_run"
+    },
+    {
+      "agent_ms_per_turn": [],
+      "id": "D12",
+      "passed": null,
+      "sdk_calls": 0,
+      "status": "not_run"
+    },
+    {
+      "agent_ms_per_turn": [],
+      "id": "D13",
+      "passed": null,
+      "sdk_calls": 0,
+      "status": "not_run"
+    },
+    {
+      "agent_ms_per_turn": [],
+      "id": "D14",
+      "passed": null,
+      "sdk_calls": 0,
+      "status": "not_run"
+    },
+    {
+      "agent_ms_per_turn": [],
+      "id": "D15",
+      "passed": null,
+      "sdk_calls": 0,
+      "status": "not_run"
+    },
+    {
+      "agent_ms_per_turn": [],
+      "id": "D16",
+      "passed": null,
+      "sdk_calls": 0,
+      "status": "not_run"
+    },
+    {
+      "agent_ms_per_turn": [],
+      "id": "D17",
+      "passed": null,
+      "sdk_calls": 0,
+      "status": "not_run"
+    },
+    {
+      "agent_ms_per_turn": [],
+      "id": "D18",
+      "passed": null,
+      "sdk_calls": 0,
+      "status": "not_run"
+    },
+    {
+      "agent_ms_per_turn": [],
+      "id": "D19",
+      "passed": null,
+      "sdk_calls": 0,
+      "status": "not_run"
+    },
+    {
+      "agent_ms_per_turn": [],
+      "id": "D20",
+      "passed": null,
+      "sdk_calls": 0,
+      "status": "not_run"
+    }
+  ],
+  "checkout_commit": "b5b691d9528e38141f66e4a9da56e856db6c302b",
+  "configured_model": "gemini-3.5-flash-lite",
+  "created_at": "2026-10-11T15:36:17.551063+00:00",
+  "database_after": {
+    "tables": {
+      "clientes": {
+        "count": 30,
+        "sha256": "6ee90bee748166b6225042efcf5956992911a3b1d217d7050daf16f9017b476f"
+      },
+      "contratos": {
+        "count": 56,
+        "sha256": "ae24e5d8a8a5318ec80334d10f7821a4b8b47b3a87a8fb33418e2a9ad4957989"
+      },
+      "faturamento": {
+        "count": 628,
+        "sha256": "252c1257f6d83385527d1a78d45ab570665f8a71fbe952a9ba1443b125f8d9ec"
+      },
+      "indicadores_operacionais": {
+        "count": 672,
+        "sha256": "ce385c40f8abec95d7e91d09af648e42d1079e9c3c9ec49d5c83090e2c5bf255"
+      },
+      "pedidos": {
+        "count": 672,
+        "sha256": "c2dcec531aedb5cd685d8df5b5c3b78fabd7fe25d7b08aaae0f5bbf42af984da"
+      }
+    },
+    "unchanged": true
+  },
+  "database_sha256": "d4f6623f1de2d8050ca3901b231ff00e05f1627bb09ecf8f7a7f0db86578cf6d",
+  "dataset_sha256": "6a42eeb54169b15751eec3ff2e7657f52cdab96dc674dbaa7be16bc5c620bc2c",
+  "dataset_version": "1.0.0",
+  "exit_code": 2,
+  "failures": [
+    {
+      "case": "D10",
+      "provider_code": 429,
+      "question": "Qual o valor médio dos pedidos não cancelados de março de 2025, sem arredondar?",
+      "reference_queries": [
+        {
+          "metric": "pedidos",
+          "result": {
+            "columns": [
+              "total"
+            ],
+            "rows": [
+              [
+                "17282.416250000000"
+              ]
+            ],
+            "truncated": false
+          },
+          "sql": "SELECT AVG(valor) AS total FROM pedidos WHERE data_pedido >= DATE '2025-03-01' AND data_pedido < DATE '2025-04-01' AND status <> 'cancelado'"
+        }
+      ],
+      "selected_queries": [
+        {
+          "plan": {
+            "measure": "valor",
+            "metric": "pedidos",
+            "operation": "analysis",
+            "period": {
+              "end": "2025-04-01",
+              "evidence": "março de 2025",
+              "start": "2025-03-01"
+            }
+          },
+          "selected_id": null,
+          "selected_result": null,
+          "selected_sql": null
+        }
+      ],
+      "status": "provider_error",
+      "turn": 0
+    }
+  ],
+  "git_dirty": false,
+  "interval_seconds": 12.0,
+  "latency_ms": {
+    "maximum": 2769.1123929980677,
+    "mean": 1843.1830556917703,
+    "median": 2180.575621998287,
+    "minimum": 825.3258719923906,
+    "observed_turns": 10,
+    "scope": "Agente e banco; exclui transporte Telegram e intervalo entre casos."
+  },
+  "limits": {
+    "rows": 100,
+    "sql_errors": 3,
+    "sql_timeout_ms": 3000,
+    "tool_rounds": 6
+  },
+  "original_bot_processes_preserved": true,
+  "original_env_unchanged": true,
+  "packages": {
+    "Faker": "39.1.0",
+    "google-genai": "1.75.0",
+    "pglast": "7.18",
+    "psycopg": "3.3.6"
+  },
+  "reported_tokens": {
+    "candidates_token_count": 1354,
+    "prompt_token_count": 41307,
+    "total_token_count": 42661
+  },
+  "reserved_test_live_executed": false,
+  "resolved_models": [
+    "gemini-3.5-flash-lite"
+  ],
+  "run_id": "20261011T153617Z-0a9bf9d9",
+  "run_path": "/workspace/pac_privado-desenvolvimento/.local/evaluation/20261011T153617Z-0a9bf9d9",
+  "sdk_calls": {
+    "attempted": 28,
+    "with_usage": 27,
+    "without_usage": 1
+  },
+  "semantic_failures_observed": 0,
+  "source_tree_sha256": "ef99187e3b872919ff4600c2cc9c0a9d74b12c890e715efa22111b3f3fcacd20",
+  "source_version": "8b11f2d9767caa3329b893e069930163c1830dd0",
+  "summary": {
+    "cases_completed": 10,
+    "cases_planned": 20,
+    "complete": false,
+    "failed_cases": [
+      "D10"
+    ],
+    "latency_scope": "Agente e banco; exclui transporte Telegram e intervalo entre casos.",
+    "mean_agent_ms_observed": 1843.1830556917703,
+    "metrics": {
+      "clarification_accuracy": {
+        "completed": 0,
+        "passed": 0,
+        "planned": 4,
+        "rate": null
+      },
+      "execution_accuracy": {
+        "completed": 10,
+        "passed": 9,
+        "planned": 16,
+        "rate": null
+      }
+    },
+    "not_run": [
+      "D11",
+      "D12",
+      "D13",
+      "D14",
+      "D15",
+      "D16",
+      "D17",
+      "D18",
+      "D19",
+      "D20"
+    ],
+    "stop_reason": "provider_error_429"
+  }
+}
