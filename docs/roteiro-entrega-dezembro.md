@@ -1,6 +1,8 @@
 # Roteiro de entrega do PAC
 
-Atualizado em 04/10/2026. Meta de trabalho: **01/12/2026**, interpretando o pedido
+Atualização de fechamento em 11/10/2026: [entrega final](entrega-final.md), relatório e roteiro preparados; experimentos concluídos e aceite do gestor declarado. As datas abaixo preservam o planejamento histórico, antecipado por solicitação posterior do responsável. Submissão institucional e aprovação não são presumidas.
+
+Planejamento de 04/10/2026. Meta de trabalho: **01/12/2026**, interpretando o pedido
 de entrega no início de dezembro. Ajustar se houver data oficial da instituição.
 
 ## Resultado esperado

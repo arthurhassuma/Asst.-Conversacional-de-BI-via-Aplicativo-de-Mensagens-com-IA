@@ -1,7 +1,7 @@
 # Desenho das Fases 0–3
 
 ## Objetivo e limites
-Gestores consultam indicadores B2B em português por Telegram, sem SQL. Dados integralmente sintéticos. Python/FastAPI orquestra; Gemini decide consultas; psycopg acessa PostgreSQL 16. Sem conjunto de avaliação, experimentos ou redação acadêmica final nesta sessão. A [migração de provedor](migracao-gemini.md) foi autorizada pelo usuário para usar a cota gratuita.
+Gestores consultam indicadores B2B em português por Telegram, sem SQL. Dados integralmente sintéticos. Python/FastAPI orquestra; Gemini decide consultas; psycopg acessa PostgreSQL 16. Este desenho registra a implementação das Fases 0–3. A continuidade posterior acrescentou avaliação e relatório final: veja [entrega final](entrega-final.md). A [migração de provedor](migracao-gemini.md) foi autorizada pelo usuário para usar a cota gratuita.
 
 ## Decisões
 - Um processo FastAPI, sessões em memória por usuário/chat, TTL, limite de sessões e histórico; reiniciar apaga sessões. Locks por sessão serializam perguntas. Para múltiplos workers será necessário armazenamento compartilhado.
@@ -20,4 +20,4 @@ clientes → contratos → pedidos → faturamento, com indicadores mensais por 
 Validar apenas dígitos de prosa livre permite números por extenso e associação incorreta: descartado. Usar prosa livre com prompt somente não garante a regra anti-alucinação: descartado. Renderização determinística reduz flexibilidade textual, mas oferece rastreabilidade de cada célula.
 
 ## Verificação
-Testes de segurança SQL, valores exatos, ambiguidade, retry, sessões, autenticação e duplicação de updates. Integração com PostgreSQL 16 local: schema, carga, consistência, role e timeout reais. Integração HTTP/Telegram com serviços externos substituídos apenas na fronteira de rede. O usuário solicitou retomar o teste real com Gemini; permanece pendente de credenciais.
+Testes de segurança SQL, valores exatos, ambiguidade, retry, sessões, autenticação e duplicação de updates. Integração com PostgreSQL 16 local: schema, carga, consistência, role e timeout reais. Integração HTTP/Telegram com serviços externos substituídos apenas na fronteira de rede. A continuidade posterior executou experimentos reais no ambiente conectado e reprodução Docker; os registros datados em docs/ distinguem os resultados destas verificações iniciais.

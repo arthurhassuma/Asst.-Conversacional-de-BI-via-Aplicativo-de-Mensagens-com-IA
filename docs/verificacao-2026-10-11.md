@@ -52,3 +52,10 @@ A meta de execution accuracy estritamente superior a 70% foi atingida nesta amos
 S7–S8: conjunto e executor entregues, com revisão técnica do gabarito; revisão por professor/especialista permanece recomendada. S8–S10: desenvolvimento e teste reservado completos, preservando as rodadas interrompidas. S10–S11: diagnóstico, rastreamento, regressões, análise de desenvolvimento, congelamento e avaliação reservada entregues. Nenhuma falha semântica justificou nova iteração de prompt. As evidências estão no PR #2, sem merge em main ou atualização automática do bot.
 
 Validação qualitativa com gestor, comparação com dashboards e redação final pertencem às etapas posteriores. A latência do executor mede agente+banco e não equivale a transporte Telegram ponta a ponta.
+
+
+## Ampliação até a entrega final
+
+Posteriormente, o responsável autorizou desenvolver até o final e confirmou aceite do gestor em 11/10/2026, sem síntese de feedback. O [registro declaratório](validacao-gestor.md) documenta essa origem; não constitui estudo qualitativo ou aprovação institucional. O [relatório final](relatorio-final-pac-viii.md), o [roteiro de demonstração](roteiro-demonstracao.md) e o [índice da entrega](entrega-final.md) foram preparados.
+
+A [reprodução Docker isolada](verificacao-entrega-final.md) aprovou 110 testes, sem skips, lint e 34 referências SQL. A base recém-gerada teve o mesmo fingerprint dos experimentos. Fontes congelados preservados; nenhuma nova chamada Gemini/Telegram ou ajuste guiado pelo teste reservado. O parágrafo anterior sobre etapas posteriores é histórico e foi superado por esta ampliação. Comparação com dashboards e latência Telegram ponta a ponta continuam não medidas.

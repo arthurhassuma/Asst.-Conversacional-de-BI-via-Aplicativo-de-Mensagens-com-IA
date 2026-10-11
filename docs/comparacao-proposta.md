@@ -2,11 +2,11 @@
 
 ## Status atualizado em 11/10/2026
 
-O usuário ampliou o escopo até S10–S11 e autorizou usar o ambiente conectado. Há 40 casos (20 desenvolvimento e 20 reservados), executor e referências SQL documentados no [protocolo](protocolo-avaliacao.md). A [terceira rodada](experimentos/2026-10-11-desenvolvimento-rodada3.md) concluiu 20/20 casos de desenvolvimento, sem falhas: 16/16 respostas e 4/4 esclarecimentos. Esses resultados medem o sistema híbrido nesta amostra; não são acurácia exclusiva da geração livre de SQL.
+O usuário ampliou o escopo até a entrega final e autorizou usar o ambiente conectado. O [índice final](entrega-final.md) reúne relatório, aceite declarado e reprodução Docker. Há 40 casos (20 desenvolvimento e 20 reservados), executor e referências SQL documentados no [protocolo](protocolo-avaliacao.md). A [terceira rodada](experimentos/2026-10-11-desenvolvimento-rodada3.md) concluiu 20/20 casos de desenvolvimento, sem falhas: 16/16 respostas e 4/4 esclarecimentos. Esses resultados medem o sistema híbrido nesta amostra; não são acurácia exclusiva da geração livre de SQL.
 
 | Semanas da Tabela 2, p. 5 | Entrega | Status atual |
 |---|---|---|
-| S1–S2 | Revisão bibliográfica | Base na proposta aprovada; atualização não verificada nesta continuidade |
+| S1–S2 | Revisão bibliográfica | Fundamentação retomada no relatório final com Spider, IRNet e BIRD; não se afirma revisão sistemática |
 | S2–S3 | Modelagem | Schema e dicionário implementados |
 | S3–S4 | Dados sintéticos | Geração reproduzível, carga e consistência verificadas |
 | S4–S6 | Agente | Implementado com Gemini, mudança autorizada de provedor |
@@ -14,11 +14,11 @@ O usuário ampliou o escopo até S10–S11 e autorizou usar o ambiente conectado
 | S7–S8 | Perguntas de validação | 40 casos, referências revisadas tecnicamente e divisão congelada |
 | S8–S10 | Experimentos | Desenvolvimento e teste reservado concluídos: 20/20 casos em cada partição |
 | S10–S11 | Ajustes e iterações | Diagnóstico e regressões entregues; desenvolvimento analisado, versão congelada e avaliação reservada concluída sem falhas semânticas |
-| S11–S12 | Validação com a Galvitech | Pendente |
-| S12–S14 | Redação final | Pendente |
-| S14–S16 | Revisão e entrega | Pendente |
+| S11–S12 | Validação com a Galvitech | Aceite declarado pelo responsável em 11/10/2026; sem identidade, instrumento ou feedback documentado |
+| S12–S14 | Redação final | Relatório PAC VIII preparado em Markdown, Word e PDF |
+| S14–S16 | Revisão e entrega | Artefatos revisados, reprodução Docker, roteiro e pacote preparados; submissão institucional posterior |
 
-O [teste reservado](experimentos/2026-10-11-teste-reservado.md) aprovou 16/16 respostas (execution accuracy de 100%) e 4/4 esclarecimentos (100%) na mesma versão congelada, atingindo a meta de acurácia superior a 70% nesta amostra. A média de 1,649 s da avaliação reservada exclui transporte Telegram e não comprova a meta ponta a ponta abaixo de dez segundos. A amostra pequena não sustenta generalização ampla. Aceitação por gestor e comparação com dashboards continuam pendentes. Consulte a [verificação atual](verificacao-2026-10-11.md). Sem data de início definida, esta comparação de entregas não determina atraso no calendário.
+O [teste reservado](experimentos/2026-10-11-teste-reservado.md) aprovou 16/16 respostas (execution accuracy de 100%) e 4/4 esclarecimentos (100%) na mesma versão congelada, atingindo a meta de acurácia superior a 70% nesta amostra. A média de 1,649 s da avaliação reservada exclui transporte Telegram e não comprova a meta ponta a ponta abaixo de dez segundos. A amostra pequena não sustenta generalização ampla. O aceite do gestor foi registrado conforme declaração do responsável; a comparação com dashboards e a coleta qualitativa estruturada não foram medidas. Consulte a [verificação atual](verificacao-2026-10-11.md). Sem data de início definida, esta comparação de entregas não determina atraso no calendário.
 
 ## Diagnóstico histórico de 10/10/2026
 

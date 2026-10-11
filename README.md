@@ -1,12 +1,14 @@
 # Assistente Conversacional de BI — PAC Extensionista VIII
 
+Entrega final preparada em **11/10/2026**: [índice dos artefatos e fechamento do cronograma](docs/entrega-final.md), [relatório Word](docs/Relatorio-Final-PAC-VIII-Arthur-Hassuma.docx), [PDF](docs/Relatorio-Final-PAC-VIII-Arthur-Hassuma.pdf) e [roteiro de demonstração](docs/roteiro-demonstracao.md). O aceite do gestor está registrado conforme declaração do responsável, sem feedback documentado. A [reprodução Docker](docs/verificacao-entrega-final.md) aprovou 110 testes com PostgreSQL e 34 referências SQL. Submissão e aprovação institucional permanecem a cargo do responsável.
+
 Repositório de continuidade: [arthurhassuma/pac_privado](https://github.com/arthurhassuma/pac_privado).
 Em 04/10/2026, a importação foi validada com **65 testes aprovados**, incluindo PostgreSQL real.
 Veja [publicação e verificação atual](docs/publicacao-github.md), [testes automáticos](https://github.com/arthurhassuma/pac_privado/actions) e [roteiro de entrega até dezembro](docs/roteiro-entrega-dezembro.md).
 
 Revisão de 10/10/2026: [comparação com a proposta aprovada](docs/comparacao-proposta.md) e [verificação da continuidade](docs/verificacao-2026-10-10.md). Foram aprovados 77 testes com PostgreSQL real e APIs externas simuladas. A conexão Gemini/Telegram em outro ambiente foi informada pelo usuário; não foi reproduzida com credenciais externas nesta revisão.
 
-MVP acadêmico em português do Brasil: **Telegram → FastAPI → Gemini → PostgreSQL 16**. Base B2B integralmente sintética, inspirada em serviços de desenvolvimento de software. Além das Fases 0–3, a continuidade autorizada até S10–S11 inclui 40 casos de avaliação e experimentos reais com Gemini. Validação com gestor e redação final permanecem para as etapas seguintes.
+MVP acadêmico em português do Brasil: **Telegram → FastAPI → Gemini → PostgreSQL 16**. Base B2B integralmente sintética, inspirada em serviços de desenvolvimento de software. A continuidade autorizada até a entrega final inclui 40 casos de avaliação, experimentos reais com Gemini, aceite declarado do gestor e relatório final. As limitações medidas e as providências institucionais estão no índice da entrega.
 
 O provedor foi alterado de Anthropic para Gemini por decisão do usuário para usar a cota gratuita. A proposta original permanece preservada. Veja a [justificativa e detalhes da migração](docs/migracao-gemini.md).
 
@@ -185,13 +187,13 @@ Para iniciar/parar esse cluster existente no Windows, a partir da raiz (sem recr
 & 'C:/Program Files/PostgreSQL/16/bin/pg_ctl.exe' -D "$PWD/.local/pgdata" -m fast -w stop
 ```
 
-Para usar Compose, prepare um `.env` coerente com o novo volume e use outra porta ou pare o cluster nativo. O Compose foi fornecido, mas não pôde ser executado nesta máquina sem Docker.
+Para usar Compose, prepare um `.env` coerente com o novo volume e use outra porta ou pare o cluster nativo. O Compose não foi executado nesta máquina Windows sem Docker. Posteriormente, a reprodução em ambiente Linux com Docker foi concluída em 11/10/2026; veja docs/verificacao-entrega-final.md.
 
 ## Estrutura e continuidade
 
 `app/`: agente, política SQL, tools, renderizador, sessões, FastAPI, Telegram e CLI. `db/`: schema e grants. `scripts/`: administração e Faker. `tests/`: testes de engenharia. `docs/`: anexos, desenho, dicionário e verificação.
 
-A continuidade autorizada até S10–S11 inclui o conjunto de avaliação e as rodadas com Gemini descritas abaixo. A conexão real Gemini/Telegram foi validada no ambiente em nuvem. Validação qualitativa e redação final permanecem para as semanas seguintes. Consulte os relatórios datados em `docs/` para distinguir implementação de resultados medidos.
+A continuidade inclui o conjunto de avaliação e as rodadas com Gemini descritas abaixo. A conexão real Gemini/Telegram foi validada no ambiente em nuvem. O relatório final e o aceite declarado do gestor estão disponíveis em docs/; não houve coleta qualitativa estruturada. Consulte os relatórios datados em `docs/` para distinguir implementação de resultados medidos.
 
 Referências técnicas consultadas: [SDK Gemini](https://googleapis.github.io/python-genai/), [preços Gemini](https://ai.google.dev/gemini-api/docs/pricing), [webhook python-telegram-bot](https://docs.python-telegram-bot.org/en/stable/examples.customwebhookbot.html), [timeouts PostgreSQL 16](https://www.postgresql.org/docs/16/runtime-config-client.html).
 
