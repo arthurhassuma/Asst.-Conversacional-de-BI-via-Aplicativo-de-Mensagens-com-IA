@@ -28,3 +28,7 @@ Números extraídos de consultas SQL. Não são uma nova rodada de avaliação c
 ## Apresentação
 
 Foi criada uma revisão de 14 slides em `apresentacao/Apresentacao-PAC-VIII-Arthur-Hassuma-Base-Comparativa.pptx`, na pasta de trabalho do responsável (fora deste repositório), com PDF de visualização e roteiro correspondente. A revisão mostra as novas contagens e comparação de agosto, e identifica que as taxas dos experimentos pertencem à base original. Os exemplos novos estão identificados como resultados esperados conferidos por SQL. A versão anterior foi preservada. Validação estrutural e geométrica aprovada; cinco tabelas editáveis, fonte Arial e revisão visual dos 14 slides. O PDF foi montado das prévias renderizadas; o PowerPoint mantém textos e tabelas editáveis.
+
+## Ambiente conectado
+
+A [verificação em Docker, Gemini e Telegram](verificacao-base-comparativa-ambiente-conectado.md) foi concluída no ambiente conectado em 11/10/2026, com fonte documental publicada no commit `00b9c8428f22820b1b44b1b209c5faae41d7be1d`. A nova base foi ligada ao bot, com um único polling e rollback preservado. Os dois exemplos Gemini conferiram 185 pedidos / 1239387,25 em agosto de 2025 e 289 pedidos / 2060162,05 em agosto de 2026. A entrega de resposta no chat ainda depende da mensagem humana no Telegram. São exemplos pontuais; não alteram as métricas dos experimentos anteriores.
