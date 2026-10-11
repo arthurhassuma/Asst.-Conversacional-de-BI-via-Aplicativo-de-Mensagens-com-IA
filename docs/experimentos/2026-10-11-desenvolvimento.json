@@ -1,0 +1,350 @@
+{
+  "artifact_sha256": {
+    "cases.jsonl": "dc5c01247fef95caa44814eadf9fb9cce615416de9f0e041fc94934b22f1f3de",
+    "database_after.json": "476ab5caf64895ad5a16fd745ecd49b32112904e749c6a0edd47328c0507aa7b",
+    "manifest.json": "c7473056b8ff22f64be777018afc05e494d6bf519783a8b428f36d02cefc6a6d",
+    "summary.json": "6ff99e9ce74e426251778b02cc3822075a76a468b7196105d5dc25cb03195e8c",
+    "summary.md": "138aa85f42eb69bd36b0330bf9640e3fda1d78905e8fb8552acef8a559913f03"
+  },
+  "case_limit": 20,
+  "case_results": [
+    {
+      "agent_ms_per_turn": [
+        955.0423639884684
+      ],
+      "id": "D01",
+      "passed": true,
+      "sdk_calls": 1,
+      "status": "passed"
+    },
+    {
+      "agent_ms_per_turn": [
+        965.7301529950928
+      ],
+      "id": "D02",
+      "passed": true,
+      "sdk_calls": 1,
+      "status": "passed"
+    },
+    {
+      "agent_ms_per_turn": [
+        2653.8045649940614
+      ],
+      "id": "D03",
+      "passed": true,
+      "sdk_calls": 4,
+      "status": "passed"
+    },
+    {
+      "agent_ms_per_turn": [
+        2707.1577140013687
+      ],
+      "id": "D04",
+      "passed": true,
+      "sdk_calls": 4,
+      "status": "passed"
+    },
+    {
+      "agent_ms_per_turn": [
+        805.2793310198467
+      ],
+      "id": "D05",
+      "passed": true,
+      "sdk_calls": 1,
+      "status": "passed"
+    },
+    {
+      "agent_ms_per_turn": [
+        924.1974119795486
+      ],
+      "id": "D06",
+      "passed": true,
+      "sdk_calls": 1,
+      "status": "passed"
+    },
+    {
+      "agent_ms_per_turn": [
+        2699.868528987281
+      ],
+      "id": "D07",
+      "passed": true,
+      "sdk_calls": 4,
+      "status": "passed"
+    },
+    {
+      "agent_ms_per_turn": [
+        6263.911084010033
+      ],
+      "id": "D08",
+      "passed": false,
+      "sdk_calls": 4,
+      "status": "provider_error"
+    },
+    {
+      "agent_ms_per_turn": [],
+      "id": "D09",
+      "passed": null,
+      "sdk_calls": 0,
+      "status": "not_run"
+    },
+    {
+      "agent_ms_per_turn": [],
+      "id": "D10",
+      "passed": null,
+      "sdk_calls": 0,
+      "status": "not_run"
+    },
+    {
+      "agent_ms_per_turn": [],
+      "id": "D11",
+      "passed": null,
+      "sdk_calls": 0,
+      "status": "not_run"
+    },
+    {
+      "agent_ms_per_turn": [],
+      "id": "D12",
+      "passed": null,
+      "sdk_calls": 0,
+      "status": "not_run"
+    },
+    {
+      "agent_ms_per_turn": [],
+      "id": "D13",
+      "passed": null,
+      "sdk_calls": 0,
+      "status": "not_run"
+    },
+    {
+      "agent_ms_per_turn": [],
+      "id": "D14",
+      "passed": null,
+      "sdk_calls": 0,
+      "status": "not_run"
+    },
+    {
+      "agent_ms_per_turn": [],
+      "id": "D15",
+      "passed": null,
+      "sdk_calls": 0,
+      "status": "not_run"
+    },
+    {
+      "agent_ms_per_turn": [],
+      "id": "D16",
+      "passed": null,
+      "sdk_calls": 0,
+      "status": "not_run"
+    },
+    {
+      "agent_ms_per_turn": [],
+      "id": "D17",
+      "passed": null,
+      "sdk_calls": 0,
+      "status": "not_run"
+    },
+    {
+      "agent_ms_per_turn": [],
+      "id": "D18",
+      "passed": null,
+      "sdk_calls": 0,
+      "status": "not_run"
+    },
+    {
+      "agent_ms_per_turn": [],
+      "id": "D19",
+      "passed": null,
+      "sdk_calls": 0,
+      "status": "not_run"
+    },
+    {
+      "agent_ms_per_turn": [],
+      "id": "D20",
+      "passed": null,
+      "sdk_calls": 0,
+      "status": "not_run"
+    }
+  ],
+  "configured_model": "gemini-3.5-flash-lite",
+  "database": {
+    "clientes": {
+      "count": 30,
+      "sha256": "6ee90bee748166b6225042efcf5956992911a3b1d217d7050daf16f9017b476f"
+    },
+    "contratos": {
+      "count": 56,
+      "sha256": "ae24e5d8a8a5318ec80334d10f7821a4b8b47b3a87a8fb33418e2a9ad4957989"
+    },
+    "faturamento": {
+      "count": 628,
+      "sha256": "252c1257f6d83385527d1a78d45ab570665f8a71fbe952a9ba1443b125f8d9ec"
+    },
+    "indicadores_operacionais": {
+      "count": 672,
+      "sha256": "ce385c40f8abec95d7e91d09af648e42d1079e9c3c9ec49d5c83090e2c5bf255"
+    },
+    "pedidos": {
+      "count": 672,
+      "sha256": "c2dcec531aedb5cd685d8df5b5c3b78fabd7fe25d7b08aaae0f5bbf42af984da"
+    }
+  },
+  "database_sha256": "d4f6623f1de2d8050ca3901b231ff00e05f1627bb09ecf8f7a7f0db86578cf6d",
+  "database_unchanged": true,
+  "dataset_sha256": "6a42eeb54169b15751eec3ff2e7657f52cdab96dc674dbaa7be16bc5c620bc2c",
+  "dataset_version": "1.0.0",
+  "diagnostic_D08": {
+    "attempt_matches_reference": true,
+    "attempted_business_result": {
+      "columns": [
+        "cliente",
+        "total"
+      ],
+      "rows": [
+        [
+          "Empresa Fictícia Oliveira",
+          "801844.96"
+        ],
+        [
+          "Empresa Fictícia Sampaio Lima Ltda.",
+          "513866.08"
+        ],
+        [
+          "Empresa Fictícia Carvalho Sousa S/A",
+          "387629.16"
+        ],
+        [
+          "Empresa Fictícia Ferreira",
+          "340894.20"
+        ],
+        [
+          "Empresa Fictícia Aparecida",
+          "327730.92"
+        ]
+      ]
+    },
+    "attempted_sql": "SELECT c.nome AS cliente, SUM(f.valor) AS total, COUNT(*) AS registros FROM faturamento f JOIN pedidos p ON f.pedido_id = p.id JOIN contratos co ON p.contrato_id = co.id JOIN clientes c ON co.cliente_id = c.id WHERE f.emissao >= DATE '2025-01-01' AND f.emissao < DATE '2026-01-01' AND f.status <> 'cancelada' GROUP BY c.id, c.nome ORDER BY total DESC, cliente ASC LIMIT 5",
+    "passed": false,
+    "provider_code": 400,
+    "reference_result": {
+      "columns": [
+        "cliente",
+        "total"
+      ],
+      "rows": [
+        [
+          "Empresa Fictícia Oliveira",
+          "801844.96"
+        ],
+        [
+          "Empresa Fictícia Sampaio Lima Ltda.",
+          "513866.08"
+        ],
+        [
+          "Empresa Fictícia Carvalho Sousa S/A",
+          "387629.16"
+        ],
+        [
+          "Empresa Fictícia Ferreira",
+          "340894.20"
+        ],
+        [
+          "Empresa Fictícia Aparecida",
+          "327730.92"
+        ]
+      ],
+      "truncated": false
+    },
+    "reference_sql": "SELECT c.nome AS cliente, SUM(f.valor) AS total FROM clientes c JOIN contratos ct ON ct.cliente_id=c.id JOIN pedidos p ON p.contrato_id=ct.id JOIN faturamento f ON f.pedido_id=p.id WHERE f.emissao >= DATE '2025-01-01' AND f.emissao < DATE '2026-01-01' AND f.status <> 'cancelada' GROUP BY c.id,c.nome ORDER BY total DESC, c.nome ASC LIMIT 5",
+    "selected_sql": null,
+    "status": "provider_error"
+  },
+  "executed_commit": "8b11f2d9767caa3329b893e069930163c1830dd0",
+  "exit_code": 2,
+  "git_dirty_during_run": false,
+  "interval_seconds": 12.0,
+  "latency_ms": {
+    "maximum": 6263.911084010033,
+    "mean": 2246.8738939969626,
+    "mean_passed_turns": 1673.0114382808097,
+    "median": 1809.767358994577,
+    "minimum": 805.2793310198467,
+    "scope": "Agente e banco; exclui transporte Telegram e intervalo entre casos.",
+    "turns_observed": 8
+  },
+  "limits": {
+    "rows": 100,
+    "sql_errors": 3,
+    "sql_timeout_ms": 3000,
+    "tool_rounds": 6
+  },
+  "packages": {
+    "Faker": "39.1.0",
+    "google-genai": "1.75.0",
+    "pglast": "7.18",
+    "psycopg": "3.3.6"
+  },
+  "preservation": {
+    "original_backend_http": 200,
+    "original_bot_processes_unchanged": true,
+    "original_env_unchanged": true
+  },
+  "reported_tokens": {
+    "candidates_token_count": 1009,
+    "prompt_token_count": 28169,
+    "total_token_count": 29178
+  },
+  "reserved_test_live_executed": false,
+  "resolved_models": [
+    "gemini-3.5-flash-lite"
+  ],
+  "run_id": "20261011T151909Z-5411e2fc",
+  "run_path": "/workspace/pac_privado-desenvolvimento/.local/evaluation/20261011T151909Z-5411e2fc",
+  "sdk_calls": {
+    "attempted": 20,
+    "with_usage": 19,
+    "without_usage": 1
+  },
+  "source_tree_sha256": "ef99187e3b872919ff4600c2cc9c0a9d74b12c890e715efa22111b3f3fcacd20",
+  "split": "development",
+  "started_at_sao_paulo": "2026-10-11T12:19:09.950842-03:00",
+  "summary": {
+    "cases_completed": 8,
+    "cases_planned": 20,
+    "complete": false,
+    "failed_cases": [
+      "D08"
+    ],
+    "latency_scope": "Agente e banco; exclui transporte Telegram e intervalo entre casos.",
+    "mean_agent_ms_observed": 2246.8738939969626,
+    "metrics": {
+      "clarification_accuracy": {
+        "completed": 0,
+        "passed": 0,
+        "planned": 4,
+        "rate": null
+      },
+      "execution_accuracy": {
+        "completed": 8,
+        "passed": 7,
+        "planned": 16,
+        "rate": null
+      }
+    },
+    "not_run": [
+      "D09",
+      "D10",
+      "D11",
+      "D12",
+      "D13",
+      "D14",
+      "D15",
+      "D16",
+      "D17",
+      "D18",
+      "D19",
+      "D20"
+    ],
+    "stop_reason": "provider_error_400"
+  },
+  "token_accounting_note": "Uso da chamada HTTP 400 não informado. Tokens de raciocínio não informados separadamente. Não imputar zero nem inferir cobrança."
+}
