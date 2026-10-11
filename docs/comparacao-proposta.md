@@ -1,6 +1,28 @@
 # Comparação da proposta com a implementação
 
-Atualização de 11/10/2026: o usuário ampliou o escopo até S10–S11. O conjunto de 40 casos e o executor agora estão implementados; consulte `protocolo-avaliacao.md`. Os resultados experimentais precisam de evidência real e não são inferidos da suíte. A tabela abaixo preserva o diagnóstico anterior à ampliação de escopo.
+## Status atualizado em 11/10/2026
+
+O usuário ampliou o escopo até S10–S11 e autorizou usar o ambiente conectado. Há 40 casos (20 desenvolvimento e 20 reservados), executor e referências SQL documentados no [protocolo](protocolo-avaliacao.md). A [terceira rodada](experimentos/2026-10-11-desenvolvimento-rodada3.md) concluiu 20/20 casos de desenvolvimento, sem falhas: 16/16 respostas e 4/4 esclarecimentos. Esses resultados medem o sistema híbrido nesta amostra; não são acurácia exclusiva da geração livre de SQL.
+
+| Semanas da Tabela 2, p. 5 | Entrega | Status atual |
+|---|---|---|
+| S1–S2 | Revisão bibliográfica | Base na proposta aprovada; atualização não verificada nesta continuidade |
+| S2–S3 | Modelagem | Schema e dicionário implementados |
+| S3–S4 | Dados sintéticos | Geração reproduzível, carga e consistência verificadas |
+| S4–S6 | Agente | Implementado com Gemini, mudança autorizada de provedor |
+| S6–S7 | Mensageria | Telegram e FastAPI funcionais no ambiente conectado; os experimentos preservam o bot |
+| S7–S8 | Perguntas de validação | 40 casos, referências revisadas tecnicamente e divisão congelada |
+| S8–S10 | Experimentos | Desenvolvimento e teste reservado concluídos: 20/20 casos em cada partição |
+| S10–S11 | Ajustes e iterações | Diagnóstico e regressões entregues; desenvolvimento analisado, versão congelada e avaliação reservada concluída sem falhas semânticas |
+| S11–S12 | Validação com a Galvitech | Pendente |
+| S12–S14 | Redação final | Pendente |
+| S14–S16 | Revisão e entrega | Pendente |
+
+O [teste reservado](experimentos/2026-10-11-teste-reservado.md) aprovou 16/16 respostas (execution accuracy de 100%) e 4/4 esclarecimentos (100%) na mesma versão congelada, atingindo a meta de acurácia superior a 70% nesta amostra. A média de 1,649 s da avaliação reservada exclui transporte Telegram e não comprova a meta ponta a ponta abaixo de dez segundos. A amostra pequena não sustenta generalização ampla. Aceitação por gestor e comparação com dashboards continuam pendentes. Consulte a [verificação atual](verificacao-2026-10-11.md). Sem data de início definida, esta comparação de entregas não determina atraso no calendário.
+
+## Diagnóstico histórico de 10/10/2026
+
+A tabela e os registros abaixo preservam a revisão anterior à ampliação de escopo e não representam o status atual da avaliação.
 
 Revisão em 10/10/2026. Fonte: `Asst. Conversacional de BI via Aplicativo de Mensagens com IA N3.pdf`, cinco páginas, preservado neste diretório. Base de código: `arthurhassuma/pac_privado`, commit `31ad3a4`, com os ajustes desta revisão.
 

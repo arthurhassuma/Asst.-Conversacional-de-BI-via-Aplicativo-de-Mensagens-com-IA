@@ -33,6 +33,22 @@ Com base na lacuna de evidência observada, foi acrescentada classificação seg
 
 ## Cronograma e limites
 
-S7–S8: conjunto e executor entregues, com revisão técnica do gabarito; revisão por professor/especialista permanece recomendada. S8–S10: duas rodadas reais registradas, cobertura incompleta por erros externos. S10–S11: diagnóstico direcionado, melhoria de rastreamento e regressões entregues; ajustes semânticos e avaliação final dependem de uma rodada de desenvolvimento completa. O teste reservado depende do congelamento desses ajustes e da disponibilidade da API. Não foram realizadas novas chamadas após o HTTP 429.
+### Desenvolvimento concluído e congelamento
+
+A [terceira rodada de desenvolvimento](experimentos/2026-10-11-desenvolvimento-rodada3.md), `20261011T161317Z-1c15b47d`, concluiu 20/20 casos na versão `59c9eb8fa0b73444e770effd3e3e80724049164b`, com intervalo de 60 segundos. Foram aprovadas 16/16 respostas (execution accuracy de 100%) e 4/4 perguntas de esclarecimento (clarification accuracy de 100%). Não houve erro externo ou semântico; não foi necessário alterar prompts. As rodadas incompletas anteriores continuam preservadas e sem taxas oficiais.
+
+O JSON publicado foi conferido contra seus 20 registros: 21 turnos, 45 requisições e média de 1,733 s para agente e banco. O hash do conjunto coincide com o arquivo local; os fontes de aplicação, avaliação, scripts e banco permanecem idênticos à versão executada. O ambiente de origem validou os hashes dos artefatos brutos, a base inalterada, 110 testes de engenharia, lint e 34 referências SQL antes da rodada. Esses resultados de desenvolvimento não substituem teste reservado.
+
+Em continuidade autorizada pelo usuário, foram congelados os fontes `59c9eb8`, o conjunto v1.0.0 (SHA256 `6a42eeb54169b15751eec3ff2e7657f52cdab96dc674dbaa7be16bc5c620bc2c`), o modelo `gemini-3.5-flash-lite`, os limites e a base da terceira rodada. Uma única execução de T01–T20 foi realizada no ambiente configurado, mantendo o intervalo de 60 segundos e parada em qualquer erro externo. Nenhuma correção será orientada pelo teste reservado sem declarar contaminação e preparar outra amostra independente.
+
+### Teste reservado concluído
+
+O [teste reservado](experimentos/2026-10-11-teste-reservado.md), rodada `20261011T163747Z-5fe3b066`, concluiu T01–T20 com saída 0 e 20/20 casos aprovados: execution accuracy de 16/16 (100%) e clarification accuracy de 4/4 (100%). Não houve erro externo ou semântico, ajuste de código/prompt, repetição ou consulta adicional após a conclusão.
+
+O ambiente de origem recalculou a aprovação dos casos e as taxas dos checkpoints usando o scorer congelado, verificou seus 21 turnos e os hashes dos artefatos brutos. A revisão local confirmou identidade de fontes/conjunto/modelo/limites/bibliotecas/base com a rodada de desenvolvimento, IDs e totais do relatório, soma das 48 requisições e latência média de 1,649 s. Todas as chamadas tiveram uso informado: 74.713 tokens. Base, configuração secreta e bot foram preservados.
+
+A meta de execution accuracy estritamente superior a 70% foi atingida nesta amostra reservada. O resultado mede o sistema híbrido completo, com templates para totais e SQL gerado para análises; não demonstra acurácia exclusiva de geração livre de SQL ou generalização ampla. A latência continua restrita a agente e banco. Os 110 testes são evidência de engenharia da mesma versão executados antes do desenvolvimento, não 110 perguntas reais nem testes repetidos nesta avaliação.
+
+S7–S8: conjunto e executor entregues, com revisão técnica do gabarito; revisão por professor/especialista permanece recomendada. S8–S10: desenvolvimento e teste reservado completos, preservando as rodadas interrompidas. S10–S11: diagnóstico, rastreamento, regressões, análise de desenvolvimento, congelamento e avaliação reservada entregues. Nenhuma falha semântica justificou nova iteração de prompt. As evidências estão no PR #2, sem merge em main ou atualização automática do bot.
 
 Validação qualitativa com gestor, comparação com dashboards e redação final pertencem às etapas posteriores. A latência do executor mede agente+banco e não equivale a transporte Telegram ponta a ponta.

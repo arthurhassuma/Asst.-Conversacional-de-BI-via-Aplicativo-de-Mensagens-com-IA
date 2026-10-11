@@ -10,12 +10,14 @@ Execute na raiz do repositório com o ambiente Python instalado e `DATABASE_URL`
 
 ```powershell
 python -m scripts.evaluate validate
-python -m scripts.evaluate run --live --split development --interval 12 --limit 20
+python -m scripts.evaluate run --live --split development --interval 60 --limit 20
 # Somente após analisar desenvolvimento e congelar os ajustes:
-python -m scripts.evaluate run --live --split test --interval 12 --limit 20
+python -m scripts.evaluate run --live --split test --interval 60 --limit 20
 ```
 
 `--env-file` permite indicar um arquivo local; seu conteúdo e caminho de credenciais não são incorporados à evidência. `validate` executa SQL de referência e não chama Gemini. `run` exige `--live` e chave configurada. Não há fallback de provedor/modelo nem repetição automática em caso de cota. O intervalo controla chamadas entre turnos; function calling pode realizar várias requisições dentro de um turno. Uma resposta HTTP de erro do provedor interrompe a rodada, preservando o que foi executado. O código de saída é 2 para rodada incompleta; uma rodada completa retorna 0 independentemente da acurácia.
+
+Os exemplos usam 60 segundos porque a terceira rodada de desenvolvimento concluiu com esse intervalo após uma rodada de 12 segundos interrompida por HTTP 429. Isso não identifica a causa do limite anterior nem garante disponibilidade futura. O padrão do CLI continua sendo 12 segundos; informe o intervalo explicitamente para reproduzir as rodadas de desenvolvimento concluída e teste reservado. As pausas não entram na latência medida.
 
 ## Evidência
 

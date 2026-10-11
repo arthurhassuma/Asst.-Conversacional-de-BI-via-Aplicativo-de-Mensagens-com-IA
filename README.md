@@ -6,7 +6,7 @@ Veja [publicação e verificação atual](docs/publicacao-github.md), [testes au
 
 Revisão de 10/10/2026: [comparação com a proposta aprovada](docs/comparacao-proposta.md) e [verificação da continuidade](docs/verificacao-2026-10-10.md). Foram aprovados 77 testes com PostgreSQL real e APIs externas simuladas. A conexão Gemini/Telegram em outro ambiente foi informada pelo usuário; não foi reproduzida com credenciais externas nesta revisão.
 
-MVP acadêmico em português do Brasil: **Telegram → FastAPI → Gemini → PostgreSQL 16**. Base B2B integralmente sintética, inspirada em serviços de desenvolvimento de software. Escopo implementado: Fases 0–3. Não inclui avaliação acadêmica, conjunto de perguntas ou experimentos da Fase 4.
+MVP acadêmico em português do Brasil: **Telegram → FastAPI → Gemini → PostgreSQL 16**. Base B2B integralmente sintética, inspirada em serviços de desenvolvimento de software. Além das Fases 0–3, a continuidade autorizada até S10–S11 inclui 40 casos de avaliação e experimentos reais com Gemini. Validação com gestor e redação final permanecem para as etapas seguintes.
 
 O provedor foi alterado de Anthropic para Gemini por decisão do usuário para usar a cota gratuita. A proposta original permanece preservada. Veja a [justificativa e detalhes da migração](docs/migracao-gemini.md).
 
@@ -199,9 +199,11 @@ Referências técnicas consultadas: [SDK Gemini](https://googleapis.github.io/py
 
 Conjunto de 40 casos, SQL de referência e executor reproduzível em `evaluation/`. Consulte [o protocolo](docs/protocolo-avaliacao.md) antes de executar.
 
+A [terceira rodada de desenvolvimento](docs/experimentos/2026-10-11-desenvolvimento-rodada3.md) e o [teste reservado](docs/experimentos/2026-10-11-teste-reservado.md) concluíram 20/20 casos cada na versão `59c9eb8`, sem falhas semânticas. A versão, base, modelo e conjunto foram congelados antes da avaliação reservada, que aprovou 16/16 respostas e 4/4 esclarecimentos. A média de 1,649 s mede agente e banco, sem transporte Telegram; as taxas medem o sistema híbrido nesta amostra. Consulte a [verificação atual](docs/verificacao-2026-10-11.md) para as evidências e limitações.
+
 ```bash
 python -m scripts.evaluate validate
-python -m scripts.evaluate run --live --split development --interval 12 --limit 20
+python -m scripts.evaluate run --live --split development --interval 60 --limit 20
 ```
 
 Resultados ficam em `.local/evaluation/`. Teste reservado somente após congelar ajustes de desenvolvimento. A avaliação não envia mensagens nem reinicia o Telegram.
