@@ -1,0 +1,314 @@
+{
+  "artifact_sha256": {
+    "cases.jsonl": "946565d47cf196b8588f9b346b2018dba7d3a29a8b8f5f4f053c279d0db2056b",
+    "database_after.json": "476ab5caf64895ad5a16fd745ecd49b32112904e749c6a0edd47328c0507aa7b",
+    "manifest.json": "4cd7b69d499db869d48f63592fb24d2df861b4a76d35b4b35fa36c03d77773ef",
+    "summary.json": "2cde292f488b99e9d0541246f14e20d82b8dc028fde3cfdeccd566996e00efad",
+    "summary.md": "aa63006ec3285f19f54a230df215c6461bc1da0b4cb4473fb73b365ad679c5ea"
+  },
+  "case_limit": 20,
+  "case_results": [
+    {
+      "agent_ms_per_turn": [
+        1010.8754100219812
+      ],
+      "id": "T01",
+      "passed": true,
+      "sdk_calls": 1,
+      "status": "passed"
+    },
+    {
+      "agent_ms_per_turn": [
+        892.2831429808866
+      ],
+      "id": "T02",
+      "passed": true,
+      "sdk_calls": 1,
+      "status": "passed"
+    },
+    {
+      "agent_ms_per_turn": [
+        2764.611640974181
+      ],
+      "id": "T03",
+      "passed": true,
+      "sdk_calls": 4,
+      "status": "passed"
+    },
+    {
+      "agent_ms_per_turn": [
+        2843.385967978975
+      ],
+      "id": "T04",
+      "passed": true,
+      "sdk_calls": 4,
+      "status": "passed"
+    },
+    {
+      "agent_ms_per_turn": [
+        2457.834250992164
+      ],
+      "id": "T05",
+      "passed": true,
+      "sdk_calls": 4,
+      "status": "passed"
+    },
+    {
+      "agent_ms_per_turn": [
+        880.0071259902325
+      ],
+      "id": "T06",
+      "passed": true,
+      "sdk_calls": 1,
+      "status": "passed"
+    },
+    {
+      "agent_ms_per_turn": [
+        1053.5875009954907
+      ],
+      "id": "T07",
+      "passed": true,
+      "sdk_calls": 1,
+      "status": "passed"
+    },
+    {
+      "agent_ms_per_turn": [
+        2432.4980459932704
+      ],
+      "id": "T08",
+      "passed": true,
+      "sdk_calls": 4,
+      "status": "passed"
+    },
+    {
+      "agent_ms_per_turn": [
+        2552.8805009962525
+      ],
+      "id": "T09",
+      "passed": true,
+      "sdk_calls": 4,
+      "status": "passed"
+    },
+    {
+      "agent_ms_per_turn": [
+        3070.0943330011796
+      ],
+      "id": "T10",
+      "passed": true,
+      "sdk_calls": 4,
+      "status": "passed"
+    },
+    {
+      "agent_ms_per_turn": [
+        2635.3391080047004
+      ],
+      "id": "T11",
+      "passed": true,
+      "sdk_calls": 4,
+      "status": "passed"
+    },
+    {
+      "agent_ms_per_turn": [
+        2366.212244000053
+      ],
+      "id": "T12",
+      "passed": true,
+      "sdk_calls": 4,
+      "status": "passed"
+    },
+    {
+      "agent_ms_per_turn": [
+        1073.2656229811255
+      ],
+      "id": "T13",
+      "passed": true,
+      "sdk_calls": 1,
+      "status": "passed"
+    },
+    {
+      "agent_ms_per_turn": [
+        2445.3403190127574
+      ],
+      "id": "T14",
+      "passed": true,
+      "sdk_calls": 4,
+      "status": "passed"
+    },
+    {
+      "agent_ms_per_turn": [
+        1123.2596960035153
+      ],
+      "id": "T15",
+      "passed": true,
+      "sdk_calls": 1,
+      "status": "passed"
+    },
+    {
+      "agent_ms_per_turn": [
+        891.9596019841265,
+        909.4564270053525
+      ],
+      "id": "T16",
+      "passed": true,
+      "sdk_calls": 2,
+      "status": "passed"
+    },
+    {
+      "agent_ms_per_turn": [
+        774.0745570044965
+      ],
+      "id": "T17",
+      "passed": true,
+      "sdk_calls": 1,
+      "status": "passed"
+    },
+    {
+      "agent_ms_per_turn": [
+        876.8279940122738
+      ],
+      "id": "T18",
+      "passed": true,
+      "sdk_calls": 1,
+      "status": "passed"
+    },
+    {
+      "agent_ms_per_turn": [
+        819.8714210011531
+      ],
+      "id": "T19",
+      "passed": true,
+      "sdk_calls": 1,
+      "status": "passed"
+    },
+    {
+      "agent_ms_per_turn": [
+        761.2834009923972
+      ],
+      "id": "T20",
+      "passed": true,
+      "sdk_calls": 1,
+      "status": "passed"
+    }
+  ],
+  "checkout_commit": "59c9eb8fa0b73444e770effd3e3e80724049164b",
+  "configured_model": "gemini-3.5-flash-lite",
+  "created_at": "2026-10-11T16:37:47.580104+00:00",
+  "database_after": {
+    "tables": {
+      "clientes": {
+        "count": 30,
+        "sha256": "6ee90bee748166b6225042efcf5956992911a3b1d217d7050daf16f9017b476f"
+      },
+      "contratos": {
+        "count": 56,
+        "sha256": "ae24e5d8a8a5318ec80334d10f7821a4b8b47b3a87a8fb33418e2a9ad4957989"
+      },
+      "faturamento": {
+        "count": 628,
+        "sha256": "252c1257f6d83385527d1a78d45ab570665f8a71fbe952a9ba1443b125f8d9ec"
+      },
+      "indicadores_operacionais": {
+        "count": 672,
+        "sha256": "ce385c40f8abec95d7e91d09af648e42d1079e9c3c9ec49d5c83090e2c5bf255"
+      },
+      "pedidos": {
+        "count": 672,
+        "sha256": "c2dcec531aedb5cd685d8df5b5c3b78fabd7fe25d7b08aaae0f5bbf42af984da"
+      }
+    },
+    "unchanged": true
+  },
+  "database_sha256": "d4f6623f1de2d8050ca3901b231ff00e05f1627bb09ecf8f7a7f0db86578cf6d",
+  "dataset_sha256": "6a42eeb54169b15751eec3ff2e7657f52cdab96dc674dbaa7be16bc5c620bc2c",
+  "dataset_version": "1.0.0",
+  "engineering_checks": {
+    "pytest_passed": 110,
+    "pytest_seconds": 3.03,
+    "pytest_skipped": 0,
+    "ruff": "passed",
+    "scope": "Mesma versão congelada, executados antes da rodada3; não repetidos para este teste.",
+    "sql_references_validated": 34
+  },
+  "evidence_verification": {
+    "all_artifact_hashes_confirmed": true,
+    "case_scoring_recomputed": true,
+    "cases": 20,
+    "checkpoint_records_complete": true,
+    "database_after_verified": true,
+    "rates_recomputed_from_cases": true,
+    "settings_unchanged_since_preflight": true,
+    "source_hashes_unchanged": true,
+    "turns": 21,
+    "unique_ordered_case_ids": true
+  },
+  "exit_code": 0,
+  "failures": [],
+  "git_dirty": false,
+  "interval_seconds": 60.0,
+  "latency_ms": {
+    "maximum": 3070.0943330011796,
+    "mean": 1649.283252948884,
+    "median": 1073.2656229811255,
+    "minimum": 761.2834009923972,
+    "observed_turns": 21,
+    "scope": "Agente e banco; exclui transporte Telegram e intervalo entre casos."
+  },
+  "limits": {
+    "rows": 100,
+    "sql_errors": 3,
+    "sql_timeout_ms": 3000,
+    "tool_rounds": 6
+  },
+  "original_bot_processes_preserved": true,
+  "original_env_unchanged": true,
+  "packages": {
+    "Faker": "39.1.0",
+    "google-genai": "1.75.0",
+    "pglast": "7.18",
+    "psycopg": "3.3.6"
+  },
+  "reported_tokens": {
+    "candidates_token_count": 2508,
+    "prompt_token_count": 72205,
+    "total_token_count": 74713
+  },
+  "reserved_test_live_executed": true,
+  "resolved_models": [
+    "gemini-3.5-flash-lite"
+  ],
+  "run_id": "20261011T163747Z-5fe3b066",
+  "run_path": "/workspace/pac_privado-desenvolvimento-rodada3/.local/evaluation/20261011T163747Z-5fe3b066",
+  "sdk_calls": {
+    "attempted": 48,
+    "with_usage": 48,
+    "without_usage": 0
+  },
+  "semantic_failures_observed": 0,
+  "source_tree_sha256": "d46a1a6fbb6c79507704cc03ff8aa6fe5db48c1788fb588e7f1d2442d7b0d860",
+  "source_version": "59c9eb8fa0b73444e770effd3e3e80724049164b",
+  "split": "test",
+  "summary": {
+    "cases_completed": 20,
+    "cases_planned": 20,
+    "complete": true,
+    "failed_cases": [],
+    "latency_scope": "Agente e banco; exclui transporte Telegram e intervalo entre casos.",
+    "mean_agent_ms_observed": 1649.283252948884,
+    "metrics": {
+      "clarification_accuracy": {
+        "completed": 4,
+        "passed": 4,
+        "planned": 4,
+        "rate": 1.0
+      },
+      "execution_accuracy": {
+        "completed": 16,
+        "passed": 16,
+        "planned": 16,
+        "rate": 1.0
+      }
+    },
+    "not_run": [],
+    "stop_reason": null
+  }
+}
