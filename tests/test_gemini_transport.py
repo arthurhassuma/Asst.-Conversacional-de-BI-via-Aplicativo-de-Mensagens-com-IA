@@ -10,7 +10,7 @@ from google.genai import types
 
 from app.bi_agent import BIAgent
 from app.config import Settings
-from tests.test_agent import PLAN, Database, call, response
+from tests.test_agent import PLAN, Database, call, plan_response, response
 
 
 def sdk_client(handler):
@@ -35,7 +35,7 @@ async def test_native_tools_preserve_signatures_parallel_results_and_exact_numbe
     }
     responses = iter(
         [
-            response(PLAN),
+            plan_response(PLAN),
             response(tools=[signed_call]),
             response(
                 tools=[

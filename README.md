@@ -62,6 +62,17 @@ bi-cli
 
 Experimente `Qual o faturamento em janeiro de 2025?`. `Qual o faturamento?` deve gerar esclarecimento antes de SQL. Comandos `/limpar` e `/sair`. Sem GEMINI_API_KEY, o CLI informa em português que a IA não está configurada.
 
+É possível consultar até quatro combinações de métricas, medidas e períodos na mesma
+pergunta, por exemplo: `Qual o total de pedidos e o faturamento emitido em agosto de 2025?`.
+`Total de pedidos` significa quantidade; para dinheiro, peça `valor dos pedidos`.
+`E do mês de agosto?` mantém as métricas e o ano do período anterior. Quando falta uma
+medida, o esclarecimento indica a métrica pendente e mantém o restante do pedido.
+As respostas mostram o período e distinguem ausência de registros de campos não
+preenchidos. A base sintética tem pedidos e faturamento emitido em 2024/2025: em
+09/10/2026, `mês passado` corresponde a setembro de 2026 e não encontra registros.
+Totais simples usam consultas padronizadas; filtros adicionais e análises detalhadas
+continuam usando o executor SQL restrito. Veja os [testes reais de outubro](docs/verificacao.md).
+
 ## Chave Gemini e cota gratuita
 
 1. Acesse [Google AI Studio — API Keys](https://aistudio.google.com/apikey) com sua conta Google.
