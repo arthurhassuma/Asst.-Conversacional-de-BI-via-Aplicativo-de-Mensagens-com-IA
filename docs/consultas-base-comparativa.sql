@@ -7,11 +7,11 @@ WHERE status <> 'cancelada'
   AND emissao >= DATE '2025-01-01' AND emissao < DATE '2026-11-01'
 GROUP BY 1 ORDER BY 1;
 
-SELECT extract(year FROM emissao)::integer AS ano, SUM(valor) AS total
+SELECT date_part('year', emissao)::integer AS ano, SUM(valor) AS total
 FROM faturamento
 WHERE status <> 'cancelada'
   AND emissao >= DATE '2025-01-01' AND emissao < DATE '2026-11-01'
-  AND extract(month FROM emissao) <= 10
+  AND date_part('month', emissao) <= 10
 GROUP BY 1 ORDER BY 1;
 
 SELECT date_trunc('month', pagamento)::date AS mes, SUM(valor) AS total
