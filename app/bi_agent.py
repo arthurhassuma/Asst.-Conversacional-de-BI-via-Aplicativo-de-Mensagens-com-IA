@@ -74,6 +74,19 @@ def api_error_message(code):
     return "O serviço Gemini está temporariamente indisponível. Tente novamente mais tarde."
 
 
+def provider_error_category(error):
+    """Classificação indicativa: retorna apenas rótulos fixos, nunca texto do provedor."""
+    message = getattr(error, "message", "")
+    text = message.casefold() if isinstance(message, str) else ""
+    if any(marker in text for marker in ("thought_signature", "thought signature")):
+        return "thought_signature_validation"
+    if any(
+        marker in text for marker in ("function_response", "function response", "functionresponse")
+    ):
+        return "function_response_validation"
+    return "unclassified"
+
+
 def clarify(plan: dict, messages: list) -> str | None:
     queries = plan.get("queries")
     if not isinstance(queries, list) or not queries:
@@ -193,7 +206,13 @@ class BIAgent:
     async def _generate(self, trace, **kwargs):
         record = {"model": self.settings.gemini_model}
         trace["requests"].append(record)
-        response = await self.client.aio.models.generate_content(**kwargs)
+        try:
+            response = await self.client.aio.models.generate_content(**kwargs)
+        except APIError as exc:
+            category = provider_error_category(exc)
+            record.update(provider_code=exc.code, provider_category=category)
+            trace["provider_category"] = category
+            raise
         record["resolved_model"] = response.model_version
         if response.usage_metadata:
             record["usage"] = response.usage_metadata.model_dump(exclude_none=True)

@@ -115,3 +115,37 @@ async def test_safety_block_never_executes_sql():
         await agent.close()
     assert "Não consegui" in text
     assert not db.queries
+
+
+@pytest.mark.parametrize(
+    ("detail", "category"),
+    [
+        (
+            "Function call is missing a thought_signature. sensitive-key-do-not-display",
+            "thought_signature_validation",
+        ),
+        (
+            "Function response turn must follow function call. sensitive-key-do-not-display",
+            "function_response_validation",
+        ),
+        ("Unknown problem sensitive-key-do-not-display", "unclassified"),
+    ],
+)
+async def test_provider_diagnostic_keeps_only_category_and_never_raw_message(detail, category):
+    requests = []
+
+    def receive(request):
+        requests.append(request)
+        return httpx.Response(400, json={"error": {"code": 400, "message": detail}})
+
+    trace = {}
+    agent = BIAgent(Settings(_env_file=None), client=sdk_client(receive), database=Database())
+    try:
+        text, _ = await agent.answer("Faturamento em janeiro de 2025", [], trace=trace)
+    finally:
+        await agent.close()
+    assert trace["provider_category"] == category
+    assert trace["requests"][-1]["provider_category"] == category
+    assert trace["provider_code"] == 400 and trace["status"] == "provider_error"
+    assert "sensitive-key" not in text + json.dumps(trace)
+    assert len(requests) == 1

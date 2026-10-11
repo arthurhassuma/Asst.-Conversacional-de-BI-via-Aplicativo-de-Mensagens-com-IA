@@ -27,8 +27,12 @@ Os artefatos brutos permanecem em `.local/evaluation/` no ambiente em nuvem. O [
 
 Os arquivos JSON passam a usar LF explicitamente em `.gitattributes`, para conservar o hash de bytes entre checkouts Windows/Linux. O conteúdo congelado do conjunto v1.0.0 permanece idêntico ao blob Git executado na nuvem.
 
+A [reprodução direcionada de D08](experimentos/2026-10-11-diagnostico-d08.md) passou na mesma versão, sem reproduzir o HTTP 400. Não foi aplicada correção de causa presumida. A [segunda rodada](experimentos/2026-10-11-desenvolvimento-rodada2.md), `20261011T153617Z-0a9bf9d9`, passou em D01–D09 e interrompeu D10 por HTTP 429. D11–D20 e o teste reservado permanecem não executados. A base continuou inalterada, e as taxas oficiais continuam nulas. Os nove casos concluídos não apresentaram divergência semântica; não orientaram alteração de prompt. A mensagem detalhada de cota não foi preservada, portanto seu período de recuperação é desconhecido.
+
+Com base na lacuna de evidência observada, foi acrescentada classificação segura de erros API no trace, restrita a rótulos fixos; mensagens brutas não são guardadas. Os três testes de regressão falharam antes da implementação e passaram depois. Os 37 testes de SDK, agente e avaliação passaram com o aprimoramento. Essa alteração de diagnóstico é posterior às rodadas e não deve ser atribuída às versões experimentadas.
+
 ## Cronograma e limites
 
-S7–S8: conjunto e executor entregues, com revisão técnica do gabarito; revisão por professor/especialista permanece recomendada. S8–S10: experimento real iniciado, cobertura incompleta. S10–S11: mecanismos de diagnóstico e regressões entregues; ajustes semânticos e comparação antes/depois dependem do relatório e de uma rodada de desenvolvimento válida. O teste reservado depende do congelamento desses ajustes.
+S7–S8: conjunto e executor entregues, com revisão técnica do gabarito; revisão por professor/especialista permanece recomendada. S8–S10: duas rodadas reais registradas, cobertura incompleta por erros externos. S10–S11: diagnóstico direcionado, melhoria de rastreamento e regressões entregues; ajustes semânticos e avaliação final dependem de uma rodada de desenvolvimento completa. O teste reservado depende do congelamento desses ajustes e da disponibilidade da API. Não foram realizadas novas chamadas após o HTTP 429.
 
 Validação qualitativa com gestor, comparação com dashboards e redação final pertencem às etapas posteriores. A latência do executor mede agente+banco e não equivale a transporte Telegram ponta a ponta.

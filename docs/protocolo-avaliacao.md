@@ -27,6 +27,8 @@ Cada rodada cria uma pasta exclusiva em `.local/evaluation/`, ignorada pelo Git:
 
 Os artefatos contêm consultas e resultados sintéticos. Devem permanecer locais; publicar apenas resumos revisados no repositório privado. Credenciais permanecem no ambiente de origem. O executor não altera tabelas, não envia mensagens Telegram nem reinicia o bot.
 
+Falhas API registram o código e uma categoria indicativa com rótulo fixo (`thought_signature_validation`, `function_response_validation` ou `unclassified`), por requisição e por turno. A classificação reconhece apenas marcadores na mensagem, sem conservá-la, e não equivale a diagnóstico conclusivo. Não há retrospectiva: os erros da versão original permanecem sem categoria detalhada. O aprimoramento de diagnóstico preserva a exceção e não acrescenta retries.
+
 ## Critérios
 
 Execution accuracy é a proporção de casos de resposta inteiramente corretos entre os 16 planejados da partição. A arquitetura avaliada é híbrida: o modelo planeja as consultas; totais simples usam SQL de templates e análises usam SQL gerado pelo modelo. A taxa global mede o sistema completo; não deve ser apresentada como taxa exclusiva de geração livre de SQL. O trace registra qual caminho foi usado. Um caso com várias métricas só passa se todas coincidirem. Conversas também precisam acertar o esclarecimento inicial. Comparação usa o resultado escolhido para renderização, sem premiar uma consulta correta que foi descartada pelo agente.
