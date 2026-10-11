@@ -64,6 +64,17 @@ bi-cli
 
 Experimente `Qual o faturamento em janeiro de 2025?`. `Qual o faturamento?` deve gerar esclarecimento antes de SQL. Comandos `/limpar` e `/sair`. Sem GEMINI_API_KEY, o CLI informa em português que a IA não está configurada.
 
+É possível consultar até quatro combinações de métricas, medidas e períodos na mesma
+pergunta, por exemplo: `Qual o total de pedidos e o faturamento emitido em agosto de 2025?`.
+`Total de pedidos` significa quantidade; para dinheiro, peça `valor dos pedidos`.
+`E do mês de agosto?` mantém as métricas e o ano do período anterior. Quando falta uma
+medida, o esclarecimento indica a métrica pendente e mantém o restante do pedido.
+As respostas mostram o período e distinguem ausência de registros de campos não
+preenchidos. A base sintética tem pedidos e faturamento emitido em 2024/2025: em
+09/10/2026, `mês passado` corresponde a setembro de 2026 e não encontra registros.
+Totais simples usam consultas padronizadas; filtros adicionais e análises detalhadas
+continuam usando o executor SQL restrito. Veja os [testes reais de outubro](docs/verificacao.md).
+
 ## Chave Gemini e cota gratuita
 
 1. Acesse [Google AI Studio — API Keys](https://aistudio.google.com/apikey) com sua conta Google.
@@ -180,6 +191,17 @@ Para usar Compose, prepare um `.env` coerente com o novo volume e use outra port
 
 `app/`: agente, política SQL, tools, renderizador, sessões, FastAPI, Telegram e CLI. `db/`: schema e grants. `scripts/`: administração e Faker. `tests/`: testes de engenharia. `docs/`: anexos, desenho, dicionário e verificação.
 
-Próxima etapa: concluir o teste real Gemini/Telegram; depois, em outra sessão, criar o conjunto de 30–50 perguntas com SQL/resultado de referência, medir acerto semântico e esclarecimentos, iterar prompts com erros observados, executar experimentos e validação qualitativa, e redigir o relatório final. As atividades de Fase 4 não foram iniciadas aqui.
+A continuidade autorizada até S10–S11 inclui o conjunto de avaliação e as rodadas com Gemini descritas abaixo. A conexão real Gemini/Telegram foi validada no ambiente em nuvem. Validação qualitativa e redação final permanecem para as semanas seguintes. Consulte os relatórios datados em `docs/` para distinguir implementação de resultados medidos.
 
 Referências técnicas consultadas: [SDK Gemini](https://googleapis.github.io/python-genai/), [preços Gemini](https://ai.google.dev/gemini-api/docs/pricing), [webhook python-telegram-bot](https://docs.python-telegram-bot.org/en/stable/examples.customwebhookbot.html), [timeouts PostgreSQL 16](https://www.postgresql.org/docs/16/runtime-config-client.html).
+
+## Avaliação S7–S11
+
+Conjunto de 40 casos, SQL de referência e executor reproduzível em `evaluation/`. Consulte [o protocolo](docs/protocolo-avaliacao.md) antes de executar.
+
+```bash
+python -m scripts.evaluate validate
+python -m scripts.evaluate run --live --split development --interval 12 --limit 20
+```
+
+Resultados ficam em `.local/evaluation/`. Teste reservado somente após congelar ajustes de desenvolvimento. A avaliação não envia mensagens nem reinicia o Telegram.

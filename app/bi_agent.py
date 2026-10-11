@@ -14,6 +14,7 @@ from google.genai.errors import APIError
 from app.config import Settings
 from app.database_tools import DatabaseTools
 from app.prompts import PLANNER_PROMPT, PLANNER_SCHEMA, SYSTEM_PROMPT, TOOLS
+from app.query_templates import total_query
 from app.rendering import METRICS, InvalidAnswer, render_answer
 
 FAILURE = "Não consegui concluir a consulta com segurança. Reformule a pergunta ou tente novamente."
@@ -21,10 +22,6 @@ PERIOD_QUESTION = "Qual período deseja consultar? Informe as datas ou o mês e 
 METRIC_QUESTION = (
     "Qual métrica deseja consultar: faturamento emitido, recebimentos, "
     "pedidos, contratos, clientes, horas ou chamados?"
-)
-MEASURE_QUESTION = (
-    "Você deseja o valor ou a quantidade? Para indicadores operacionais, "
-    "especifique horas previstas, horas realizadas ou a medida de chamados."
 )
 
 
@@ -78,6 +75,23 @@ def api_error_message(code):
 
 
 def clarify(plan: dict, messages: list) -> str | None:
+    queries = plan.get("queries")
+    if not isinstance(queries, list) or not queries:
+        return METRIC_QUESTION
+    if len(queries) > 4:
+        return "Consulte até quatro métricas ou medidas por pergunta. Quais deseja priorizar?"
+    for query in queries:
+        if not isinstance(query, dict):
+            return METRIC_QUESTION
+        question = clarify_query(query, messages)
+        if question:
+            return question
+    return None
+
+
+def clarify_query(plan: dict, messages: list) -> str | None:
+    if plan.get("operation") not in {"total", "analysis"}:
+        raise ValueError("Operação de consulta inválida.")
     if plan.get("metric") not in METRICS:
         return METRIC_QUESTION
     compatible = {
@@ -90,7 +104,16 @@ def clarify(plan: dict, messages: list) -> str | None:
         "chamados": {"chamados_abertos", "chamados_resolvidos", "taxa_resolucao"},
     }
     if plan.get("measure") not in compatible[plan["metric"]]:
-        return MEASURE_QUESTION
+        questions = {
+            "pedidos": "você deseja o valor ou a quantidade? Pode pedir ambos.",
+            "contratos": "você deseja o valor ou a quantidade? Pode pedir ambos.",
+            "horas": "deseja horas previstas, realizadas ou ambas?",
+            "chamados": "deseja chamados abertos, resolvidos ou a taxa de resolução?",
+            "clientes": "deseja a quantidade de clientes?",
+            "faturamento": "deseja o valor total emitido?",
+            "recebimentos": "deseja o valor total recebido?",
+        }
+        return f"Para {METRICS[plan['metric']]}, {questions[plan['metric']]}"
     period = plan.get("period")
     if not isinstance(period, dict):
         return PERIOD_QUESTION
@@ -128,7 +151,13 @@ class BIAgent:
             if hasattr(self.client, "close"):
                 self.client.close()
 
-    async def answer(self, question: str, history: list) -> tuple[str, list]:
+    async def answer(
+        self, question: str, history: list, *, trace: dict | None = None
+    ) -> tuple[str, list]:
+        # Evidência opcional pertence à chamada, nunca ao estado compartilhado do bot.
+        trace = trace if trace is not None else {}
+        trace.clear()
+        trace.update(status="error", queries=[], requests=[])
         if not question.strip() or len(question) > 4000:
             text = "Envie uma pergunta de negócio mais curta e não vazia."
             return text, []
@@ -149,21 +178,35 @@ class BIAgent:
             )
         try:
             async with asyncio.timeout(100):
-                return await self._answer(question, history, turn)
+                return await self._answer(question, history, turn, trace)
         except APIError as exc:
+            trace.update(status="provider_error", provider_code=exc.code)
             text = api_error_message(exc.code)
             return text, turn + [{"role": "assistant", "content": text}]
-        except (httpx.HTTPError, TimeoutError, ValueError, TypeError, KeyError):
+        except (httpx.HTTPError, TimeoutError):
+            trace.update(status="transport_error")
+            return FAILURE, turn + [{"role": "assistant", "content": FAILURE}]
+        except (ValueError, TypeError, KeyError):
             # Nenhuma exceção externa, credencial ou SQL chega ao Telegram.
             return FAILURE, turn + [{"role": "assistant", "content": FAILURE}]
 
-    async def _answer(self, question, history, turn):
+    async def _generate(self, trace, **kwargs):
+        record = {"model": self.settings.gemini_model}
+        trace["requests"].append(record)
+        response = await self.client.aio.models.generate_content(**kwargs)
+        record["resolved_model"] = response.model_version
+        if response.usage_metadata:
+            record["usage"] = response.usage_metadata.model_dump(exclude_none=True)
+        return response
+
+    async def _answer(self, question, history, turn, trace):
         messages = copy.deepcopy(history + turn)
         # O planejador não declara tools: não envie blocos tool_use/tool_result
         # históricos à API sem as respectivas definições. Mantém pedido e resposta.
         planning_messages = [m for m in messages if isinstance(m["content"], str)]
         today = datetime.now(ZoneInfo("America/Sao_Paulo")).date().isoformat()
-        response = await self.client.aio.models.generate_content(
+        response = await self._generate(
+            trace,
             model=self.settings.gemini_model,
             contents=gemini_contents(planning_messages),
             config=types.GenerateContentConfig(
@@ -175,13 +218,58 @@ class BIAgent:
             ),
         )
         plan = parse_json(response)
+        trace["plan"] = copy.deepcopy(plan)
         clarification = clarify(plan, messages)
         if clarification:
+            trace["status"] = (
+                "clarification_period"
+                if clarification == PERIOD_QUESTION
+                else "clarification_metric"
+                if clarification == METRIC_QUESTION
+                else "clarification_measure"
+                if clarification.startswith("Para ")
+                else "clarification_limit"
+            )
             return clarification, turn + [{"role": "assistant", "content": clarification}]
+        answers = []
+        for query in plan["queries"]:
+            # Cada métrica tem resultados próprios: q1 de pedidos não pode ser
+            # reutilizado como faturamento. Mantém só o contexto textual entre consultas.
+            evidence = {"plan": copy.deepcopy(query), "attempts": []}
+            trace["queries"].append(evidence)
+            answers.append(
+                await self._query(query, copy.deepcopy(planning_messages), trace, evidence)
+            )
+        text = "\n\n".join(answers)
+        trace["status"] = "answer"
+        # Guarda só o pedido real e a resposta visível. Tools/assinaturas permanecem
+        # no loop que as originou, sem contaminar esclarecimentos ou outras métricas.
+        return text, turn + [{"role": "assistant", "content": text}]
+
+    async def _query(self, plan, messages, trace, evidence):
+        if plan["operation"] == "total":
+            schema = await asyncio.to_thread(self.database.get_schema)
+            if "error" in schema:
+                raise ValueError("Não foi possível consultar o schema.")
+            sql = total_query(plan)
+            result = await asyncio.to_thread(self.database.execute_sql, sql)
+            evidence["attempts"].append({"sql": sql, "result": copy.deepcopy(result)})
+            if "error" in result:
+                raise ValueError("Não foi possível executar o total planejado.")
+            text = render_answer(
+                {"kind": "answer", "result_id": "q1"},
+                {"q1": result},
+                plan["metric"],
+                plan["period"],
+                plan["measure"],
+            )
+            evidence.update(selected=copy.deepcopy(result), selected_id="q1", template=True)
+            return text
         system = SYSTEM_PROMPT + "\nPlano confirmado: " + json.dumps(plan, ensure_ascii=False)
         results, sql_errors, schema_seen = {}, 0, False
         for _ in range(self.settings.max_tool_rounds):
-            response = await self.client.aio.models.generate_content(
+            response = await self._generate(
+                trace,
                 model=self.settings.gemini_model,
                 contents=gemini_contents(messages),
                 config=types.GenerateContentConfig(
@@ -218,6 +306,9 @@ class BIAgent:
                             result = await asyncio.to_thread(
                                 self.database.execute_sql, inputs["sql"]
                             )
+                            evidence["attempts"].append(
+                                {"sql": inputs["sql"], "result": copy.deepcopy(result)}
+                            )
                             if "error" in result:
                                 sql_errors += 1
                             else:
@@ -248,12 +339,16 @@ class BIAgent:
                     break
                 continue
             try:
+                payload = parse_json(response)
                 text = render_answer(
-                    parse_json(response), results, plan["metric"], measure=plan["measure"]
+                    payload, results, plan["metric"], plan["period"], plan["measure"]
                 )
-                # Histórico recebe a resposta de fato vista pelo gestor.
-                messages.append({"role": "assistant", "content": text})
-                return text, messages[len(history) :]
+                evidence.update(
+                    selected=copy.deepcopy(results[payload["result_id"]]),
+                    selected_id=payload["result_id"],
+                    template=False,
+                )
+                return text
             except (InvalidAnswer, ValueError, TypeError):
                 messages.append(
                     {"role": "assistant", "content": "Não foi possível validar a resposta."}
@@ -265,5 +360,5 @@ class BIAgent:
                         "Se ainda não consultou, use as tools.",
                     }
                 )
-        # Descarta chamadas incompletas no histórico em caso de falha.
-        return FAILURE, turn + [{"role": "assistant", "content": FAILURE}]
+        # Uma pergunta composta só é concluída quando todas as métricas são válidas.
+        raise ValueError("Não foi possível concluir uma das consultas planejadas.")

@@ -108,3 +108,34 @@ def test_alias_total_does_not_prove_sum_or_currency(metric, measure, value):
     assert "somaram" not in text
     assert "R$" not in text
     assert value.replace(".", ",") in text
+
+
+def test_generic_value_label_does_not_call_average_a_total():
+    text = render_answer(
+        {"kind": "answer", "result_id": "q1"},
+        {"q1": {"columns": ["media", "registros"], "rows": [["12.345", 2]], "truncated": False}},
+        "pedidos",
+        measure="valor",
+    )
+    assert "valor total" not in text
+    assert "12,345" in text
+
+
+@pytest.mark.parametrize(
+    ("total", "count", "absent"), [(None, 0, True), (None, 2, False), ("0", 2, False)]
+)
+def test_aggregate_absence_requires_row_count_not_just_null_or_zero(total, count, absent):
+    text = render_answer(
+        {"kind": "answer", "result_id": "q1"},
+        {"q1": {"columns": ["total", "registros"], "rows": [[total, count]], "truncated": False}},
+        "pedidos",
+        {"start": "2026-09-01", "end": "2026-10-01"},
+        "valor",
+    )
+    assert ("Nenhum registro" in text) is absent
+    assert "01/09/2026 a 30/09/2026" in text
+    assert "Campo:" not in text
+    if absent:
+        assert "não informado" not in text
+    else:
+        assert f"Total: {'não informado' if total is None else total}" in text

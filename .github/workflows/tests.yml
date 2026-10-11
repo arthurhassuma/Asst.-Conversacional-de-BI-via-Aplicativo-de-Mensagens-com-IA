@@ -54,7 +54,7 @@ jobs:
           python -m pip install -e . --no-deps
           python -m pip check
       - name: Lint
-        run: python -m ruff check app scripts tests
+        run: python -m ruff check app scripts tests evaluation
       - name: Prepare isolated synthetic database
         run: |
           python -m scripts.manage_db init

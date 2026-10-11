@@ -1,10 +1,13 @@
 import os
+from datetime import date
+from decimal import Decimal
 
 import psycopg
 import pytest
 
 from app.config import Settings
 from app.database_tools import DatabaseTools
+from app.query_templates import total_query
 from scripts.manage_db import validate_data
 
 pytestmark = pytest.mark.integration
@@ -91,3 +94,49 @@ def test_interval_result_is_exact_serializable_and_not_a_crash(settings):
         "SELECT INTERVAL '1 day 01:02:03.123456' AS prazo FROM clientes LIMIT 1"
     )
     assert result["rows"] == [["1 dia, 1:02:03.123456"]]
+
+
+@pytest.mark.parametrize(
+    ("metric", "measure"),
+    [
+        ("recebimentos", "valor"),
+        ("horas", "horas_realizadas"),
+        ("chamados", "taxa_resolucao"),
+    ],
+)
+def test_simple_total_business_rules_against_independent_rows(settings, metric, measure):
+    start, end = date(2025, 8, 1), date(2025, 9, 1)
+    with psycopg.connect(settings.database_url.get_secret_value()) as conn:
+        if metric == "recebimentos":
+            rows = conn.execute("SELECT pagamento, status, valor FROM faturamento").fetchall()
+            values = [
+                value
+                for paid, status, value in rows
+                if status == "paga" and paid is not None and start <= paid < end
+            ]
+            expected, count = sum(values), len(values)
+        else:
+            rows = conn.execute(
+                "SELECT competencia, horas_realizadas, chamados_abertos, "
+                "chamados_resolvidos FROM indicadores_operacionais"
+            ).fetchall()
+            selected = [row for row in rows if start <= row[0] < end]
+            count = len(selected)
+            if metric == "horas":
+                expected = sum(row[1] for row in selected)
+            else:
+                expected = Decimal(sum(row[3] for row in selected)) / sum(
+                    row[2] for row in selected
+                )
+    result = DatabaseTools(settings).execute_sql(
+        total_query(
+            {
+                "metric": metric,
+                "measure": measure,
+                "period": {"start": start.isoformat(), "end": end.isoformat()},
+            }
+        )
+    )
+    assert "error" not in result
+    assert result["rows"][0][1] == count > 0
+    assert abs(Decimal(result["rows"][0][0]) - expected) < Decimal("1e-16")

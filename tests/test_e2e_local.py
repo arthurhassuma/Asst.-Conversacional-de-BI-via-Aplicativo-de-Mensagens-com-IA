@@ -13,7 +13,7 @@ from telegram.request import HTTPXRequest
 from app.bi_agent import BIAgent
 from app.config import Settings
 from app.main import create_app
-from tests.test_agent import call, response
+from tests.test_agent import Client, call, plan_response, response
 from tests.test_backend import update
 from tests.test_gemini_transport import sdk_client, wire
 
@@ -36,10 +36,11 @@ async def test_webhook_to_postgres_to_telegram_with_simulated_external_apis():
         ).fetchone()[0]
     responses = iter(
         [
-            response(
+            plan_response(
                 {
                     "metric": "clientes",
                     "measure": "quantidade",
+                    "operation": "analysis",
                     "period": {"start": "2023-01-01", "end": "2024-01-01", "evidence": "2023"},
                 }
             ),
@@ -111,6 +112,46 @@ async def test_webhook_to_postgres_to_telegram_with_simulated_external_apis():
                 await app.state.queue.join()
     assert telegram_messages == [
         f"No período informado, o resultado para quantidade de clientes é {expected}."
+        "\nPeríodo: 01/01/2023 a 31/12/2023."
     ]
     tool_result = model_requests[-1]["contents"][-1]["parts"][0]["functionResponse"]
     assert tool_result["response"]["rows"] == [[expected]]
+
+
+@pytest.mark.integration
+@pytest.mark.parametrize("year", [2025, 2026])
+async def test_composite_question_uses_postgres_counts_and_preserves_each_metric(year):
+    dsn = os.getenv("TEST_DATABASE_URL")
+    if not dsn:
+        pytest.skip("Requer PostgreSQL real em TEST_DATABASE_URL.")
+    period = {"start": f"{year}-08-01", "end": f"{year}-09-01", "evidence": f"agosto de {year}"}
+    queries = [
+        {"metric": "pedidos", "measure": "quantidade", "operation": "total", "period": period},
+        {"metric": "faturamento", "measure": "valor", "operation": "total", "period": period},
+    ]
+    sqls = [
+        f"SELECT count(*) AS quantidade, count(*) AS registros FROM pedidos "
+        f"WHERE data_pedido >= DATE '{year}-08-01' AND data_pedido < DATE '{year}-09-01' "
+        "AND status <> 'cancelado'",
+        f"SELECT sum(valor) AS total, count(*) AS registros FROM faturamento "
+        f"WHERE emissao >= DATE '{year}-08-01' AND emissao < DATE '{year}-09-01' "
+        "AND status <> 'cancelada'",
+    ]
+    with psycopg.connect(dsn, connect_timeout=5) as conn:
+        expected = [conn.execute(sql).fetchone() for sql in sqls]
+    responses = [plan_response(*queries)]
+    text, _ = await BIAgent(
+        Settings(_env_file=None, database_url=dsn), client=Client(responses)
+    ).answer(f"Total de pedidos e faturamento emitido em agosto de {year}", [])
+    orders, revenue = text.split("\n\n")
+    assert "pedidos" in orders and "faturamento" in revenue
+    assert f"01/08/{year} a 31/08/{year}" in orders
+    assert f"01/08/{year} a 31/08/{year}" in revenue
+    if year == 2026:
+        assert expected == [(0, 0), (None, 0)]
+        assert "Nenhum registro" in orders and "Nenhum registro" in revenue
+        assert "não informado" not in text
+    else:
+        assert expected[0][1] > 0 and expected[1][1] > 0
+        assert f"Quantidade: {expected[0][0]}" in orders
+        assert f"Total: {str(expected[1][0]).replace('.', ',')}" in revenue

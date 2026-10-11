@@ -48,3 +48,43 @@ Revisão independente somente leitura realizada ao final. Identificou o tratamen
 - Origem dos números é garantida pelo renderizador; correção de métrica, filtros, joins e interpretação pelo modelo ainda precisa ser avaliada.
 
 As Fases 0–2 e o código da Fase 3 foram implementados e testados localmente. A aceitação manual externa da Fase 3 está pendente. Nenhum conjunto de avaliação acadêmica, rodada de experimentos, validação qualitativa ou redação final foi iniciado.
+
+## Atualização — 09/10/2026, ambiente na nuvem
+
+Esta seção registra validações posteriores; as pendências acima descrevem a execução
+histórica de setembro. Python 3.12, dependências do lockfile e PostgreSQL 16 via
+Compose, com base sintética seed 42 e 30 clientes. Nenhuma credencial está neste documento.
+
+O planejamento agora aceita até quatro combinações de métrica/medida/período,
+executadas com resultados separados. `Total de pedidos` implica quantidade;
+`valor dos pedidos` implica valor monetário. Esclarecimentos preservam as demais
+métricas e o período. Totais gerais usam templates de SELECT com datas ISO validadas,
+definições de status e COUNT de registros. Filtros extras, rankings e detalhamentos
+continuam no executor SQL restrito. A classificação pelo modelo ainda exige
+avaliação semântica; esses testes não constituem a Fase 4.
+
+- **80 testes passaram**, incluindo PostgreSQL real, sem skips; lint sem erros.
+- Regressões: resultados de métricas diferentes não se confundem; uma medida ou
+  período pendente impede SQL; falha em uma métrica não apresenta a outra como
+  resposta completa; NULL, zero e ausência de linhas permanecem distintos.
+- Totais de recebimentos, horas e taxa de resolução conferidos contra registros
+  independentes, com cálculo em Python/Decimal nas referências de teste.
+- Gemini real: `Gostaria de consultar o total de pedidos e o faturamento emitido
+  do mês passado` foi interpretado como setembro de 2026 para ambas as métricas;
+  informou ausência de registros e mostrou as datas.
+- Continuação real: `E do mês de agosto?` preservou ambas as métricas e o ano
+  2026, também sem registros.
+- Gemini real: a mesma pergunta para agosto de 2025 retornou **23 pedidos** e
+  **404704,29** de faturamento emitido, conferidos contra o PostgreSQL.
+- Gemini real: `Pedidos e faturamento emitido em agosto de 2025` pediu a medida
+  de pedidos; a resposta `Valor` preservou faturamento e o período e retornou
+  **404704,29** para cada métrica, em blocos separados.
+- Em uma primeira versão, o executor livre não respeitou bem a separação das
+  métricas e ocorreu limite de requisições. Após usar templates para totais simples
+  (uma chamada ao planejador por pergunta), os casos reais acima passaram com o
+  mesmo modelo, sem troca automática de provedor ou plano de cobrança.
+
+Telegram real autenticado e conversa funcional confirmada pelo usuário antes desta
+evolução. O backend deve ser reiniciado para carregar o código; polling e sessões
+continuam dependentes desta máquina ativa. Um teste local com Gemini não substitui
+a confirmação da nova resposta no chat do usuário.

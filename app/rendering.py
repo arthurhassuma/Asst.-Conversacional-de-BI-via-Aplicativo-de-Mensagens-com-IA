@@ -1,6 +1,7 @@
 """A resposta não incorpora prosa nem números livres produzidos pelo modelo."""
 
 import re
+from datetime import date, timedelta
 from decimal import Decimal
 
 METRICS = {
@@ -31,7 +32,13 @@ def cell_text(value) -> str:
     return value.replace("\n", " ").replace("\r", " ")
 
 
-def render_answer(payload: dict, results: dict, metric: str, *, measure: str | None = None) -> str:
+def render_answer(
+    payload: dict,
+    results: dict,
+    metric: str,
+    period: dict | None = None,
+    measure: str | None = None,
+) -> str:
     if (
         not isinstance(payload, dict)
         or set(payload) != {"kind", "result_id"}
@@ -43,7 +50,31 @@ def render_answer(payload: dict, results: dict, metric: str, *, measure: str | N
         raise InvalidAnswer("A resposta não referencia um resultado válido.")
     result = results[payload["result_id"]]
     lines = [f"Consultei {METRICS[metric]} no período informado."]
-    if not result["rows"]:
+    if period:
+        start = date.fromisoformat(period["start"])
+        end = date.fromisoformat(period["end"]) - timedelta(days=1)
+        lines.append(f"Período: {start:%d/%m/%Y} a {end:%d/%m/%Y}.")
+    measures = {
+        "valor": "valor",
+        "quantidade": "quantidade",
+        "horas_previstas": "horas previstas",
+        "horas_realizadas": "horas realizadas",
+        "chamados_abertos": "chamados abertos",
+        "chamados_resolvidos": "chamados resolvidos",
+        "taxa_resolucao": "taxa de resolução",
+    }
+    if measure in measures:
+        lines.append(f"Medida: {measures[measure]}.")
+    # SUM sem linhas produz uma linha NULL. Só afirmar ausência quando a
+    # consulta traz a contagem de registros; NULL sozinho pode ser dado ausente.
+    columns, rows = result["columns"], result["rows"]
+    no_records = (
+        len(rows) == 1
+        and "registros" in columns
+        and rows[0][columns.index("registros")] == 0
+        and not result.get("truncated")
+    )
+    if not rows or no_records:
         return "\n".join(lines + ["Nenhum registro foi encontrado para esses filtros."])
     # Frases controladas para um único agregado. O modelo não escreve nem arredonda
     # o valor; detalhes, NULLs e resultados parciais continuam no formato de registros.
@@ -75,6 +106,8 @@ def render_answer(payload: dict, results: dict, metric: str, *, measure: str | N
             text = f"No período informado, o resultado para {subject} é {cell_text(value)}."
             if len(text) > 12000:
                 raise InvalidAnswer("Resultado extenso. Solicite um resumo ou refine os filtros.")
+            if period:
+                text += f"\nPeríodo: {start:%d/%m/%Y} a {end:%d/%m/%Y}."
             return text
     # Cabeçalhos livres poderiam esconder números gerados (inclusive por extenso).
     # Use rótulos fixos; a lista de colunas segue disponível na evidência interna.
@@ -100,6 +133,7 @@ def render_answer(payload: dict, results: dict, metric: str, *, measure: str | N
             " • ".join(
                 f"{labels.get(column, 'Campo')}: {cell_text(value)}"
                 for column, value in zip(result["columns"], row, strict=True)
+                if column != "registros"
             )
         )
     if result.get("truncated"):

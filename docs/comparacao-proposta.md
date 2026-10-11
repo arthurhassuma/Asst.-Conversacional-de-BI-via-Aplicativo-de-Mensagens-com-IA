@@ -1,5 +1,7 @@
 # Comparação da proposta com a implementação
 
+Atualização de 11/10/2026: o usuário ampliou o escopo até S10–S11. O conjunto de 40 casos e o executor agora estão implementados; consulte `protocolo-avaliacao.md`. Os resultados experimentais precisam de evidência real e não são inferidos da suíte. A tabela abaixo preserva o diagnóstico anterior à ampliação de escopo.
+
 Revisão em 10/10/2026. Fonte: `Asst. Conversacional de BI via Aplicativo de Mensagens com IA N3.pdf`, cinco páginas, preservado neste diretório. Base de código: `arthurhassuma/pac_privado`, commit `31ad3a4`, com os ajustes desta revisão.
 
 O PDF é uma referência acadêmica, não uma autorização para alterar o escopo. Prevalecem as decisões posteriores do usuário: migração para Gemini e desenvolvimento até as Fases 0–3. As metas experimentais não são critérios já comprovados pelos testes de engenharia.
