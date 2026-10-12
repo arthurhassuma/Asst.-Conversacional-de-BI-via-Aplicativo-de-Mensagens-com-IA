@@ -31,3 +31,33 @@ def test_packaged_artifact_has_probabilities_without_runtime_sklearn():
     result = load_classifier(Path("training/intent-model-v1.json")).predict("texto desconhecido")
     assert sum(result["probabilities"].values()) == pytest.approx(1)
     assert 0 <= result["confidence"] <= 1
+
+
+@pytest.mark.parametrize(
+    "field,value",
+    [
+        ("vocabulary", ["term"]),
+        (
+            "classes",
+            {
+                label: 1
+                for label in (
+                    "total",
+                    "comparacao",
+                    "tendencia",
+                    "ranking",
+                    "segmentacao",
+                    "operacional",
+                    "generica",
+                )
+            },
+        ),
+    ],
+)
+def test_malformed_json_shapes_are_rejected_as_value_error(field, value):
+    from app.intent_classifier import IntentClassifier
+
+    artifact = json.loads(Path("training/intent-model-v1.json").read_text(encoding="utf-8"))
+    artifact[field] = value
+    with pytest.raises(ValueError):
+        IntentClassifier(artifact)

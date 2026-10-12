@@ -42,19 +42,19 @@ def test_numeric_alias_is_not_printed_and_empty_does_not_imply_zero():
             "faturamento",
             "valor",
             "123456789.123456",
-            "No período informado, o resultado para faturamento emitido é 123.456.789,123456.",
+            "📊 Resultado para faturamento emitido: 123.456.789,123456.",
         ),
         (
             "clientes",
             "quantidade",
             30,
-            "No período informado, o resultado para quantidade de clientes é 30.",
+            "📊 Resultado para quantidade de clientes: 30.",
         ),
         (
             "horas",
             "horas_realizadas",
             "0.00",
-            "No período informado, o resultado para horas realizadas é 0,00.",
+            "📊 Resultado para horas realizadas: 0,00.",
         ),
     ],
 )

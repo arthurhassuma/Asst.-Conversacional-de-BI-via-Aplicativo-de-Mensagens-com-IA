@@ -1,6 +1,6 @@
 # Treinamento supervisionado de intenções — versão 1
 
-Executado em 12/10/2026. Modelo local TF-IDF (palavras/bigramas) + regressão logística. O Gemini não teve seus pesos alterados. Corpus integralmente sintético: 280 formulações em 70 grupos semânticos; 196 treino, 28 validação, 56 teste. Quatro formulações do mesmo cenário permanecem juntas. Rótulos revisados tecnicamente, sem alegar revisão externa por gestores.
+Executado em 12/10/2026. Modelo local TF-IDF (palavras/bigramas) + regressão logística. O Gemini não teve seus pesos alterados. Corpus integralmente sintético: 280 formulações em 70 grupos semânticos; 196 treino, 28 validação, 56 teste. São 49 grupos no treino, sete na validação e 14 no teste; as formulações de cada grupo são correlacionadas. Quatro formulações do mesmo cenário permanecem juntas. Rótulos revisados tecnicamente, sem alegar revisão externa por gestores.
 
 O vocabulário/IDF e os coeficientes foram ajustados apenas no treino. C selecionado: 0.5; limiar: 0.7; 625 características. Artefato congelado em 935aa4b antes de executar o teste uma vez. Classes e matrizes completas estão em [resultados JSON](treinamento-intencoes-resultados-v1.json).
 

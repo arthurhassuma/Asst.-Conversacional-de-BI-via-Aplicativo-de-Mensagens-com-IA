@@ -98,8 +98,14 @@ def score_turn(turn, trace, references):
 def summarize(cases, records, stop_reason):
     complete = len(records) == len(cases) and stop_reason is None
     metrics = {}
-    for name, is_answer in [("execution_accuracy", True), ("clarification_accuracy", False)]:
-        ids = {c.id for c in cases if (c.turns[-1].expected == "answer") == is_answer}
+    groups = [
+        ("execution_accuracy", lambda outcome: outcome == "answer"),
+        ("clarification_accuracy", lambda outcome: outcome.startswith("clarification")),
+    ]
+    if any(c.turns[-1].expected == "unsupported_request" for c in cases):
+        groups.append(("unsupported_accuracy", lambda outcome: outcome == "unsupported_request"))
+    for name, belongs in groups:
+        ids = {c.id for c in cases if belongs(c.turns[-1].expected)}
         observed = [r for r in records if r["id"] in ids]
         passed = sum(r["passed"] for r in observed)
         metrics[name] = {
@@ -124,7 +130,7 @@ def summarize(cases, records, stop_reason):
 
 def manifest(root, dataset_path, dataset, settings, database, split):
     sources = {}
-    for folder in ("app", "evaluation", "scripts", "db"):
+    for folder in ("app", "evaluation", "scripts", "db", "training"):
         for path in sorted((root / folder).rglob("*")):
             if path.is_file() and path.suffix in {".py", ".sql", ".json"}:
                 sources[path.relative_to(root).as_posix()] = digest(path.read_bytes())
@@ -145,6 +151,7 @@ def manifest(root, dataset_path, dataset, settings, database, split):
         "clients_declared": dataset.clients,
         "database": database_fingerprint(database),
         "model": settings.gemini_model,
+        "intent_classifier_enabled": settings.intent_classifier_enabled,
         "limits": {
             "rows": settings.max_query_rows,
             "sql_timeout_ms": settings.query_timeout_ms,

@@ -107,6 +107,14 @@ async def test_short_followup_without_reference_requires_clarification():
             "Qual o faturamento do cliente 11 em agosto de 2025?",
             "SELECT SUM(f.valor) AS total FROM faturamento f JOIN pedidos p ON p.id=f.pedido_id JOIN contratos c ON c.id=p.contrato_id WHERE c.cliente_id=11",
         ),
+        (
+            "Qual a média de faturamento em agosto de 2025?",
+            "SELECT AVG(valor) AS media FROM faturamento",
+        ),
+        (
+            "Arredonde o faturamento em agosto de 2025 para duas casas decimais",
+            "SELECT ROUND(SUM(valor),2) AS total FROM faturamento",
+        ),
     ],
 )
 async def test_explicit_filter_cannot_be_lost_even_if_planner_marks_total(question, sql):
@@ -125,3 +133,31 @@ async def test_explicit_filter_cannot_be_lost_even_if_planner_marks_total(questi
     db = Database()
     await BIAgent(Settings(_env_file=None), client, db).answer(question, [])
     assert db.queries == [sql]
+
+
+async def test_open_calls_are_a_measure_not_a_status_filter():
+    class Calls(Database):
+        def execute_sql(self, sql):
+            self.queries.append(sql)
+            return {
+                "columns": [
+                    "item",
+                    "chamados_abertos",
+                    "chamados_resolvidos",
+                    "saldo",
+                    "taxa_percentual",
+                    "registros",
+                ],
+                "rows": [["Total", 10, 8, 2, "80.0", 1]],
+                "truncated": False,
+            }
+
+    plan = copy.deepcopy(PLAN)
+    plan.pop("comparison_period")
+    plan.update(metric="chamados", measure="taxa_resolucao")
+    plan["analysis"].update(kind="operacional", group_by="nenhum", detail="chamados")
+    db = Calls()
+    text, _ = await BIAgent(Settings(_env_file=None), Client([plan_response(plan)]), db).answer(
+        "Mostre chamados abertos, resolvidos, saldo e taxa em agosto de 2025.", []
+    )
+    assert len(db.queries) == 1 and "80,0%" in text

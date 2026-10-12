@@ -52,7 +52,7 @@ def render_answer(
     ):
         raise InvalidAnswer("A resposta não referencia um resultado válido.")
     result = results[payload["result_id"]]
-    lines = [f"Consultei {METRICS[metric]} no período informado."]
+    lines = [f"📊 Resultado de {METRICS[metric]} no período informado."]
     if period:
         start = date.fromisoformat(period["start"])
         end = date.fromisoformat(period["end"]) - timedelta(days=1)
@@ -106,7 +106,7 @@ def render_answer(
         if re.fullmatch(r"-?\d+(?:\.\d+)?", str(value)):
             # O alias total também pode vir de AVG ou de uma variação. Não inferir
             # soma, moeda ou porcentagem somente pelo alias ou pelo plano do LLM.
-            text = f"No período informado, o resultado para {subject} é {cell_text(value)}."
+            text = f"📊 Resultado para {subject}: {cell_text(value)}."
             if len(text) > 12000:
                 raise InvalidAnswer("Resultado extenso. Solicite um resumo ou refine os filtros.")
             if period:
@@ -114,7 +114,7 @@ def render_answer(
             return text
     # Cabeçalhos livres poderiam esconder números gerados (inclusive por extenso).
     # Use rótulos fixos; a lista de colunas segue disponível na evidência interna.
-    lines.append("Os campos de cada registro aparecem na ordem da consulta:")
+    lines.append("Detalhamento:")
     # Labels sem números só para aliases canônicos do glossário controlado.
     labels = {
         "total": "Total",
@@ -130,6 +130,19 @@ def render_answer(
         "inicio": "Início",
         "fim": "Fim",
         "metrica": "Métrica",
+        "media": "Média",
+        "ticket_medio": "Ticket médio",
+        "base": "Base",
+        "atual": "Atual",
+        "diferenca": "Diferença",
+        "variacao_percentual": "Variação percentual",
+        "participacao": "Participação",
+        "faturamento": "Faturamento emitido",
+        "recebimentos": "Recebimentos",
+        "horas_previstas": "Horas previstas",
+        "horas_realizadas": "Horas realizadas",
+        "chamados_abertos": "Chamados abertos",
+        "chamados_resolvidos": "Chamados resolvidos",
     }
     for row in result["rows"]:
         lines.append(

@@ -26,7 +26,7 @@ bi-telegram = "app.telegram_bot:main"
 include = ["app*", "scripts*", "evaluation*", "training*"]
 
 [tool.setuptools.package-data]
-evaluation = ["cases.json"]
+evaluation = ["cases.json", "managerial-cases-v1.json"]
 training = ["questions-v1.json", "protocol.json", "intent-model-v1.json"]
 
 [tool.pytest.ini_options]

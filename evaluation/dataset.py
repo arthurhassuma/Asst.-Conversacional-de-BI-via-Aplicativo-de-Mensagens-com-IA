@@ -28,7 +28,11 @@ class Reference(StrictModel):
 class Turn(StrictModel):
     question: str = Field(min_length=1, max_length=4000)
     expected: Literal[
-        "answer", "clarification_period", "clarification_metric", "clarification_measure"
+        "answer",
+        "clarification_period",
+        "clarification_metric",
+        "clarification_measure",
+        "unsupported_request",
     ]
     references: list[Reference] = Field(default_factory=list)
 

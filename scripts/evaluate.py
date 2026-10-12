@@ -43,7 +43,8 @@ def verify_database(database, evidence, output, summary):
 
 async def execute(args):
     root = Path(__file__).resolve().parents[1]
-    path = root / "evaluation" / "cases.json"
+    path = getattr(args, "dataset", None) or root / "evaluation" / "cases.json"
+    path = path if path.is_absolute() else root / path
     dataset = load_dataset(path)
     settings = Settings(_env_file=args.env_file)
     database = DatabaseTools(settings)
@@ -75,6 +76,11 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("command", choices=["validate", "run"])
     parser.add_argument("--env-file", default=".env")
+    parser.add_argument(
+        "--dataset",
+        type=Path,
+        help="Conjunto explícito; padrão mantém os casos acadêmicos originais.",
+    )
     parser.add_argument("--split", choices=["development", "test"], default="development")
     parser.add_argument("--live", action="store_true")
     parser.add_argument("--interval", type=float, default=12)

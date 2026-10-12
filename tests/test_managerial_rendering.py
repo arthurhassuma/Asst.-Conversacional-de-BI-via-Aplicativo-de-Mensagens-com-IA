@@ -3,7 +3,7 @@ import pytest
 from app.managerial_queries import managerial_query
 from app.managerial_rendering import render_managerial
 from app.messaging import message_chunks
-from app.rendering import InvalidAnswer, cell_text
+from app.rendering import InvalidAnswer, cell_text, render_answer
 from tests.test_analysis_contract import PLAN
 
 
@@ -64,3 +64,14 @@ def test_monthly_series_keeps_every_month_when_it_fits():
     )
     assert "2026-12-01" in text
     assert "primeiros registros" not in text
+
+
+def test_free_sql_results_are_friendly_without_inventing_units():
+    text = render_answer(
+        {"kind": "answer", "result_id": "q1"},
+        {"q1": {"columns": ["total"], "rows": [["1234.56"]], "truncated": False}},
+        "faturamento",
+        measure="valor",
+    )
+    assert text.startswith("📊") and "1.234,56" in text
+    assert "R$" not in text and "causa" not in text

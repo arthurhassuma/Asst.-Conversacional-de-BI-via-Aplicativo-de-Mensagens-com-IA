@@ -20,6 +20,15 @@ class IntentClassifier:
             self.coef = artifact["coef"]
             self.intercept = artifact["intercept"]
             self.threshold = artifact["threshold"]
+            if not (
+                type(self.classes) is list
+                and type(self.vocabulary) is dict
+                and type(self.idf) is list
+                and type(self.coef) is list
+                and all(type(row) is list for row in self.coef)
+                and type(self.intercept) is list
+            ):
+                raise ValueError
             n = len(self.vocabulary)
             valid = (
                 artifact["schema_version"] == "intent-v1"
@@ -35,13 +44,14 @@ class IntentClassifier:
                 and 1 <= n <= 100000
                 and set(self.vocabulary.values()) == set(range(n))
                 and all(isinstance(k, str) for k in self.vocabulary)
+                and all(type(v) is int for v in self.vocabulary.values())
                 and len(self.idf) == n
                 and len(self.coef) == len(self.classes)
                 and all(len(row) == n for row in self.coef)
                 and len(self.intercept) == len(self.classes)
                 and 0 <= self.threshold <= 1
                 and all(
-                    math.isfinite(v)
+                    type(v) in (int, float) and math.isfinite(v)
                     for values in [self.idf, self.intercept, *self.coef]
                     for v in values
                 )

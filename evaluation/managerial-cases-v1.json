@@ -1,0 +1,795 @@
+{
+  "version": "managerial-v1",
+  "seed": 42,
+  "clients": 100,
+  "cases": [
+    {
+      "id": "D21",
+      "split": "development",
+      "category": "comparacao",
+      "turns": [
+        {
+          "question": "Compare o faturamento emitido de junho de 2025 com junho de 2026, com diferença e variação percentual.",
+          "expected": "answer",
+          "references": [
+            {
+              "metric": "faturamento",
+              "sql": "WITH r AS (SELECT SUM(CASE WHEN emissao >= DATE '2025-06-01' AND emissao < DATE '2025-07-01' THEN valor END) AS b, SUM(CASE WHEN emissao >= DATE '2026-06-01' AND emissao < DATE '2026-07-01' THEN valor END) AS a FROM faturamento WHERE status <> 'cancelada' AND ((emissao >= DATE '2025-06-01' AND emissao < DATE '2025-07-01') OR (emissao >= DATE '2026-06-01' AND emissao < DATE '2026-07-01'))) SELECT 'Total'::text, b, a, a-b, (a-b)*100/NULLIF(b,0), CASE WHEN a>b THEN 'aumentou' WHEN a<b THEN 'diminuiu' WHEN a=b THEN 'ficou_estavel' ELSE 'indefinido' END FROM r",
+              "types": [
+                "text",
+                "number",
+                "number",
+                "number",
+                "number",
+                "text"
+              ],
+              "ordered": true,
+              "interpretation": "Gabarito independente: critérios explícitos da pergunta; registros sintéticos, sem inferência causal."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "D22",
+      "split": "development",
+      "category": "comparacao",
+      "turns": [
+        {
+          "question": "Quanto mudou a quantidade de pedidos de março de 2025 para março de 2026? Compare os totais e a variação percentual.",
+          "expected": "answer",
+          "references": [
+            {
+              "metric": "pedidos",
+              "sql": "WITH r AS (SELECT COUNT(CASE WHEN data_pedido >= DATE '2025-03-01' AND data_pedido < DATE '2025-04-01' THEN 1 END)::numeric AS b, COUNT(CASE WHEN data_pedido >= DATE '2026-03-01' AND data_pedido < DATE '2026-04-01' THEN 1 END)::numeric AS a FROM pedidos WHERE status <> 'cancelado' AND ((data_pedido >= DATE '2025-03-01' AND data_pedido < DATE '2025-04-01') OR (data_pedido >= DATE '2026-03-01' AND data_pedido < DATE '2026-04-01'))) SELECT 'Total'::text, b, a, a-b, (a-b)*100/NULLIF(b,0), CASE WHEN a>b THEN 'aumentou' WHEN a<b THEN 'diminuiu' WHEN a=b THEN 'ficou_estavel' ELSE 'indefinido' END FROM r",
+              "types": [
+                "text",
+                "number",
+                "number",
+                "number",
+                "number",
+                "text"
+              ],
+              "ordered": true,
+              "interpretation": "Gabarito independente: critérios explícitos da pergunta; registros sintéticos, sem inferência causal."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "D23",
+      "split": "development",
+      "category": "comparacao",
+      "turns": [
+        {
+          "question": "Compare o valor dos contratos iniciados em abril de 2025 e abril de 2026, incluindo diferença e percentual.",
+          "expected": "answer",
+          "references": [
+            {
+              "metric": "contratos",
+              "sql": "WITH r AS (SELECT SUM(CASE WHEN inicio >= DATE '2025-04-01' AND inicio < DATE '2025-05-01' THEN valor_contratado END) AS b, SUM(CASE WHEN inicio >= DATE '2026-04-01' AND inicio < DATE '2026-05-01' THEN valor_contratado END) AS a FROM contratos WHERE TRUE AND ((inicio >= DATE '2025-04-01' AND inicio < DATE '2025-05-01') OR (inicio >= DATE '2026-04-01' AND inicio < DATE '2026-05-01'))) SELECT 'Total'::text, b, a, a-b, (a-b)*100/NULLIF(b,0), CASE WHEN a>b THEN 'aumentou' WHEN a<b THEN 'diminuiu' WHEN a=b THEN 'ficou_estavel' ELSE 'indefinido' END FROM r",
+              "types": [
+                "text",
+                "number",
+                "number",
+                "number",
+                "number",
+                "text"
+              ],
+              "ordered": true,
+              "interpretation": "Gabarito independente: critérios explícitos da pergunta; registros sintéticos, sem inferência causal."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "D24",
+      "split": "development",
+      "category": "comparacao",
+      "turns": [
+        {
+          "question": "Tomando janeiro a outubro de 2025 como base, compare os recebimentos com janeiro a outubro de 2026 e mostre diferença e variação percentual.",
+          "expected": "answer",
+          "references": [
+            {
+              "metric": "recebimentos",
+              "sql": "WITH r AS (SELECT SUM(CASE WHEN pagamento >= DATE '2025-01-01' AND pagamento < DATE '2025-11-01' THEN valor END) AS b, SUM(CASE WHEN pagamento >= DATE '2026-01-01' AND pagamento < DATE '2026-11-01' THEN valor END) AS a FROM faturamento WHERE status = 'paga' AND ((pagamento >= DATE '2025-01-01' AND pagamento < DATE '2025-11-01') OR (pagamento >= DATE '2026-01-01' AND pagamento < DATE '2026-11-01'))) SELECT 'Total'::text, b, a, a-b, (a-b)*100/NULLIF(b,0), CASE WHEN a>b THEN 'aumentou' WHEN a<b THEN 'diminuiu' WHEN a=b THEN 'ficou_estavel' ELSE 'indefinido' END FROM r",
+              "types": [
+                "text",
+                "number",
+                "number",
+                "number",
+                "number",
+                "text"
+              ],
+              "ordered": true,
+              "interpretation": "Gabarito independente: critérios explícitos da pergunta; registros sintéticos, sem inferência causal."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "D25",
+      "split": "development",
+      "category": "contribuicao",
+      "turns": [
+        {
+          "question": "Quais segmentos contribuíram para a variação de faturamento emitido entre fevereiro de 2025 e fevereiro de 2026? Mostre base, atual, diferença, variação e contribuição.",
+          "expected": "answer",
+          "references": [
+            {
+              "metric": "faturamento",
+              "sql": "WITH grupos AS (SELECT c.segmento AS item, SUM(CASE WHEN f.emissao >= DATE '2025-02-01' AND f.emissao < DATE '2025-03-01' THEN f.valor ELSE 0 END) AS b, SUM(CASE WHEN f.emissao >= DATE '2026-02-01' AND f.emissao < DATE '2026-03-01' THEN f.valor ELSE 0 END) AS a FROM faturamento f JOIN pedidos p ON p.id=f.pedido_id JOIN contratos ct ON ct.id=p.contrato_id JOIN clientes c ON c.id=ct.cliente_id WHERE f.status<>'cancelada' AND ((f.emissao >= DATE '2025-02-01' AND f.emissao < DATE '2025-03-01') OR (f.emissao >= DATE '2026-02-01' AND f.emissao < DATE '2026-03-01')) GROUP BY c.segmento) SELECT item,b,a,a-b,(a-b)*100/NULLIF(b,0),CASE WHEN a>b THEN 'aumentou' WHEN a<b THEN 'diminuiu' WHEN a=b THEN 'ficou_estavel' ELSE 'indefinido' END,(a-b)*100/NULLIF(SUM(a-b) OVER (),0) FROM grupos ORDER BY (a-b) DESC NULLS LAST,item",
+              "types": [
+                "text",
+                "number",
+                "number",
+                "number",
+                "number",
+                "text",
+                "number"
+              ],
+              "ordered": true,
+              "interpretation": "Gabarito independente: critérios explícitos da pergunta; registros sintéticos, sem inferência causal."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "D26",
+      "split": "development",
+      "category": "contribuicao",
+      "turns": [
+        {
+          "question": "Detalhe por cidade a contribuição para a diferença de faturamento emitido de julho de 2025 para julho de 2026, com valores e percentuais.",
+          "expected": "answer",
+          "references": [
+            {
+              "metric": "faturamento",
+              "sql": "WITH grupos AS (SELECT c.cidade AS item, SUM(CASE WHEN f.emissao >= DATE '2025-07-01' AND f.emissao < DATE '2025-08-01' THEN f.valor ELSE 0 END) AS b, SUM(CASE WHEN f.emissao >= DATE '2026-07-01' AND f.emissao < DATE '2026-08-01' THEN f.valor ELSE 0 END) AS a FROM faturamento f JOIN pedidos p ON p.id=f.pedido_id JOIN contratos ct ON ct.id=p.contrato_id JOIN clientes c ON c.id=ct.cliente_id WHERE f.status<>'cancelada' AND ((f.emissao >= DATE '2025-07-01' AND f.emissao < DATE '2025-08-01') OR (f.emissao >= DATE '2026-07-01' AND f.emissao < DATE '2026-08-01')) GROUP BY c.cidade) SELECT item,b,a,a-b,(a-b)*100/NULLIF(b,0),CASE WHEN a>b THEN 'aumentou' WHEN a<b THEN 'diminuiu' WHEN a=b THEN 'ficou_estavel' ELSE 'indefinido' END,(a-b)*100/NULLIF(SUM(a-b) OVER (),0) FROM grupos ORDER BY (a-b) DESC NULLS LAST,item",
+              "types": [
+                "text",
+                "number",
+                "number",
+                "number",
+                "number",
+                "text",
+                "number"
+              ],
+              "ordered": true,
+              "interpretation": "Gabarito independente: critérios explícitos da pergunta; registros sintéticos, sem inferência causal."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "D27",
+      "split": "development",
+      "category": "tendencia",
+      "turns": [
+        {
+          "question": "Mostre mês a mês o faturamento emitido durante o ano de 2025.",
+          "expected": "answer",
+          "references": [
+            {
+              "metric": "faturamento",
+              "sql": "SELECT date_trunc('month',emissao)::date::text AS mes, SUM(valor) AS valor FROM faturamento WHERE status<>'cancelada' AND emissao >= DATE '2025-01-01' AND emissao < DATE '2026-01-01' GROUP BY 1 ORDER BY 1",
+              "types": [
+                "text",
+                "number"
+              ],
+              "ordered": true,
+              "interpretation": "Gabarito independente: critérios explícitos da pergunta; registros sintéticos, sem inferência causal."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "D28",
+      "split": "development",
+      "category": "tendencia",
+      "turns": [
+        {
+          "question": "Como evoluíram os recebimentos por mês de janeiro a outubro de 2026?",
+          "expected": "answer",
+          "references": [
+            {
+              "metric": "recebimentos",
+              "sql": "SELECT date_trunc('month',pagamento)::date::text AS mes, SUM(valor) AS valor FROM faturamento WHERE status='paga' AND pagamento >= DATE '2026-01-01' AND pagamento < DATE '2026-11-01' GROUP BY 1 ORDER BY 1",
+              "types": [
+                "text",
+                "number"
+              ],
+              "ordered": true,
+              "interpretation": "Gabarito independente: critérios explícitos da pergunta; registros sintéticos, sem inferência causal."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "D29",
+      "split": "development",
+      "category": "tendencia",
+      "turns": [
+        {
+          "question": "Apresente a quantidade de pedidos por mês no primeiro trimestre de 2026.",
+          "expected": "answer",
+          "references": [
+            {
+              "metric": "pedidos",
+              "sql": "SELECT date_trunc('month',data_pedido)::date::text AS mes, COUNT(*)::numeric AS valor FROM pedidos WHERE status<>'cancelado' AND data_pedido >= DATE '2026-01-01' AND data_pedido < DATE '2026-04-01' GROUP BY 1 ORDER BY 1",
+              "types": [
+                "text",
+                "number"
+              ],
+              "ordered": true,
+              "interpretation": "Gabarito independente: critérios explícitos da pergunta; registros sintéticos, sem inferência causal."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "D30",
+      "split": "development",
+      "category": "tendencia",
+      "turns": [
+        {
+          "question": "Quero acompanhar novos clientes mês a mês de janeiro a junho de 2025.",
+          "expected": "answer",
+          "references": [
+            {
+              "metric": "clientes",
+              "sql": "SELECT date_trunc('month',cadastrado_em)::date::text AS mes, COUNT(*)::numeric AS valor FROM clientes WHERE TRUE AND cadastrado_em >= DATE '2025-01-01' AND cadastrado_em < DATE '2025-07-01' GROUP BY 1 ORDER BY 1",
+              "types": [
+                "text",
+                "number"
+              ],
+              "ordered": true,
+              "interpretation": "Gabarito independente: critérios explícitos da pergunta; registros sintéticos, sem inferência causal."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "D31",
+      "split": "development",
+      "category": "ranking",
+      "turns": [
+        {
+          "question": "Quais são os cinco clientes com maior faturamento emitido em setembro de 2026? Mostre o ranking.",
+          "expected": "answer",
+          "references": [
+            {
+              "metric": "faturamento",
+              "sql": "WITH r AS (SELECT c.id::text || ' — ' || c.nome AS item,SUM(f.valor) AS valor FROM faturamento f JOIN pedidos p ON p.id=f.pedido_id JOIN contratos ct ON ct.id=p.contrato_id JOIN clientes c ON c.id=ct.cliente_id WHERE f.status<>'cancelada' AND f.emissao >= DATE '2026-09-01' AND f.emissao < DATE '2026-10-01' GROUP BY c.id::text || ' — ' || c.nome) SELECT item,valor, ROW_NUMBER() OVER (ORDER BY valor DESC NULLS LAST,item) AS posicao FROM r ORDER BY valor DESC NULLS LAST,item LIMIT 5",
+              "types": [
+                "text",
+                "number",
+                "number"
+              ],
+              "ordered": true,
+              "interpretation": "Gabarito independente: critérios explícitos da pergunta; registros sintéticos, sem inferência causal."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "D32",
+      "split": "development",
+      "category": "ranking",
+      "turns": [
+        {
+          "question": "Faça o ranking das três cidades com maior valor de pedidos em agosto de 2026.",
+          "expected": "answer",
+          "references": [
+            {
+              "metric": "pedidos",
+              "sql": "WITH r AS (SELECT c.cidade AS item,SUM(p.valor) AS valor FROM pedidos p JOIN contratos ct ON ct.id=p.contrato_id JOIN clientes c ON c.id=ct.cliente_id WHERE p.status<>'cancelado' AND p.data_pedido >= DATE '2026-08-01' AND p.data_pedido < DATE '2026-09-01' GROUP BY c.cidade) SELECT item,valor, ROW_NUMBER() OVER (ORDER BY valor DESC NULLS LAST,item) AS posicao FROM r ORDER BY valor DESC NULLS LAST,item LIMIT 3",
+              "types": [
+                "text",
+                "number",
+                "number"
+              ],
+              "ordered": true,
+              "interpretation": "Gabarito independente: critérios explícitos da pergunta; registros sintéticos, sem inferência causal."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "D33",
+      "split": "development",
+      "category": "ranking",
+      "turns": [
+        {
+          "question": "Quais cinco contratos tiveram mais pedidos em quantidade em outubro de 2025? Quero um ranking.",
+          "expected": "answer",
+          "references": [
+            {
+              "metric": "pedidos",
+              "sql": "WITH r AS (SELECT ct.id::text || ' — ' || c.nome AS item,COUNT(*)::numeric AS valor FROM pedidos p JOIN contratos ct ON ct.id=p.contrato_id JOIN clientes c ON c.id=ct.cliente_id WHERE p.status<>'cancelado' AND p.data_pedido >= DATE '2025-10-01' AND p.data_pedido < DATE '2025-11-01' GROUP BY ct.id::text || ' — ' || c.nome) SELECT item,valor, ROW_NUMBER() OVER (ORDER BY valor DESC NULLS LAST,item) AS posicao FROM r ORDER BY valor DESC NULLS LAST,item LIMIT 5",
+              "types": [
+                "text",
+                "number",
+                "number"
+              ],
+              "ordered": true,
+              "interpretation": "Gabarito independente: critérios explícitos da pergunta; registros sintéticos, sem inferência causal."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "D34",
+      "split": "development",
+      "category": "segmentacao",
+      "turns": [
+        {
+          "question": "Distribua o faturamento emitido de julho de 2026 por segmento e mostre a participação de cada um.",
+          "expected": "answer",
+          "references": [
+            {
+              "metric": "faturamento",
+              "sql": "WITH r AS (SELECT c.segmento AS item,SUM(f.valor) AS valor FROM faturamento f JOIN pedidos p ON p.id=f.pedido_id JOIN contratos ct ON ct.id=p.contrato_id JOIN clientes c ON c.id=ct.cliente_id WHERE f.status<>'cancelada' AND f.emissao >= DATE '2026-07-01' AND f.emissao < DATE '2026-08-01' GROUP BY c.segmento) SELECT item,valor,valor*100/NULLIF(SUM(valor) OVER (),0) AS participacao FROM r ORDER BY valor DESC NULLS LAST,item",
+              "types": [
+                "text",
+                "number",
+                "number"
+              ],
+              "ordered": true,
+              "interpretation": "Gabarito independente: critérios explícitos da pergunta; registros sintéticos, sem inferência causal."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "D35",
+      "split": "development",
+      "category": "segmentacao",
+      "turns": [
+        {
+          "question": "Como se dividem os recebimentos de dezembro de 2025 por cidade? Inclua a participação percentual.",
+          "expected": "answer",
+          "references": [
+            {
+              "metric": "recebimentos",
+              "sql": "WITH r AS (SELECT c.cidade AS item,SUM(f.valor) AS valor FROM faturamento f JOIN pedidos p ON p.id=f.pedido_id JOIN contratos ct ON ct.id=p.contrato_id JOIN clientes c ON c.id=ct.cliente_id WHERE f.status='paga' AND f.pagamento >= DATE '2025-12-01' AND f.pagamento < DATE '2026-01-01' GROUP BY c.cidade) SELECT item,valor,valor*100/NULLIF(SUM(valor) OVER (),0) AS participacao FROM r ORDER BY valor DESC NULLS LAST,item",
+              "types": [
+                "text",
+                "number",
+                "number"
+              ],
+              "ordered": true,
+              "interpretation": "Gabarito independente: critérios explícitos da pergunta; registros sintéticos, sem inferência causal."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "D36",
+      "split": "development",
+      "category": "operacional",
+      "turns": [
+        {
+          "question": "Compare horas previstas e realizadas por cliente em janeiro de 2025, com desvio em horas e percentual.",
+          "expected": "answer",
+          "references": [
+            {
+              "metric": "horas",
+              "sql": "SELECT c.id::text || ' — ' || c.nome AS item,SUM(i.horas_previstas),SUM(i.horas_realizadas),SUM(i.horas_realizadas)-SUM(i.horas_previstas),(SUM(i.horas_realizadas)-SUM(i.horas_previstas))*100/NULLIF(SUM(i.horas_previstas),0) FROM indicadores_operacionais i JOIN contratos ct ON ct.id=i.contrato_id JOIN clientes c ON c.id=ct.cliente_id WHERE i.competencia >= DATE '2025-01-01' AND i.competencia < DATE '2025-02-01' GROUP BY c.id::text || ' — ' || c.nome ORDER BY (SUM(i.horas_realizadas)-SUM(i.horas_previstas)) DESC NULLS LAST,item",
+              "types": [
+                "text",
+                "number",
+                "number",
+                "number",
+                "number"
+              ],
+              "ordered": true,
+              "interpretation": "Gabarito independente: critérios explícitos da pergunta; registros sintéticos, sem inferência causal."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "D37",
+      "split": "development",
+      "category": "operacional",
+      "turns": [
+        {
+          "question": "Qual foi o desvio entre horas previstas e realizadas em setembro de 2026? Inclua os dois totais e o desvio percentual.",
+          "expected": "answer",
+          "references": [
+            {
+              "metric": "horas",
+              "sql": "SELECT 'Total'::text AS item,SUM(i.horas_previstas),SUM(i.horas_realizadas),SUM(i.horas_realizadas)-SUM(i.horas_previstas),(SUM(i.horas_realizadas)-SUM(i.horas_previstas))*100/NULLIF(SUM(i.horas_previstas),0) FROM indicadores_operacionais i JOIN contratos ct ON ct.id=i.contrato_id JOIN clientes c ON c.id=ct.cliente_id WHERE i.competencia >= DATE '2026-09-01' AND i.competencia < DATE '2026-10-01'  ORDER BY (SUM(i.horas_realizadas)-SUM(i.horas_previstas)) DESC NULLS LAST,item",
+              "types": [
+                "text",
+                "number",
+                "number",
+                "number",
+                "number"
+              ],
+              "ordered": true,
+              "interpretation": "Gabarito independente: critérios explícitos da pergunta; registros sintéticos, sem inferência causal."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "D38",
+      "split": "development",
+      "category": "operacional",
+      "turns": [
+        {
+          "question": "Mostre chamados abertos, resolvidos, saldo e taxa de resolução em maio de 2026.",
+          "expected": "answer",
+          "references": [
+            {
+              "metric": "chamados",
+              "sql": "SELECT 'Total'::text,SUM(chamados_abertos),SUM(chamados_resolvidos),SUM(chamados_abertos)-SUM(chamados_resolvidos),SUM(chamados_resolvidos)::numeric*100/NULLIF(SUM(chamados_abertos),0) FROM indicadores_operacionais WHERE competencia >= DATE '2026-05-01' AND competencia < DATE '2026-06-01'",
+              "types": [
+                "text",
+                "number",
+                "number",
+                "number",
+                "number"
+              ],
+              "ordered": true,
+              "interpretation": "Gabarito independente: critérios explícitos da pergunta; registros sintéticos, sem inferência causal."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "D39",
+      "split": "development",
+      "category": "fluxos",
+      "turns": [
+        {
+          "question": "Confronte o faturamento emitido com os recebimentos de março de 2026. Mostre os valores e a diferença entre os fluxos.",
+          "expected": "answer",
+          "references": [
+            {
+              "metric": "faturamento",
+              "sql": "WITH t AS (SELECT SUM(CASE WHEN status<>'cancelada' AND (emissao >= DATE '2026-03-01' AND emissao < DATE '2026-04-01') THEN valor END) AS emitido,SUM(CASE WHEN status='paga' AND (pagamento >= DATE '2026-03-01' AND pagamento < DATE '2026-04-01') THEN valor END) AS recebido FROM faturamento WHERE (emissao >= DATE '2026-03-01' AND emissao < DATE '2026-04-01') OR (pagamento >= DATE '2026-03-01' AND pagamento < DATE '2026-04-01')) SELECT emitido,recebido,emitido-recebido FROM t",
+              "types": [
+                "number",
+                "number",
+                "number"
+              ],
+              "ordered": true,
+              "interpretation": "Gabarito independente: critérios explícitos da pergunta; registros sintéticos, sem inferência causal."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "D40",
+      "split": "development",
+      "category": "filtro",
+      "turns": [
+        {
+          "question": "Liste os nomes dos clientes de Curitiba e seus valores de faturamento emitido em maio de 2026, sem códigos, do maior valor para o menor.",
+          "expected": "answer",
+          "references": [
+            {
+              "metric": "faturamento",
+              "sql": "SELECT c.nome AS cliente,SUM(f.valor) AS valor FROM faturamento f JOIN pedidos p ON p.id=f.pedido_id JOIN contratos ct ON ct.id=p.contrato_id JOIN clientes c ON c.id=ct.cliente_id WHERE c.cidade='Curitiba' AND f.status<>'cancelada' AND f.emissao>=DATE '2026-05-01' AND f.emissao<DATE '2026-06-01' GROUP BY c.nome ORDER BY valor DESC,c.nome",
+              "types": [
+                "text",
+                "number"
+              ],
+              "ordered": true,
+              "interpretation": "Gabarito independente: critérios explícitos da pergunta; registros sintéticos, sem inferência causal."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "D41",
+      "split": "development",
+      "category": "ambiguidade",
+      "turns": [
+        {
+          "question": "Como o faturamento emitido de agosto de 2026 mudou? Quero comparar, mas ainda não defini o período de referência.",
+          "expected": "clarification_period",
+          "references": []
+        }
+      ]
+    },
+    {
+      "id": "D42",
+      "split": "development",
+      "category": "limite",
+      "turns": [
+        {
+          "question": "Qual foi o lucro líquido em setembro de 2026?",
+          "expected": "unsupported_request",
+          "references": []
+        }
+      ]
+    },
+    {
+      "id": "D43",
+      "split": "development",
+      "category": "limite",
+      "turns": [
+        {
+          "question": "Qual é a causa exata da queda de faturamento de agosto para setembro de 2026?",
+          "expected": "unsupported_request",
+          "references": []
+        }
+      ]
+    },
+    {
+      "id": "D44",
+      "split": "development",
+      "category": "limite",
+      "turns": [
+        {
+          "question": "Preveja o faturamento de janeiro de 2027 usando este assistente.",
+          "expected": "unsupported_request",
+          "references": []
+        }
+      ]
+    },
+    {
+      "id": "D45",
+      "split": "development",
+      "category": "ambiguidade",
+      "turns": [
+        {
+          "question": "Como foram as vendas em outubro de 2025?",
+          "expected": "clarification_metric",
+          "references": []
+        }
+      ]
+    },
+    {
+      "id": "T21",
+      "split": "test",
+      "category": "comparacao",
+      "turns": [
+        {
+          "question": "Compare o faturamento emitido de setembro de 2025 com setembro de 2026, com valores, diferença e percentual de variação.",
+          "expected": "answer",
+          "references": [
+            {
+              "metric": "faturamento",
+              "sql": "WITH r AS (SELECT SUM(CASE WHEN emissao >= DATE '2025-09-01' AND emissao < DATE '2025-10-01' THEN valor END) AS b, SUM(CASE WHEN emissao >= DATE '2026-09-01' AND emissao < DATE '2026-10-01' THEN valor END) AS a FROM faturamento WHERE status<>'cancelada' AND ((emissao >= DATE '2025-09-01' AND emissao < DATE '2025-10-01') OR (emissao >= DATE '2026-09-01' AND emissao < DATE '2026-10-01'))) SELECT 'Total'::text, b, a, a-b, (a-b)*100/NULLIF(b,0), CASE WHEN a>b THEN 'aumentou' WHEN a<b THEN 'diminuiu' WHEN a=b THEN 'ficou_estavel' ELSE 'indefinido' END FROM r",
+              "types": [
+                "text",
+                "number",
+                "number",
+                "number",
+                "number",
+                "text"
+              ],
+              "ordered": true,
+              "interpretation": "Gabarito independente: critérios explícitos da pergunta; registros sintéticos, sem inferência causal."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "T22",
+      "split": "test",
+      "category": "comparacao",
+      "turns": [
+        {
+          "question": "Quero comparar o total de pedidos em quantidade entre outubro de 2025 e outubro de 2026, inclusive diferença e percentual.",
+          "expected": "answer",
+          "references": [
+            {
+              "metric": "pedidos",
+              "sql": "WITH r AS (SELECT COUNT(CASE WHEN data_pedido >= DATE '2025-10-01' AND data_pedido < DATE '2025-11-01' THEN 1 END)::numeric AS b, COUNT(CASE WHEN data_pedido >= DATE '2026-10-01' AND data_pedido < DATE '2026-11-01' THEN 1 END)::numeric AS a FROM pedidos WHERE status<>'cancelado' AND ((data_pedido >= DATE '2025-10-01' AND data_pedido < DATE '2025-11-01') OR (data_pedido >= DATE '2026-10-01' AND data_pedido < DATE '2026-11-01'))) SELECT 'Total'::text, b, a, a-b, (a-b)*100/NULLIF(b,0), CASE WHEN a>b THEN 'aumentou' WHEN a<b THEN 'diminuiu' WHEN a=b THEN 'ficou_estavel' ELSE 'indefinido' END FROM r",
+              "types": [
+                "text",
+                "number",
+                "number",
+                "number",
+                "number",
+                "text"
+              ],
+              "ordered": true,
+              "interpretation": "Gabarito independente: critérios explícitos da pergunta; registros sintéticos, sem inferência causal."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "T23",
+      "split": "test",
+      "category": "contribuicao",
+      "turns": [
+        {
+          "question": "Qual a contribuição por segmento para a variação de recebimentos entre janeiro a março de 2025 e janeiro a março de 2026? Inclua valores dos períodos e percentuais.",
+          "expected": "answer",
+          "references": [
+            {
+              "metric": "recebimentos",
+              "sql": "WITH grupos AS (SELECT c.segmento AS item, SUM(CASE WHEN f.pagamento >= DATE '2025-01-01' AND f.pagamento < DATE '2025-04-01' THEN f.valor ELSE 0 END) AS b, SUM(CASE WHEN f.pagamento >= DATE '2026-01-01' AND f.pagamento < DATE '2026-04-01' THEN f.valor ELSE 0 END) AS a FROM faturamento f JOIN pedidos p ON p.id=f.pedido_id JOIN contratos ct ON ct.id=p.contrato_id JOIN clientes c ON c.id=ct.cliente_id WHERE f.status='paga' AND ((f.pagamento >= DATE '2025-01-01' AND f.pagamento < DATE '2025-04-01') OR (f.pagamento >= DATE '2026-01-01' AND f.pagamento < DATE '2026-04-01')) GROUP BY c.segmento) SELECT item,b,a,a-b,(a-b)*100/NULLIF(b,0),CASE WHEN a>b THEN 'aumentou' WHEN a<b THEN 'diminuiu' WHEN a=b THEN 'ficou_estavel' ELSE 'indefinido' END,(a-b)*100/NULLIF(SUM(a-b) OVER (),0) FROM grupos ORDER BY (a-b) DESC NULLS LAST,item",
+              "types": [
+                "text",
+                "number",
+                "number",
+                "number",
+                "number",
+                "text",
+                "number"
+              ],
+              "ordered": true,
+              "interpretation": "Gabarito independente: critérios explícitos da pergunta; registros sintéticos, sem inferência causal."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "T24",
+      "split": "test",
+      "category": "tendencia",
+      "turns": [
+        {
+          "question": "Mostre a evolução mês a mês do faturamento emitido de junho a outubro de 2026.",
+          "expected": "answer",
+          "references": [
+            {
+              "metric": "faturamento",
+              "sql": "SELECT date_trunc('month',emissao)::date::text AS mes, SUM(valor) AS valor FROM faturamento WHERE status<>'cancelada' AND emissao >= DATE '2026-06-01' AND emissao < DATE '2026-11-01' GROUP BY 1 ORDER BY 1",
+              "types": [
+                "text",
+                "number"
+              ],
+              "ordered": true,
+              "interpretation": "Gabarito independente: critérios explícitos da pergunta; registros sintéticos, sem inferência causal."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "T25",
+      "split": "test",
+      "category": "ranking",
+      "turns": [
+        {
+          "question": "Monte o ranking dos cinco clientes com maior valor de contratos iniciados entre janeiro e outubro de 2026.",
+          "expected": "answer",
+          "references": [
+            {
+              "metric": "contratos",
+              "sql": "WITH r AS (SELECT c.id::text || ' — ' || c.nome AS item,SUM(ct.valor_contratado) AS valor FROM contratos ct JOIN clientes c ON c.id=ct.cliente_id WHERE TRUE AND ct.inicio >= DATE '2026-01-01' AND ct.inicio < DATE '2026-11-01' GROUP BY c.id::text || ' — ' || c.nome) SELECT item,valor, ROW_NUMBER() OVER (ORDER BY valor DESC NULLS LAST,item) AS posicao FROM r ORDER BY valor DESC NULLS LAST,item LIMIT 5",
+              "types": [
+                "text",
+                "number",
+                "number"
+              ],
+              "ordered": true,
+              "interpretation": "Gabarito independente: critérios explícitos da pergunta; registros sintéticos, sem inferência causal."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "T26",
+      "split": "test",
+      "category": "segmentacao",
+      "turns": [
+        {
+          "question": "Apresente o valor dos pedidos e a participação por segmento no segundo trimestre de 2026.",
+          "expected": "answer",
+          "references": [
+            {
+              "metric": "pedidos",
+              "sql": "WITH r AS (SELECT c.segmento AS item,SUM(p.valor) AS valor FROM pedidos p JOIN contratos ct ON ct.id=p.contrato_id JOIN clientes c ON c.id=ct.cliente_id WHERE p.status<>'cancelado' AND p.data_pedido >= DATE '2026-04-01' AND p.data_pedido < DATE '2026-07-01' GROUP BY c.segmento) SELECT item,valor,valor*100/NULLIF(SUM(valor) OVER (),0) AS participacao FROM r ORDER BY valor DESC NULLS LAST,item",
+              "types": [
+                "text",
+                "number",
+                "number"
+              ],
+              "ordered": true,
+              "interpretation": "Gabarito independente: critérios explícitos da pergunta; registros sintéticos, sem inferência causal."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "T27",
+      "split": "test",
+      "category": "operacional",
+      "turns": [
+        {
+          "question": "Confira as horas previstas e realizadas no mês inteiro de outubro de 2026, com desvio de horas e percentual.",
+          "expected": "answer",
+          "references": [
+            {
+              "metric": "horas",
+              "sql": "SELECT 'Total'::text AS item,SUM(i.horas_previstas),SUM(i.horas_realizadas),SUM(i.horas_realizadas)-SUM(i.horas_previstas),(SUM(i.horas_realizadas)-SUM(i.horas_previstas))*100/NULLIF(SUM(i.horas_previstas),0) FROM indicadores_operacionais i JOIN contratos ct ON ct.id=i.contrato_id JOIN clientes c ON c.id=ct.cliente_id WHERE i.competencia >= DATE '2026-10-01' AND i.competencia < DATE '2026-11-01'  ORDER BY (SUM(i.horas_realizadas)-SUM(i.horas_previstas)) DESC NULLS LAST,item",
+              "types": [
+                "text",
+                "number",
+                "number",
+                "number",
+                "number"
+              ],
+              "ordered": true,
+              "interpretation": "Gabarito independente: critérios explícitos da pergunta; registros sintéticos, sem inferência causal."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "T28",
+      "split": "test",
+      "category": "fluxos",
+      "turns": [
+        {
+          "question": "Compare o faturamento emitido e o total recebido em abril de 2025, com a diferença entre os dois fluxos.",
+          "expected": "answer",
+          "references": [
+            {
+              "metric": "faturamento",
+              "sql": "WITH t AS (SELECT SUM(CASE WHEN status<>'cancelada' AND (emissao >= DATE '2025-04-01' AND emissao < DATE '2025-05-01') THEN valor END) AS emitido,SUM(CASE WHEN status='paga' AND (pagamento >= DATE '2025-04-01' AND pagamento < DATE '2025-05-01') THEN valor END) AS recebido FROM faturamento WHERE (emissao >= DATE '2025-04-01' AND emissao < DATE '2025-05-01') OR (pagamento >= DATE '2025-04-01' AND pagamento < DATE '2025-05-01')) SELECT emitido,recebido,emitido-recebido FROM t",
+              "types": [
+                "number",
+                "number",
+                "number"
+              ],
+              "ordered": true,
+              "interpretation": "Gabarito independente: critérios explícitos da pergunta; registros sintéticos, sem inferência causal."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "T29",
+      "split": "test",
+      "category": "ambiguidade",
+      "turns": [
+        {
+          "question": "Quais segmentos tiveram maior aumento de faturamento?",
+          "expected": "clarification_period",
+          "references": []
+        }
+      ]
+    },
+    {
+      "id": "T30",
+      "split": "test",
+      "category": "limite",
+      "turns": [
+        {
+          "question": "Calcule a margem de lucro dos contratos de fevereiro de 2026.",
+          "expected": "unsupported_request",
+          "references": []
+        }
+      ]
+    }
+  ]
+}

@@ -309,11 +309,15 @@ class BIAgent:
         for query in plan["queries"]:
             # Barreira conservadora contra omissão de filtros explícitos em templates.
             if re.search(
-                r"\b(somente|apenas|só|abert[oa]s?|pag[oa]s?|cancelad[oa]s?|entregues?|ativos?)\b|"
+                r"\b(somente|apenas|só|pag[oa]s?|cancelad[oa]s?|entregues?|ativos?|média|médio|mediana|percentil)\b|"
+                r"arredond|casas decimais|em milhares|por (?:status|situação|modalidade)|"
                 r"\bcliente\s+\d+\b|"
                 r"\b(?:em|de|na)\s+(Curitiba|Joinville|Blumenau|Florianópolis|São Paulo|Porto Alegre)\b",
                 question,
                 re.IGNORECASE,
+            ) or (
+                query["metric"] != "chamados"
+                and re.search(r"\babert[oa]s?\b", question, re.IGNORECASE)
             ):
                 query["operation"] = "analysis"
                 if isinstance(query.get("analysis"), dict):
