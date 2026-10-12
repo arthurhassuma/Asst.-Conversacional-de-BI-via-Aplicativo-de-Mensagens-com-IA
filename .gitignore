@@ -13,6 +13,7 @@ secrets*.json
 .venv/
 venv/
 .local/
+.worktrees/
 *.log
 *.dump
 *.backup
