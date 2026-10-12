@@ -50,8 +50,29 @@ arredondadas. O último mês parcial recebe aviso.
 - O teste adicional online com contexto do print foi recusado pela revisão
   automática por envolver envio de contexto conversacional ao Gemini. Não foi
   executado por outro caminho, nem se atribui esse bloqueio à cota Gemini.
-  A entrega corrigida no Telegram requer uma nova mensagem humana.
+  A entrega corrigida foi validada depois pelo teste humano descrito abaixo.
 
 Artefatos de diagnóstico e configuração permanecem locais/ignorados em `.local/`;
 não se publicam credenciais, logs brutos ou histórico pessoal. A alteração de
 produto não modifica resultados de experimentos congelados anteriores.
+
+## Implantação e confirmação humana
+
+Código implantado: `686b21cd7d1e6da32d234edc832488c0efb0d54b`, publicado na
+branch `codex/comparacao-mensal`. O checkout ativo continua em
+`/workspace/pac_privado-periodos`, atualizado por fast-forward; o runtime anterior
+foi encerrado antes do novo início. Main não recebeu merge.
+
+- Backend `/health`: HTTP 200 e configuração Telegram/IA/banco presente.
+- Exatamente um processo de polling; supervisor registra o commit implantado.
+- Mesma base `bi_comparativo`, modelo, chave, token, IDs, role e classificador
+  desabilitado. Nenhuma mensagem Telegram proativa foi enviada.
+- Fingerprints original/comparativo conferidos novamente após implantação e
+  iguais aos manifests anteriores.
+- Rollback privado preserva commit `583080dc98e95c8c1096671cb482ac244a6253bb`
+  e supervisor anterior, sem copiar credenciais.
+- Arthur enviou `/comecar` e repetiu a pergunta no Telegram; confirmou neste chat
+  “Respondeu corretamente”. Essa é a evidência humana de entrega; não se afirma
+  que health sozinho a comprova, nem se atribuem tokens/latência a esse teste.
+- Instruções de retomada atualizadas no rascunho do ambiente. Exigem publicação
+  pelas configurações do ambiente para uso em retomadas futuras.
