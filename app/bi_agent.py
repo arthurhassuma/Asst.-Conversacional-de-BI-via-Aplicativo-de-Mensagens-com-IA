@@ -11,6 +11,7 @@ from google import genai
 from google.genai import types
 from google.genai.errors import APIError
 
+from app.analysis_contract import UNSUPPORTED, validate_analysis
 from app.config import Settings
 from app.database_tools import DatabaseTools
 from app.prompts import PLANNER_PROMPT, PLANNER_SCHEMA, SYSTEM_PROMPT, TOOLS
@@ -148,6 +149,10 @@ def clarify_query(plan: dict, messages: list) -> str | None:
             return PERIOD_QUESTION
     except (KeyError, ValueError, TypeError):
         return PERIOD_QUESTION
+    try:
+        validate_analysis(plan, messages)
+    except ValueError as exc:
+        return str(exc)
     return None
 
 
@@ -238,11 +243,18 @@ class BIAgent:
         )
         plan = parse_json(response)
         trace["plan"] = copy.deepcopy(plan)
+        reason = plan.get("unsupported_reason")
+        if reason is not None:
+            if not isinstance(reason, str) or reason not in UNSUPPORTED:
+                raise ValueError("Limitação desconhecida.")
+            text = UNSUPPORTED[reason]
+            trace.update(status="unsupported_request", unsupported_reason=reason)
+            return text, turn + [{"role": "assistant", "content": text}]
         clarification = clarify(plan, messages)
         if clarification:
             trace["status"] = (
                 "clarification_period"
-                if clarification == PERIOD_QUESTION
+                if clarification == PERIOD_QUESTION or "períodos da análise" in clarification
                 else "clarification_metric"
                 if clarification == METRIC_QUESTION
                 else "clarification_measure"

@@ -1,3 +1,5 @@
+from copy import deepcopy
+
 PLANNER_PROMPT = """Você é o planejador de um assistente de BI B2B brasileiro.
 Responda somente um objeto JSON, sem markdown:
 {"queries": [{"metric": "faturamento" ou null, "measure": "valor" ou null, "operation": "total" ou "analysis",
@@ -151,3 +153,72 @@ PLANNER_SCHEMA = {
     "required": ["queries"],
     "additionalProperties": False,
 }
+
+# Extensões opcionais preservam o contrato dos planos existentes.
+
+PERIOD_SCHEMA = deepcopy(PLANNER_SCHEMA["properties"]["queries"]["items"]["properties"]["period"])
+PLANNER_SCHEMA["properties"]["queries"]["minItems"] = 0
+PLANNER_SCHEMA["properties"]["unsupported_reason"] = {
+    "type": ["string", "null"],
+    "enum": ["custos_ausentes", "causalidade", "previsao", "fora_escopo", None],
+}
+QUERY_PROPERTIES = PLANNER_SCHEMA["properties"]["queries"]["items"]["properties"]
+QUERY_PROPERTIES["comparison_period"] = deepcopy(PERIOD_SCHEMA)
+QUERY_PROPERTIES["analysis"] = {
+    "type": ["object", "null"],
+    "properties": {
+        "kind": {
+            "type": "string",
+            "enum": ["comparacao", "tendencia", "ranking", "segmentacao", "operacional"],
+        },
+        "group_by": {
+            "type": "string",
+            "enum": ["nenhum", "mes", "cliente", "segmento", "cidade", "contrato"],
+        },
+        "detail": {
+            "type": "string",
+            "enum": ["padrao", "contribuicao", "horas", "fluxos", "chamados"],
+        },
+        "limit": {"type": ["integer", "null"]},
+        "custom_filters": {"type": "boolean"},
+    },
+    "required": ["kind", "group_by", "detail", "limit", "custom_filters"],
+    "additionalProperties": False,
+}
+PLANNER_PROMPT += """
+Análises gerenciais usam operation=analysis e analysis com kind, group_by,
+detail, limit (somente ranking; se não pediu quantidade, padrão até dez itens,
+identificado como ranking limitado), custom_filters (true quando há qualquer
+restrição além do período/definição padrão da métrica). Não remova filtros!
+kind: comparacao para comparar períodos, tendencia para série mensal,
+ranking para ordenar principais itens, segmentacao para distribuição/participação,
+operacional para previsto versus realizado, resolução ou confronto de fluxos.
+group_by: nenhum, mes, cliente, segmento, cidade, contrato.
+detail: padrao, contribuicao (quem contribuiu para a diferença), horas,
+fluxos (faturamento emitido e recebimentos), chamados (resolução e saldo operacional).
+Comparacao exige period como período-base e comparison_period como período atual;
+ambos têm início/fim/evidence literal. Se a referência não está definida, peça
+esclarecimento, não escolha ano/mês anterior por conta própria. Conserva contexto
+em continuações inequívocas. Nunca troque os períodos para torná-los comparáveis.
+Lucro/margem exigem custos não disponíveis; causa exata não é demonstrada pelo
+banco; previsão exige modelo inexistente. Nesses pedidos use unsupported_reason
+respectivamente custos_ausentes, causalidade ou previsao e queries vazio. Para
+outro assunto use fora_escopo. Nos demais casos unsupported_reason=null.
+Não confunda uma pergunta sem período com algo fora de escopo: esclareça period=null.
+Exemplo: comparar faturamento agosto de 2025 com agosto de 2026 -> uma query
+faturamento/valor/analysis; period 2025-08-01..2025-09-01 evidence agosto de 2025;
+comparison_period 2026-08-01..2026-09-01 evidence agosto de 2026; analysis
+kind comparacao, group_by nenhum, detail padrao, limit null, custom_filters false.
+Exemplo: distribuição mensal de recebimentos janeiro a outubro de 2026 ->
+recebimentos/valor/analysis; periodo 2026-01-01..2026-11-01; kind tendencia,
+group_by mes, detail padrao, limit null, custom_filters false.
+Exemplo: horas realizadas versus previstas por contrato em setembro de 2026 ->
+uma query horas/horas_realizadas/analysis, kind operacional, group_by contrato,
+detail horas, limit null, custom_filters false. Não separar as duas medidas quando
+o pedido é uma análise de desvio conjunto com esse contrato de saída.
+Exemplo: faturamento emitido versus recebimentos em setembro de 2026 -> uma query
+faturamento/valor/analysis, kind operacional, group_by nenhum, detail fluxos.
+Exemplo: ranking de clientes apenas em Curitiba em março de 2026 -> analysis
+kind ranking, group_by cliente, detail padrao, custom_filters true: preserve Curitiba.
+Todos os rótulos de datas e unidades devem ser apoiados no plano validado e schema.
+"""
