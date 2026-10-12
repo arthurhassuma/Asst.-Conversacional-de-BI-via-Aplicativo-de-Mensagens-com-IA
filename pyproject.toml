@@ -22,10 +22,11 @@ bi-db = "scripts.manage_db:main"
 bi-telegram = "app.telegram_bot:main"
 
 [tool.setuptools.packages.find]
-include = ["app*", "scripts*", "evaluation*"]
+include = ["app*", "scripts*", "evaluation*", "training*"]
 
 [tool.setuptools.package-data]
 evaluation = ["cases.json"]
+training = ["questions-v1.json", "protocol.json", "intent-model-v1.json"]
 
 [tool.pytest.ini_options]
 asyncio_mode = "auto"

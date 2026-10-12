@@ -1,0 +1,33 @@
+{
+  "version": "intent-v1",
+  "origin": "synthetic",
+  "review": "technical",
+  "seed": 42,
+  "C": [
+    0.5,
+    1.0,
+    2.0
+  ],
+  "thresholds": [
+    0.5,
+    0.6,
+    0.7
+  ],
+  "splits": {
+    "train": 196,
+    "validation": 28,
+    "test": 56
+  },
+  "grouping": "scenario_and_paraphrase_family",
+  "classes": [
+    "total",
+    "comparacao",
+    "tendencia",
+    "ranking",
+    "segmentacao",
+    "operacional",
+    "generica"
+  ],
+  "test_policy": "freeze_before_test_no_tuning_on_test",
+  "limitations": "Formulações sintéticas compartilhadas dentro do grupo; 70 cenários, não 280 perguntas reais independentes."
+}

@@ -1,0 +1,1962 @@
+[
+  {
+    "id": "total-01-1",
+    "question": "Mostre o total de faturamento emitido em agosto de 2025.",
+    "label": "total",
+    "group_id": "total-01",
+    "split": "test"
+  },
+  {
+    "id": "total-01-2",
+    "question": "Quero analisar o total de faturamento emitido em agosto de 2025.",
+    "label": "total",
+    "group_id": "total-01",
+    "split": "test"
+  },
+  {
+    "id": "total-01-3",
+    "question": "Poderia me apresentar o total de faturamento emitido em agosto de 2025?",
+    "label": "total",
+    "group_id": "total-01",
+    "split": "test"
+  },
+  {
+    "id": "total-01-4",
+    "question": "Para acompanhar o negócio, preciso consultar o total de faturamento emitido em agosto de 2025.",
+    "label": "total",
+    "group_id": "total-01",
+    "split": "test"
+  },
+  {
+    "id": "total-02-1",
+    "question": "Mostre o valor total recebido em setembro de 2026.",
+    "label": "total",
+    "group_id": "total-02",
+    "split": "test"
+  },
+  {
+    "id": "total-02-2",
+    "question": "Quero analisar o valor total recebido em setembro de 2026.",
+    "label": "total",
+    "group_id": "total-02",
+    "split": "test"
+  },
+  {
+    "id": "total-02-3",
+    "question": "Poderia me apresentar o valor total recebido em setembro de 2026?",
+    "label": "total",
+    "group_id": "total-02",
+    "split": "test"
+  },
+  {
+    "id": "total-02-4",
+    "question": "Para acompanhar o negócio, preciso consultar o valor total recebido em setembro de 2026.",
+    "label": "total",
+    "group_id": "total-02",
+    "split": "test"
+  },
+  {
+    "id": "total-03-1",
+    "question": "Mostre a quantidade total de pedidos entregues em outubro de 2025.",
+    "label": "total",
+    "group_id": "total-03",
+    "split": "train"
+  },
+  {
+    "id": "total-03-2",
+    "question": "Quero analisar a quantidade total de pedidos entregues em outubro de 2025.",
+    "label": "total",
+    "group_id": "total-03",
+    "split": "train"
+  },
+  {
+    "id": "total-03-3",
+    "question": "Poderia me apresentar a quantidade total de pedidos entregues em outubro de 2025?",
+    "label": "total",
+    "group_id": "total-03",
+    "split": "train"
+  },
+  {
+    "id": "total-03-4",
+    "question": "Para acompanhar o negócio, preciso consultar a quantidade total de pedidos entregues em outubro de 2025.",
+    "label": "total",
+    "group_id": "total-03",
+    "split": "train"
+  },
+  {
+    "id": "total-04-1",
+    "question": "Mostre a soma do valor dos pedidos em janeiro de 2026.",
+    "label": "total",
+    "group_id": "total-04",
+    "split": "train"
+  },
+  {
+    "id": "total-04-2",
+    "question": "Quero analisar a soma do valor dos pedidos em janeiro de 2026.",
+    "label": "total",
+    "group_id": "total-04",
+    "split": "train"
+  },
+  {
+    "id": "total-04-3",
+    "question": "Poderia me apresentar a soma do valor dos pedidos em janeiro de 2026?",
+    "label": "total",
+    "group_id": "total-04",
+    "split": "train"
+  },
+  {
+    "id": "total-04-4",
+    "question": "Para acompanhar o negócio, preciso consultar a soma do valor dos pedidos em janeiro de 2026.",
+    "label": "total",
+    "group_id": "total-04",
+    "split": "train"
+  },
+  {
+    "id": "total-05-1",
+    "question": "Mostre o número de novos contratos em fevereiro de 2025.",
+    "label": "total",
+    "group_id": "total-05",
+    "split": "validation"
+  },
+  {
+    "id": "total-05-2",
+    "question": "Quero analisar o número de novos contratos em fevereiro de 2025.",
+    "label": "total",
+    "group_id": "total-05",
+    "split": "validation"
+  },
+  {
+    "id": "total-05-3",
+    "question": "Poderia me apresentar o número de novos contratos em fevereiro de 2025?",
+    "label": "total",
+    "group_id": "total-05",
+    "split": "validation"
+  },
+  {
+    "id": "total-05-4",
+    "question": "Para acompanhar o negócio, preciso consultar o número de novos contratos em fevereiro de 2025.",
+    "label": "total",
+    "group_id": "total-05",
+    "split": "validation"
+  },
+  {
+    "id": "total-06-1",
+    "question": "Mostre o valor contratado total no primeiro trimestre de 2026.",
+    "label": "total",
+    "group_id": "total-06",
+    "split": "train"
+  },
+  {
+    "id": "total-06-2",
+    "question": "Quero analisar o valor contratado total no primeiro trimestre de 2026.",
+    "label": "total",
+    "group_id": "total-06",
+    "split": "train"
+  },
+  {
+    "id": "total-06-3",
+    "question": "Poderia me apresentar o valor contratado total no primeiro trimestre de 2026?",
+    "label": "total",
+    "group_id": "total-06",
+    "split": "train"
+  },
+  {
+    "id": "total-06-4",
+    "question": "Para acompanhar o negócio, preciso consultar o valor contratado total no primeiro trimestre de 2026.",
+    "label": "total",
+    "group_id": "total-06",
+    "split": "train"
+  },
+  {
+    "id": "total-07-1",
+    "question": "Mostre o total de clientes cadastrados de janeiro a outubro de 2026.",
+    "label": "total",
+    "group_id": "total-07",
+    "split": "train"
+  },
+  {
+    "id": "total-07-2",
+    "question": "Quero analisar o total de clientes cadastrados de janeiro a outubro de 2026.",
+    "label": "total",
+    "group_id": "total-07",
+    "split": "train"
+  },
+  {
+    "id": "total-07-3",
+    "question": "Poderia me apresentar o total de clientes cadastrados de janeiro a outubro de 2026?",
+    "label": "total",
+    "group_id": "total-07",
+    "split": "train"
+  },
+  {
+    "id": "total-07-4",
+    "question": "Para acompanhar o negócio, preciso consultar o total de clientes cadastrados de janeiro a outubro de 2026.",
+    "label": "total",
+    "group_id": "total-07",
+    "split": "train"
+  },
+  {
+    "id": "total-08-1",
+    "question": "Mostre a soma das horas previstas em abril de 2025.",
+    "label": "total",
+    "group_id": "total-08",
+    "split": "train"
+  },
+  {
+    "id": "total-08-2",
+    "question": "Quero analisar a soma das horas previstas em abril de 2025.",
+    "label": "total",
+    "group_id": "total-08",
+    "split": "train"
+  },
+  {
+    "id": "total-08-3",
+    "question": "Poderia me apresentar a soma das horas previstas em abril de 2025?",
+    "label": "total",
+    "group_id": "total-08",
+    "split": "train"
+  },
+  {
+    "id": "total-08-4",
+    "question": "Para acompanhar o negócio, preciso consultar a soma das horas previstas em abril de 2025.",
+    "label": "total",
+    "group_id": "total-08",
+    "split": "train"
+  },
+  {
+    "id": "total-09-1",
+    "question": "Mostre o total de horas realizadas em maio de 2026.",
+    "label": "total",
+    "group_id": "total-09",
+    "split": "train"
+  },
+  {
+    "id": "total-09-2",
+    "question": "Quero analisar o total de horas realizadas em maio de 2026.",
+    "label": "total",
+    "group_id": "total-09",
+    "split": "train"
+  },
+  {
+    "id": "total-09-3",
+    "question": "Poderia me apresentar o total de horas realizadas em maio de 2026?",
+    "label": "total",
+    "group_id": "total-09",
+    "split": "train"
+  },
+  {
+    "id": "total-09-4",
+    "question": "Para acompanhar o negócio, preciso consultar o total de horas realizadas em maio de 2026.",
+    "label": "total",
+    "group_id": "total-09",
+    "split": "train"
+  },
+  {
+    "id": "total-10-1",
+    "question": "Mostre a quantidade acumulada de chamados abertos em junho de 2025.",
+    "label": "total",
+    "group_id": "total-10",
+    "split": "train"
+  },
+  {
+    "id": "total-10-2",
+    "question": "Quero analisar a quantidade acumulada de chamados abertos em junho de 2025.",
+    "label": "total",
+    "group_id": "total-10",
+    "split": "train"
+  },
+  {
+    "id": "total-10-3",
+    "question": "Poderia me apresentar a quantidade acumulada de chamados abertos em junho de 2025?",
+    "label": "total",
+    "group_id": "total-10",
+    "split": "train"
+  },
+  {
+    "id": "total-10-4",
+    "question": "Para acompanhar o negócio, preciso consultar a quantidade acumulada de chamados abertos em junho de 2025.",
+    "label": "total",
+    "group_id": "total-10",
+    "split": "train"
+  },
+  {
+    "id": "comparacao-01-1",
+    "question": "Mostre a comparação do faturamento de agosto de 2025 com agosto de 2026.",
+    "label": "comparacao",
+    "group_id": "comparacao-01",
+    "split": "test"
+  },
+  {
+    "id": "comparacao-01-2",
+    "question": "Quero analisar a comparação do faturamento de agosto de 2025 com agosto de 2026.",
+    "label": "comparacao",
+    "group_id": "comparacao-01",
+    "split": "test"
+  },
+  {
+    "id": "comparacao-01-3",
+    "question": "Poderia me apresentar a comparação do faturamento de agosto de 2025 com agosto de 2026?",
+    "label": "comparacao",
+    "group_id": "comparacao-01",
+    "split": "test"
+  },
+  {
+    "id": "comparacao-01-4",
+    "question": "Para acompanhar o negócio, preciso consultar a comparação do faturamento de agosto de 2025 com agosto de 2026.",
+    "label": "comparacao",
+    "group_id": "comparacao-01",
+    "split": "test"
+  },
+  {
+    "id": "comparacao-02-1",
+    "question": "Mostre a diferença de recebimentos entre janeiro a outubro de 2025 e janeiro a outubro de 2026.",
+    "label": "comparacao",
+    "group_id": "comparacao-02",
+    "split": "test"
+  },
+  {
+    "id": "comparacao-02-2",
+    "question": "Quero analisar a diferença de recebimentos entre janeiro a outubro de 2025 e janeiro a outubro de 2026.",
+    "label": "comparacao",
+    "group_id": "comparacao-02",
+    "split": "test"
+  },
+  {
+    "id": "comparacao-02-3",
+    "question": "Poderia me apresentar a diferença de recebimentos entre janeiro a outubro de 2025 e janeiro a outubro de 2026?",
+    "label": "comparacao",
+    "group_id": "comparacao-02",
+    "split": "test"
+  },
+  {
+    "id": "comparacao-02-4",
+    "question": "Para acompanhar o negócio, preciso consultar a diferença de recebimentos entre janeiro a outubro de 2025 e janeiro a outubro de 2026.",
+    "label": "comparacao",
+    "group_id": "comparacao-02",
+    "split": "test"
+  },
+  {
+    "id": "comparacao-03-1",
+    "question": "Mostre a variação de pedidos do primeiro trimestre de 2025 para o primeiro trimestre de 2026.",
+    "label": "comparacao",
+    "group_id": "comparacao-03",
+    "split": "train"
+  },
+  {
+    "id": "comparacao-03-2",
+    "question": "Quero analisar a variação de pedidos do primeiro trimestre de 2025 para o primeiro trimestre de 2026.",
+    "label": "comparacao",
+    "group_id": "comparacao-03",
+    "split": "train"
+  },
+  {
+    "id": "comparacao-03-3",
+    "question": "Poderia me apresentar a variação de pedidos do primeiro trimestre de 2025 para o primeiro trimestre de 2026?",
+    "label": "comparacao",
+    "group_id": "comparacao-03",
+    "split": "train"
+  },
+  {
+    "id": "comparacao-03-4",
+    "question": "Para acompanhar o negócio, preciso consultar a variação de pedidos do primeiro trimestre de 2025 para o primeiro trimestre de 2026.",
+    "label": "comparacao",
+    "group_id": "comparacao-03",
+    "split": "train"
+  },
+  {
+    "id": "comparacao-04-1",
+    "question": "Mostre o crescimento do valor contratado entre junho e julho de 2026.",
+    "label": "comparacao",
+    "group_id": "comparacao-04",
+    "split": "train"
+  },
+  {
+    "id": "comparacao-04-2",
+    "question": "Quero analisar o crescimento do valor contratado entre junho e julho de 2026.",
+    "label": "comparacao",
+    "group_id": "comparacao-04",
+    "split": "train"
+  },
+  {
+    "id": "comparacao-04-3",
+    "question": "Poderia me apresentar o crescimento do valor contratado entre junho e julho de 2026?",
+    "label": "comparacao",
+    "group_id": "comparacao-04",
+    "split": "train"
+  },
+  {
+    "id": "comparacao-04-4",
+    "question": "Para acompanhar o negócio, preciso consultar o crescimento do valor contratado entre junho e julho de 2026.",
+    "label": "comparacao",
+    "group_id": "comparacao-04",
+    "split": "train"
+  },
+  {
+    "id": "comparacao-05-1",
+    "question": "Mostre a contribuição de cada segmento para a variação de faturamento entre setembro de 2025 e setembro de 2026.",
+    "label": "comparacao",
+    "group_id": "comparacao-05",
+    "split": "validation"
+  },
+  {
+    "id": "comparacao-05-2",
+    "question": "Quero analisar a contribuição de cada segmento para a variação de faturamento entre setembro de 2025 e setembro de 2026.",
+    "label": "comparacao",
+    "group_id": "comparacao-05",
+    "split": "validation"
+  },
+  {
+    "id": "comparacao-05-3",
+    "question": "Poderia me apresentar a contribuição de cada segmento para a variação de faturamento entre setembro de 2025 e setembro de 2026?",
+    "label": "comparacao",
+    "group_id": "comparacao-05",
+    "split": "validation"
+  },
+  {
+    "id": "comparacao-05-4",
+    "question": "Para acompanhar o negócio, preciso consultar a contribuição de cada segmento para a variação de faturamento entre setembro de 2025 e setembro de 2026.",
+    "label": "comparacao",
+    "group_id": "comparacao-05",
+    "split": "validation"
+  },
+  {
+    "id": "comparacao-06-1",
+    "question": "Mostre a contribuição de cada cliente para o crescimento de recebimentos entre maio de 2025 e maio de 2026.",
+    "label": "comparacao",
+    "group_id": "comparacao-06",
+    "split": "train"
+  },
+  {
+    "id": "comparacao-06-2",
+    "question": "Quero analisar a contribuição de cada cliente para o crescimento de recebimentos entre maio de 2025 e maio de 2026.",
+    "label": "comparacao",
+    "group_id": "comparacao-06",
+    "split": "train"
+  },
+  {
+    "id": "comparacao-06-3",
+    "question": "Poderia me apresentar a contribuição de cada cliente para o crescimento de recebimentos entre maio de 2025 e maio de 2026?",
+    "label": "comparacao",
+    "group_id": "comparacao-06",
+    "split": "train"
+  },
+  {
+    "id": "comparacao-06-4",
+    "question": "Para acompanhar o negócio, preciso consultar a contribuição de cada cliente para o crescimento de recebimentos entre maio de 2025 e maio de 2026.",
+    "label": "comparacao",
+    "group_id": "comparacao-06",
+    "split": "train"
+  },
+  {
+    "id": "comparacao-07-1",
+    "question": "Mostre a diferença de receita por novos clientes e clientes recorrentes entre julho de 2025 e julho de 2026.",
+    "label": "comparacao",
+    "group_id": "comparacao-07",
+    "split": "train"
+  },
+  {
+    "id": "comparacao-07-2",
+    "question": "Quero analisar a diferença de receita por novos clientes e clientes recorrentes entre julho de 2025 e julho de 2026.",
+    "label": "comparacao",
+    "group_id": "comparacao-07",
+    "split": "train"
+  },
+  {
+    "id": "comparacao-07-3",
+    "question": "Poderia me apresentar a diferença de receita por novos clientes e clientes recorrentes entre julho de 2025 e julho de 2026?",
+    "label": "comparacao",
+    "group_id": "comparacao-07",
+    "split": "train"
+  },
+  {
+    "id": "comparacao-07-4",
+    "question": "Para acompanhar o negócio, preciso consultar a diferença de receita por novos clientes e clientes recorrentes entre julho de 2025 e julho de 2026.",
+    "label": "comparacao",
+    "group_id": "comparacao-07",
+    "split": "train"
+  },
+  {
+    "id": "comparacao-08-1",
+    "question": "Mostre a queda de faturamento por cidade comparando fevereiro de 2025 e fevereiro de 2026.",
+    "label": "comparacao",
+    "group_id": "comparacao-08",
+    "split": "train"
+  },
+  {
+    "id": "comparacao-08-2",
+    "question": "Quero analisar a queda de faturamento por cidade comparando fevereiro de 2025 e fevereiro de 2026.",
+    "label": "comparacao",
+    "group_id": "comparacao-08",
+    "split": "train"
+  },
+  {
+    "id": "comparacao-08-3",
+    "question": "Poderia me apresentar a queda de faturamento por cidade comparando fevereiro de 2025 e fevereiro de 2026?",
+    "label": "comparacao",
+    "group_id": "comparacao-08",
+    "split": "train"
+  },
+  {
+    "id": "comparacao-08-4",
+    "question": "Para acompanhar o negócio, preciso consultar a queda de faturamento por cidade comparando fevereiro de 2025 e fevereiro de 2026.",
+    "label": "comparacao",
+    "group_id": "comparacao-08",
+    "split": "train"
+  },
+  {
+    "id": "comparacao-09-1",
+    "question": "Mostre a mudança na taxa de resolução entre março de 2025 e março de 2026.",
+    "label": "comparacao",
+    "group_id": "comparacao-09",
+    "split": "train"
+  },
+  {
+    "id": "comparacao-09-2",
+    "question": "Quero analisar a mudança na taxa de resolução entre março de 2025 e março de 2026.",
+    "label": "comparacao",
+    "group_id": "comparacao-09",
+    "split": "train"
+  },
+  {
+    "id": "comparacao-09-3",
+    "question": "Poderia me apresentar a mudança na taxa de resolução entre março de 2025 e março de 2026?",
+    "label": "comparacao",
+    "group_id": "comparacao-09",
+    "split": "train"
+  },
+  {
+    "id": "comparacao-09-4",
+    "question": "Para acompanhar o negócio, preciso consultar a mudança na taxa de resolução entre março de 2025 e março de 2026.",
+    "label": "comparacao",
+    "group_id": "comparacao-09",
+    "split": "train"
+  },
+  {
+    "id": "comparacao-10-1",
+    "question": "Mostre a comparação de quantidade e valor dos pedidos de outubro de 2025 com outubro de 2026.",
+    "label": "comparacao",
+    "group_id": "comparacao-10",
+    "split": "train"
+  },
+  {
+    "id": "comparacao-10-2",
+    "question": "Quero analisar a comparação de quantidade e valor dos pedidos de outubro de 2025 com outubro de 2026.",
+    "label": "comparacao",
+    "group_id": "comparacao-10",
+    "split": "train"
+  },
+  {
+    "id": "comparacao-10-3",
+    "question": "Poderia me apresentar a comparação de quantidade e valor dos pedidos de outubro de 2025 com outubro de 2026?",
+    "label": "comparacao",
+    "group_id": "comparacao-10",
+    "split": "train"
+  },
+  {
+    "id": "comparacao-10-4",
+    "question": "Para acompanhar o negócio, preciso consultar a comparação de quantidade e valor dos pedidos de outubro de 2025 com outubro de 2026.",
+    "label": "comparacao",
+    "group_id": "comparacao-10",
+    "split": "train"
+  },
+  {
+    "id": "tendencia-01-1",
+    "question": "Mostre a evolução mensal do faturamento de janeiro a outubro de 2026.",
+    "label": "tendencia",
+    "group_id": "tendencia-01",
+    "split": "test"
+  },
+  {
+    "id": "tendencia-01-2",
+    "question": "Quero analisar a evolução mensal do faturamento de janeiro a outubro de 2026.",
+    "label": "tendencia",
+    "group_id": "tendencia-01",
+    "split": "test"
+  },
+  {
+    "id": "tendencia-01-3",
+    "question": "Poderia me apresentar a evolução mensal do faturamento de janeiro a outubro de 2026?",
+    "label": "tendencia",
+    "group_id": "tendencia-01",
+    "split": "test"
+  },
+  {
+    "id": "tendencia-01-4",
+    "question": "Para acompanhar o negócio, preciso consultar a evolução mensal do faturamento de janeiro a outubro de 2026.",
+    "label": "tendencia",
+    "group_id": "tendencia-01",
+    "split": "test"
+  },
+  {
+    "id": "tendencia-02-1",
+    "question": "Mostre a trajetória dos recebimentos mês a mês durante 2025.",
+    "label": "tendencia",
+    "group_id": "tendencia-02",
+    "split": "test"
+  },
+  {
+    "id": "tendencia-02-2",
+    "question": "Quero analisar a trajetória dos recebimentos mês a mês durante 2025.",
+    "label": "tendencia",
+    "group_id": "tendencia-02",
+    "split": "test"
+  },
+  {
+    "id": "tendencia-02-3",
+    "question": "Poderia me apresentar a trajetória dos recebimentos mês a mês durante 2025?",
+    "label": "tendencia",
+    "group_id": "tendencia-02",
+    "split": "test"
+  },
+  {
+    "id": "tendencia-02-4",
+    "question": "Para acompanhar o negócio, preciso consultar a trajetória dos recebimentos mês a mês durante 2025.",
+    "label": "tendencia",
+    "group_id": "tendencia-02",
+    "split": "test"
+  },
+  {
+    "id": "tendencia-03-1",
+    "question": "Mostre a série mensal da quantidade de pedidos em 2026 até outubro.",
+    "label": "tendencia",
+    "group_id": "tendencia-03",
+    "split": "train"
+  },
+  {
+    "id": "tendencia-03-2",
+    "question": "Quero analisar a série mensal da quantidade de pedidos em 2026 até outubro.",
+    "label": "tendencia",
+    "group_id": "tendencia-03",
+    "split": "train"
+  },
+  {
+    "id": "tendencia-03-3",
+    "question": "Poderia me apresentar a série mensal da quantidade de pedidos em 2026 até outubro?",
+    "label": "tendencia",
+    "group_id": "tendencia-03",
+    "split": "train"
+  },
+  {
+    "id": "tendencia-03-4",
+    "question": "Para acompanhar o negócio, preciso consultar a série mensal da quantidade de pedidos em 2026 até outubro.",
+    "label": "tendencia",
+    "group_id": "tendencia-03",
+    "split": "train"
+  },
+  {
+    "id": "tendencia-04-1",
+    "question": "Mostre o histórico mês a mês do valor dos pedidos de março a setembro de 2025.",
+    "label": "tendencia",
+    "group_id": "tendencia-04",
+    "split": "train"
+  },
+  {
+    "id": "tendencia-04-2",
+    "question": "Quero analisar o histórico mês a mês do valor dos pedidos de março a setembro de 2025.",
+    "label": "tendencia",
+    "group_id": "tendencia-04",
+    "split": "train"
+  },
+  {
+    "id": "tendencia-04-3",
+    "question": "Poderia me apresentar o histórico mês a mês do valor dos pedidos de março a setembro de 2025?",
+    "label": "tendencia",
+    "group_id": "tendencia-04",
+    "split": "train"
+  },
+  {
+    "id": "tendencia-04-4",
+    "question": "Para acompanhar o negócio, preciso consultar o histórico mês a mês do valor dos pedidos de março a setembro de 2025.",
+    "label": "tendencia",
+    "group_id": "tendencia-04",
+    "split": "train"
+  },
+  {
+    "id": "tendencia-05-1",
+    "question": "Mostre a tendência mensal dos contratos iniciados em 2025.",
+    "label": "tendencia",
+    "group_id": "tendencia-05",
+    "split": "validation"
+  },
+  {
+    "id": "tendencia-05-2",
+    "question": "Quero analisar a tendência mensal dos contratos iniciados em 2025.",
+    "label": "tendencia",
+    "group_id": "tendencia-05",
+    "split": "validation"
+  },
+  {
+    "id": "tendencia-05-3",
+    "question": "Poderia me apresentar a tendência mensal dos contratos iniciados em 2025?",
+    "label": "tendencia",
+    "group_id": "tendencia-05",
+    "split": "validation"
+  },
+  {
+    "id": "tendencia-05-4",
+    "question": "Para acompanhar o negócio, preciso consultar a tendência mensal dos contratos iniciados em 2025.",
+    "label": "tendencia",
+    "group_id": "tendencia-05",
+    "split": "validation"
+  },
+  {
+    "id": "tendencia-06-1",
+    "question": "Mostre a evolução do cadastro de clientes por mês de janeiro a outubro de 2026.",
+    "label": "tendencia",
+    "group_id": "tendencia-06",
+    "split": "train"
+  },
+  {
+    "id": "tendencia-06-2",
+    "question": "Quero analisar a evolução do cadastro de clientes por mês de janeiro a outubro de 2026.",
+    "label": "tendencia",
+    "group_id": "tendencia-06",
+    "split": "train"
+  },
+  {
+    "id": "tendencia-06-3",
+    "question": "Poderia me apresentar a evolução do cadastro de clientes por mês de janeiro a outubro de 2026?",
+    "label": "tendencia",
+    "group_id": "tendencia-06",
+    "split": "train"
+  },
+  {
+    "id": "tendencia-06-4",
+    "question": "Para acompanhar o negócio, preciso consultar a evolução do cadastro de clientes por mês de janeiro a outubro de 2026.",
+    "label": "tendencia",
+    "group_id": "tendencia-06",
+    "split": "train"
+  },
+  {
+    "id": "tendencia-07-1",
+    "question": "Mostre o comportamento mensal das horas realizadas entre janeiro e agosto de 2026.",
+    "label": "tendencia",
+    "group_id": "tendencia-07",
+    "split": "train"
+  },
+  {
+    "id": "tendencia-07-2",
+    "question": "Quero analisar o comportamento mensal das horas realizadas entre janeiro e agosto de 2026.",
+    "label": "tendencia",
+    "group_id": "tendencia-07",
+    "split": "train"
+  },
+  {
+    "id": "tendencia-07-3",
+    "question": "Poderia me apresentar o comportamento mensal das horas realizadas entre janeiro e agosto de 2026?",
+    "label": "tendencia",
+    "group_id": "tendencia-07",
+    "split": "train"
+  },
+  {
+    "id": "tendencia-07-4",
+    "question": "Para acompanhar o negócio, preciso consultar o comportamento mensal das horas realizadas entre janeiro e agosto de 2026.",
+    "label": "tendencia",
+    "group_id": "tendencia-07",
+    "split": "train"
+  },
+  {
+    "id": "tendencia-08-1",
+    "question": "Mostre a distribuição ao longo dos meses dos chamados abertos no primeiro semestre de 2025.",
+    "label": "tendencia",
+    "group_id": "tendencia-08",
+    "split": "train"
+  },
+  {
+    "id": "tendencia-08-2",
+    "question": "Quero analisar a distribuição ao longo dos meses dos chamados abertos no primeiro semestre de 2025.",
+    "label": "tendencia",
+    "group_id": "tendencia-08",
+    "split": "train"
+  },
+  {
+    "id": "tendencia-08-3",
+    "question": "Poderia me apresentar a distribuição ao longo dos meses dos chamados abertos no primeiro semestre de 2025?",
+    "label": "tendencia",
+    "group_id": "tendencia-08",
+    "split": "train"
+  },
+  {
+    "id": "tendencia-08-4",
+    "question": "Para acompanhar o negócio, preciso consultar a distribuição ao longo dos meses dos chamados abertos no primeiro semestre de 2025.",
+    "label": "tendencia",
+    "group_id": "tendencia-08",
+    "split": "train"
+  },
+  {
+    "id": "tendencia-09-1",
+    "question": "Mostre a evolução da taxa de resolução mês a mês em 2026 até outubro.",
+    "label": "tendencia",
+    "group_id": "tendencia-09",
+    "split": "train"
+  },
+  {
+    "id": "tendencia-09-2",
+    "question": "Quero analisar a evolução da taxa de resolução mês a mês em 2026 até outubro.",
+    "label": "tendencia",
+    "group_id": "tendencia-09",
+    "split": "train"
+  },
+  {
+    "id": "tendencia-09-3",
+    "question": "Poderia me apresentar a evolução da taxa de resolução mês a mês em 2026 até outubro?",
+    "label": "tendencia",
+    "group_id": "tendencia-09",
+    "split": "train"
+  },
+  {
+    "id": "tendencia-09-4",
+    "question": "Para acompanhar o negócio, preciso consultar a evolução da taxa de resolução mês a mês em 2026 até outubro.",
+    "label": "tendencia",
+    "group_id": "tendencia-09",
+    "split": "train"
+  },
+  {
+    "id": "tendencia-10-1",
+    "question": "Mostre os picos e vales na série mensal de faturamento em 2025.",
+    "label": "tendencia",
+    "group_id": "tendencia-10",
+    "split": "train"
+  },
+  {
+    "id": "tendencia-10-2",
+    "question": "Quero analisar os picos e vales na série mensal de faturamento em 2025.",
+    "label": "tendencia",
+    "group_id": "tendencia-10",
+    "split": "train"
+  },
+  {
+    "id": "tendencia-10-3",
+    "question": "Poderia me apresentar os picos e vales na série mensal de faturamento em 2025?",
+    "label": "tendencia",
+    "group_id": "tendencia-10",
+    "split": "train"
+  },
+  {
+    "id": "tendencia-10-4",
+    "question": "Para acompanhar o negócio, preciso consultar os picos e vales na série mensal de faturamento em 2025.",
+    "label": "tendencia",
+    "group_id": "tendencia-10",
+    "split": "train"
+  },
+  {
+    "id": "ranking-01-1",
+    "question": "Mostre o ranking dos cinco clientes com maior faturamento em setembro de 2026.",
+    "label": "ranking",
+    "group_id": "ranking-01",
+    "split": "test"
+  },
+  {
+    "id": "ranking-01-2",
+    "question": "Quero analisar o ranking dos cinco clientes com maior faturamento em setembro de 2026.",
+    "label": "ranking",
+    "group_id": "ranking-01",
+    "split": "test"
+  },
+  {
+    "id": "ranking-01-3",
+    "question": "Poderia me apresentar o ranking dos cinco clientes com maior faturamento em setembro de 2026?",
+    "label": "ranking",
+    "group_id": "ranking-01",
+    "split": "test"
+  },
+  {
+    "id": "ranking-01-4",
+    "question": "Para acompanhar o negócio, preciso consultar o ranking dos cinco clientes com maior faturamento em setembro de 2026.",
+    "label": "ranking",
+    "group_id": "ranking-01",
+    "split": "test"
+  },
+  {
+    "id": "ranking-02-1",
+    "question": "Mostre os três clientes que mais pagaram em abril de 2025, em ordem decrescente.",
+    "label": "ranking",
+    "group_id": "ranking-02",
+    "split": "test"
+  },
+  {
+    "id": "ranking-02-2",
+    "question": "Quero analisar os três clientes que mais pagaram em abril de 2025, em ordem decrescente.",
+    "label": "ranking",
+    "group_id": "ranking-02",
+    "split": "test"
+  },
+  {
+    "id": "ranking-02-3",
+    "question": "Poderia me apresentar os três clientes que mais pagaram em abril de 2025, em ordem decrescente?",
+    "label": "ranking",
+    "group_id": "ranking-02",
+    "split": "test"
+  },
+  {
+    "id": "ranking-02-4",
+    "question": "Para acompanhar o negócio, preciso consultar os três clientes que mais pagaram em abril de 2025, em ordem decrescente.",
+    "label": "ranking",
+    "group_id": "ranking-02",
+    "split": "test"
+  },
+  {
+    "id": "ranking-03-1",
+    "question": "Mostre os segmentos com mais pedidos em outubro de 2026, do maior para o menor.",
+    "label": "ranking",
+    "group_id": "ranking-03",
+    "split": "train"
+  },
+  {
+    "id": "ranking-03-2",
+    "question": "Quero analisar os segmentos com mais pedidos em outubro de 2026, do maior para o menor.",
+    "label": "ranking",
+    "group_id": "ranking-03",
+    "split": "train"
+  },
+  {
+    "id": "ranking-03-3",
+    "question": "Poderia me apresentar os segmentos com mais pedidos em outubro de 2026, do maior para o menor?",
+    "label": "ranking",
+    "group_id": "ranking-03",
+    "split": "train"
+  },
+  {
+    "id": "ranking-03-4",
+    "question": "Para acompanhar o negócio, preciso consultar os segmentos com mais pedidos em outubro de 2026, do maior para o menor.",
+    "label": "ranking",
+    "group_id": "ranking-03",
+    "split": "train"
+  },
+  {
+    "id": "ranking-04-1",
+    "question": "Mostre as cinco cidades líderes em faturamento em agosto de 2025.",
+    "label": "ranking",
+    "group_id": "ranking-04",
+    "split": "train"
+  },
+  {
+    "id": "ranking-04-2",
+    "question": "Quero analisar as cinco cidades líderes em faturamento em agosto de 2025.",
+    "label": "ranking",
+    "group_id": "ranking-04",
+    "split": "train"
+  },
+  {
+    "id": "ranking-04-3",
+    "question": "Poderia me apresentar as cinco cidades líderes em faturamento em agosto de 2025?",
+    "label": "ranking",
+    "group_id": "ranking-04",
+    "split": "train"
+  },
+  {
+    "id": "ranking-04-4",
+    "question": "Para acompanhar o negócio, preciso consultar as cinco cidades líderes em faturamento em agosto de 2025.",
+    "label": "ranking",
+    "group_id": "ranking-04",
+    "split": "train"
+  },
+  {
+    "id": "ranking-05-1",
+    "question": "Mostre os contratos com maior valor de pedidos em junho de 2026, ordenados.",
+    "label": "ranking",
+    "group_id": "ranking-05",
+    "split": "validation"
+  },
+  {
+    "id": "ranking-05-2",
+    "question": "Quero analisar os contratos com maior valor de pedidos em junho de 2026, ordenados.",
+    "label": "ranking",
+    "group_id": "ranking-05",
+    "split": "validation"
+  },
+  {
+    "id": "ranking-05-3",
+    "question": "Poderia me apresentar os contratos com maior valor de pedidos em junho de 2026, ordenados?",
+    "label": "ranking",
+    "group_id": "ranking-05",
+    "split": "validation"
+  },
+  {
+    "id": "ranking-05-4",
+    "question": "Para acompanhar o negócio, preciso consultar os contratos com maior valor de pedidos em junho de 2026, ordenados.",
+    "label": "ranking",
+    "group_id": "ranking-05",
+    "split": "validation"
+  },
+  {
+    "id": "ranking-06-1",
+    "question": "Mostre os três meses com maiores recebimentos durante 2025.",
+    "label": "ranking",
+    "group_id": "ranking-06",
+    "split": "train"
+  },
+  {
+    "id": "ranking-06-2",
+    "question": "Quero analisar os três meses com maiores recebimentos durante 2025.",
+    "label": "ranking",
+    "group_id": "ranking-06",
+    "split": "train"
+  },
+  {
+    "id": "ranking-06-3",
+    "question": "Poderia me apresentar os três meses com maiores recebimentos durante 2025?",
+    "label": "ranking",
+    "group_id": "ranking-06",
+    "split": "train"
+  },
+  {
+    "id": "ranking-06-4",
+    "question": "Para acompanhar o negócio, preciso consultar os três meses com maiores recebimentos durante 2025.",
+    "label": "ranking",
+    "group_id": "ranking-06",
+    "split": "train"
+  },
+  {
+    "id": "ranking-07-1",
+    "question": "Mostre o ranking de contratos por horas realizadas em julho de 2026.",
+    "label": "ranking",
+    "group_id": "ranking-07",
+    "split": "train"
+  },
+  {
+    "id": "ranking-07-2",
+    "question": "Quero analisar o ranking de contratos por horas realizadas em julho de 2026.",
+    "label": "ranking",
+    "group_id": "ranking-07",
+    "split": "train"
+  },
+  {
+    "id": "ranking-07-3",
+    "question": "Poderia me apresentar o ranking de contratos por horas realizadas em julho de 2026?",
+    "label": "ranking",
+    "group_id": "ranking-07",
+    "split": "train"
+  },
+  {
+    "id": "ranking-07-4",
+    "question": "Para acompanhar o negócio, preciso consultar o ranking de contratos por horas realizadas em julho de 2026.",
+    "label": "ranking",
+    "group_id": "ranking-07",
+    "split": "train"
+  },
+  {
+    "id": "ranking-08-1",
+    "question": "Mostre os dez contratos com mais chamados abertos em maio de 2025.",
+    "label": "ranking",
+    "group_id": "ranking-08",
+    "split": "train"
+  },
+  {
+    "id": "ranking-08-2",
+    "question": "Quero analisar os dez contratos com mais chamados abertos em maio de 2025.",
+    "label": "ranking",
+    "group_id": "ranking-08",
+    "split": "train"
+  },
+  {
+    "id": "ranking-08-3",
+    "question": "Poderia me apresentar os dez contratos com mais chamados abertos em maio de 2025?",
+    "label": "ranking",
+    "group_id": "ranking-08",
+    "split": "train"
+  },
+  {
+    "id": "ranking-08-4",
+    "question": "Para acompanhar o negócio, preciso consultar os dez contratos com mais chamados abertos em maio de 2025.",
+    "label": "ranking",
+    "group_id": "ranking-08",
+    "split": "train"
+  },
+  {
+    "id": "ranking-09-1",
+    "question": "Mostre os cinco clientes com maior valor contratado em janeiro de 2026.",
+    "label": "ranking",
+    "group_id": "ranking-09",
+    "split": "train"
+  },
+  {
+    "id": "ranking-09-2",
+    "question": "Quero analisar os cinco clientes com maior valor contratado em janeiro de 2026.",
+    "label": "ranking",
+    "group_id": "ranking-09",
+    "split": "train"
+  },
+  {
+    "id": "ranking-09-3",
+    "question": "Poderia me apresentar os cinco clientes com maior valor contratado em janeiro de 2026?",
+    "label": "ranking",
+    "group_id": "ranking-09",
+    "split": "train"
+  },
+  {
+    "id": "ranking-09-4",
+    "question": "Para acompanhar o negócio, preciso consultar os cinco clientes com maior valor contratado em janeiro de 2026.",
+    "label": "ranking",
+    "group_id": "ranking-09",
+    "split": "train"
+  },
+  {
+    "id": "ranking-10-1",
+    "question": "Mostre os três maiores clientes por faturamento, somente em Curitiba, em março de 2026.",
+    "label": "ranking",
+    "group_id": "ranking-10",
+    "split": "train"
+  },
+  {
+    "id": "ranking-10-2",
+    "question": "Quero analisar os três maiores clientes por faturamento, somente em Curitiba, em março de 2026.",
+    "label": "ranking",
+    "group_id": "ranking-10",
+    "split": "train"
+  },
+  {
+    "id": "ranking-10-3",
+    "question": "Poderia me apresentar os três maiores clientes por faturamento, somente em Curitiba, em março de 2026?",
+    "label": "ranking",
+    "group_id": "ranking-10",
+    "split": "train"
+  },
+  {
+    "id": "ranking-10-4",
+    "question": "Para acompanhar o negócio, preciso consultar os três maiores clientes por faturamento, somente em Curitiba, em março de 2026.",
+    "label": "ranking",
+    "group_id": "ranking-10",
+    "split": "train"
+  },
+  {
+    "id": "segmentacao-01-1",
+    "question": "Mostre a participação de cada cliente no faturamento total de setembro de 2026.",
+    "label": "segmentacao",
+    "group_id": "segmentacao-01",
+    "split": "test"
+  },
+  {
+    "id": "segmentacao-01-2",
+    "question": "Quero analisar a participação de cada cliente no faturamento total de setembro de 2026.",
+    "label": "segmentacao",
+    "group_id": "segmentacao-01",
+    "split": "test"
+  },
+  {
+    "id": "segmentacao-01-3",
+    "question": "Poderia me apresentar a participação de cada cliente no faturamento total de setembro de 2026?",
+    "label": "segmentacao",
+    "group_id": "segmentacao-01",
+    "split": "test"
+  },
+  {
+    "id": "segmentacao-01-4",
+    "question": "Para acompanhar o negócio, preciso consultar a participação de cada cliente no faturamento total de setembro de 2026.",
+    "label": "segmentacao",
+    "group_id": "segmentacao-01",
+    "split": "test"
+  },
+  {
+    "id": "segmentacao-02-1",
+    "question": "Mostre a distribuição dos recebimentos por segmento em agosto de 2025.",
+    "label": "segmentacao",
+    "group_id": "segmentacao-02",
+    "split": "test"
+  },
+  {
+    "id": "segmentacao-02-2",
+    "question": "Quero analisar a distribuição dos recebimentos por segmento em agosto de 2025.",
+    "label": "segmentacao",
+    "group_id": "segmentacao-02",
+    "split": "test"
+  },
+  {
+    "id": "segmentacao-02-3",
+    "question": "Poderia me apresentar a distribuição dos recebimentos por segmento em agosto de 2025?",
+    "label": "segmentacao",
+    "group_id": "segmentacao-02",
+    "split": "test"
+  },
+  {
+    "id": "segmentacao-02-4",
+    "question": "Para acompanhar o negócio, preciso consultar a distribuição dos recebimentos por segmento em agosto de 2025.",
+    "label": "segmentacao",
+    "group_id": "segmentacao-02",
+    "split": "test"
+  },
+  {
+    "id": "segmentacao-03-1",
+    "question": "Mostre a fatia de cada cidade no valor dos pedidos em outubro de 2026.",
+    "label": "segmentacao",
+    "group_id": "segmentacao-03",
+    "split": "train"
+  },
+  {
+    "id": "segmentacao-03-2",
+    "question": "Quero analisar a fatia de cada cidade no valor dos pedidos em outubro de 2026.",
+    "label": "segmentacao",
+    "group_id": "segmentacao-03",
+    "split": "train"
+  },
+  {
+    "id": "segmentacao-03-3",
+    "question": "Poderia me apresentar a fatia de cada cidade no valor dos pedidos em outubro de 2026?",
+    "label": "segmentacao",
+    "group_id": "segmentacao-03",
+    "split": "train"
+  },
+  {
+    "id": "segmentacao-03-4",
+    "question": "Para acompanhar o negócio, preciso consultar a fatia de cada cidade no valor dos pedidos em outubro de 2026.",
+    "label": "segmentacao",
+    "group_id": "segmentacao-03",
+    "split": "train"
+  },
+  {
+    "id": "segmentacao-04-1",
+    "question": "Mostre a composição da carteira por modalidade dos contratos iniciados em maio de 2025.",
+    "label": "segmentacao",
+    "group_id": "segmentacao-04",
+    "split": "train"
+  },
+  {
+    "id": "segmentacao-04-2",
+    "question": "Quero analisar a composição da carteira por modalidade dos contratos iniciados em maio de 2025.",
+    "label": "segmentacao",
+    "group_id": "segmentacao-04",
+    "split": "train"
+  },
+  {
+    "id": "segmentacao-04-3",
+    "question": "Poderia me apresentar a composição da carteira por modalidade dos contratos iniciados em maio de 2025?",
+    "label": "segmentacao",
+    "group_id": "segmentacao-04",
+    "split": "train"
+  },
+  {
+    "id": "segmentacao-04-4",
+    "question": "Para acompanhar o negócio, preciso consultar a composição da carteira por modalidade dos contratos iniciados em maio de 2025.",
+    "label": "segmentacao",
+    "group_id": "segmentacao-04",
+    "split": "train"
+  },
+  {
+    "id": "segmentacao-05-1",
+    "question": "Mostre a distribuição da quantidade de pedidos por situação em junho de 2026.",
+    "label": "segmentacao",
+    "group_id": "segmentacao-05",
+    "split": "validation"
+  },
+  {
+    "id": "segmentacao-05-2",
+    "question": "Quero analisar a distribuição da quantidade de pedidos por situação em junho de 2026.",
+    "label": "segmentacao",
+    "group_id": "segmentacao-05",
+    "split": "validation"
+  },
+  {
+    "id": "segmentacao-05-3",
+    "question": "Poderia me apresentar a distribuição da quantidade de pedidos por situação em junho de 2026?",
+    "label": "segmentacao",
+    "group_id": "segmentacao-05",
+    "split": "validation"
+  },
+  {
+    "id": "segmentacao-05-4",
+    "question": "Para acompanhar o negócio, preciso consultar a distribuição da quantidade de pedidos por situação em junho de 2026.",
+    "label": "segmentacao",
+    "group_id": "segmentacao-05",
+    "split": "validation"
+  },
+  {
+    "id": "segmentacao-06-1",
+    "question": "Mostre a divisão das notas de faturamento por status em julho de 2025.",
+    "label": "segmentacao",
+    "group_id": "segmentacao-06",
+    "split": "train"
+  },
+  {
+    "id": "segmentacao-06-2",
+    "question": "Quero analisar a divisão das notas de faturamento por status em julho de 2025.",
+    "label": "segmentacao",
+    "group_id": "segmentacao-06",
+    "split": "train"
+  },
+  {
+    "id": "segmentacao-06-3",
+    "question": "Poderia me apresentar a divisão das notas de faturamento por status em julho de 2025?",
+    "label": "segmentacao",
+    "group_id": "segmentacao-06",
+    "split": "train"
+  },
+  {
+    "id": "segmentacao-06-4",
+    "question": "Para acompanhar o negócio, preciso consultar a divisão das notas de faturamento por status em julho de 2025.",
+    "label": "segmentacao",
+    "group_id": "segmentacao-06",
+    "split": "train"
+  },
+  {
+    "id": "segmentacao-07-1",
+    "question": "Mostre a participação dos contratos de sustentação no valor contratado em janeiro de 2026.",
+    "label": "segmentacao",
+    "group_id": "segmentacao-07",
+    "split": "train"
+  },
+  {
+    "id": "segmentacao-07-2",
+    "question": "Quero analisar a participação dos contratos de sustentação no valor contratado em janeiro de 2026.",
+    "label": "segmentacao",
+    "group_id": "segmentacao-07",
+    "split": "train"
+  },
+  {
+    "id": "segmentacao-07-3",
+    "question": "Poderia me apresentar a participação dos contratos de sustentação no valor contratado em janeiro de 2026?",
+    "label": "segmentacao",
+    "group_id": "segmentacao-07",
+    "split": "train"
+  },
+  {
+    "id": "segmentacao-07-4",
+    "question": "Para acompanhar o negócio, preciso consultar a participação dos contratos de sustentação no valor contratado em janeiro de 2026.",
+    "label": "segmentacao",
+    "group_id": "segmentacao-07",
+    "split": "train"
+  },
+  {
+    "id": "segmentacao-08-1",
+    "question": "Mostre a distribuição de horas realizadas por cliente em abril de 2025.",
+    "label": "segmentacao",
+    "group_id": "segmentacao-08",
+    "split": "train"
+  },
+  {
+    "id": "segmentacao-08-2",
+    "question": "Quero analisar a distribuição de horas realizadas por cliente em abril de 2025.",
+    "label": "segmentacao",
+    "group_id": "segmentacao-08",
+    "split": "train"
+  },
+  {
+    "id": "segmentacao-08-3",
+    "question": "Poderia me apresentar a distribuição de horas realizadas por cliente em abril de 2025?",
+    "label": "segmentacao",
+    "group_id": "segmentacao-08",
+    "split": "train"
+  },
+  {
+    "id": "segmentacao-08-4",
+    "question": "Para acompanhar o negócio, preciso consultar a distribuição de horas realizadas por cliente em abril de 2025.",
+    "label": "segmentacao",
+    "group_id": "segmentacao-08",
+    "split": "train"
+  },
+  {
+    "id": "segmentacao-09-1",
+    "question": "Mostre a proporção de chamados abertos de cada contrato em fevereiro de 2026.",
+    "label": "segmentacao",
+    "group_id": "segmentacao-09",
+    "split": "train"
+  },
+  {
+    "id": "segmentacao-09-2",
+    "question": "Quero analisar a proporção de chamados abertos de cada contrato em fevereiro de 2026.",
+    "label": "segmentacao",
+    "group_id": "segmentacao-09",
+    "split": "train"
+  },
+  {
+    "id": "segmentacao-09-3",
+    "question": "Poderia me apresentar a proporção de chamados abertos de cada contrato em fevereiro de 2026?",
+    "label": "segmentacao",
+    "group_id": "segmentacao-09",
+    "split": "train"
+  },
+  {
+    "id": "segmentacao-09-4",
+    "question": "Para acompanhar o negócio, preciso consultar a proporção de chamados abertos de cada contrato em fevereiro de 2026.",
+    "label": "segmentacao",
+    "group_id": "segmentacao-09",
+    "split": "train"
+  },
+  {
+    "id": "segmentacao-10-1",
+    "question": "Mostre a participação de cada segmento no faturamento, somente em Joinville, em setembro de 2025.",
+    "label": "segmentacao",
+    "group_id": "segmentacao-10",
+    "split": "train"
+  },
+  {
+    "id": "segmentacao-10-2",
+    "question": "Quero analisar a participação de cada segmento no faturamento, somente em Joinville, em setembro de 2025.",
+    "label": "segmentacao",
+    "group_id": "segmentacao-10",
+    "split": "train"
+  },
+  {
+    "id": "segmentacao-10-3",
+    "question": "Poderia me apresentar a participação de cada segmento no faturamento, somente em Joinville, em setembro de 2025?",
+    "label": "segmentacao",
+    "group_id": "segmentacao-10",
+    "split": "train"
+  },
+  {
+    "id": "segmentacao-10-4",
+    "question": "Para acompanhar o negócio, preciso consultar a participação de cada segmento no faturamento, somente em Joinville, em setembro de 2025.",
+    "label": "segmentacao",
+    "group_id": "segmentacao-10",
+    "split": "train"
+  },
+  {
+    "id": "operacional-01-1",
+    "question": "Mostre os contratos cujas horas realizadas excederam as previstas em setembro de 2026.",
+    "label": "operacional",
+    "group_id": "operacional-01",
+    "split": "test"
+  },
+  {
+    "id": "operacional-01-2",
+    "question": "Quero analisar os contratos cujas horas realizadas excederam as previstas em setembro de 2026.",
+    "label": "operacional",
+    "group_id": "operacional-01",
+    "split": "test"
+  },
+  {
+    "id": "operacional-01-3",
+    "question": "Poderia me apresentar os contratos cujas horas realizadas excederam as previstas em setembro de 2026?",
+    "label": "operacional",
+    "group_id": "operacional-01",
+    "split": "test"
+  },
+  {
+    "id": "operacional-01-4",
+    "question": "Para acompanhar o negócio, preciso consultar os contratos cujas horas realizadas excederam as previstas em setembro de 2026.",
+    "label": "operacional",
+    "group_id": "operacional-01",
+    "split": "test"
+  },
+  {
+    "id": "operacional-02-1",
+    "question": "Mostre os projetos que ficaram abaixo das horas planejadas em abril de 2025.",
+    "label": "operacional",
+    "group_id": "operacional-02",
+    "split": "test"
+  },
+  {
+    "id": "operacional-02-2",
+    "question": "Quero analisar os projetos que ficaram abaixo das horas planejadas em abril de 2025.",
+    "label": "operacional",
+    "group_id": "operacional-02",
+    "split": "test"
+  },
+  {
+    "id": "operacional-02-3",
+    "question": "Poderia me apresentar os projetos que ficaram abaixo das horas planejadas em abril de 2025?",
+    "label": "operacional",
+    "group_id": "operacional-02",
+    "split": "test"
+  },
+  {
+    "id": "operacional-02-4",
+    "question": "Para acompanhar o negócio, preciso consultar os projetos que ficaram abaixo das horas planejadas em abril de 2025.",
+    "label": "operacional",
+    "group_id": "operacional-02",
+    "split": "test"
+  },
+  {
+    "id": "operacional-03-1",
+    "question": "Mostre o desvio entre esforço planejado e executado por contrato em junho de 2026.",
+    "label": "operacional",
+    "group_id": "operacional-03",
+    "split": "train"
+  },
+  {
+    "id": "operacional-03-2",
+    "question": "Quero analisar o desvio entre esforço planejado e executado por contrato em junho de 2026.",
+    "label": "operacional",
+    "group_id": "operacional-03",
+    "split": "train"
+  },
+  {
+    "id": "operacional-03-3",
+    "question": "Poderia me apresentar o desvio entre esforço planejado e executado por contrato em junho de 2026?",
+    "label": "operacional",
+    "group_id": "operacional-03",
+    "split": "train"
+  },
+  {
+    "id": "operacional-03-4",
+    "question": "Para acompanhar o negócio, preciso consultar o desvio entre esforço planejado e executado por contrato em junho de 2026.",
+    "label": "operacional",
+    "group_id": "operacional-03",
+    "split": "train"
+  },
+  {
+    "id": "operacional-04-1",
+    "question": "Mostre a diferença entre horas previstas e realizadas por cliente em agosto de 2025.",
+    "label": "operacional",
+    "group_id": "operacional-04",
+    "split": "train"
+  },
+  {
+    "id": "operacional-04-2",
+    "question": "Quero analisar a diferença entre horas previstas e realizadas por cliente em agosto de 2025.",
+    "label": "operacional",
+    "group_id": "operacional-04",
+    "split": "train"
+  },
+  {
+    "id": "operacional-04-3",
+    "question": "Poderia me apresentar a diferença entre horas previstas e realizadas por cliente em agosto de 2025?",
+    "label": "operacional",
+    "group_id": "operacional-04",
+    "split": "train"
+  },
+  {
+    "id": "operacional-04-4",
+    "question": "Para acompanhar o negócio, preciso consultar a diferença entre horas previstas e realizadas por cliente em agosto de 2025.",
+    "label": "operacional",
+    "group_id": "operacional-04",
+    "split": "train"
+  },
+  {
+    "id": "operacional-05-1",
+    "question": "Mostre a taxa de resolução ponderada pelos chamados abertos em outubro de 2026.",
+    "label": "operacional",
+    "group_id": "operacional-05",
+    "split": "validation"
+  },
+  {
+    "id": "operacional-05-2",
+    "question": "Quero analisar a taxa de resolução ponderada pelos chamados abertos em outubro de 2026.",
+    "label": "operacional",
+    "group_id": "operacional-05",
+    "split": "validation"
+  },
+  {
+    "id": "operacional-05-3",
+    "question": "Poderia me apresentar a taxa de resolução ponderada pelos chamados abertos em outubro de 2026?",
+    "label": "operacional",
+    "group_id": "operacional-05",
+    "split": "validation"
+  },
+  {
+    "id": "operacional-05-4",
+    "question": "Para acompanhar o negócio, preciso consultar a taxa de resolução ponderada pelos chamados abertos em outubro de 2026.",
+    "label": "operacional",
+    "group_id": "operacional-05",
+    "split": "validation"
+  },
+  {
+    "id": "operacional-06-1",
+    "question": "Mostre os chamados abertos versus resolvidos e o saldo operacional em maio de 2025.",
+    "label": "operacional",
+    "group_id": "operacional-06",
+    "split": "train"
+  },
+  {
+    "id": "operacional-06-2",
+    "question": "Quero analisar os chamados abertos versus resolvidos e o saldo operacional em maio de 2025.",
+    "label": "operacional",
+    "group_id": "operacional-06",
+    "split": "train"
+  },
+  {
+    "id": "operacional-06-3",
+    "question": "Poderia me apresentar os chamados abertos versus resolvidos e o saldo operacional em maio de 2025?",
+    "label": "operacional",
+    "group_id": "operacional-06",
+    "split": "train"
+  },
+  {
+    "id": "operacional-06-4",
+    "question": "Para acompanhar o negócio, preciso consultar os chamados abertos versus resolvidos e o saldo operacional em maio de 2025.",
+    "label": "operacional",
+    "group_id": "operacional-06",
+    "split": "train"
+  },
+  {
+    "id": "operacional-07-1",
+    "question": "Mostre a carga de trabalho prevista e efetiva por contrato em janeiro de 2026.",
+    "label": "operacional",
+    "group_id": "operacional-07",
+    "split": "train"
+  },
+  {
+    "id": "operacional-07-2",
+    "question": "Quero analisar a carga de trabalho prevista e efetiva por contrato em janeiro de 2026.",
+    "label": "operacional",
+    "group_id": "operacional-07",
+    "split": "train"
+  },
+  {
+    "id": "operacional-07-3",
+    "question": "Poderia me apresentar a carga de trabalho prevista e efetiva por contrato em janeiro de 2026?",
+    "label": "operacional",
+    "group_id": "operacional-07",
+    "split": "train"
+  },
+  {
+    "id": "operacional-07-4",
+    "question": "Para acompanhar o negócio, preciso consultar a carga de trabalho prevista e efetiva por contrato em janeiro de 2026.",
+    "label": "operacional",
+    "group_id": "operacional-07",
+    "split": "train"
+  },
+  {
+    "id": "operacional-08-1",
+    "question": "Mostre o cumprimento das horas planejadas por projeto em julho de 2025, sem presumir causas.",
+    "label": "operacional",
+    "group_id": "operacional-08",
+    "split": "train"
+  },
+  {
+    "id": "operacional-08-2",
+    "question": "Quero analisar o cumprimento das horas planejadas por projeto em julho de 2025, sem presumir causas.",
+    "label": "operacional",
+    "group_id": "operacional-08",
+    "split": "train"
+  },
+  {
+    "id": "operacional-08-3",
+    "question": "Poderia me apresentar o cumprimento das horas planejadas por projeto em julho de 2025, sem presumir causas?",
+    "label": "operacional",
+    "group_id": "operacional-08",
+    "split": "train"
+  },
+  {
+    "id": "operacional-08-4",
+    "question": "Para acompanhar o negócio, preciso consultar o cumprimento das horas planejadas por projeto em julho de 2025, sem presumir causas.",
+    "label": "operacional",
+    "group_id": "operacional-08",
+    "split": "train"
+  },
+  {
+    "id": "operacional-09-1",
+    "question": "Mostre o confronto entre faturamento emitido e recebimentos em setembro de 2026, sem chamar a diferença de inadimplência.",
+    "label": "operacional",
+    "group_id": "operacional-09",
+    "split": "train"
+  },
+  {
+    "id": "operacional-09-2",
+    "question": "Quero analisar o confronto entre faturamento emitido e recebimentos em setembro de 2026, sem chamar a diferença de inadimplência.",
+    "label": "operacional",
+    "group_id": "operacional-09",
+    "split": "train"
+  },
+  {
+    "id": "operacional-09-3",
+    "question": "Poderia me apresentar o confronto entre faturamento emitido e recebimentos em setembro de 2026, sem chamar a diferença de inadimplência?",
+    "label": "operacional",
+    "group_id": "operacional-09",
+    "split": "train"
+  },
+  {
+    "id": "operacional-09-4",
+    "question": "Para acompanhar o negócio, preciso consultar o confronto entre faturamento emitido e recebimentos em setembro de 2026, sem chamar a diferença de inadimplência.",
+    "label": "operacional",
+    "group_id": "operacional-09",
+    "split": "train"
+  },
+  {
+    "id": "operacional-10-1",
+    "question": "Mostre os contratos sem chamados e como isso afeta a taxa de resolução em março de 2025.",
+    "label": "operacional",
+    "group_id": "operacional-10",
+    "split": "train"
+  },
+  {
+    "id": "operacional-10-2",
+    "question": "Quero analisar os contratos sem chamados e como isso afeta a taxa de resolução em março de 2025.",
+    "label": "operacional",
+    "group_id": "operacional-10",
+    "split": "train"
+  },
+  {
+    "id": "operacional-10-3",
+    "question": "Poderia me apresentar os contratos sem chamados e como isso afeta a taxa de resolução em março de 2025?",
+    "label": "operacional",
+    "group_id": "operacional-10",
+    "split": "train"
+  },
+  {
+    "id": "operacional-10-4",
+    "question": "Para acompanhar o negócio, preciso consultar os contratos sem chamados e como isso afeta a taxa de resolução em março de 2025.",
+    "label": "operacional",
+    "group_id": "operacional-10",
+    "split": "train"
+  },
+  {
+    "id": "generica-01-1",
+    "question": "Mostre o faturamento, ainda sem definir o período.",
+    "label": "generica",
+    "group_id": "generica-01",
+    "split": "test"
+  },
+  {
+    "id": "generica-01-2",
+    "question": "Quero analisar o faturamento, ainda sem definir o período.",
+    "label": "generica",
+    "group_id": "generica-01",
+    "split": "test"
+  },
+  {
+    "id": "generica-01-3",
+    "question": "Poderia me apresentar o faturamento, ainda sem definir o período?",
+    "label": "generica",
+    "group_id": "generica-01",
+    "split": "test"
+  },
+  {
+    "id": "generica-01-4",
+    "question": "Para acompanhar o negócio, preciso consultar o faturamento, ainda sem definir o período.",
+    "label": "generica",
+    "group_id": "generica-01",
+    "split": "test"
+  },
+  {
+    "id": "generica-02-1",
+    "question": "Mostre os pedidos de agosto, sem informar o ano ou se quero valor ou quantidade.",
+    "label": "generica",
+    "group_id": "generica-02",
+    "split": "test"
+  },
+  {
+    "id": "generica-02-2",
+    "question": "Quero analisar os pedidos de agosto, sem informar o ano ou se quero valor ou quantidade.",
+    "label": "generica",
+    "group_id": "generica-02",
+    "split": "test"
+  },
+  {
+    "id": "generica-02-3",
+    "question": "Poderia me apresentar os pedidos de agosto, sem informar o ano ou se quero valor ou quantidade?",
+    "label": "generica",
+    "group_id": "generica-02",
+    "split": "test"
+  },
+  {
+    "id": "generica-02-4",
+    "question": "Para acompanhar o negócio, preciso consultar os pedidos de agosto, sem informar o ano ou se quero valor ou quantidade.",
+    "label": "generica",
+    "group_id": "generica-02",
+    "split": "test"
+  },
+  {
+    "id": "generica-03-1",
+    "question": "Mostre as vendas em setembro de 2026, sem esclarecer o que significa vendas.",
+    "label": "generica",
+    "group_id": "generica-03",
+    "split": "train"
+  },
+  {
+    "id": "generica-03-2",
+    "question": "Quero analisar as vendas em setembro de 2026, sem esclarecer o que significa vendas.",
+    "label": "generica",
+    "group_id": "generica-03",
+    "split": "train"
+  },
+  {
+    "id": "generica-03-3",
+    "question": "Poderia me apresentar as vendas em setembro de 2026, sem esclarecer o que significa vendas?",
+    "label": "generica",
+    "group_id": "generica-03",
+    "split": "train"
+  },
+  {
+    "id": "generica-03-4",
+    "question": "Para acompanhar o negócio, preciso consultar as vendas em setembro de 2026, sem esclarecer o que significa vendas.",
+    "label": "generica",
+    "group_id": "generica-03",
+    "split": "train"
+  },
+  {
+    "id": "generica-04-1",
+    "question": "Mostre se estamos melhor, sem escolher um indicador ou referência.",
+    "label": "generica",
+    "group_id": "generica-04",
+    "split": "train"
+  },
+  {
+    "id": "generica-04-2",
+    "question": "Quero analisar se estamos melhor, sem escolher um indicador ou referência.",
+    "label": "generica",
+    "group_id": "generica-04",
+    "split": "train"
+  },
+  {
+    "id": "generica-04-3",
+    "question": "Poderia me apresentar se estamos melhor, sem escolher um indicador ou referência?",
+    "label": "generica",
+    "group_id": "generica-04",
+    "split": "train"
+  },
+  {
+    "id": "generica-04-4",
+    "question": "Para acompanhar o negócio, preciso consultar se estamos melhor, sem escolher um indicador ou referência.",
+    "label": "generica",
+    "group_id": "generica-04",
+    "split": "train"
+  },
+  {
+    "id": "generica-05-1",
+    "question": "Mostre o lucro líquido em outubro de 2026 usando custos que não existem no banco.",
+    "label": "generica",
+    "group_id": "generica-05",
+    "split": "validation"
+  },
+  {
+    "id": "generica-05-2",
+    "question": "Quero analisar o lucro líquido em outubro de 2026 usando custos que não existem no banco.",
+    "label": "generica",
+    "group_id": "generica-05",
+    "split": "validation"
+  },
+  {
+    "id": "generica-05-3",
+    "question": "Poderia me apresentar o lucro líquido em outubro de 2026 usando custos que não existem no banco?",
+    "label": "generica",
+    "group_id": "generica-05",
+    "split": "validation"
+  },
+  {
+    "id": "generica-05-4",
+    "question": "Para acompanhar o negócio, preciso consultar o lucro líquido em outubro de 2026 usando custos que não existem no banco.",
+    "label": "generica",
+    "group_id": "generica-05",
+    "split": "validation"
+  },
+  {
+    "id": "generica-06-1",
+    "question": "Mostre a causa exata da queda de faturamento entre agosto e setembro de 2026.",
+    "label": "generica",
+    "group_id": "generica-06",
+    "split": "train"
+  },
+  {
+    "id": "generica-06-2",
+    "question": "Quero analisar a causa exata da queda de faturamento entre agosto e setembro de 2026.",
+    "label": "generica",
+    "group_id": "generica-06",
+    "split": "train"
+  },
+  {
+    "id": "generica-06-3",
+    "question": "Poderia me apresentar a causa exata da queda de faturamento entre agosto e setembro de 2026?",
+    "label": "generica",
+    "group_id": "generica-06",
+    "split": "train"
+  },
+  {
+    "id": "generica-06-4",
+    "question": "Para acompanhar o negócio, preciso consultar a causa exata da queda de faturamento entre agosto e setembro de 2026.",
+    "label": "generica",
+    "group_id": "generica-06",
+    "split": "train"
+  },
+  {
+    "id": "generica-07-1",
+    "question": "Mostre a previsão de faturamento para 2027 sem um modelo preditivo.",
+    "label": "generica",
+    "group_id": "generica-07",
+    "split": "train"
+  },
+  {
+    "id": "generica-07-2",
+    "question": "Quero analisar a previsão de faturamento para 2027 sem um modelo preditivo.",
+    "label": "generica",
+    "group_id": "generica-07",
+    "split": "train"
+  },
+  {
+    "id": "generica-07-3",
+    "question": "Poderia me apresentar a previsão de faturamento para 2027 sem um modelo preditivo?",
+    "label": "generica",
+    "group_id": "generica-07",
+    "split": "train"
+  },
+  {
+    "id": "generica-07-4",
+    "question": "Para acompanhar o negócio, preciso consultar a previsão de faturamento para 2027 sem um modelo preditivo.",
+    "label": "generica",
+    "group_id": "generica-07",
+    "split": "train"
+  },
+  {
+    "id": "generica-08-1",
+    "question": "Mostre a previsão do tempo para amanhã em Joinville.",
+    "label": "generica",
+    "group_id": "generica-08",
+    "split": "train"
+  },
+  {
+    "id": "generica-08-2",
+    "question": "Quero analisar a previsão do tempo para amanhã em Joinville.",
+    "label": "generica",
+    "group_id": "generica-08",
+    "split": "train"
+  },
+  {
+    "id": "generica-08-3",
+    "question": "Poderia me apresentar a previsão do tempo para amanhã em Joinville?",
+    "label": "generica",
+    "group_id": "generica-08",
+    "split": "train"
+  },
+  {
+    "id": "generica-08-4",
+    "question": "Para acompanhar o negócio, preciso consultar a previsão do tempo para amanhã em Joinville.",
+    "label": "generica",
+    "group_id": "generica-08",
+    "split": "train"
+  },
+  {
+    "id": "generica-09-1",
+    "question": "Mostre uma alteração no banco para apagar os pedidos cancelados.",
+    "label": "generica",
+    "group_id": "generica-09",
+    "split": "train"
+  },
+  {
+    "id": "generica-09-2",
+    "question": "Quero analisar uma alteração no banco para apagar os pedidos cancelados.",
+    "label": "generica",
+    "group_id": "generica-09",
+    "split": "train"
+  },
+  {
+    "id": "generica-09-3",
+    "question": "Poderia me apresentar uma alteração no banco para apagar os pedidos cancelados?",
+    "label": "generica",
+    "group_id": "generica-09",
+    "split": "train"
+  },
+  {
+    "id": "generica-09-4",
+    "question": "Para acompanhar o negócio, preciso consultar uma alteração no banco para apagar os pedidos cancelados.",
+    "label": "generica",
+    "group_id": "generica-09",
+    "split": "train"
+  },
+  {
+    "id": "generica-10-1",
+    "question": "Mostre os salários dos funcionários em 2026, embora não haja tabela de funcionários.",
+    "label": "generica",
+    "group_id": "generica-10",
+    "split": "train"
+  },
+  {
+    "id": "generica-10-2",
+    "question": "Quero analisar os salários dos funcionários em 2026, embora não haja tabela de funcionários.",
+    "label": "generica",
+    "group_id": "generica-10",
+    "split": "train"
+  },
+  {
+    "id": "generica-10-3",
+    "question": "Poderia me apresentar os salários dos funcionários em 2026, embora não haja tabela de funcionários?",
+    "label": "generica",
+    "group_id": "generica-10",
+    "split": "train"
+  },
+  {
+    "id": "generica-10-4",
+    "question": "Para acompanhar o negócio, preciso consultar os salários dos funcionários em 2026, embora não haja tabela de funcionários.",
+    "label": "generica",
+    "group_id": "generica-10",
+    "split": "train"
+  }
+]
