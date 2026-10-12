@@ -53,3 +53,14 @@ def test_long_detail_is_labeled_and_values_are_not_cut():
     chunks = message_chunks(text)
     assert all("123.456.789,123456" in c for c in chunks if "Valor:" in c)
     assert any("parcial" in c.lower() for c in chunks)
+
+
+def test_monthly_series_keeps_every_month_when_it_fits():
+    context = managerial_query(PLAN)["context"]
+    context.update(kind="tendencia", group_by="mes")
+    rows = [[f"2026-{i:02d}-01", "1200.00"] for i in range(1, 13)]
+    text = render_managerial(
+        {"columns": ["item", "valor"], "rows": rows, "truncated": False}, context
+    )
+    assert "2026-12-01" in text
+    assert "primeiros registros" not in text

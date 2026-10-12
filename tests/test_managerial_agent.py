@@ -1,0 +1,127 @@
+import copy
+
+import pytest
+
+from app.bi_agent import BIAgent
+from app.config import Settings
+from tests.test_agent import Client, Database, plan_response
+from tests.test_analysis_contract import MESSAGES, PLAN
+
+
+async def test_managerial_comparison_runs_controlled_sql_and_records_context():
+    class ComparisonDatabase(Database):
+        def execute_sql(self, sql):
+            self.queries.append(sql)
+            return {
+                "columns": [
+                    "item",
+                    "base",
+                    "atual",
+                    "diferenca",
+                    "variacao_percentual",
+                    "direcao",
+                    "registros",
+                ],
+                "rows": [["Total", "100.00", "120.00", "20.00", "20.00", "aumentou", 2]],
+                "truncated": False,
+            }
+
+    db, trace = ComparisonDatabase(), {}
+    agent = BIAgent(
+        Settings(_env_file=None, intent_classifier_enabled=False), Client([plan_response(PLAN)]), db
+    )
+    text, _ = await agent.answer(MESSAGES[0]["content"], [], trace=trace)
+    assert trace["status"] == "answer"
+    assert trace["queries"][0]["managerial_context"]["source"] == "controlled_template"
+    assert len(db.queries) == 1 and "2026-08-01" in db.queries[0]
+    assert "R$ 120,00" in text and "📈" in text
+
+
+@pytest.mark.parametrize("enabled", [True, False])
+async def test_classifier_never_supplies_a_missing_period(enabled):
+    plan = copy.deepcopy(PLAN)
+    plan["period"] = None
+    db, trace = Database(), {}
+    agent = BIAgent(
+        Settings(_env_file=None, intent_classifier_enabled=enabled),
+        Client([plan_response(plan)]),
+        db,
+    )
+    text, _ = await agent.answer("Quais segmentos cresceram?", [], trace=trace)
+    assert "período" in text and not db.queries
+    assert trace["status"] == "clarification_period"
+
+
+async def test_model_missing_keeps_generic_planner_available(tmp_path):
+    trace = {}
+    settings = Settings(
+        _env_file=None,
+        intent_classifier_enabled=True,
+        intent_model_path=str(tmp_path / "missing.json"),
+    )
+    agent = BIAgent(settings, Client([plan_response({**PLAN, "period": None})]), Database())
+    await agent.answer("Compare o faturamento", [], trace=trace)
+    assert trace["intent"]["available"] is False
+    assert trace["status"] == "clarification_period"
+
+
+async def test_non_temporal_evidence_does_not_authorize_dates():
+    plan = copy.deepcopy(PLAN)
+    plan["period"]["evidence"] = "faturamento"
+    plan["comparison_period"]["evidence"] = "faturamento"
+    db = Database()
+    agent = BIAgent(Settings(_env_file=None), Client([plan_response(plan)]), db)
+    text, _ = await agent.answer("Compare o faturamento", [])
+    assert "período" in text and not db.queries
+
+
+async def test_total_cannot_use_non_temporal_evidence_either():
+    plan = copy.deepcopy(PLAN)
+    plan.update(operation="total", analysis=None, comparison_period=None)
+    plan["period"]["evidence"] = "faturamento"
+    db = Database()
+    text, _ = await BIAgent(Settings(_env_file=None), Client([plan_response(plan)]), db).answer(
+        "Qual o faturamento?", []
+    )
+    assert "período" in text and not db.queries
+
+
+async def test_short_followup_without_reference_requires_clarification():
+    plan = copy.deepcopy(PLAN)
+    plan["comparison_period"] = None
+    db = Database()
+    text, _ = await BIAgent(Settings(_env_file=None), Client([plan_response(plan)]), db).answer(
+        "E no outro ano?", MESSAGES
+    )
+    assert "período" in text and not db.queries
+
+
+@pytest.mark.parametrize(
+    "question,sql",
+    [
+        (
+            "Qual o faturamento aberto em agosto de 2025?",
+            "SELECT SUM(valor) AS total FROM faturamento WHERE status='aberta'",
+        ),
+        (
+            "Qual o faturamento do cliente 11 em agosto de 2025?",
+            "SELECT SUM(f.valor) AS total FROM faturamento f JOIN pedidos p ON p.id=f.pedido_id JOIN contratos c ON c.id=p.contrato_id WHERE c.cliente_id=11",
+        ),
+    ],
+)
+async def test_explicit_filter_cannot_be_lost_even_if_planner_marks_total(question, sql):
+    from tests.test_agent import call, response
+
+    plan = copy.deepcopy(PLAN)
+    plan.update(operation="total", analysis=None, comparison_period=None)
+    client = Client(
+        [
+            plan_response(plan),
+            response(tools=[call("get_schema", {})]),
+            response(tools=[call("execute_sql", {"sql": sql})]),
+            response({"kind": "answer", "result_id": "q1"}),
+        ]
+    )
+    db = Database()
+    await BIAgent(Settings(_env_file=None), client, db).answer(question, [])
+    assert db.queries == [sql]

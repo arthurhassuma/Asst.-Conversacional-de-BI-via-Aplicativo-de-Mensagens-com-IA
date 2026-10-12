@@ -10,6 +10,8 @@ class Settings(BaseSettings):
     readonly_password: SecretStr = SecretStr("")
     gemini_api_key: SecretStr = SecretStr("")
     gemini_model: str = "gemini-3.5-flash-lite"
+    intent_classifier_enabled: bool = False
+    intent_model_path: str = ""
     telegram_bot_token: SecretStr = SecretStr("")
     telegram_webhook_secret: SecretStr = SecretStr("")
     telegram_webhook_url: str = ""

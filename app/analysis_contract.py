@@ -3,6 +3,21 @@
 import re
 from datetime import date
 
+MONTHS = (
+    "janeiro",
+    "fevereiro",
+    "março",
+    "abril",
+    "maio",
+    "junho",
+    "julho",
+    "agosto",
+    "setembro",
+    "outubro",
+    "novembro",
+    "dezembro",
+)
+
 KINDS = ("comparacao", "tendencia", "ranking", "segmentacao", "operacional")
 GROUPS = ("nenhum", "mes", "cliente", "segmento", "cidade", "contrato")
 DETAILS = ("padrao", "contribuicao", "horas", "fluxos", "chamados")
@@ -41,6 +56,45 @@ def validate_period(period: dict, messages: list[dict]) -> dict:
             )
         ):
             raise ValueError
+        temporal = re.search(
+            r"\b\d{4}\b|(?:mês|ano|semana|trimestre) (?:passado|atual|anterior)|"
+            r"(?:este|esta|último|última|últimos|últimas) (?:mês|meses|ano|anos|semana|semanas|trimestre)|"
+            r"(?:todo|toda|inteiro) .*(?:histórico|historia)|todo o histórico",
+            evidence,
+            re.IGNORECASE,
+        )
+        user_years = set(
+            re.findall(
+                r"\b(?:19|20)\d{2}\b",
+                " ".join(
+                    m["content"]
+                    for m in messages
+                    if m.get("role") == "user" and isinstance(m.get("content"), str)
+                ),
+            )
+        )
+        if not temporal and not (
+            any(month in evidence.casefold() for month in MONTHS)
+            and str(date.fromisoformat(period["start"]).year) in user_years
+        ):
+            raise ValueError
+        years = set(re.findall(r"\b(?:19|20)\d{2}\b", evidence))
+        if years and str(date.fromisoformat(period["start"]).year) not in years:
+            raise ValueError
+        exact_month = re.fullmatch(
+            r"(?:em\s+)?(" + "|".join(MONTHS) + r")\s+(?:de\s+)?(\d{4})",
+            evidence.strip(),
+            re.IGNORECASE,
+        )
+        if exact_month:
+            month, year = MONTHS.index(exact_month[1].casefold()) + 1, int(exact_month[2])
+            expected_start = date(year, month, 1)
+            expected_end = date(year + (month == 12), 1 if month == 12 else month + 1, 1)
+            if (date.fromisoformat(period["start"]), date.fromisoformat(period["end"])) != (
+                expected_start,
+                expected_end,
+            ):
+                raise ValueError
     except (KeyError, TypeError, ValueError):
         raise ValueError(
             "Informe os períodos da análise, com mês e ano ou datas explícitas."

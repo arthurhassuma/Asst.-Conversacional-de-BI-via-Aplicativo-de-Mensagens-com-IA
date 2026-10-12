@@ -110,7 +110,9 @@ def render_managerial(result: dict, context: dict) -> str:
         return "\n".join(
             lines + ["Não encontrei registros para esses filtros.", "ℹ️ A base é sintética."]
         )
-    for row in records[:8]:
+    displayed = 0
+    for row in records:
+        block_start = len(lines)
         item = row.get("item")
         if item and item != "Total":
             lines.extend(["", cell_text(item)])
@@ -130,7 +132,13 @@ def render_managerial(result: dict, context: dict) -> str:
             lines.append(DIRECTIONS[direction])
         if "variacao_percentual" in row and row["variacao_percentual"] is None:
             lines.append("ℹ️ Sem base comparável para calcular a variação percentual.")
-    if len(records) > 8:
+        if len("\n".join(lines)) > 10000:
+            del lines[block_start:]
+            if not displayed:
+                raise InvalidAnswer("Registro extenso. Peça um resumo ou refine os filtros.")
+            break
+        displayed += 1
+    if displayed < len(records):
         lines.append(
             "ℹ️ Mostrei os primeiros registros do detalhamento. Peça filtros para explorar os demais."
         )

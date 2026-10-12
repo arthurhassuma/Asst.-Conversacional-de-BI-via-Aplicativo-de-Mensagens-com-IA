@@ -45,8 +45,10 @@ def test_legacy_plan_has_no_analysis_contract():
 def test_custom_filters_and_different_durations_are_preserved():
     plan = copy.deepcopy(PLAN)
     plan["comparison_period"]["end"] = "2026-10-01"
+    plan["comparison_period"]["evidence"] = "agosto a setembro de 2026"
     plan["analysis"]["custom_filters"] = True
-    result = validate_analysis(plan, MESSAGES)
+    messages = [{"role": "user", "content": "Compare agosto de 2025 com agosto a setembro de 2026"}]
+    result = validate_analysis(plan, messages)
     assert result["custom_filters"] is True
     assert result["unequal_periods"] is True
 

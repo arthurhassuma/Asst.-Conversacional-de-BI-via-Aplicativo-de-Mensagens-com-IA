@@ -143,16 +143,19 @@ async def test_composite_question_uses_postgres_counts_and_preserves_each_metric
     text, _ = await BIAgent(
         Settings(_env_file=None, database_url=dsn), client=Client(responses)
     ).answer(f"Total de pedidos e faturamento emitido em agosto de {year}", [])
-    orders, revenue = text.split("\n\n")
+    orders, revenue = text.split("\n\n📊", maxsplit=1)
     assert "pedidos" in orders and "faturamento" in revenue
     assert f"01/08/{year} a 31/08/{year}" in orders
     assert f"01/08/{year} a 31/08/{year}" in revenue
     if expected == [(0, 0), (None, 0)]:
-        assert "Nenhum registro" in orders and "Nenhum registro" in revenue
+        assert "Não encontrei registros" in orders and "Não encontrei registros" in revenue
         assert "não informado" not in text
     else:
         assert expected[0][1] > 0 and expected[1][1] > 0
         assert f"Quantidade: {expected[0][0]}" in orders
-        assert f"Total: {str(expected[1][0]).replace('.', ',')}" in revenue
+        formatted = (
+            format(expected[1][0], ",f").replace(",", "_").replace(".", ",").replace("_", ".")
+        )
+        assert f"Total: R$ {formatted}" in revenue
     if year == 2027:
         assert expected == [(0, 0), (None, 0)]

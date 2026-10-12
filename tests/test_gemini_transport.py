@@ -64,7 +64,7 @@ async def test_native_tools_preserve_signatures_parallel_results_and_exact_numbe
         text, history = await agent.answer("Faturamento em janeiro de 2025", [])
     finally:
         await agent.close()
-    assert "1234,56" in text
+    assert "1.234,56" in text
     assert requests[0]["generationConfig"]["responseMimeType"] == "application/json"
     assert not requests[0].get("tools")
     declarations = requests[1]["tools"][0]["functionDeclarations"]

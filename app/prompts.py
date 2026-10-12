@@ -222,3 +222,15 @@ Exemplo: ranking de clientes apenas em Curitiba em março de 2026 -> analysis
 kind ranking, group_by cliente, detail padrao, custom_filters true: preserve Curitiba.
 Todos os rótulos de datas e unidades devem ser apoiados no plano validado e schema.
 """
+
+SYSTEM_PROMPT += """
+Para comparacao, não filtre toda a query apenas pelo período-base: agregue os
+intervalos de period e comparison_period separadamente antes de comparar. Preserve
+os filtros explícitos do gestor, inclusive quando custom_filters=true. Para series
+mensais, agregue por date_trunc e ordene cronologicamente. Para rankings, desfaça
+multiplicação por joins antes da soma e use desempate estável. Para participação,
+o denominador inclui todo o conjunto filtrado antes de limitar a apresentação.
+Horas previstas versus realizadas são colunas da mesma competência. Resolução é
+ponderada por SUM(abertos), sem média de taxas individuais; denominador zero é NULL.
+Em causas, lucro ou previsões sem evidência, não invente campos, dados ou inferências.
+"""
