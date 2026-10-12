@@ -60,6 +60,26 @@ bi-db validate
 
 ## CLI local
 
+### Treinamento local e perguntas gerenciais
+
+A evolução de 12/10/2026 adiciona comparações entre períodos, contribuição para variações, séries mensais, rankings, participação e desvio operacional, com texto PT-BR, emojis moderados e valores exatos do SQL. Consulte o [guia gerencial](docs/perguntas-gerenciais.md), o [treinamento de intenções](docs/treinamento-intencoes.md) e o [protocolo novo](docs/protocolo-avaliacao-gerencial.md).
+
+O modelo local TF-IDF + regressão logística foi treinado com 280 formulações em 70 cenários agrupados. **Isso não é fine-tuning do Gemini.** A validação teve sugestões aceitas zero no limiar escolhido; por isso `INTENT_CLASSIFIER_ENABLED=false` é o padrão. O assistente gerencial funciona pelo planejador Gemini mesmo com o classificador desativado. O teste de classificação não é acurácia SQL nem comprovação de ganho para o bot.
+
+Para reproduzir o treino/testes de aprendizagem com Python 3.12/3.13:
+
+```powershell
+python -m pip install -r requirements-training-lock.txt
+python -m scripts.train_intents validate
+python -m scripts.train_intents train --seed 42 --output .local/intent-training-nova
+# Depois de congelar o artefato e concluir ajustes somente na validação:
+python -m scripts.train_intents test --model .local/intent-training-nova/model.json --output .local/intent-test-novo
+```
+
+Pastas existentes são recusadas. O bot usa inferência JSON sem sklearn no runtime e não treina com conversas. Ativar `INTENT_CLASSIFIER_ENABLED=true` é opção experimental; baixa confiança, artefato ausente/inválido ou intenção genérica mantêm o caminho geral. `INTENT_MODEL_PATH` vazio usa o artefato empacotado, com hashes registrados nas avaliações.
+
+O conjunto gerencial tem 35 cenários separados dos 40 casos originais. `scripts.evaluate --dataset` seleciona explicitamente a nova avaliação; sem esse argumento o conjunto original continua sendo o padrão. Não executar o reservado para ajustar prompts. Rodadas reais precisam do ambiente conectado e respeitam a quota existente; simulações não comprovam interpretação Gemini ou entrega Telegram.
+
 ### Base ampliada para comparativos
 
 O [perfil comparativo](docs/base-comparativa.md) cobre **janeiro de 2025 a outubro de 2026 (22 meses)**, com 100 clientes, 681 contratos, 5.100 pedidos, 5.809 notas e 1.700 indicadores. Todos os meses incluem os status previstos no schema. Outubro inteiro é um cenário sintético, inclusive datas posteriores a 11/10/2026.
@@ -152,7 +172,7 @@ O endpoint exige `X-Telegram-Bot-Api-Secret-Token`. A fila tem capacidade limita
 
 ```powershell
 python -m pytest -q
-python -m ruff check app scripts tests
+python -m ruff check app scripts tests evaluation training
 ```
 
 Sem TEST_DATABASE_URL, testes que precisam do PostgreSQL são marcados como skipped. Para rodar a suíte inteira contra a base sintética já carregada, sem exibir a senha:
