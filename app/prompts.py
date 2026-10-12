@@ -177,7 +177,7 @@ QUERY_PROPERTIES["analysis"] = {
         },
         "detail": {
             "type": "string",
-            "enum": ["padrao", "contribuicao", "horas", "fluxos", "chamados"],
+            "enum": ["padrao", "contribuicao", "horas", "fluxos", "chamados", "quedas"],
         },
         "limit": {"type": ["integer", "null"]},
         "custom_filters": {"type": "boolean"},
@@ -277,6 +277,20 @@ period 2025-02-01..2025-03-01 evidence "ano passado", comparison_period
 period 2025-01-01..2025-10-13 evidence "ano anterior", comparison_period
 2026-01-01..2026-10-13 evidence "ano atual".
 Adapte todos esses exemplos à Data atual realmente informada, não a um ano fixo.
+"Nesse ano, teve algum mês que teve faturamento menor que o do ano passado?"
+já define uma comparação mês a mês: operation analysis, kind comparacao,
+group_by mes, detail quedas, limit null, custom_filters false se não houver outros
+filtros. Não peça para escolher comparar períodos: essa intenção já é explícita.
+Use ano passado como base, ano atual como comparação, com os mesmos cortes anuais
+até Data atual. Não herde setembro ou a métrica pedidos de perguntas anteriores:
+"Nesse ano" substitui o mês e "faturamento" define a métrica da nova pergunta.
+Identifique os meses cujo valor atual é menor que o do mesmo mês no ano anterior;
+não compare totais anuais nem classifique como tendencia com comparison_period.
+Detalhe quedas somente quando pedido; comparações mensais gerais usam detail padrao.
+Queda entre períodos é uma condição da comparação; filtros de cidade, cliente,
+status etc. continuam exigindo custom_filters true. Preserve esses filtros.
+Se o usuário responde "Comparar períodos" ao esclarecer uma comparação mensal,
+preserve toda a pergunta pendente, os dois períodos, a métrica e a condição de queda.
 Sem métrica, continue esclarecendo a métrica; pedidos genéricos continuam exigindo
 valor ou quantidade. Não complete por conta própria informações não pedidas.
 """

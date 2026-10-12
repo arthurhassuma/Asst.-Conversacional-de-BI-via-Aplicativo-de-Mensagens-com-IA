@@ -3,6 +3,7 @@
 import re
 from datetime import date
 
+from app.monthly_comparisons import monthly_decline_request
 from app.relative_periods import (
     comparable_previous_end,
     current_date,
@@ -28,7 +29,7 @@ MONTHS = (
 
 KINDS = ("comparacao", "tendencia", "ranking", "segmentacao", "operacional")
 GROUPS = ("nenhum", "mes", "cliente", "segmento", "cidade", "contrato")
-DETAILS = ("padrao", "contribuicao", "horas", "fluxos", "chamados")
+DETAILS = ("padrao", "contribuicao", "horas", "fluxos", "chamados", "quedas")
 UNSUPPORTED = {
     "custos_ausentes": "ℹ️ Não tenho dados de custos para calcular lucro ou margem. "
     "Posso consultar faturamento, recebimentos ou valor dos pedidos. Qual deseja?",
@@ -143,6 +144,12 @@ def validate_analysis(plan: dict, messages: list[dict], *, today=None) -> dict |
             "Não reconheci o tipo de análise. Informe a métrica e o detalhamento desejado."
         )
     limit = analysis["limit"]
+    if analysis["detail"] == "quedas" and (
+        analysis["kind"] != "comparacao"
+        or analysis["group_by"] != "mes"
+        or not monthly_decline_request(messages)
+    ):
+        raise ValueError("A análise de quedas exige comparação mês a mês entre dois períodos.")
     if analysis["kind"] == "ranking":
         if type(limit) is not int or not 1 <= limit <= 100:
             raise ValueError("Informe um ranking de um a cem itens e a métrica desejada.")

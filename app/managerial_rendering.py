@@ -1,8 +1,10 @@
 """Texto gerencial controlado: cálculos e direção exclusivamente das células SQL."""
 
+import calendar
 import re
 from datetime import date, timedelta
 
+from app.analysis_contract import MONTHS
 from app.rendering import METRICS, InvalidAnswer, cell_text, percent_text
 
 LABELS = {
@@ -88,6 +90,9 @@ def render_managerial(result: dict, context: dict) -> str:
     }
     icon = "🕒" if context["metric"] == "horas" else "📊"
     lines = [f"{icon} {titles[context['kind']]} de {METRICS[context['metric']]}"]
+    monthly = context["kind"] == "comparacao" and context.get("group_by") == "mes"
+    if monthly:
+        lines[0] = f"{icon} Comparativo mensal de {METRICS[context['metric']]}"
     lines.append("Período: " + period_text(context["period"]))
     if context.get("comparison_period"):
         lines.append("Comparado com: " + period_text(context["comparison_period"]))
@@ -99,6 +104,10 @@ def render_managerial(result: dict, context: dict) -> str:
             lines.append(
                 "ℹ️ Os intervalos têm durações diferentes; interprete os totais com esse cuidado."
             )
+        if monthly:
+            last_day = date.fromisoformat(context["comparison_period"]["end"]) - timedelta(days=1)
+            if last_day.day < calendar.monthrange(last_day.year, last_day.month)[1]:
+                lines.append("ℹ️ O último mês está parcial nos intervalos comparados.")
     records = [dict(zip(columns, row, strict=True)) for row in rows]
     if any(
         "registros" in row and (type(row["registros"]) is not int or row["registros"] < 0)
@@ -108,11 +117,41 @@ def render_managerial(result: dict, context: dict) -> str:
     empty = not records or all(r.get("registros") == 0 for r in records)
     if empty and not result.get("truncated"):
         return "\n".join(lines + ["Não encontrei registros para esses filtros."])
+    if monthly and context.get("detail") == "quedas":
+        declines = [row for row in records if row.get("direcao") == "diminuiu"]
+        undefined = any(row.get("direcao") == "indefinido" for row in records)
+        if not declines:
+            if result.get("truncated"):
+                message = (
+                    "Não encontrei quedas nas linhas disponíveis. "
+                    "ℹ️ Resultado parcial: refine os filtros para concluir a comparação."
+                )
+            elif undefined:
+                message = (
+                    "Não encontrei queda nos meses com valores comparáveis. "
+                    "Há meses com valores não informados; não é possível concluir sobre eles."
+                )
+            else:
+                message = (
+                    "Não. Nenhum dos meses com registros nos intervalos consultados apresentou "
+                    "resultado menor que o do mesmo mês no período base."
+                )
+            return "\n".join(lines + [message])
+        lines.append(
+            "Sim. Os meses abaixo apresentaram queda em relação ao mesmo mês do período base."
+        )
+        if undefined:
+            lines.append("ℹ️ Há também meses com valores não informados, sem comparação conclusiva.")
+        records = declines
     displayed = 0
     for row in records:
         block_start = len(lines)
         item = row.get("item")
         if item and item != "Total":
+            if monthly:
+                if not re.fullmatch(r"(?:[1-9]|1[0-2])", str(item)):
+                    raise InvalidAnswer("Mês gerencial inválido.")
+                item = MONTHS[int(item) - 1].capitalize()
             lines.extend(["", cell_text(item)])
         else:
             lines.append("")

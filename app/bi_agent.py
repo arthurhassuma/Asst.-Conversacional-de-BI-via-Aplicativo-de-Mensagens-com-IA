@@ -18,6 +18,7 @@ from app.database_tools import DatabaseTools
 from app.intent_classifier import intent_context, load_classifier, select_examples
 from app.managerial_queries import managerial_query
 from app.managerial_rendering import render_managerial
+from app.monthly_comparisons import normalize_monthly_comparison_plan
 from app.prompts import PLANNER_PROMPT, PLANNER_SCHEMA, SYSTEM_PROMPT, TOOLS
 from app.query_templates import total_query
 from app.relative_periods import current_date, normalize_relative_plan
@@ -287,9 +288,11 @@ class BIAgent:
             ),
         )
         raw_plan = parse_json(response)
-        plan = normalize_relative_plan(raw_plan, messages, today)
+        monthly_plan = normalize_monthly_comparison_plan(raw_plan, messages)
+        plan = normalize_relative_plan(monthly_plan, messages, today)
         trace["date_anchor"] = today.isoformat()
-        trace["relative_periods_resolved"] = plan != raw_plan
+        trace["relative_periods_resolved"] = plan != monthly_plan
+        trace["monthly_comparison_resolved"] = monthly_plan != raw_plan
         trace["plan"] = copy.deepcopy(plan)
         reason = plan.get("unsupported_reason")
         if reason is not None:
@@ -314,17 +317,27 @@ class BIAgent:
         answers = []
         for query in plan["queries"]:
             # Barreira conservadora contra omissão de filtros explícitos em templates.
-            if re.search(
-                r"\b(somente|apenas|só|pag[oa]s?|cancelad[oa]s?|entregues?|ativos?|média|médio|mediana|percentil)\b|"
-                r"arredond|casas decimais|em milhares|por (?:status|situação|modalidade)|"
-                r"\b(menor(?:es)?|pior(?:es)?|últim[oa]s?|ascendente|crescente)\b|"
-                r"\bcliente\s+\d+\b|"
-                r"\b(?:em|de|na)\s+(Curitiba|Joinville|Blumenau|Florianópolis|São Paulo|Porto Alegre)\b",
-                question,
-                re.IGNORECASE,
-            ) or (
-                query["metric"] != "chamados"
-                and re.search(r"\babert[oa]s?\b", question, re.IGNORECASE)
+            if (
+                re.search(
+                    r"\b(somente|apenas|só|pag[oa]s?|cancelad[oa]s?|entregues?|ativos?|média|médio|mediana|percentil)\b|"
+                    r"arredond|casas decimais|em milhares|por (?:status|situação|modalidade)|"
+                    r"\bcliente\s+\d+\b|"
+                    r"\b(?:em|de|na)\s+(Curitiba|Joinville|Blumenau|Florianópolis|São Paulo|Porto Alegre)\b",
+                    question,
+                    re.IGNORECASE,
+                )
+                or (
+                    query["metric"] != "chamados"
+                    and re.search(r"\babert[oa]s?\b", question, re.IGNORECASE)
+                )
+                or (
+                    re.search(
+                        r"\b(menor(?:es)?|pior(?:es)?|últim[oa]s?|ascendente|crescente)\b",
+                        question,
+                        re.IGNORECASE,
+                    )
+                    and (query.get("analysis") or {}).get("detail") != "quedas"
+                )
             ):
                 query["operation"] = "analysis"
                 if isinstance(query.get("analysis"), dict):

@@ -1,6 +1,7 @@
 """SQL gerencial compilado de registros fixos; números calculados no PostgreSQL."""
 
-from datetime import date
+import calendar
+from datetime import date, timedelta
 
 from app.analysis_contract import DETAILS, GROUPS, KINDS
 from app.query_templates import TOTALS
@@ -70,6 +71,31 @@ def _aggregate(plan, relation, group):
     return f"SELECT {item}, {value} AS valor, COUNT(*) AS registros FROM {relation}{grouping}"
 
 
+def _aligned_months(plan):
+    """Somente intervalos de um ano calendário com os mesmos cortes mês/dia."""
+    try:
+        periods = [
+            (date.fromisoformat(p["start"]), date.fromisoformat(p["end"]) - timedelta(days=1))
+            for p in (plan["period"], plan["comparison_period"])
+        ]
+    except (KeyError, TypeError, ValueError):
+        return False
+    (start, end), (other_start, other_end) = periods
+    if any(a > b or a.year != b.year or a.day != 1 for a, b in periods):
+        return False
+    return (
+        start.month == other_start.month
+        and end.month == other_end.month
+        and (
+            end.day == other_end.day
+            or (
+                end.day == calendar.monthrange(end.year, end.month)[1]
+                and other_end.day == calendar.monthrange(other_end.year, other_end.month)[1]
+            )
+        )
+    )
+
+
 def managerial_query(plan: dict) -> dict | None:
     analysis = plan.get("analysis")
     if not isinstance(analysis, dict) or analysis.get("custom_filters") is not False:
@@ -84,8 +110,11 @@ def managerial_query(plan: dict) -> dict | None:
         return None
     if plan["metric"] == "clientes" and group == "contrato":
         return None
-    if kind == "comparacao" and group == "mes":
-        return None  # Alinhamento temporal personalizado segue o executor de SQL.
+    monthly = kind == "comparacao" and group == "mes"
+    if monthly and (not _aligned_months(plan) or detail not in {"padrao", "quedas"}):
+        return None  # Outros alinhamentos temporais continuam no executor de SQL.
+    if detail == "quedas" and not monthly:
+        return None
     if kind == "ranking" and (
         type(analysis.get("limit")) is not int
         or not 1 <= analysis["limit"] <= 100
@@ -133,21 +162,40 @@ def managerial_query(plan: dict) -> dict | None:
             if detail == "contribuicao"
             else ""
         )
-        base_value = "base.valor" if rate else "CASE WHEN COALESCE(base.registros,0)=0 THEN 0 ELSE base.valor END"
-        current_value = "atual.valor" if rate else "CASE WHEN COALESCE(atual.registros,0)=0 THEN 0 ELSE atual.valor END"
+        base_value = (
+            "base.valor"
+            if rate
+            else "CASE WHEN COALESCE(base.registros,0)=0 THEN 0 ELSE base.valor END"
+        )
+        current_value = (
+            "atual.valor"
+            if rate
+            else "CASE WHEN COALESCE(atual.registros,0)=0 THEN 0 ELSE atual.valor END"
+        )
+        join = (
+            "date_part('month', base.item::date)=date_part('month', atual.item::date)"
+            if monthly
+            else "base.item=atual.item"
+        )
+        item = (
+            "date_part('month', COALESCE(atual.item, base.item)::date)::integer::text"
+            if monthly
+            else "COALESCE(base.item, atual.item)"
+        )
+        order = "item::integer ASC" if monthly else "diferenca DESC NULLS LAST, item ASC"
         sql = f"""WITH dados_base AS ({rows}), dados_atual AS ({other}),
             base AS ({first}), atual AS ({second}), comparado AS (
-            SELECT COALESCE(base.item, atual.item) AS item,
+            SELECT {item} AS item,
               {base_value} AS base,
               {current_value} AS atual,
               COALESCE(base.registros,0)+COALESCE(atual.registros,0) AS registros
-            FROM base FULL JOIN atual ON base.item=atual.item)
+            FROM base FULL JOIN atual ON {join})
             SELECT item, base, atual, atual-base AS diferenca,
               (atual-base)*100 / NULLIF(base,0) AS variacao_percentual,
               CASE WHEN atual>base THEN 'aumentou' WHEN atual<base THEN 'diminuiu'
                    WHEN atual=base THEN 'ficou_estavel' ELSE 'indefinido' END AS direcao,
               registros {contribution}
-            FROM comparado ORDER BY diferenca DESC NULLS LAST, item ASC"""
+            FROM comparado ORDER BY {order}"""
     elif kind == "operacional" and detail == "horas" and plan["metric"] == "horas":
         # Para horas, uma relação fixa própria conserva ambas as medidas do mesmo registro.
         planned_plan = {**plan, "measure": "horas_previstas"}
