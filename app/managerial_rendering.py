@@ -1,0 +1,149 @@
+"""Texto gerencial controlado: cálculos e direção exclusivamente das células SQL."""
+
+import re
+from datetime import date, timedelta
+
+from app.rendering import METRICS, InvalidAnswer, cell_text
+
+LABELS = {
+    "base": "Período base",
+    "atual": "Período atual",
+    "diferenca": "Diferença",
+    "variacao_percentual": "Variação percentual",
+    "participacao_variacao": "Contribuição para a variação",
+    "valor": "Valor",
+    "participacao": "Participação",
+    "posicao": "Posição",
+    "horas_previstas": "Horas previstas",
+    "horas_realizadas": "Horas realizadas",
+    "desvio": "Desvio de horas",
+    "desvio_percentual": "Desvio percentual",
+    "chamados_abertos": "Chamados abertos",
+    "chamados_resolvidos": "Chamados resolvidos",
+    "saldo": "Saldo de chamados",
+    "taxa_percentual": "Taxa de resolução",
+    "faturamento": "Faturamento emitido",
+    "recebimentos": "Recebimentos",
+    "total": "Total",
+    "quantidade": "Quantidade",
+    "horas": "Horas",
+    "taxa": "Taxa (proporção)",
+}
+PERCENT = {
+    "variacao_percentual",
+    "participacao_variacao",
+    "participacao",
+    "desvio_percentual",
+    "taxa_percentual",
+}
+DIRECTIONS = {
+    "aumentou": "📈 Houve aumento em relação ao período base.",
+    "diminuiu": "📉 Houve redução em relação ao período base.",
+    "ficou_estavel": "O resultado ficou estável em relação ao período base.",
+}
+
+
+def period_text(period):
+    start = date.fromisoformat(period["start"])
+    end = date.fromisoformat(period["end"]) - timedelta(days=1)
+    return f"{start:%d/%m/%Y} a {end:%d/%m/%Y}"
+
+
+def _cell(column, value, context):
+    if value is None:
+        return "não informado"
+    if isinstance(value, bool) or not re.fullmatch(r"-?\d+(?:\.\d+)?", str(value)):
+        raise InvalidAnswer("Valor numérico gerencial inválido.")
+    formatted = cell_text(value)
+    if column in PERCENT:
+        return formatted + "%"
+    if column in {"posicao", "quantidade", "chamados_abertos", "chamados_resolvidos", "saldo"}:
+        return formatted
+    unit = context["unit"]
+    if unit == "BRL":
+        return "R$ " + formatted
+    if unit == "percentual":
+        return formatted + (" p.p." if column == "diferenca" else "%")
+    return formatted + (" h" if unit == "horas" else "")
+
+
+def render_managerial(result: dict, context: dict) -> str:
+    if (
+        context.get("source") != "controlled_template"
+        or context.get("metric") not in METRICS
+        or context.get("unit") not in {"BRL", "percentual", "horas", "quantidade"}
+        or "error" in result
+    ):
+        raise InvalidAnswer("Contexto gerencial não validado.")
+    columns, rows = result["columns"], result["rows"]
+    if len(set(columns)) != len(columns) or any(len(row) != len(columns) for row in rows):
+        raise InvalidAnswer("Formato do resultado gerencial inválido.")
+    titles = {
+        "comparacao": "Comparativo",
+        "tendencia": "Evolução mensal",
+        "ranking": "Ranking",
+        "segmentacao": "Distribuição",
+        "operacional": "Resumo operacional",
+        "total": "Resumo",
+    }
+    icon = "🕒" if context["metric"] == "horas" else "📊"
+    lines = [f"{icon} {titles[context['kind']]} de {METRICS[context['metric']]}"]
+    lines.append("Período: " + period_text(context["period"]))
+    if context.get("comparison_period"):
+        lines.append("Comparado com: " + period_text(context["comparison_period"]))
+        lengths = [
+            (date.fromisoformat(p["end"]) - date.fromisoformat(p["start"])).days
+            for p in (context["period"], context["comparison_period"])
+        ]
+        if lengths[0] != lengths[1]:
+            lines.append(
+                "ℹ️ Os intervalos têm durações diferentes; interprete os totais com esse cuidado."
+            )
+    records = [dict(zip(columns, row, strict=True)) for row in rows]
+    if any(
+        "registros" in row and (type(row["registros"]) is not int or row["registros"] < 0)
+        for row in records
+    ):
+        raise InvalidAnswer("Contagem auxiliar inválida.")
+    empty = not records or all(r.get("registros") == 0 for r in records)
+    if empty and not result.get("truncated"):
+        return "\n".join(
+            lines + ["Não encontrei registros para esses filtros.", "ℹ️ A base é sintética."]
+        )
+    for row in records[:8]:
+        item = row.get("item")
+        if item and item != "Total":
+            lines.extend(["", cell_text(item)])
+        else:
+            lines.append("")
+        for column, value in row.items():
+            if column in {"item", "registros", "direcao"}:
+                continue
+            if column not in LABELS:
+                raise InvalidAnswer("Campo gerencial não reconhecido.")
+            label = LABELS[column]
+            if column == "valor" and context["unit"] == "quantidade":
+                label = "Quantidade"
+            lines.append(f"• {label}: {_cell(column, value, context)}")
+        direction = row.get("direcao")
+        if direction in DIRECTIONS:
+            lines.append(DIRECTIONS[direction])
+        if "variacao_percentual" in row and row["variacao_percentual"] is None:
+            lines.append("ℹ️ Sem base comparável para calcular a variação percentual.")
+    if len(records) > 8:
+        lines.append(
+            "ℹ️ Mostrei os primeiros registros do detalhamento. Peça filtros para explorar os demais."
+        )
+    if result.get("truncated"):
+        lines.append("ℹ️ Resultado parcial: o limite de linhas foi atingido. Refine os filtros.")
+    if context["kind"] == "ranking":
+        lines.append("ℹ️ Ranking limitado aos principais itens; empates têm ordenação estável.")
+    if context.get("detail") == "fluxos":
+        lines.append(
+            "ℹ️ Emissão e pagamento são fluxos diferentes. A diferença não comprova inadimplência."
+        )
+    lines.append("ℹ️ Dados sintéticos; valores apresentados conforme os resultados da consulta.")
+    text = "\n".join(lines)
+    if len(text) > 12000:
+        raise InvalidAnswer("Resultado extenso. Solicite um resumo ou refine os filtros.")
+    return text

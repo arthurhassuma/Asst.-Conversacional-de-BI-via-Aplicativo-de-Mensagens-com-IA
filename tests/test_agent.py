@@ -102,7 +102,7 @@ async def test_sql_error_is_returned_to_model_and_corrected():
     agent = BIAgent(Settings(_env_file=None), client, db)
     trace = {}
     text, _ = await agent.answer("Qual o faturamento em janeiro de 2025?", [], trace=trace)
-    assert "1234,56" in text
+    assert "1.234,56" in text
     assert len(db.queries) == 2
     error_message = client.calls[3]["contents"][-1].parts[0].function_response
     assert error_message.name == "execute_sql"
@@ -190,7 +190,7 @@ async def test_history_supplies_explicit_period_for_followup():
     text, _ = await BIAgent(Settings(_env_file=None), client, Database()).answer(
         "O faturamento", history
     )
-    assert "1234,56" in text
+    assert "1.234,56" in text
 
 
 async def test_planner_does_not_receive_tool_blocks_without_definitions():
@@ -239,8 +239,8 @@ async def test_multiple_metrics_keep_independent_results_and_only_visible_histor
     question = "Valor dos pedidos e faturamento em janeiro de 2025"
     text, history = await BIAgent(Settings(_env_file=None), client, db).answer(question, [])
     orders, revenue = text.split("\n\n")
-    assert "pedidos" in orders and "9876,54" in orders and "1234,56" not in orders
-    assert "faturamento" in revenue and "1234,56" in revenue and "9876,54" not in revenue
+    assert "pedidos" in orders and "9.876,54" in orders and "1.234,56" not in orders
+    assert "faturamento" in revenue and "1.234,56" in revenue and "9.876,54" not in revenue
     assert len(db.queries) == 2
     assert history == [
         {"role": "user", "content": question},
@@ -302,7 +302,7 @@ async def test_failed_second_metric_does_not_present_first_as_a_complete_answer(
     text, history = await BIAgent(Settings(_env_file=None), client, Database()).answer(
         "Pedidos e faturamento em janeiro de 2025", []
     )
-    assert "Não consegui" in text and "1234,56" not in text
+    assert "Não consegui" in text and "1.234,56" not in text
     assert len(history) == 2
 
 
@@ -343,7 +343,7 @@ async def test_custom_filter_uses_analysis_instead_of_unfiltered_total():
     text, _ = await BIAgent(Settings(_env_file=None), client, db).answer(
         "Qual o faturamento aberto em janeiro de 2025?", []
     )
-    assert "1234,56" in text and db.queries == [query]
+    assert "1.234,56" in text and db.queries == [query]
 
 
 async def test_sql_in_period_is_rejected_before_templates_or_database():

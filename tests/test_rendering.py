@@ -6,8 +6,8 @@ from app.rendering import InvalidAnswer, render_answer
 def test_numbers_are_rendered_exactly_from_query_not_model_prose():
     results = {"q1": {"columns": ["total"], "rows": [["123456789.123456"]], "truncated": False}}
     text = render_answer({"kind": "answer", "result_id": "q1"}, results, "faturamento")
-    assert "123456789,123456" in text
-    assert "123456789,12\n" not in text
+    assert "123.456.789,123456" in text
+    assert "123.456.789,12\n" not in text
 
 
 @pytest.mark.parametrize(
@@ -42,7 +42,7 @@ def test_numeric_alias_is_not_printed_and_empty_does_not_imply_zero():
             "faturamento",
             "valor",
             "123456789.123456",
-            "No período informado, o resultado para faturamento emitido é 123456789,123456.",
+            "No período informado, o resultado para faturamento emitido é 123.456.789,123456.",
         ),
         (
             "clientes",

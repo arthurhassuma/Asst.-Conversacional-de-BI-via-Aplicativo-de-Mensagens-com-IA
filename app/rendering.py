@@ -2,7 +2,6 @@
 
 import re
 from datetime import date, timedelta
-from decimal import Decimal
 
 METRICS = {
     "faturamento": "faturamento emitido",
@@ -24,11 +23,15 @@ def cell_text(value) -> str:
         return "não informado"
     if isinstance(value, bool):
         return "sim" if value else "não"
-    if isinstance(value, (Decimal, int)):
-        return str(value).replace(".", ",")
     value = str(value)
-    if re.fullmatch(r"-?\d+\.\d+", value):
-        value = value.replace(".", ",")
+    if re.fullmatch(r"-?\d+(?:\.\d+)?", value):
+        sign = "-" if value.startswith("-") else ""
+        whole, dot, fraction = value.lstrip("-").partition(".")
+        groups = []
+        while whole:
+            groups.insert(0, whole[-3:])
+            whole = whole[:-3]
+        return sign + ".".join(groups) + ("," + fraction if dot else "")
     return value.replace("\n", " ").replace("\r", " ")
 
 
