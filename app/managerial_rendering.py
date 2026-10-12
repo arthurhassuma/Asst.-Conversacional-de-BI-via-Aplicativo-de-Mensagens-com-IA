@@ -3,7 +3,7 @@
 import re
 from datetime import date, timedelta
 
-from app.rendering import METRICS, InvalidAnswer, cell_text
+from app.rendering import METRICS, InvalidAnswer, cell_text, percent_text
 
 LABELS = {
     "base": "Período base",
@@ -56,14 +56,14 @@ def _cell(column, value, context):
         raise InvalidAnswer("Valor numérico gerencial inválido.")
     formatted = cell_text(value)
     if column in PERCENT:
-        return formatted + "%"
+        return percent_text(value) + "%"
     if column in {"posicao", "quantidade", "chamados_abertos", "chamados_resolvidos", "saldo"}:
         return formatted
     unit = context["unit"]
     if unit == "BRL":
         return "R$ " + formatted
     if unit == "percentual":
-        return formatted + (" p.p." if column == "diferenca" else "%")
+        return percent_text(value) + (" p.p." if column == "diferenca" else "%")
     return formatted + (" h" if unit == "horas" else "")
 
 
@@ -107,9 +107,7 @@ def render_managerial(result: dict, context: dict) -> str:
         raise InvalidAnswer("Contagem auxiliar inválida.")
     empty = not records or all(r.get("registros") == 0 for r in records)
     if empty and not result.get("truncated"):
-        return "\n".join(
-            lines + ["Não encontrei registros para esses filtros.", "ℹ️ A base é sintética."]
-        )
+        return "\n".join(lines + ["Não encontrei registros para esses filtros."])
     displayed = 0
     for row in records:
         block_start = len(lines)
@@ -150,7 +148,6 @@ def render_managerial(result: dict, context: dict) -> str:
         lines.append(
             "ℹ️ Emissão e pagamento são fluxos diferentes. A diferença não comprova inadimplência."
         )
-    lines.append("ℹ️ Dados sintéticos; valores apresentados conforme os resultados da consulta.")
     text = "\n".join(lines)
     if len(text) > 12000:
         raise InvalidAnswer("Resultado extenso. Solicite um resumo ou refine os filtros.")

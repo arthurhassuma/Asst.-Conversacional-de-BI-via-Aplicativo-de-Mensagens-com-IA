@@ -3,13 +3,49 @@
 import asyncio
 import logging
 
-from telegram import Update
+from telegram import ReplyKeyboardMarkup, ReplyKeyboardRemove, Update
 from telegram.error import NetworkError, RetryAfter
 
 from app.bi_agent import FAILURE
 from app.sessions import SessionsBusy
 
 logger = logging.getLogger(__name__)
+
+
+def clarification_keyboard(text):
+    """Opções controladas enviam texto normal e mantêm o contexto/autorização do chat."""
+    if "Qual métrica deseja consultar:" in text or "Informe a métrica e o período." in text:
+        return ReplyKeyboardMarkup(
+            [
+                ["Faturamento emitido", "Recebimentos"],
+                ["Pedidos", "Contratos", "Clientes"],
+                ["Horas", "Chamados"],
+            ],
+            resize_keyboard=True,
+            one_time_keyboard=True,
+            input_field_placeholder="Escolha a métrica",
+        )
+    choices = {
+        "Para pedidos de serviços,": [["Valor", "Quantidade", "Ambos"]],
+        "Para contratos,": [["Valor", "Quantidade", "Ambos"]],
+        "Para horas de trabalho,": [["Horas previstas", "Horas realizadas"], ["Ambas"]],
+        "Para chamados operacionais,": [
+            ["Chamados abertos", "Chamados resolvidos"],
+            ["Taxa de resolução"],
+        ],
+        "Para clientes,": [["Quantidade de clientes"]],
+        "Para faturamento emitido,": [["Valor total emitido"]],
+        "Para recebimentos,": [["Valor total recebido"]],
+    }
+    for prefix, keyboard in choices.items():
+        if text.removeprefix("💬 ").startswith(prefix):
+            return ReplyKeyboardMarkup(
+                keyboard,
+                resize_keyboard=True,
+                one_time_keyboard=True,
+                input_field_placeholder="Escolha uma opção ou digite",
+            )
+    return ReplyKeyboardRemove()
 
 
 def message_chunks(text: str):
@@ -36,10 +72,14 @@ class TelegramService:
         self.settings, self.agent, self.sessions, self.sender = settings, agent, sessions, sender
 
     async def send(self, chat_id, text):
-        for chunk in message_chunks(text):
+        chunks = message_chunks(text)
+        for index, chunk in enumerate(chunks):
+            markup = (
+                {"reply_markup": clarification_keyboard(text)} if index == len(chunks) - 1 else {}
+            )
             for attempt in range(3):
                 try:
-                    await self.sender.send_message(chat_id=chat_id, text=chunk)
+                    await self.sender.send_message(chat_id=chat_id, text=chunk, **markup)
                     break
                 except RetryAfter as exc:
                     if attempt == 2:
@@ -73,7 +113,7 @@ class TelegramService:
                 command = msg.text.split()[0].split("@")[0]
                 if command in ("/start", "/help"):
                     text = (
-                        "Olá! Consulto dados sintéticos de negócio. Informe a métrica e o período. "
+                        "Olá! Consulto dados de negócio. Informe a métrica e o período. "
                         "Por exemplo: qual o faturamento em janeiro do ano desejado? "
                         "Use /limpar para apagar o histórico desta conversa."
                     )

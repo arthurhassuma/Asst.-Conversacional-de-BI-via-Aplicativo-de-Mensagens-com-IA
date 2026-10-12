@@ -26,7 +26,7 @@ UNSUPPORTED = {
     "Posso consultar faturamento, recebimentos ou valor dos pedidos. Qual deseja?",
     "causalidade": "ℹ️ Os registros permitem identificar onde houve variação, mas não comprovar "
     "a causa. Posso detalhar por cliente ou segmento. Qual prefere?",
-    "previsao": "ℹ️ Este assistente consulta dados históricos sintéticos; ainda não tem um modelo "
+    "previsao": "ℹ️ Este assistente consulta dados históricos; ainda não tem um modelo "
     "de previsão financeira. Posso mostrar a evolução mensal de um período informado.",
     "fora_escopo": "ℹ️ Posso ajudar com faturamento, recebimentos, pedidos, contratos, clientes, "
     "horas e chamados. Qual indicador e período deseja consultar?",

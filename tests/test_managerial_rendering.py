@@ -17,7 +17,7 @@ def test_scaled_zero_remains_exact_in_stable_comparison(zero):
               "rows": [["100.00", "100.00", scalar(Decimal(zero)), scalar(Decimal(zero)), "ficou_estavel", 2]],
               "truncated": False}
     text = render_managerial(result, managerial_query(PLAN)["context"])
-    assert "estável" in text and "0,00000000000000000000%" in text
+    assert "estável" in text and "0,00%" in text
 
 
 def test_decimal_transport_never_uses_exponential_notation():

@@ -164,4 +164,4 @@ async def test_open_calls_are_a_measure_not_a_status_filter():
     text, _ = await BIAgent(Settings(_env_file=None), Client([plan_response(plan)]), db).answer(
         "Mostre chamados abertos, resolvidos, saldo e taxa em agosto de 2025.", []
     )
-    assert len(db.queries) == 1 and "80,0%" in text
+    assert len(db.queries) == 1 and "80,00%" in text

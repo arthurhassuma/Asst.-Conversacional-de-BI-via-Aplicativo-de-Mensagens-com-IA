@@ -2,6 +2,7 @@
 
 import re
 from datetime import date, timedelta
+from decimal import ROUND_HALF_UP, Decimal, localcontext
 
 METRICS = {
     "faturamento": "faturamento emitido",
@@ -16,6 +17,20 @@ METRICS = {
 
 class InvalidAnswer(ValueError):
     pass
+
+
+def percent_text(value) -> str:
+    """Arredonda apenas a apresentação; preserva a célula original da consulta."""
+    if value is None:
+        return "não informado"
+    if isinstance(value, bool) or not re.fullmatch(r"-?\d+(?:\.\d+)?", str(value)):
+        raise InvalidAnswer("Percentual inválido.")
+    with localcontext() as context:
+        context.prec = max(28, len(str(value)) + 4)
+        rounded = Decimal(str(value)).quantize(Decimal("0.01"), rounding=ROUND_HALF_UP)
+    if rounded == 0:
+        rounded = abs(rounded)
+    return cell_text(format(rounded, ".2f"))
 
 
 def cell_text(value) -> str:
@@ -147,7 +162,12 @@ def render_answer(
     for row in result["rows"]:
         lines.append(
             " • ".join(
-                f"{labels.get(column, 'Campo')}: {cell_text(value)}"
+                f"{labels.get(column, 'Campo')}: "
+                + (
+                    percent_text(value) + ("%" if value is not None else "")
+                    if column in {"variacao_percentual", "participacao"}
+                    else cell_text(value)
+                )
                 for column, value in zip(result["columns"], row, strict=True)
                 if column != "registros"
             )
