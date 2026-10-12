@@ -27,11 +27,12 @@ def test_comparison_matches_independent_totals(database):
     expected = []
     for year in (2025, 2026):
         reference = database.execute_sql(
-            f"SELECT SUM(valor) AS total FROM faturamento "
+            f"SELECT SUM(valor) AS total, COUNT(*) AS registros FROM faturamento "
             f"WHERE status <> 'cancelada' AND emissao >= DATE '{year}-08-01' "
             f"AND emissao < DATE '{year}-09-01'"
         )
-        expected.append(Decimal(reference["rows"][0][0]))
+        value, count = reference["rows"][0]
+        expected.append(Decimal(value) if count else Decimal(0))
     assert Decimal(row["base"]) == expected[0]
     assert Decimal(row["atual"]) == expected[1]
     assert Decimal(row["diferenca"]) == expected[1] - expected[0]
@@ -76,6 +77,17 @@ def test_zero_reference_yields_undefined_percentage(database):
     assert "error" not in result
     row = dict(zip(result["columns"], result["rows"][0], strict=True))
     assert Decimal(row["base"]) == 0 and row["variacao_percentual"] is None
+
+
+@pytest.mark.integration
+def test_empty_monetary_period_is_zero_only_when_count_proves_absence(database):
+    plan = copy.deepcopy(PLAN)
+    plan["period"].update(start="2027-01-01", end="2027-02-01")
+    result = database.execute_sql(managerial_query(plan)["sql"])
+    assert "error" not in result
+    row = dict(zip(result["columns"], result["rows"][0], strict=True))
+    assert Decimal(row["base"]) == 0
+    assert row["variacao_percentual"] is None
 
 
 @pytest.mark.integration

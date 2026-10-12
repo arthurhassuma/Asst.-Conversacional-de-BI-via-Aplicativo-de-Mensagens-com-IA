@@ -133,8 +133,8 @@ def managerial_query(plan: dict) -> dict | None:
             if detail == "contribuicao"
             else ""
         )
-        base_value = "base.valor" if rate else "CASE WHEN base.registros IS NULL THEN 0 ELSE base.valor END"
-        current_value = "atual.valor" if rate else "CASE WHEN atual.registros IS NULL THEN 0 ELSE atual.valor END"
+        base_value = "base.valor" if rate else "CASE WHEN COALESCE(base.registros,0)=0 THEN 0 ELSE base.valor END"
+        current_value = "atual.valor" if rate else "CASE WHEN COALESCE(atual.registros,0)=0 THEN 0 ELSE atual.valor END"
         sql = f"""WITH dados_base AS ({rows}), dados_atual AS ({other}),
             base AS ({first}), atual AS ({second}), comparado AS (
             SELECT COALESCE(base.item, atual.item) AS item,
