@@ -4,9 +4,8 @@ import asyncio
 import copy
 import json
 import re
-from datetime import date, datetime
+from datetime import date
 from pathlib import Path
-from zoneinfo import ZoneInfo
 
 import httpx
 from google import genai
@@ -21,6 +20,7 @@ from app.managerial_queries import managerial_query
 from app.managerial_rendering import render_managerial
 from app.prompts import PLANNER_PROMPT, PLANNER_SCHEMA, SYSTEM_PROMPT, TOOLS
 from app.query_templates import total_query
+from app.relative_periods import current_date, normalize_relative_plan
 from app.rendering import METRICS, InvalidAnswer, render_answer
 from training.corpus import load_corpus
 
@@ -94,7 +94,7 @@ def provider_error_category(error):
     return "unclassified"
 
 
-def clarify(plan: dict, messages: list) -> str | None:
+def clarify(plan: dict, messages: list, *, today=None) -> str | None:
     queries = plan.get("queries")
     if not isinstance(queries, list) or not queries:
         return METRIC_QUESTION
@@ -103,13 +103,13 @@ def clarify(plan: dict, messages: list) -> str | None:
     for query in queries:
         if not isinstance(query, dict):
             return METRIC_QUESTION
-        question = clarify_query(query, messages)
+        question = clarify_query(query, messages, today=today)
         if question:
             return question
     return None
 
 
-def clarify_query(plan: dict, messages: list) -> str | None:
+def clarify_query(plan: dict, messages: list, *, today=None) -> str | None:
     if plan.get("operation") not in {"total", "analysis"}:
         raise ValueError("Operação de consulta inválida.")
     if plan.get("metric") not in METRICS:
@@ -156,8 +156,8 @@ def clarify_query(plan: dict, messages: list) -> str | None:
     except (KeyError, ValueError, TypeError):
         return PERIOD_QUESTION
     try:
-        validate_period(period, messages)
-        validate_analysis(plan, messages)
+        validate_period(period, messages, today=today)
+        validate_analysis(plan, messages, today=today)
     except ValueError as exc:
         return str(exc)
     return None
@@ -270,20 +270,26 @@ class BIAgent:
                     )
                 )
         trace["intent"] = hint
-        today = datetime.now(ZoneInfo("America/Sao_Paulo")).date().isoformat()
+        today = current_date()
         response = await self._generate(
             trace,
             model=self.settings.gemini_model,
             contents=gemini_contents(planning_messages),
             config=types.GenerateContentConfig(
-                system_instruction=PLANNER_PROMPT + "\nData atual: " + today + extra_examples,
+                system_instruction=PLANNER_PROMPT
+                + "\nData atual: "
+                + today.isoformat()
+                + extra_examples,
                 max_output_tokens=4096,
                 response_mime_type="application/json",
                 response_json_schema=PLANNER_SCHEMA,
                 automatic_function_calling=types.AutomaticFunctionCallingConfig(disable=True),
             ),
         )
-        plan = parse_json(response)
+        raw_plan = parse_json(response)
+        plan = normalize_relative_plan(raw_plan, messages, today)
+        trace["date_anchor"] = today.isoformat()
+        trace["relative_periods_resolved"] = plan != raw_plan
         trace["plan"] = copy.deepcopy(plan)
         reason = plan.get("unsupported_reason")
         if reason is not None:
@@ -292,7 +298,7 @@ class BIAgent:
             text = UNSUPPORTED[reason]
             trace.update(status="unsupported_request", unsupported_reason=reason)
             return text, turn + [{"role": "assistant", "content": text}]
-        clarification = clarify(plan, messages)
+        clarification = clarify(plan, messages, today=today)
         if clarification:
             trace["status"] = (
                 "clarification_period"

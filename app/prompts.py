@@ -202,7 +202,7 @@ fluxos (faturamento emitido e recebimentos), chamados (resolução e saldo opera
 Comparacao exige period como período-base e comparison_period como período atual;
 ambos têm início/fim/evidence literal. Se a referência não está definida, peça
 esclarecimento, não escolha ano/mês anterior por conta própria. Conserva contexto
-em continuações inequívocas. Nunca troque os períodos para torná-los comparáveis.
+ em continuações inequívocas. Não modifique intervalos com datas explícitas.
 Lucro/margem exigem custos não disponíveis; causa exata não é demonstrada pelo
 banco; previsão exige modelo inexistente. Nesses pedidos use unsupported_reason
 respectivamente custos_ausentes, causalidade ou previsao e queries vazio. Para
@@ -249,4 +249,34 @@ Horas previstas versus realizadas são colunas da mesma competência. Resoluçã
 ponderada por SUM(abertos), sem média de taxas individuais; denominador zero é NULL.
 Grupo sem chamados em um dos períodos tem taxa NULL; não substitua por zero.
 Em causas, lucro ou previsões sem evidência, não invente campos, dados ou inferências.
+"""
+
+PLANNER_PROMPT += """
+Períodos relativos são pedidos explícitos, não períodos ausentes. Use Data atual
+(em America/Sao_Paulo): "esse ano", "este ano", "ano atual", "neste ano" e
+"desse ano" referem-se ao ano dessa data; "ano passado", "ano anterior" e
+"último ano" referem-se ao ano anterior. Nunca exija que o usuário escreva esses anos.
+Quando há mês nomeado, preserve-o: "fevereiro desse ano" é fevereiro completo do
+ano atual; "compare com o ano passado" na mesma pergunta refere-se ao mesmo mês
+no ano anterior. Use cada expressão literal em evidence, sem inventar texto.
+Sem mês, "esse ano" é 01/janeiro até Data atual inclusive (fim exclusivo amanhã);
+"ano passado" sozinho é o ano anterior completo.
+"Compare o ano atual com o ano anterior" usa o ano anterior como period-base e
+ano atual como comparison_period, ambos de 01/janeiro até o mesmo mês/dia de Data
+atual inclusive. Não compare ano parcial com ano inteiro nessa expressão relativa.
+Se o usuário especificar outra base ou datas explícitas, respeite essa indicação.
+Para comparações anuais, mantenha o dia de calendário, ajustando 29/fevereiro
+para 28/fevereiro no ano não bissexto. Exiba os intervalos resolvidos na resposta.
+Exemplo apenas ilustrativo com Data atual 12/10/2026:
+"faturamento desse ano" -> 2026-01-01..2026-10-13, evidence "desse ano".
+"faturamento do ano passado" -> 2025-01-01..2026-01-01, evidence "ano passado".
+"faturamento em fevereiro desse ano, compare com o ano passado" -> comparacao,
+period 2025-02-01..2025-03-01 evidence "ano passado", comparison_period
+2026-02-01..2026-03-01 evidence "fevereiro desse ano".
+"compare faturamento do ano atual com o ano anterior" -> comparacao,
+period 2025-01-01..2025-10-13 evidence "ano anterior", comparison_period
+2026-01-01..2026-10-13 evidence "ano atual".
+Adapte todos esses exemplos à Data atual realmente informada, não a um ano fixo.
+Sem métrica, continue esclarecendo a métrica; pedidos genéricos continuam exigindo
+valor ou quantidade. Não complete por conta própria informações não pedidas.
 """

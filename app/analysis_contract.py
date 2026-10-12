@@ -3,6 +3,14 @@
 import re
 from datetime import date
 
+from app.relative_periods import (
+    comparable_previous_end,
+    current_date,
+    normalize_relative_plan,
+    relative_info,
+    resolved_period,
+)
+
 MONTHS = (
     "janeiro",
     "fevereiro",
@@ -33,7 +41,7 @@ UNSUPPORTED = {
 }
 
 
-def validate_period(period: dict, messages: list[dict]) -> dict:
+def validate_period(period: dict, messages: list[dict], *, today=None) -> dict:
     try:
         if not isinstance(period, dict) or set(period) != {"start", "end", "evidence"}:
             raise ValueError
@@ -58,7 +66,8 @@ def validate_period(period: dict, messages: list[dict]) -> dict:
             raise ValueError
         temporal = re.search(
             r"\b\d{4}\b|(?:mês|ano|semana|trimestre) (?:passado|atual|anterior)|"
-            r"(?:este|esta|último|última|últimos|últimas) (?:mês|meses|ano|anos|semana|semanas|trimestre)|"
+            r"(?:este|esse|neste|nesse|deste|desse|esta|último|última|últimos|últimas) "
+            r"(?:mês|meses|ano|anos|semana|semanas|trimestre)|"
             r"(?:todo|toda|inteiro) .*(?:histórico|historia)|todo o histórico",
             evidence,
             re.IGNORECASE,
@@ -73,9 +82,14 @@ def validate_period(period: dict, messages: list[dict]) -> dict:
                 ),
             )
         )
-        if not temporal and not (
-            any(month in evidence.casefold() for month in MONTHS)
-            and str(date.fromisoformat(period["start"]).year) in user_years
+        info = relative_info(period, messages)
+        if (
+            not temporal
+            and not info
+            and not (
+                any(month in evidence.casefold() for month in MONTHS)
+                and str(date.fromisoformat(period["start"]).year) in user_years
+            )
         ):
             raise ValueError
         years = set(re.findall(r"\b(?:19|20)\d{2}\b", evidence))
@@ -95,6 +109,14 @@ def validate_period(period: dict, messages: list[dict]) -> dict:
                 expected_end,
             ):
                 raise ValueError
+        if info:
+            anchor = today or current_date()
+            expected = resolved_period(period, info, anchor)
+            allowed = {(expected["start"], expected["end"])}
+            if info["offset"] == -1 and info["month"] is None:
+                allowed.add((expected["start"], comparable_previous_end(anchor).isoformat()))
+            if (period["start"], period["end"]) not in allowed:
+                raise ValueError
     except (KeyError, TypeError, ValueError):
         raise ValueError(
             "Informe os períodos da análise, com mês e ano ou datas explícitas."
@@ -102,7 +124,7 @@ def validate_period(period: dict, messages: list[dict]) -> dict:
     return dict(period)
 
 
-def validate_analysis(plan: dict, messages: list[dict]) -> dict | None:
+def validate_analysis(plan: dict, messages: list[dict], *, today=None) -> dict | None:
     analysis = plan.get("analysis")
     if analysis is None:
         if plan.get("comparison_period") is not None:
@@ -126,10 +148,13 @@ def validate_analysis(plan: dict, messages: list[dict]) -> dict | None:
             raise ValueError("Informe um ranking de um a cem itens e a métrica desejada.")
     elif limit is not None:
         raise ValueError("O limite de itens é permitido somente em rankings.")
-    period = validate_period(plan.get("period"), messages)
+    period = validate_period(plan.get("period"), messages, today=today)
     result = {**analysis, "unequal_periods": False}
     if analysis["kind"] == "comparacao":
-        reference = validate_period(plan.get("comparison_period"), messages)
+        reference = validate_period(plan.get("comparison_period"), messages, today=today)
+        expected = normalize_relative_plan({"queries": [plan]}, messages, today)["queries"][0]
+        if any(expected.get(field) != plan.get(field) for field in ("period", "comparison_period")):
+            raise ValueError("Confirme os períodos que deseja comparar.")
 
         def duration(p):
             return (date.fromisoformat(p["end"]) - date.fromisoformat(p["start"])).days

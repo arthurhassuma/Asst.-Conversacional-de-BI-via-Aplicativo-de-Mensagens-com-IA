@@ -111,7 +111,7 @@ class TelegramService:
         try:
             async with self.sessions.acquire(key) as session:
                 command = msg.text.split()[0].split("@")[0]
-                if command in ("/start", "/help"):
+                if command.casefold() in ("/start", "/help", "/comecar", "/começar", "/ajuda"):
                     text = (
                         "Olá! Consulto dados de negócio. Informe a métrica e o período. "
                         "Por exemplo: qual o faturamento em janeiro do ano desejado? "
@@ -121,7 +121,7 @@ class TelegramService:
                     session.turns.clear()
                     text = "Histórico desta conversa apagado."
                 elif command.startswith("/"):
-                    text = "Comando não reconhecido. Use /help ou envie uma pergunta de negócio."
+                    text = "Comando não reconhecido. Use /ajuda ou envie uma pergunta de negócio."
                 else:
                     text, turn = await self.agent.answer(msg.text, session.history())
                     if turn:
