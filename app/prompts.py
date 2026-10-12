@@ -223,6 +223,18 @@ Exemplo: faturamento emitido versus recebimentos em setembro de 2026 -> uma quer
 faturamento/valor/analysis, kind operacional, group_by nenhum, detail fluxos.
 Exemplo: ranking de clientes apenas em Curitiba em março de 2026 -> analysis
 kind ranking, group_by cliente, detail padrao, custom_filters true: preserve Curitiba.
+Análises operacionais conjuntas exigem uma medida válida como âncora do contrato:
+detail horas usa horas_realizadas; detail fluxos usa valor; detail chamados usa
+taxa_resolucao. Essas análises retornam os componentes pedidos na mesma consulta.
+Quando o usuário explicitamente pede chamados abertos, resolvidos, saldo e taxa,
+as medidas estão claras: não use measure=null nem peça que escolha uma delas.
+Não crie measure="saldo": o saldo é coluna calculada pelo SQL de detail chamados.
+Exemplo: chamados abertos, resolvidos, saldo e taxa de resolução em maio de 2026 ->
+{"queries":[{"metric":"chamados","measure":"taxa_resolucao","operation":"analysis",
+"period":{"start":"2026-05-01","end":"2026-06-01","evidence":"maio de 2026"},
+"comparison_period":null,"analysis":{"kind":"operacional","group_by":"nenhum",
+"detail":"chamados","limit":null,"custom_filters":false}}],"unsupported_reason":null}.
+Chamados sem medida especificada continuam ambíguos: não assuma análise conjunta.
 Todos os rótulos de datas e unidades devem ser apoiados no plano validado e schema.
 """
 
