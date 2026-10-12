@@ -311,6 +311,7 @@ class BIAgent:
             if re.search(
                 r"\b(somente|apenas|só|pag[oa]s?|cancelad[oa]s?|entregues?|ativos?|média|médio|mediana|percentil)\b|"
                 r"arredond|casas decimais|em milhares|por (?:status|situação|modalidade)|"
+                r"\b(menor(?:es)?|pior(?:es)?|últim[oa]s?|ascendente|crescente)\b|"
                 r"\bcliente\s+\d+\b|"
                 r"\b(?:em|de|na)\s+(Curitiba|Joinville|Blumenau|Florianópolis|São Paulo|Porto Alegre)\b",
                 question,

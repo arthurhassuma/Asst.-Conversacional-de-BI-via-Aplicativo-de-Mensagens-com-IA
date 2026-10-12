@@ -38,6 +38,23 @@ def test_comparison_matches_independent_totals(database):
 
 
 @pytest.mark.integration
+def test_missing_calls_preserve_undefined_rate(database, monkeypatch):
+    import app.managerial_queries as module
+    def rows(plan, period, group):
+        values = "('Saiu',10,8)" if period["start"].startswith("2025") else "('Entrou',10,8)"
+        return f"SELECT item, resolvidos::numeric AS valor, abertos, resolvidos FROM (VALUES {values}) AS v(item,abertos,resolvidos)"
+    monkeypatch.setattr(module, "_rows", rows)
+    plan = copy.deepcopy(PLAN)
+    plan.update(metric="chamados", measure="taxa_resolucao")
+    plan["analysis"].update(group_by="cliente")
+    result = database.execute_sql(module.managerial_query(plan)["sql"])
+    assert "error" not in result
+    data = {r[0]: dict(zip(result["columns"], r, strict=True)) for r in result["rows"]}
+    assert data["Entrou"]["base"] is None and data["Saiu"]["atual"] is None
+    assert all(r["diferenca"] is None and r["direcao"] == "indefinido" for r in data.values())
+
+
+@pytest.mark.integration
 def test_contributions_sum_to_independent_difference(database):
     plan = copy.deepcopy(PLAN)
     plan["analysis"].update(group_by="segmento", detail="contribuicao")

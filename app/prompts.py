@@ -61,7 +61,7 @@ Consulte get_schema antes de executar SQL. Use apenas as tabelas e campos retorn
 As únicas tools são get_schema e execute_sql. Somente SELECT, inclusive CTE de SELECT,
 sem escrita, SELECT INTO, bloqueios, CTE recursiva ou funções não autorizadas.
 Funções: count, sum, avg, min, max, round, abs, ceil, ceiling, floor, date_trunc,
-date_part, extract, lower, upper, length, btrim, row_number, rank, dense_rank, lag,
+date_part, lower, upper, length, btrim, row_number, rank, dense_rank, lag,
 lead, first_value, last_value. COALESCE, NULLIF, CASE e casts numéricos/data são aceitos.
 Use os intervalos de datas do plano: >= início e < fim. Para comparação, cada período
 deve estar explicitamente no pedido. Realize todos os cálculos em SQL.
@@ -190,6 +190,9 @@ Análises gerenciais usam operation=analysis e analysis com kind, group_by,
 detail, limit (somente ranking; se não pediu quantidade, padrão até dez itens,
 identificado como ranking limitado), custom_filters (true quando há qualquer
 restrição além do período/definição padrão da métrica). Não remova filtros!
+Rankings de menores/piores ou ordem crescente usam custom_filters=true e SQL
+personalizado; o template padrão ordena os maiores. Não some taxas individuais
+para participação ou contribuição: preserve numeradores e denominadores no SQL.
 kind: comparacao para comparar períodos, tendencia para série mensal,
 ranking para ordenar principais itens, segmentacao para distribuição/participação,
 operacional para previsto versus realizado, resolução ou confronto de fluxos.
@@ -232,5 +235,6 @@ multiplicação por joins antes da soma e use desempate estável. Para participa
 o denominador inclui todo o conjunto filtrado antes de limitar a apresentação.
 Horas previstas versus realizadas são colunas da mesma competência. Resolução é
 ponderada por SUM(abertos), sem média de taxas individuais; denominador zero é NULL.
+Grupo sem chamados em um dos períodos tem taxa NULL; não substitua por zero.
 Em causas, lucro ou previsões sem evidência, não invente campos, dados ou inferências.
 """

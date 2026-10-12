@@ -18,3 +18,9 @@ A validação mostrou representação insuficiente: o limiar selecionado abstém
 Nenhuma destas métricas é acurácia de SQL ou do Gemini. Avaliação das análises gerenciais será documentada separadamente. A matriz de confusão permite identificar classes frágeis; corpus pequeno e formulações sintéticas não sustentam generalização para gestores reais.
 
 Reprodução (Python 3.12/3.13): instalar requirements-lock.txt e requirements-training-lock.txt; executar python -m scripts.train_intents validate, depois train e test em diretórios novos conforme o plano. O bot carrega JSON com inferência equivalente, sem depender de sklearn no runtime e sem treinar durante conversas. Dependências de treino ficam em lock separado para preservar o runtime original.
+
+## Revisão independente — 12/10/2026
+
+Quatro problemas importantes foram reproduzidos antes do congelamento gerencial e corrigidos: transporte de zero `numeric` com escala em formato fixo; pedidos de ranking dos menores encaminhados ao SQL personalizado; taxa ausente preservada como NULL; participação/contribuição de taxas encaminhadas ao SQL personalizado, preservando numeradores e denominadores. Os templates descendentes continuam disponíveis para maiores resultados. Também foi removida a sugestão `extract` incompatível com a allowlist existente.
+
+Regressões primeiro: 7 falhas e 33 aprovações. Após correções e prompt: 187 testes aprovados em 20,49 s, incluindo PostgreSQL real; Ruff aprovado. Nenhum novo teste reservado do agente foi executado nesta verificação. Pesos e resultado reservado do classificador permanecem congelados. O resultado local de engenharia não mede desempenho do Gemini.

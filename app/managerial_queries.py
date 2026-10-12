@@ -94,6 +94,9 @@ def managerial_query(plan: dict) -> dict | None:
         return None
     if detail == "contribuicao" and kind != "comparacao":
         return None
+    rate = plan["measure"] == "taxa_resolucao"
+    if rate and (kind == "segmentacao" or detail == "contribuicao"):
+        return None  # Taxas não são aditivas: preservar numeradores/denominadores no SQL livre.
     unit = (
         "BRL"
         if plan["measure"] == "valor"
@@ -130,11 +133,13 @@ def managerial_query(plan: dict) -> dict | None:
             if detail == "contribuicao"
             else ""
         )
+        base_value = "base.valor" if rate else "CASE WHEN base.registros IS NULL THEN 0 ELSE base.valor END"
+        current_value = "atual.valor" if rate else "CASE WHEN atual.registros IS NULL THEN 0 ELSE atual.valor END"
         sql = f"""WITH dados_base AS ({rows}), dados_atual AS ({other}),
             base AS ({first}), atual AS ({second}), comparado AS (
             SELECT COALESCE(base.item, atual.item) AS item,
-              CASE WHEN base.registros IS NULL THEN 0 ELSE base.valor END AS base,
-              CASE WHEN atual.registros IS NULL THEN 0 ELSE atual.valor END AS atual,
+              {base_value} AS base,
+              {current_value} AS atual,
               COALESCE(base.registros,0)+COALESCE(atual.registros,0) AS registros
             FROM base FULL JOIN atual ON base.item=atual.item)
             SELECT item, base, atual, atual-base AS diferenca,

@@ -17,7 +17,7 @@ logger = logging.getLogger(__name__)
 
 def scalar(value):
     if isinstance(value, Decimal):
-        return str(value)  # Preserva precisão; nunca float.
+        return format(value, "f")  # Preserva dígitos e escala, inclusive zero; nunca float.
     if isinstance(value, (date, datetime)):
         return value.isoformat()
     if isinstance(value, timedelta):

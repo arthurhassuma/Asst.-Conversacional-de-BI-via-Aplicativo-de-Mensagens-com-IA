@@ -112,6 +112,10 @@ async def test_short_followup_without_reference_requires_clarification():
             "SELECT AVG(valor) AS media FROM faturamento",
         ),
         (
+            "Quais os cinco clientes com menor faturamento em agosto de 2025?",
+            "SELECT SUM(valor) AS total FROM faturamento ORDER BY total ASC LIMIT 5",
+        ),
+        (
             "Arredonde o faturamento em agosto de 2025 para duas casas decimais",
             "SELECT ROUND(SUM(valor),2) AS total FROM faturamento",
         ),

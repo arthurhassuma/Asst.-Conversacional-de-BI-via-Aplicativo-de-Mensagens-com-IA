@@ -7,6 +7,27 @@ from app.rendering import InvalidAnswer, cell_text, render_answer
 from tests.test_analysis_contract import PLAN
 
 
+@pytest.mark.parametrize("zero", ["0E-20", "0.00000000000000000000"])
+def test_scaled_zero_remains_exact_in_stable_comparison(zero):
+    from decimal import Decimal
+
+    from app.database_tools import scalar
+
+    result = {"columns": ["base", "atual", "diferenca", "variacao_percentual", "direcao", "registros"],
+              "rows": [["100.00", "100.00", scalar(Decimal(zero)), scalar(Decimal(zero)), "ficou_estavel", 2]],
+              "truncated": False}
+    text = render_managerial(result, managerial_query(PLAN)["context"])
+    assert "estável" in text and "0,00000000000000000000%" in text
+
+
+def test_decimal_transport_never_uses_exponential_notation():
+    from decimal import Decimal
+
+    from app.database_tools import scalar
+    assert scalar(Decimal("0E-20")) == "0.00000000000000000000"
+    assert scalar(Decimal("1E+3")) == "1000"
+
+
 def test_friendly_format_preserves_all_digits():
     assert cell_text("123456789.123456") == "123.456.789,123456"
     assert cell_text("-0.0010") == "-0,0010"

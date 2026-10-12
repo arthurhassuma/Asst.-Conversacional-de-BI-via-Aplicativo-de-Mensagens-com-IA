@@ -13,6 +13,14 @@ def test_custom_filters_never_use_unfiltered_template():
     assert managerial_query(plan) is None
 
 
+@pytest.mark.parametrize("kind,detail", [("segmentacao", "padrao"), ("comparacao", "contribuicao")])
+def test_rates_cannot_be_summed_as_shares_or_contributions(kind, detail):
+    plan = copy.deepcopy(PLAN)
+    plan.update(metric="chamados", measure="taxa_resolucao")
+    plan["analysis"].update(kind=kind, group_by="cliente", detail=detail)
+    assert managerial_query(plan) is None
+
+
 @pytest.mark.parametrize(
     "kind,group,detail,metric,measure",
     [
