@@ -86,6 +86,49 @@ processo/retorno do daemon e respeita parada intencional. A VM precisa permanece
 ligada e ter acesso às APIs e quota de IA. Volume não é backup; não houve SLA,
 reboot observado ou plano completo de recuperação de desastre demonstrado.
 
+## Trocar o banco pelo perfil comparativo-v2 (destrutivo, decisão do responsável)
+
+O `comparativo-v2` tem o mesmo escopo do perfil já implantado (100 clientes, 100%
+dos meses jan/2025–out/2026, mesmas regras de cobertura de status), corrigindo
+apenas a repetição de dia do pedido e de descrições. Trocar o banco da VM apaga o
+volume `pgdata` atual: histórico de qualquer dado real que tenha entrado na base
+desde 13/10/2026 (ex.: conversas que tenham gerado efeitos observáveis, se houver)
+seria perdido. Confirme que está de acordo antes de rodar os comandos abaixo.
+
+```bash
+cd ~/pac_privado
+git pull
+sudo docker build --build-arg SOURCE_COMMIT="$(git rev-parse HEAD)" -t pac-bi-runtime:local .
+
+# 1. Backup do volume atual antes de qualquer coisa destrutiva
+sudo docker compose -p pac-bi-24h -f .local/hospedagem/compose.yaml exec -T db \
+  pg_dump -U bi_owner -d bi_comparativo > ~/backup-pgdata-$(date +%Y%m%d).sql
+
+# 2. Parar os serviços que dependem do banco
+sudo docker compose -p pac-bi-24h -f .local/hospedagem/compose.yaml stop backend polling
+
+# 3. Remover o volume atual (irreversível; o backup do passo 1 é a única forma de voltar atrás)
+sudo docker compose -p pac-bi-24h -f .local/hospedagem/compose.yaml down
+sudo docker volume rm pac-bi-24h_pgdata
+
+# 4. Recriar o banco vazio e reseedar com o perfil corrigido
+sudo docker compose -p pac-bi-24h -f .local/hospedagem/compose.yaml up -d db
+sudo docker compose -p pac-bi-24h -f .local/hospedagem/compose.yaml --profile setup run --rm setup manage-db init
+sudo docker compose -p pac-bi-24h -f .local/hospedagem/compose.yaml --profile setup run --rm setup manage-db seed --profile comparativo-v2 --clients 100 --seed 42 --start-month 2025-01 --end-month 2026-10
+sudo docker compose -p pac-bi-24h -f .local/hospedagem/compose.yaml --profile setup run --rm setup manage-db validate
+sudo docker compose -p pac-bi-24h -f .local/hospedagem/compose.yaml --profile setup run --rm setup manage-db coverage
+
+# 5. Religar backend e polling
+sudo docker compose -p pac-bi-24h -f .local/hospedagem/compose.yaml up -d --wait --wait-timeout 120 backend
+curl --fail http://127.0.0.1:8000/health
+sudo docker compose -p pac-bi-24h -f .local/hospedagem/compose.yaml up -d polling
+```
+
+O passo 3 é o ponto sem volta: depois de `docker volume rm`, só o backup do passo 1
+recupera os dados anteriores (via `psql ... < backup-pgdata-AAAAMMDD.sql` num banco
+novo). Teste a mudança num ambiente separado antes, se possível, e confirme com um
+`/comecar` e uma pergunta real pelo Telegram após o passo 5.
+
 ## Credenciais e limites
 
 Nenhum arquivo private/, .env, banco, log, chave SSH ou valor de credencial faz

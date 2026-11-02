@@ -14,6 +14,10 @@ O provedor foi alterado de Anthropic para Gemini por decisão do usuário para u
 
 O levantamento encontrou somente os dois documentos, agora em [docs/](docs/). Não havia esqueleto de código. Veja [levantamento inicial](docs/levantamento-inicial.md), [arquitetura](docs/arquitetura.md) e [dicionário](docs/dicionario-de-dados.md).
 
+Em 02/11/2026: `relative_periods.py` passou a resolver `hoje`, `ontem`, `anteontem` e datas explícitas (`DD/MM/AAAA` ou `dia D de <mês>[ de AAAA]`) de forma determinística, com os mesmos exemplos few-shot adicionados ao planejador — antes, dia exato dependia só da interpretação livre do Gemini. Também foram adicionados os perfis `--profile original-v2` e `--profile comparativo-v2` em `bi-db seed`, que corrigem padrões repetitivos dos geradores existentes (pedido sempre no dia 5 ou só entre os dias 2 e 18, descrição e valor repetidos entre meses/contratos): cobertura real de dias do mês, pools de descrições e valores com variação mensal. Os perfis `original` (seed 42) e `comparativo` ficam intocados, pois alimentam respectivamente a avaliação congelada de 40 casos e o hash publicado em `docs/base-comparativa.md`. Veja `evaluation/cases-original-v2.json` para reavaliar sobre os dados corrigidos.
+
+Em 02/11/2026, `requirements-lock.txt`/`pyproject.toml` tiveram `pglast` atualizado de `7.18` para `8.7` (a versão antiga saiu do PyPI; qualquer rebuild travava). O planejador também ganhou uma regra explícita para "compara com o ano passado" quando o período já estava fixado em turnos anteriores por outro caminho (ex.: resposta a esclarecimento) — antes podia comparar um ano inteiro contra um mês só. E `app/managerial_rendering.py`/`app/bi_agent.py` passaram a mesclar respostas de métricas com o mesmo cabeçalho (mesma métrica, período e tipo, "Ambos" pedindo valor e quantidade) num único bloco, em vez de repetir cabeçalho e período a cada medida.
+
 ## Setup reproduzível
 
 Requisitos: Python 3.11+ e Docker com Compose. Execute na raiz do projeto. Exemplos PowerShell; no Linux/macOS use `.venv/bin/activate`.
@@ -57,6 +61,10 @@ bi-db validate
 ```
 
 `init` cria o schema e a role de leitura em uma transação. Recusa schema/role existentes para não alterar outro projeto. `seed` é transacional e recusa banco preenchido. Não existe comando automático de reset destrutivo. `docker compose down` preserva o volume. Mudanças em POSTGRES_PASSWORD após a primeira criação do volume não alteram a senha já armazenada no PostgreSQL.
+
+Use `bi-db seed --profile original-v2 --seed 42 --clients 30` para uma base com os mesmos 30 clientes e contratos 2024/2025 do perfil original, mas com pedidos distribuídos em qualquer dia do mês (não só dia 5), descrições variadas por pedido/contrato e valores com flutuação mensal em vez de repetidos. `bi-db seed --profile original-v2 ...` audita automaticamente a variedade (dias, descrições e valores distintos) antes de aceitar a carga; o perfil `original` continua inalterado porque alimenta a avaliação congelada de 40 casos.
+
+Da mesma forma, `bi-db seed --profile comparativo-v2 --clients 100 --seed 42 --start-month 2025-01 --end-month 2026-10` preserva os 100 clientes, 22 meses e todas as regras de cobertura mensal/status do perfil `comparativo`, mas espalha os pedidos pelo mês inteiro (em vez de só dias 2 a 18) e varia as descrições de pedidos e contratos. O perfil `comparativo` original também fica intocado, porque `docs/base-comparativa.md` publica um hash SHA256 do conteúdo gerado por ele.
 
 ## CLI local
 
@@ -102,6 +110,11 @@ preenchidos. O perfil original tem pedidos e faturamento emitido em 2024/2025: e
 09/10/2026, `mês passado` corresponde a setembro de 2026 e não encontra registros.
 Totais simples usam consultas padronizadas; filtros adicionais e análises detalhadas
 continuam usando o executor SQL restrito. Veja os [testes reais de outubro](docs/verificacao.md).
+
+`hoje`, `ontem`, `anteontem` e datas de um único dia (`05/03/2025` ou `dia 20 de
+janeiro de 2025`) também são resolvidos de forma determinística, fora do Gemini.
+`dia 20 de janeiro` sem ano só resolve com `esse ano`/`ano passado` explícito no
+pedido; caso contrário o assistente pede o ano, como já ocorre para meses.
 
 ## Chave Gemini e cota gratuita
 
@@ -235,3 +248,8 @@ python -m scripts.evaluate run --live --split development --interval 60 --limit 
 ```
 
 Resultados ficam em `.local/evaluation/`. Teste reservado somente após congelar ajustes de desenvolvimento. A avaliação não envia mensagens nem reinicia o Telegram.
+
+Para reavaliar os mesmos 40 casos sobre uma base carregada com `--profile original-v2`,
+use `python -m scripts.evaluate run --live --dataset evaluation/cases-original-v2.json ...`.
+O SQL de referência é idêntico ao conjunto original (calculado ao vivo contra o banco
+carregado); só a versão declarada no arquivo muda, para não misturar evidências entre perfis.
