@@ -28,7 +28,8 @@ arquivos privados nem refaça init/seed/configuração nessa VM para fazer o com
 Execute somente com um checkout completo do projeto, Docker/Compose, Python e
 Git disponíveis. Use configuração de acesso GitHub do responsável, preservando
 TLS e credenciais privadas. Os comandos seguintes partem da raiz do checkout e
-não foram executados durante a recuperação de 02/11/2026.
+não foram executados durante a recuperação de 02/11/2026. Para atualizar a VM
+já implantada (sem clone git), veja "Atualizar código já implantado" abaixo.
 
 ```bash
 sudo systemctl enable --now docker
@@ -86,6 +87,34 @@ processo/retorno do daemon e respeita parada intencional. A VM precisa permanece
 ligada e ter acesso às APIs e quota de IA. Volume não é backup; não houve SLA,
 reboot observado ou plano completo de recuperação de desastre demonstrado.
 
+**Confirmado em 02/11/2026: `~/pac_privado` nessa VM não é um clone git**, mesmo
+com `git` instalado no sistema. Foi implantado via ZIP copiado por `scp` (ver
+`README-INSTALACAO.md` e `SOURCE_COMMIT.txt` no próprio checkout da VM). `git pull`
+falha com `fatal: not a git repository`. Para atualizar código nela, use `scp`.
+
+## Atualizar código já implantado (sem tocar no banco)
+
+Transfira só os arquivos alterados por `scp`, reconstrua a imagem e recrie
+backend/polling — o volume `pgdata` não é tocado nesse fluxo:
+
+```powershell
+# No Windows local, na raiz do checkout
+scp -i caminho\da\chave.pem app\arquivo1.py app\arquivo2.py usuario@ip-da-vm:~/pac_privado/app/
+```
+
+```bash
+# Na VM, via SSH
+cd ~/pac_privado
+sudo docker build --no-cache --build-arg SOURCE_COMMIT="$(cat SOURCE_COMMIT.txt)" -t pac-bi-runtime:local .
+sudo docker compose -p pac-bi-24h -f .local/hospedagem/compose.yaml up -d backend polling
+curl --fail http://127.0.0.1:8000/health
+```
+
+Use `--no-cache` no build: já observamos o Docker reaproveitar a camada de
+`COPY requirements-lock.txt` mesmo após o arquivo mudar no host, mantendo uma
+dependência antiga e quebrando o build silenciosamente. Teste a mudança real no
+Telegram depois do `curl` — `/health` não confirma que a lógica nova está no ar.
+
 ## Trocar o banco pelo perfil comparativo-v2 (destrutivo, decisão do responsável)
 
 O `comparativo-v2` tem o mesmo escopo do perfil já implantado (100 clientes, 100%
@@ -95,10 +124,10 @@ volume `pgdata` atual: histórico de qualquer dado real que tenha entrado na bas
 desde 13/10/2026 (ex.: conversas que tenham gerado efeitos observáveis, se houver)
 seria perdido. Confirme que está de acordo antes de rodar os comandos abaixo.
 
+Atualize o código primeiro (seção anterior, via `scp`) se ainda não tiver feito.
+
 ```bash
 cd ~/pac_privado
-git pull
-sudo docker build --build-arg SOURCE_COMMIT="$(git rev-parse HEAD)" -t pac-bi-runtime:local .
 
 # 1. Backup do volume atual antes de qualquer coisa destrutiva
 sudo docker compose -p pac-bi-24h -f .local/hospedagem/compose.yaml exec -T db \
