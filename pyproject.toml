@@ -10,7 +10,7 @@ requires-python = ">=3.11"
 dependencies = [
   "google-genai>=1.75,<2", "fastapi>=0.115,<1", "uvicorn>=0.34,<1",
   "python-telegram-bot>=22,<23", "psycopg[binary]>=3.2,<4",
-  "pglast>=7,<8", "Faker>=33,<40", "pydantic-settings>=2.7,<3"
+  "pglast>=8,<9", "Faker>=33,<40", "pydantic-settings>=2.7,<3"
 ]
 
 [project.optional-dependencies]
@@ -26,7 +26,7 @@ bi-telegram = "app.telegram_bot:main"
 include = ["app*", "scripts*", "evaluation*", "training*"]
 
 [tool.setuptools.package-data]
-evaluation = ["cases.json", "managerial-cases-v1.json"]
+evaluation = ["cases.json", "cases-original-v2.json", "managerial-cases-v1.json"]
 training = ["questions-v1.json", "protocol.json", "intent-model-v1.json"]
 
 [tool.pytest.ini_options]

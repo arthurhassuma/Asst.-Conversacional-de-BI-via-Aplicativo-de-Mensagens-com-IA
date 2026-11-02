@@ -19,7 +19,7 @@ httpx==0.28.1
 idna==3.20
 iniconfig==2.3.0
 packaging==26.3
-pglast==7.18
+pglast==8.7
 pluggy==1.6.0
 psycopg==3.3.6
 psycopg-binary==3.3.6
