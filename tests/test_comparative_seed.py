@@ -102,3 +102,43 @@ def test_comparative_minimum_clients_and_unknown_profile_are_rejected():
         generate_data(clients=33, profile="comparativo")
     with pytest.raises(ValueError, match="Perfil desconhecido"):
         generate_data(profile="inexistente")
+
+
+def test_comparative_v1_still_matches_frozen_day_window_and_descriptions():
+    """Trava de regressão: comparativo (v1) alimenta docs/base-comparativa*.md com
+    hash publicado; não pode mudar, mesmo ao corrigir a variedade no v2."""
+    data = comparative()
+    assert {row["data_pedido"].day for row in data["pedidos"]} <= set(range(2, 19))
+    assert {row["descricao"] for row in data["pedidos"]} == {
+        "Marco de projeto",
+        "Serviço de sustentação",
+    }
+    assert {row["descricao"] for row in data["contratos"]} == {
+        "Sustentação mensal de aplicações",
+        "Projeto de melhoria e integração",
+    }
+
+
+def comparative_v2(**kwargs):
+    return generate_data(seed=42, clients=100, profile="comparativo-v2", **kwargs)
+
+
+def test_comparative_v2_is_reproducible_and_passes_existing_coverage_report():
+    from scripts.comparative_seed import coverage_report
+
+    data = comparative_v2()
+    assert data == comparative_v2()
+    report = coverage_report(data)
+    assert report["meses"] == 22
+    assert len(data["clientes"]) == 100
+
+
+def test_comparative_v2_fixes_day_and_description_repetition():
+    from scripts.seed import day_coverage_report
+
+    data = comparative_v2()
+    report = day_coverage_report(data)
+    assert report["dias_distintos"] > 18
+    assert report["descricoes_distintas"] >= 3
+    descriptions = {row["descricao"] for row in data["contratos"]}
+    assert len(descriptions) >= 3

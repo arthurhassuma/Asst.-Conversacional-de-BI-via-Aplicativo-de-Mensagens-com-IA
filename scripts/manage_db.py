@@ -9,7 +9,7 @@ from psycopg import sql
 from app.cli_support import PortugueseArgumentParser
 from app.config import Settings
 from scripts.comparative_seed import TABLE_DATES, coverage_report
-from scripts.seed import generate_data
+from scripts.seed import day_coverage_report, generate_data
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -49,8 +49,10 @@ def seed_database(
     data = generate_data(
         seed, clients, profile=profile, start_month=start_month, end_month=end_month
     )
-    if profile == "comparativo":
+    if profile in ("comparativo", "comparativo-v2"):
         coverage_report(data, start_month, end_month)
+    if profile in ("original-v2", "comparativo-v2"):
+        day_coverage_report(data)
     with conn.cursor() as cur:
         for table, rows in data.items():
             columns = list(rows[0])
@@ -109,7 +111,11 @@ def main():
         default=None,
         help="Padrão: 30 no perfil original, 100 no comparativo.",
     )
-    parser.add_argument("--profile", choices=["original", "comparativo"], default="original")
+    parser.add_argument(
+        "--profile",
+        choices=["original", "original-v2", "comparativo", "comparativo-v2"],
+        default="original",
+    )
     parser.add_argument("--start-month", default="2025-01")
     parser.add_argument("--end-month", default="2026-10")
     parser.add_argument("--env-file", default=".env", help="Arquivo local de configuração.")
@@ -127,7 +133,7 @@ def main():
                 clients = (
                     args.clients
                     if args.clients is not None
-                    else (100 if args.profile == "comparativo" else 30)
+                    else (100 if args.profile in ("comparativo", "comparativo-v2") else 30)
                 )
                 result = seed_database(
                     conn,

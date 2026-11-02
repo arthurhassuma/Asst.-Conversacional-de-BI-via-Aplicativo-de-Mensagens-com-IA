@@ -25,6 +25,27 @@ STATUSES = {
     "pedidos": {"aprovado", "entregue", "cancelado"},
     "faturamento": {"paga", "aberta", "cancelada"},
 }
+SUSTENTACAO_DESCRIPTIONS = (
+    "Serviço de sustentação",
+    "Ciclo de sustentação mensal",
+    "Pacote de horas de consultoria",
+    "Revisão e suporte mensal",
+)
+PROJETO_DESCRIPTIONS = (
+    "Marco de projeto",
+    "Entrega de incremento do projeto",
+    "Sprint de desenvolvimento",
+)
+SUSTENTACAO_CONTRACT_DESCRIPTIONS = (
+    "Sustentação mensal de aplicações",
+    "Suporte contínuo de sistemas",
+    "Manutenção evolutiva de aplicações",
+)
+PROJETO_CONTRACT_DESCRIPTIONS = (
+    "Projeto de melhoria e integração",
+    "Projeto de modernização de plataforma",
+    "Projeto de integração de sistemas",
+)
 
 
 def month_range(start: str, end: str) -> list[date]:
@@ -51,7 +72,11 @@ def month_end(month: date) -> date:
     return month.replace(day=calendar.monthrange(month.year, month.month)[1])
 
 
-def generate_comparative_data(seed: int, clients: int, start: str, end: str) -> dict:
+def generate_comparative_data(
+    seed: int, clients: int, start: str, end: str, *, version: str = "v1"
+) -> dict:
+    if version not in ("v1", "v2"):
+        raise ValueError("Versão desconhecida. Use v1 ou v2.")
     months = month_range(start, end)
     if not 12 + len(months) <= clients <= 1000:
         raise ValueError(
@@ -87,14 +112,21 @@ def generate_comparative_data(seed: int, clients: int, start: str, end: str) -> 
                 order_id = len(data["pedidos"]) + 1
                 code = (order_id + index) % 10
                 status = "cancelado" if code == 0 else "aprovado" if code == 1 else "entregue"
-                ordered = month.replace(day=2 + slot * 7 + rng.randrange(3))
+                if version == "v2":
+                    days_in_month = calendar.monthrange(month.year, month.month)[1]
+                    window = days_in_month // len(parts)
+                    ordered = month.replace(day=min(1 + slot * window + rng.randrange(window), days_in_month))
+                    descricao = rng.choice(PROJETO_DESCRIPTIONS if project else SUSTENTACAO_DESCRIPTIONS)
+                else:
+                    ordered = month.replace(day=2 + slot * 7 + rng.randrange(3))
+                    descricao = "Marco de projeto" if project else "Serviço de sustentação"
                 value = Decimal(amount) / 100
                 contract["valor_contratado"] += value
                 data["pedidos"].append(
                     dict(
                         id=order_id,
                         contrato_id=contract["id"],
-                        descricao="Marco de projeto" if project else "Serviço de sustentação",
+                        descricao=descricao,
                         data_pedido=ordered,
                         valor=value,
                         status=status,
@@ -166,7 +198,11 @@ def generate_comparative_data(seed: int, clients: int, start: str, end: str) -> 
         contract = dict(
             id=len(data["contratos"]) + 1,
             cliente_id=client_id,
-            descricao="Sustentação mensal de aplicações",
+            descricao=(
+                rng.choice(SUSTENTACAO_CONTRACT_DESCRIPTIONS)
+                if version == "v2"
+                else "Sustentação mensal de aplicações"
+            ),
             modalidade="sustentacao",
             inicio=eligible[0],
             fim=date(cutoff.year + 1, 12, 31) if status == "ativo" else (month_end(eligible[-1])),
@@ -181,7 +217,11 @@ def generate_comparative_data(seed: int, clients: int, start: str, end: str) -> 
             project = dict(
                 id=len(data["contratos"]) + 1,
                 cliente_id=client_id,
-                descricao="Projeto de melhoria e integração",
+                descricao=(
+                    rng.choice(PROJETO_CONTRACT_DESCRIPTIONS)
+                    if version == "v2"
+                    else "Projeto de melhoria e integração"
+                ),
                 modalidade="projeto",
                 inicio=month,
                 fim=date(cutoff.year + 1, 12, 31)
