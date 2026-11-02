@@ -1,7 +1,7 @@
 import pytest
 
 from app.managerial_queries import managerial_query
-from app.managerial_rendering import render_managerial
+from app.managerial_rendering import grouping_key, render_managerial, render_managerial_group
 from app.messaging import message_chunks
 from app.rendering import InvalidAnswer, cell_text, render_answer
 from tests.test_analysis_contract import PLAN
@@ -53,6 +53,35 @@ def test_comparison_has_friendly_text_and_only_cell_numbers():
     assert "1.250,123456" in text and "250,123456" in text
     assert "Sem base comparável" in text
     assert "inadimplência" not in text and "causa" not in text
+
+
+def test_render_managerial_group_merges_same_header_once():
+    period = {"start": "2025-01-01", "end": "2025-02-01", "evidence": "janeiro de 2025"}
+    base_context = {
+        "source": "controlled_template",
+        "kind": "total",
+        "metric": "pedidos",
+        "period": period,
+    }
+    value_context = {**base_context, "measure": "valor", "unit": "BRL"}
+    count_context = {**base_context, "measure": "quantidade", "unit": "quantidade"}
+    value_result = {"columns": ["total"], "rows": [["1000.00"]], "truncated": False}
+    count_result = {"columns": ["total"], "rows": [["7"]], "truncated": False}
+    text = render_managerial_group([(value_result, value_context), (count_result, count_context)])
+    assert text.count("Período:") == 1
+    assert text.count("Resumo de pedidos de serviços") == 1
+    assert "▸ Valor" in text and "▸ Quantidade" in text
+    assert "1.000,00" in text and "7" in text
+
+
+def test_grouping_key_distinguishes_period_metric_and_kind():
+    period_a = {"start": "2025-01-01", "end": "2025-02-01", "evidence": "janeiro de 2025"}
+    period_b = {"start": "2025-02-01", "end": "2025-03-01", "evidence": "fevereiro de 2025"}
+    base = {"metric": "pedidos", "kind": "total", "group_by": None, "period": period_a}
+    assert grouping_key(base) == grouping_key({**base, "period": dict(period_a)})
+    assert grouping_key(base) != grouping_key({**base, "period": period_b})
+    assert grouping_key(base) != grouping_key({**base, "metric": "faturamento"})
+    assert grouping_key(base) != grouping_key({**base, "kind": "comparacao"})
 
 
 def test_untrusted_context_is_rejected():

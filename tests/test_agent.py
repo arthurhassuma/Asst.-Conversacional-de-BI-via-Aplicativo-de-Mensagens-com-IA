@@ -329,6 +329,24 @@ async def test_simple_totals_need_only_one_model_call_and_no_generated_sql():
     assert "COUNT(*) AS registros" in db.queries[1]
 
 
+async def test_same_metric_and_period_measures_are_merged_without_repeating_header():
+    db = Database()
+    client = Client(
+        [
+            plan_response(
+                {**PLAN, "metric": "pedidos", "measure": "valor", "operation": "total"},
+                {**PLAN, "metric": "pedidos", "measure": "quantidade", "operation": "total"},
+            )
+        ]
+    )
+    text, _ = await BIAgent(Settings(_env_file=None), client, db).answer(
+        "Pedidos de serviços, ambos, em janeiro de 2025", []
+    )
+    assert text.count("Período:") == 1
+    assert text.count("Resumo de pedidos de serviços") == 1
+    assert "▸ Valor" in text and "▸ Quantidade" in text
+
+
 async def test_custom_filter_uses_analysis_instead_of_unfiltered_total():
     db = Database()
     query = "SELECT SUM(valor) AS total FROM faturamento WHERE status = 'aberta'"

@@ -69,27 +69,19 @@ def _cell(column, value, context):
     return formatted + (" h" if unit == "horas" else "")
 
 
-def render_managerial(result: dict, context: dict) -> str:
-    if (
-        context.get("source") != "controlled_template"
-        or context.get("metric") not in METRICS
-        or context.get("unit") not in {"BRL", "percentual", "horas", "quantidade"}
-        or "error" in result
-    ):
-        raise InvalidAnswer("Contexto gerencial não validado.")
-    columns, rows = result["columns"], result["rows"]
-    if len(set(columns)) != len(columns) or any(len(row) != len(columns) for row in rows):
-        raise InvalidAnswer("Formato do resultado gerencial inválido.")
-    titles = {
-        "comparacao": "Comparativo",
-        "tendencia": "Evolução mensal",
-        "ranking": "Ranking",
-        "segmentacao": "Distribuição",
-        "operacional": "Resumo operacional",
-        "total": "Resumo",
-    }
+TITLES = {
+    "comparacao": "Comparativo",
+    "tendencia": "Evolução mensal",
+    "ranking": "Ranking",
+    "segmentacao": "Distribuição",
+    "operacional": "Resumo operacional",
+    "total": "Resumo",
+}
+
+
+def header_lines(context: dict) -> tuple[list[str], bool]:
     icon = "🕒" if context["metric"] == "horas" else "📊"
-    lines = [f"{icon} {titles[context['kind']]} de {METRICS[context['metric']]}"]
+    lines = [f"{icon} {TITLES[context['kind']]} de {METRICS[context['metric']]}"]
     monthly = context["kind"] == "comparacao" and context.get("group_by") == "mes"
     if monthly:
         lines[0] = f"{icon} Comparativo mensal de {METRICS[context['metric']]}"
@@ -108,6 +100,44 @@ def render_managerial(result: dict, context: dict) -> str:
             last_day = date.fromisoformat(context["comparison_period"]["end"]) - timedelta(days=1)
             if last_day.day < calendar.monthrange(last_day.year, last_day.month)[1]:
                 lines.append("ℹ️ O último mês está parcial nos intervalos comparados.")
+    return lines, monthly
+
+
+def grouping_key(context: dict):
+    """Identifica contextos com cabeçalho idêntico, variando só a medida."""
+    return (
+        context.get("metric"),
+        context.get("kind"),
+        context.get("group_by"),
+        json_period(context.get("period")),
+        json_period(context.get("comparison_period")),
+    )
+
+
+def json_period(period):
+    return (period["start"], period["end"]) if period else None
+
+
+def measure_subtitle(context: dict) -> str:
+    if context.get("unit") == "BRL":
+        return "Valor"
+    if context.get("unit") == "horas":
+        return "Horas"
+    return LABELS.get(context.get("measure"), "Quantidade")
+
+
+def render_managerial(result: dict, context: dict) -> str:
+    if (
+        context.get("source") != "controlled_template"
+        or context.get("metric") not in METRICS
+        or context.get("unit") not in {"BRL", "percentual", "horas", "quantidade"}
+        or "error" in result
+    ):
+        raise InvalidAnswer("Contexto gerencial não validado.")
+    columns, rows = result["columns"], result["rows"]
+    if len(set(columns)) != len(columns) or any(len(row) != len(columns) for row in rows):
+        raise InvalidAnswer("Formato do resultado gerencial inválido.")
+    lines, monthly = header_lines(context)
     records = [dict(zip(columns, row, strict=True)) for row in rows]
     if any(
         "registros" in row and (type(row["registros"]) is not int or row["registros"] < 0)
@@ -191,3 +221,18 @@ def render_managerial(result: dict, context: dict) -> str:
     if len(text) > 12000:
         raise InvalidAnswer("Resultado extenso. Solicite um resumo ou refine os filtros.")
     return text
+
+
+def render_managerial_group(items: list[tuple[dict, dict]]) -> str:
+    """Mescla resultados com cabeçalho idêntico (mesma métrica/período/tipo),
+    variando só a medida, num único bloco em vez de repetir o cabeçalho."""
+    if len(items) == 1:
+        return render_managerial(*items[0])
+    header, _ = header_lines(items[0][1])
+    lines = list(header)
+    for result, context in items:
+        body = render_managerial(result, context).split("\n")[len(header):]
+        lines.append("")
+        lines.append(f"▸ {measure_subtitle(context)}")
+        lines.extend(body)
+    return "\n".join(lines)

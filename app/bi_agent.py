@@ -17,7 +17,7 @@ from app.config import Settings
 from app.database_tools import DatabaseTools
 from app.intent_classifier import intent_context, load_classifier, select_examples
 from app.managerial_queries import managerial_query
-from app.managerial_rendering import render_managerial
+from app.managerial_rendering import grouping_key, render_managerial, render_managerial_group
 from app.monthly_comparisons import normalize_monthly_comparison_plan
 from app.prompts import PLANNER_PROMPT, PLANNER_SCHEMA, SYSTEM_PROMPT, TOOLS
 from app.query_templates import total_query
@@ -93,6 +93,39 @@ def provider_error_category(error):
     ):
         return "function_response_validation"
     return "unclassified"
+
+
+def merge_groupable_answers(answers: list[str], evidences: list[dict]) -> list[str]:
+    """Funde respostas consecutivas com cabeçalho idêntico (mesma métrica, período e
+    tipo), variando só a medida, para não repetir o cabeçalho a cada medida pedida."""
+    merged, index = [], 0
+    while index < len(answers):
+        context, result = (
+            evidences[index].get("managerial_context"),
+            evidences[index].get("selected"),
+        )
+        if context is None or result is None:
+            merged.append(answers[index])
+            index += 1
+            continue
+        group = [(result, context)]
+        end = index + 1
+        while end < len(evidences):
+            next_context, next_result = (
+                evidences[end].get("managerial_context"),
+                evidences[end].get("selected"),
+            )
+            if (
+                next_context is None
+                or next_result is None
+                or grouping_key(next_context) != grouping_key(context)
+            ):
+                break
+            group.append((next_result, next_context))
+            end += 1
+        merged.append(render_managerial_group(group) if len(group) > 1 else answers[index])
+        index = end
+    return merged
 
 
 def clarify(plan: dict, messages: list, *, today=None) -> str | None:
@@ -349,6 +382,7 @@ class BIAgent:
             answers.append(
                 await self._query(query, copy.deepcopy(planning_messages), trace, evidence)
             )
+        answers = merge_groupable_answers(answers, trace["queries"])
         text = "\n\n".join(answers)
         trace["status"] = "answer"
         # Guarda só o pedido real e a resposta visível. Tools/assinaturas permanecem
@@ -405,7 +439,12 @@ class BIAgent:
                 "period": plan["period"],
             }
             text = render_managerial(result, context)
-            evidence.update(selected=copy.deepcopy(result), selected_id="q1", template=True)
+            evidence.update(
+                selected=copy.deepcopy(result),
+                selected_id="q1",
+                template=True,
+                managerial_context=context,
+            )
             return text
         system = SYSTEM_PROMPT + "\nPlano confirmado: " + json.dumps(plan, ensure_ascii=False)
         results, sql_errors, schema_seen = {}, 0, False
