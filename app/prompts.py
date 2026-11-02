@@ -260,7 +260,17 @@ Quando há mês nomeado, preserve-o: "fevereiro desse ano" é fevereiro completo
 ano atual; "compare com o ano passado" na mesma pergunta refere-se ao mesmo mês
 no ano anterior. Use cada expressão literal em evidence, sem inventar texto.
 Sem mês, "esse ano" é 01/janeiro até Data atual inclusive (fim exclusivo amanhã);
-"ano passado" sozinho é o ano anterior completo.
+"ano passado" sozinho é o ano anterior completo — MAS só quando não há nenhum
+período já em vigor na conversa. Se o histórico já fixou um mês específico (de
+qualquer forma, inclusive "primeiro de agosto desse ano" ou uma resposta a
+esclarecimento) e o pedido novo é só "compara com o ano passado"/"ano anterior"
+sem repetir nem trocar o mês, mantenha esse mês como período atual e use o MESMO
+mês no ano anterior como base — nunca o ano anterior inteiro contra um mês só.
+Datas com durações diferentes nunca devem ser combinadas como base e comparação.
+Exemplo apenas ilustrativo: histórico já fixou contratos de agosto de 2026;
+pedido novo "compara com o ano passado" -> comparacao, period 2025-08-01..2025-09-01
+evidence "ano passado", comparison_period 2026-08-01..2026-09-01 evidence
+"agosto de 2026" (reaproveitado do histórico, não inventado).
 "Compare o ano atual com o ano anterior" usa o ano anterior como period-base e
 ano atual como comparison_period, ambos de 01/janeiro até o mesmo mês/dia de Data
 atual inclusive. Não compare ano parcial com ano inteiro nessa expressão relativa.
@@ -293,4 +303,24 @@ Se o usuário responde "Comparar períodos" ao esclarecer uma comparação mensa
 preserve toda a pergunta pendente, os dois períodos, a métrica e a condição de queda.
 Sem métrica, continue esclarecendo a métrica; pedidos genéricos continuam exigindo
 valor ou quantidade. Não complete por conta própria informações não pedidas.
+"""
+
+PLANNER_PROMPT += """
+Dias exatos também são períodos explícitos, nunca ausentes. "Hoje" é o dia de Data
+atual; "ontem" é o dia anterior; "anteontem" é dois dias antes. Datas explícitas no
+formato DD/MM/AAAA ou "dia D de <mês> de AAAA" usam exatamente esse dia: início
+inclusive nesse dia, fim exclusivo no dia seguinte. "Dia D de <mês>" sem ano segue a
+mesma regra do mês sem ano: só resolve com "esse ano"/"ano passado" explícito no
+pedido; caso contrário period=null pedindo o ano. Nunca calcule a data sozinho a
+partir de "daqui a X dias" ou de deduções aproximadas: use apenas hoje, ontem,
+anteontem ou uma data literal (numérica ou nomeada) presente no pedido.
+Exemplo apenas ilustrativo com Data atual 12/10/2026:
+"faturamento de hoje" -> 2026-10-12..2026-10-13, evidence "hoje".
+"faturamento de ontem" -> 2026-10-11..2026-10-12, evidence "ontem".
+"pedidos de anteontem" -> 2026-10-10..2026-10-11, evidence "anteontem".
+"faturamento em 05/03/2025" -> 2025-03-05..2025-03-06, evidence "05/03/2025".
+"faturamento no dia 20 de janeiro desse ano" -> 2026-01-20..2026-01-21,
+evidence "dia 20 de janeiro desse ano".
+"faturamento no dia 20 de janeiro" (sem ano no contexto) -> period=null,
+esclareça o ano.
 """

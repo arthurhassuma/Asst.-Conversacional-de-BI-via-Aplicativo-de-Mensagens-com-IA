@@ -115,6 +115,40 @@ def test_relative_year_drift_or_invented_evidence_is_rejected():
         validate_period(plan["queries"][0]["period"], messages, today=TODAY)
 
 
+@pytest.mark.parametrize(
+    "evidence,start,end",
+    [
+        ("hoje", "2026-10-12", "2026-10-13"),
+        ("ontem", "2026-10-11", "2026-10-12"),
+        ("anteontem", "2026-10-10", "2026-10-11"),
+        ("05/03/2025", "2025-03-05", "2025-03-06"),
+        ("dia 20 de janeiro de 2025", "2025-01-20", "2025-01-21"),
+        ("dia 20 de janeiro desse ano", "2026-01-20", "2026-01-21"),
+        ("dia 20 de janeiro do ano passado", "2025-01-20", "2025-01-21"),
+    ],
+)
+def test_exact_day_is_resolved_deterministically(evidence, start, end):
+    messages = [{"role": "user", "content": "Qual o faturamento de " + evidence + "?"}]
+    plan = {"queries": [query(evidence)]}
+    before = copy.deepcopy(plan)
+    resolved = normalize_relative_plan(plan, messages, TODAY)["queries"][0]["period"]
+    assert (resolved["start"], resolved["end"], resolved["evidence"]) == (start, end, evidence)
+    assert plan == before
+    validate_period(resolved, messages, today=TODAY)
+
+
+def test_exact_day_without_year_context_is_not_replaced():
+    messages = [{"role": "user", "content": "Qual o faturamento no dia 20 de janeiro?"}]
+    plan = {"queries": [query("dia 20 de janeiro")]}
+    assert normalize_relative_plan(plan, messages, TODAY) == plan
+
+
+def test_invalid_explicit_date_is_not_replaced():
+    messages = [{"role": "user", "content": "Qual o faturamento em 31/02/2025?"}]
+    plan = {"queries": [query("31/02/2025")]}
+    assert normalize_relative_plan(plan, messages, TODAY) == plan
+
+
 def test_explicit_dates_and_ambiguous_month_ranges_are_not_replaced():
     assert normalize_relative_plan(
         {"queries": [PLAN]}, [{"role": "user", "content": "agosto de 2025 e agosto de 2026"}], TODAY

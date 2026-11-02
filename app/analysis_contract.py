@@ -83,7 +83,8 @@ def validate_period(period: dict, messages: list[dict], *, today=None) -> dict:
                 ),
             )
         )
-        info = relative_info(period, messages)
+        anchor = today or current_date()
+        info = relative_info(period, messages, anchor)
         if (
             not temporal
             and not info
@@ -111,10 +112,9 @@ def validate_period(period: dict, messages: list[dict], *, today=None) -> dict:
             ):
                 raise ValueError
         if info:
-            anchor = today or current_date()
             expected = resolved_period(period, info, anchor)
             allowed = {(expected["start"], expected["end"])}
-            if info["offset"] == -1 and info["month"] is None:
+            if "exact" not in info and info["offset"] == -1 and info["month"] is None:
                 allowed.add((expected["start"], comparable_previous_end(anchor).isoformat()))
             if (period["start"], period["end"]) not in allowed:
                 raise ValueError
