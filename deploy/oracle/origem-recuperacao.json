@@ -1,0 +1,37 @@
+{
+  "source_commit": "a971546f25adbf996bfc1279637042125b6a4882",
+  "original_zip_name": "pac-bi-deploy-main.zip",
+  "original_zip_size_bytes": 123813,
+  "original_zip_sha256": "26e8b1987386c7d727f9e70ead7a67da5f89af1683b66bda74816537be08bd17",
+  "recovered_on": "2026-11-02",
+  "original_manifest_entries_verified": 53,
+  "tracked_source_files_matching_main": 43,
+  "original_runtime_files": [
+    {
+      "original_path": "Dockerfile",
+      "repository_path": "Dockerfile",
+      "sha256": "22709bc3ecee04a97762a3054a1e9f8e5e0b50adee5e24ba801555f91e4fdc39"
+    },
+    {
+      "original_path": ".dockerignore",
+      "repository_path": ".dockerignore",
+      "sha256": "7580b56efe8d4a58300318f6766c8376455938c4ab6df2b0ed766cafd13a1748"
+    },
+    {
+      "original_path": "runtime_entrypoint.py",
+      "repository_path": "runtime_entrypoint.py",
+      "sha256": "0040c55d230928bd67cb5361f5a370c5b1ec857714d12952f4a2479514e98a99"
+    },
+    {
+      "original_path": ".local/hospedagem/compose.yaml",
+      "repository_path": "deploy/oracle/compose.yaml",
+      "sha256": "048ec269a4740c66aff8a5b025576cc074bcd1b380908447aba3ff139b6c5eb8"
+    },
+    {
+      "original_path": ".local/hospedagem/configure.py",
+      "repository_path": "deploy/oracle/configure.py",
+      "sha256": "dece316a73808fdf0fc60ab434abae057381c209fe0d194d1e55d44620d0d458"
+    }
+  ],
+  "scope": "Proveniência histórica dos cinco arquivos recuperados, não manifesto integral do repositório."
+}

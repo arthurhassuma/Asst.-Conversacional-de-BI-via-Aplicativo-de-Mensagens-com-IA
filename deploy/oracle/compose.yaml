@@ -1,0 +1,64 @@
+services:
+  db:
+    image: postgres:16
+    restart: unless-stopped
+    env_file: ./private/database.env
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: [CMD-SHELL, 'pg_isready -U "$$POSTGRES_USER" -d "$$POSTGRES_DB"']
+      interval: 5s
+      timeout: 5s
+      retries: 20
+  backend:
+    image: pac-bi-runtime:local
+    user: '${PAC_RUN_UID:-0}:${PAC_RUN_GID:-0}'
+    restart: unless-stopped
+    command: backend
+    volumes:
+      - ./private/application.env:/run/secrets/application.env:ro
+    ports:
+      - '127.0.0.1:8000:8000'
+    depends_on:
+      db:
+        condition: service_healthy
+    healthcheck:
+      test: [CMD, python, -c, "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health',timeout=3)"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    cap_drop: [ALL]
+    security_opt: ['no-new-privileges:true']
+    read_only: true
+    tmpfs: [/tmp]
+    logging:
+      options: {max-size: '10m', max-file: '3'}
+  polling:
+    image: pac-bi-runtime:local
+    user: '${PAC_RUN_UID:-0}:${PAC_RUN_GID:-0}'
+    restart: unless-stopped
+    command: polling
+    volumes:
+      - ./private/application.env:/run/secrets/application.env:ro
+    depends_on:
+      backend:
+        condition: service_healthy
+    cap_drop: [ALL]
+    security_opt: ['no-new-privileges:true']
+    read_only: true
+    tmpfs: [/tmp]
+    logging:
+      options: {max-size: '10m', max-file: '3'}
+  setup:
+    image: pac-bi-runtime:local
+    profiles: [setup]
+    environment:
+      PAC_CONFIG_FILE: /run/secrets/setup.env
+    volumes:
+      - ./private/setup.env:/run/secrets/setup.env:ro
+    command: [manage-db, validate]
+    depends_on:
+      db:
+        condition: service_healthy
+volumes:
+  pgdata:
