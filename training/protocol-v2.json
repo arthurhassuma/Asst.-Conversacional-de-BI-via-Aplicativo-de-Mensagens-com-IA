@@ -1,0 +1,23 @@
+{
+  "version": "intent-v2",
+  "origin": "synthetic",
+  "domain": "revenda de autopecas",
+  "review": "technical",
+  "seed": 42,
+  "corpus": "training/questions-v2.json",
+  "generator": "training/build_corpus_v2.py",
+  "C": [0.5, 1.0, 2.0, 5.0, 10.0, 20.0, 50.0, 100.0],
+  "thresholds": [0.5, 0.6, 0.7],
+  "splits": {"train": 556, "validation": 168, "test": 166},
+  "classes": ["total", "comparacao", "tendencia", "ranking", "segmentacao", "operacional", "generica"],
+  "grouping": "molde: cada forma de perguntar pertence a uma unica particao",
+  "selection": "C e limiar escolhidos somente pela validacao; o teste nao e usado para ajustar nada",
+  "test_policy": "congelar corpus e modelo em commit antes do teste; avaliar o teste uma unica vez",
+  "usage_criterion": {
+    "evaluated_on": "test",
+    "accepted_precision_min": 0.90,
+    "coverage_min": 0.50,
+    "rule": "O classificador so e ligado no bot se as duas condicoes forem atingidas no teste reservado. Se nao forem, ele permanece desligado e o resultado e relatado como nao atingido."
+  },
+  "limitations": "Perguntas geradas por moldes sinteticos com concordancia as vezes imperfeita; 98 moldes, nao perguntas reais independentes. O teste mede moldes nao vistos no treino, mas continua sendo sintetico e escrito pela mesma equipe. Nao mede a corretude do SQL nem o desempenho do Gemini."
+}

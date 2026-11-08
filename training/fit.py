@@ -27,17 +27,29 @@ def metrics(actual, predicted, *, accepted=None):
         "matrix_labels": list(LABELS),
         "confusion_matrix": confusion_matrix(actual, predicted, labels=list(LABELS)).tolist(),
         "coverage": sum(accepted) / len(actual) if accepted is not None else None,
+        # Das sugestões aceitas, quantas acertaram a classe: o que decide se vale usar.
+        "accepted_precision": (
+            sum(a == p for a, p, ok in zip(actual, predicted, accepted, strict=True) if ok)
+            / sum(accepted)
+            if accepted is not None and sum(accepted)
+            else None
+        ),
     }
 
 
-def fit_model(records: list[dict], seed: int = 42) -> tuple[dict, dict]:
+DEFAULT_C_GRID = (0.5, 1.0, 2.0)
+
+
+def fit_model(
+    records: list[dict], seed: int = 42, c_grid: tuple[float, ...] = DEFAULT_C_GRID
+) -> tuple[dict, dict]:
     validate_corpus(records)
     train = [r for r in records if r["split"] == "train"]
     validation = [r for r in records if r["split"] == "validation"]
     x, y = [r["question"] for r in train], [r["label"] for r in train]
     vx, vy = [r["question"] for r in validation], [r["label"] for r in validation]
     candidates = []
-    for c in (0.5, 1.0, 2.0):
+    for c in c_grid:
         model = Pipeline(
             [
                 ("tfidf", TfidfVectorizer(strip_accents="unicode", ngram_range=(1, 2))),

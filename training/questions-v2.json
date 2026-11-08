@@ -1,0 +1,6232 @@
+[
+ {
+  "id": "total-m09-1",
+  "question": "Me informa o faturamento emitido em maio de 2026.",
+  "label": "total",
+  "group_id": "total-m09",
+  "split": "train"
+ },
+ {
+  "id": "total-m09-2",
+  "question": "Me informa as horas de atendimento em março de 2026.",
+  "label": "total",
+  "group_id": "total-m09",
+  "split": "train"
+ },
+ {
+  "id": "total-m09-3",
+  "question": "Me informa o faturamento emitido em maio de 2025.",
+  "label": "total",
+  "group_id": "total-m09",
+  "split": "train"
+ },
+ {
+  "id": "total-m09-4",
+  "question": "Me informa o faturamento hoje.",
+  "label": "total",
+  "group_id": "total-m09",
+  "split": "train"
+ },
+ {
+  "id": "total-m09-5",
+  "question": "Me informa a quantidade de pedidos de venda em março de 2025.",
+  "label": "total",
+  "group_id": "total-m09",
+  "split": "train"
+ },
+ {
+  "id": "total-m09-6",
+  "question": "Me informa as ocorrências de pós-venda em março de 2025.",
+  "label": "total",
+  "group_id": "total-m09",
+  "split": "train"
+ },
+ {
+  "id": "total-m09-7",
+  "question": "Me informa o valor dos pedidos de venda em janeiro de 2026.",
+  "label": "total",
+  "group_id": "total-m09",
+  "split": "train"
+ },
+ {
+  "id": "total-m09-8",
+  "question": "Me informa o valor contratado em outubro de 2026.",
+  "label": "total",
+  "group_id": "total-m09",
+  "split": "train"
+ },
+ {
+  "id": "total-m09-9",
+  "question": "Me informa o faturamento neste ano.",
+  "label": "total",
+  "group_id": "total-m09",
+  "split": "train"
+ },
+ {
+  "id": "total-m09-10",
+  "question": "Me informa os clientes novos em novembro de 2025.",
+  "label": "total",
+  "group_id": "total-m09",
+  "split": "train"
+ },
+ {
+  "id": "total-m13-1",
+  "question": "Qual é o montante de valor dos pedidos de venda em março de 2025?",
+  "label": "total",
+  "group_id": "total-m13",
+  "split": "train"
+ },
+ {
+  "id": "total-m13-2",
+  "question": "Qual é o montante de valor contratado de 01/09/2026 a 15/09/2026?",
+  "label": "total",
+  "group_id": "total-m13",
+  "split": "train"
+ },
+ {
+  "id": "total-m13-3",
+  "question": "Qual é o montante de recebimentos em junho de 2026?",
+  "label": "total",
+  "group_id": "total-m13",
+  "split": "train"
+ },
+ {
+  "id": "total-m13-4",
+  "question": "Qual é o montante de ocorrências de pós-venda em agosto de 2025?",
+  "label": "total",
+  "group_id": "total-m13",
+  "split": "train"
+ },
+ {
+  "id": "total-m13-5",
+  "question": "Qual é o montante de clientes novos em setembro de 2026?",
+  "label": "total",
+  "group_id": "total-m13",
+  "split": "train"
+ },
+ {
+  "id": "total-m13-6",
+  "question": "Qual é o montante de quantidade de contratos de fornecimento em agosto de 2026?",
+  "label": "total",
+  "group_id": "total-m13",
+  "split": "train"
+ },
+ {
+  "id": "total-m13-7",
+  "question": "Qual é o montante de quantidade de pedidos de venda de 01/09/2026 a 15/09/2026?",
+  "label": "total",
+  "group_id": "total-m13",
+  "split": "train"
+ },
+ {
+  "id": "total-m13-8",
+  "question": "Qual é o montante de valor contratado em março de 2026?",
+  "label": "total",
+  "group_id": "total-m13",
+  "split": "train"
+ },
+ {
+  "id": "total-m13-9",
+  "question": "Qual é o montante de quantidade de pedidos de venda em outubro de 2025?",
+  "label": "total",
+  "group_id": "total-m13",
+  "split": "train"
+ },
+ {
+  "id": "total-m13-10",
+  "question": "Qual é o montante de horas de atendimento no ano passado?",
+  "label": "total",
+  "group_id": "total-m13",
+  "split": "train"
+ },
+ {
+  "id": "total-m08-1",
+  "question": "Qual foi o resultado de horas de atendimento em janeiro de 2025?",
+  "label": "total",
+  "group_id": "total-m08",
+  "split": "train"
+ },
+ {
+  "id": "total-m08-2",
+  "question": "Qual foi o resultado de quantidade de pedidos de venda em março de 2025?",
+  "label": "total",
+  "group_id": "total-m08",
+  "split": "train"
+ },
+ {
+  "id": "total-m08-3",
+  "question": "Qual foi o resultado de clientes novos em outubro de 2026?",
+  "label": "total",
+  "group_id": "total-m08",
+  "split": "train"
+ },
+ {
+  "id": "total-m08-4",
+  "question": "Qual foi o resultado de recebimentos de 10/03/2025 a 20/03/2025?",
+  "label": "total",
+  "group_id": "total-m08",
+  "split": "train"
+ },
+ {
+  "id": "total-m08-5",
+  "question": "Qual foi o resultado de valor dos pedidos de venda de 01/09/2026 a 15/09/2026?",
+  "label": "total",
+  "group_id": "total-m08",
+  "split": "train"
+ },
+ {
+  "id": "total-m08-6",
+  "question": "Qual foi o resultado de faturamento em julho de 2026?",
+  "label": "total",
+  "group_id": "total-m08",
+  "split": "train"
+ },
+ {
+  "id": "total-m08-7",
+  "question": "Qual foi o resultado de ocorrências de pós-venda em setembro de 2026?",
+  "label": "total",
+  "group_id": "total-m08",
+  "split": "train"
+ },
+ {
+  "id": "total-m08-8",
+  "question": "Qual foi o resultado de faturamento em agosto de 2025?",
+  "label": "total",
+  "group_id": "total-m08",
+  "split": "train"
+ },
+ {
+  "id": "total-m08-9",
+  "question": "Qual foi o resultado de clientes novos de 10/03/2025 a 20/03/2025?",
+  "label": "total",
+  "group_id": "total-m08",
+  "split": "train"
+ },
+ {
+  "id": "total-m08-10",
+  "question": "Qual foi o resultado de clientes novos em abril de 2025?",
+  "label": "total",
+  "group_id": "total-m08",
+  "split": "train"
+ },
+ {
+  "id": "total-m07-1",
+  "question": "Total de quantidade de contratos de fornecimento hoje, por favor.",
+  "label": "total",
+  "group_id": "total-m07",
+  "split": "train"
+ },
+ {
+  "id": "total-m07-2",
+  "question": "Total de faturamento em agosto de 2025, por favor.",
+  "label": "total",
+  "group_id": "total-m07",
+  "split": "train"
+ },
+ {
+  "id": "total-m07-3",
+  "question": "Total de horas de atendimento em setembro de 2025, por favor.",
+  "label": "total",
+  "group_id": "total-m07",
+  "split": "train"
+ },
+ {
+  "id": "total-m07-4",
+  "question": "Total de faturamento em setembro de 2026, por favor.",
+  "label": "total",
+  "group_id": "total-m07",
+  "split": "train"
+ },
+ {
+  "id": "total-m07-5",
+  "question": "Total de faturamento em abril de 2026, por favor.",
+  "label": "total",
+  "group_id": "total-m07",
+  "split": "train"
+ },
+ {
+  "id": "total-m07-6",
+  "question": "Total de faturamento emitido em setembro de 2025, por favor.",
+  "label": "total",
+  "group_id": "total-m07",
+  "split": "train"
+ },
+ {
+  "id": "total-m07-7",
+  "question": "Total de quantidade de pedidos de venda em julho de 2025, por favor.",
+  "label": "total",
+  "group_id": "total-m07",
+  "split": "train"
+ },
+ {
+  "id": "total-m07-8",
+  "question": "Total de faturamento emitido em novembro de 2025, por favor.",
+  "label": "total",
+  "group_id": "total-m07",
+  "split": "train"
+ },
+ {
+  "id": "total-m07-9",
+  "question": "Total de ocorrências de pós-venda em maio de 2026, por favor.",
+  "label": "total",
+  "group_id": "total-m07",
+  "split": "train"
+ },
+ {
+  "id": "total-m07-10",
+  "question": "Total de faturamento em abril de 2025, por favor.",
+  "label": "total",
+  "group_id": "total-m07",
+  "split": "train"
+ },
+ {
+  "id": "total-m14-1",
+  "question": "Fechamos com quanto de ocorrências de pós-venda em outubro de 2026?",
+  "label": "total",
+  "group_id": "total-m14",
+  "split": "train"
+ },
+ {
+  "id": "total-m14-2",
+  "question": "Fechamos com quanto de horas de atendimento no mês passado?",
+  "label": "total",
+  "group_id": "total-m14",
+  "split": "train"
+ },
+ {
+  "id": "total-m14-3",
+  "question": "Fechamos com quanto de quantidade de pedidos de venda em novembro de 2025?",
+  "label": "total",
+  "group_id": "total-m14",
+  "split": "train"
+ },
+ {
+  "id": "total-m14-4",
+  "question": "Fechamos com quanto de faturamento emitido em junho de 2026?",
+  "label": "total",
+  "group_id": "total-m14",
+  "split": "train"
+ },
+ {
+  "id": "total-m14-5",
+  "question": "Fechamos com quanto de quantidade de pedidos de venda em dezembro de 2025?",
+  "label": "total",
+  "group_id": "total-m14",
+  "split": "train"
+ },
+ {
+  "id": "total-m14-6",
+  "question": "Fechamos com quanto de clientes novos ontem?",
+  "label": "total",
+  "group_id": "total-m14",
+  "split": "train"
+ },
+ {
+  "id": "total-m14-7",
+  "question": "Fechamos com quanto de faturamento neste ano?",
+  "label": "total",
+  "group_id": "total-m14",
+  "split": "train"
+ },
+ {
+  "id": "total-m14-8",
+  "question": "Fechamos com quanto de quantidade de pedidos de venda em março de 2025?",
+  "label": "total",
+  "group_id": "total-m14",
+  "split": "train"
+ },
+ {
+  "id": "total-m14-9",
+  "question": "Fechamos com quanto de quantidade de pedidos de venda em setembro de 2026?",
+  "label": "total",
+  "group_id": "total-m14",
+  "split": "train"
+ },
+ {
+  "id": "total-m14-10",
+  "question": "Fechamos com quanto de clientes novos em março de 2025?",
+  "label": "total",
+  "group_id": "total-m14",
+  "split": "train"
+ },
+ {
+  "id": "total-m12-1",
+  "question": "Horas de atendimento em maio de 2025: qual o valor?",
+  "label": "total",
+  "group_id": "total-m12",
+  "split": "train"
+ },
+ {
+  "id": "total-m12-2",
+  "question": "Valor contratado em agosto de 2025: qual o valor?",
+  "label": "total",
+  "group_id": "total-m12",
+  "split": "train"
+ },
+ {
+  "id": "total-m12-3",
+  "question": "Valor contratado hoje: qual o valor?",
+  "label": "total",
+  "group_id": "total-m12",
+  "split": "train"
+ },
+ {
+  "id": "total-m12-4",
+  "question": "Quantidade de contratos de fornecimento em 2025: qual o valor?",
+  "label": "total",
+  "group_id": "total-m12",
+  "split": "train"
+ },
+ {
+  "id": "total-m12-5",
+  "question": "Valor dos pedidos de venda hoje: qual o valor?",
+  "label": "total",
+  "group_id": "total-m12",
+  "split": "train"
+ },
+ {
+  "id": "total-m12-6",
+  "question": "Valor dos pedidos de venda ontem: qual o valor?",
+  "label": "total",
+  "group_id": "total-m12",
+  "split": "train"
+ },
+ {
+  "id": "total-m12-7",
+  "question": "Valor dos pedidos de venda em novembro de 2025: qual o valor?",
+  "label": "total",
+  "group_id": "total-m12",
+  "split": "train"
+ },
+ {
+  "id": "total-m12-8",
+  "question": "Quantidade de pedidos de venda ontem: qual o valor?",
+  "label": "total",
+  "group_id": "total-m12",
+  "split": "train"
+ },
+ {
+  "id": "total-m12-9",
+  "question": "Faturamento emitido em setembro de 2025: qual o valor?",
+  "label": "total",
+  "group_id": "total-m12",
+  "split": "train"
+ },
+ {
+  "id": "total-m12-10",
+  "question": "Ocorrências de pós-venda em agosto de 2026: qual o valor?",
+  "label": "total",
+  "group_id": "total-m12",
+  "split": "train"
+ },
+ {
+  "id": "total-m06-1",
+  "question": "Pode me passar a quantidade de contratos de fornecimento no mês passado?",
+  "label": "total",
+  "group_id": "total-m06",
+  "split": "train"
+ },
+ {
+  "id": "total-m06-2",
+  "question": "Pode me passar as horas de atendimento em fevereiro de 2026?",
+  "label": "total",
+  "group_id": "total-m06",
+  "split": "train"
+ },
+ {
+  "id": "total-m06-3",
+  "question": "Pode me passar o valor contratado de 01/09/2026 a 15/09/2026?",
+  "label": "total",
+  "group_id": "total-m06",
+  "split": "train"
+ },
+ {
+  "id": "total-m06-4",
+  "question": "Pode me passar a quantidade de pedidos de venda no mês passado?",
+  "label": "total",
+  "group_id": "total-m06",
+  "split": "train"
+ },
+ {
+  "id": "total-m06-5",
+  "question": "Pode me passar os recebimentos neste ano?",
+  "label": "total",
+  "group_id": "total-m06",
+  "split": "train"
+ },
+ {
+  "id": "total-m06-6",
+  "question": "Pode me passar as ocorrências de pós-venda em outubro de 2025?",
+  "label": "total",
+  "group_id": "total-m06",
+  "split": "train"
+ },
+ {
+  "id": "total-m06-7",
+  "question": "Pode me passar as ocorrências de pós-venda em março de 2026?",
+  "label": "total",
+  "group_id": "total-m06",
+  "split": "train"
+ },
+ {
+  "id": "total-m06-8",
+  "question": "Pode me passar o valor dos pedidos de venda em março de 2025?",
+  "label": "total",
+  "group_id": "total-m06",
+  "split": "train"
+ },
+ {
+  "id": "total-m06-9",
+  "question": "Pode me passar os recebimentos em agosto de 2026?",
+  "label": "total",
+  "group_id": "total-m06",
+  "split": "train"
+ },
+ {
+  "id": "total-m06-10",
+  "question": "Pode me passar os clientes novos no mês passado?",
+  "label": "total",
+  "group_id": "total-m06",
+  "split": "train"
+ },
+ {
+  "id": "total-m03-1",
+  "question": "Me diga o valor de quantidade de contratos de fornecimento no ano passado.",
+  "label": "total",
+  "group_id": "total-m03",
+  "split": "train"
+ },
+ {
+  "id": "total-m03-2",
+  "question": "Me diga o valor de recebimentos em agosto de 2025.",
+  "label": "total",
+  "group_id": "total-m03",
+  "split": "train"
+ },
+ {
+  "id": "total-m03-3",
+  "question": "Me diga o valor de clientes novos em agosto de 2026.",
+  "label": "total",
+  "group_id": "total-m03",
+  "split": "train"
+ },
+ {
+  "id": "total-m03-4",
+  "question": "Me diga o valor de horas de atendimento neste ano.",
+  "label": "total",
+  "group_id": "total-m03",
+  "split": "train"
+ },
+ {
+  "id": "total-m03-5",
+  "question": "Me diga o valor de clientes novos em abril de 2026.",
+  "label": "total",
+  "group_id": "total-m03",
+  "split": "train"
+ },
+ {
+  "id": "total-m03-6",
+  "question": "Me diga o valor de quantidade de pedidos de venda em setembro de 2025.",
+  "label": "total",
+  "group_id": "total-m03",
+  "split": "train"
+ },
+ {
+  "id": "total-m03-7",
+  "question": "Me diga o valor de horas de atendimento em janeiro de 2026.",
+  "label": "total",
+  "group_id": "total-m03",
+  "split": "train"
+ },
+ {
+  "id": "total-m03-8",
+  "question": "Me diga o valor de valor dos pedidos de venda em junho de 2026.",
+  "label": "total",
+  "group_id": "total-m03",
+  "split": "train"
+ },
+ {
+  "id": "total-m03-9",
+  "question": "Me diga o valor de faturamento emitido no mês passado.",
+  "label": "total",
+  "group_id": "total-m03",
+  "split": "train"
+ },
+ {
+  "id": "total-m03-10",
+  "question": "Me diga o valor de horas de atendimento em agosto de 2025.",
+  "label": "total",
+  "group_id": "total-m03",
+  "split": "train"
+ },
+ {
+  "id": "total-m10-1",
+  "question": "Consulte os clientes novos em outubro de 2026.",
+  "label": "total",
+  "group_id": "total-m10",
+  "split": "validation"
+ },
+ {
+  "id": "total-m10-2",
+  "question": "Consulte os recebimentos em julho de 2026.",
+  "label": "total",
+  "group_id": "total-m10",
+  "split": "validation"
+ },
+ {
+  "id": "total-m10-3",
+  "question": "Consulte o faturamento emitido hoje.",
+  "label": "total",
+  "group_id": "total-m10",
+  "split": "validation"
+ },
+ {
+  "id": "total-m10-4",
+  "question": "Consulte o faturamento emitido em março de 2026.",
+  "label": "total",
+  "group_id": "total-m10",
+  "split": "validation"
+ },
+ {
+  "id": "total-m10-5",
+  "question": "Consulte a quantidade de contratos de fornecimento em abril de 2026.",
+  "label": "total",
+  "group_id": "total-m10",
+  "split": "validation"
+ },
+ {
+  "id": "total-m10-6",
+  "question": "Consulte as horas de atendimento em março de 2025.",
+  "label": "total",
+  "group_id": "total-m10",
+  "split": "validation"
+ },
+ {
+  "id": "total-m10-7",
+  "question": "Consulte o faturamento emitido em agosto de 2026.",
+  "label": "total",
+  "group_id": "total-m10",
+  "split": "validation"
+ },
+ {
+  "id": "total-m10-8",
+  "question": "Consulte os recebimentos em julho de 2025.",
+  "label": "total",
+  "group_id": "total-m10",
+  "split": "validation"
+ },
+ {
+  "id": "total-m04-1",
+  "question": "Preciso saber a quantidade de pedidos de venda em outubro de 2025.",
+  "label": "total",
+  "group_id": "total-m04",
+  "split": "validation"
+ },
+ {
+  "id": "total-m04-2",
+  "question": "Preciso saber o faturamento emitido no mês passado.",
+  "label": "total",
+  "group_id": "total-m04",
+  "split": "validation"
+ },
+ {
+  "id": "total-m04-3",
+  "question": "Preciso saber as ocorrências de pós-venda no ano passado.",
+  "label": "total",
+  "group_id": "total-m04",
+  "split": "validation"
+ },
+ {
+  "id": "total-m04-4",
+  "question": "Preciso saber as ocorrências de pós-venda em junho de 2026.",
+  "label": "total",
+  "group_id": "total-m04",
+  "split": "validation"
+ },
+ {
+  "id": "total-m04-5",
+  "question": "Preciso saber o valor contratado hoje.",
+  "label": "total",
+  "group_id": "total-m04",
+  "split": "validation"
+ },
+ {
+  "id": "total-m04-6",
+  "question": "Preciso saber o faturamento em maio de 2025.",
+  "label": "total",
+  "group_id": "total-m04",
+  "split": "validation"
+ },
+ {
+  "id": "total-m04-7",
+  "question": "Preciso saber as horas de atendimento em fevereiro de 2026.",
+  "label": "total",
+  "group_id": "total-m04",
+  "split": "validation"
+ },
+ {
+  "id": "total-m04-8",
+  "question": "Preciso saber as ocorrências de pós-venda em setembro de 2025.",
+  "label": "total",
+  "group_id": "total-m04",
+  "split": "validation"
+ },
+ {
+  "id": "total-m05-1",
+  "question": "Quero o número de clientes novos em janeiro de 2025.",
+  "label": "total",
+  "group_id": "total-m05",
+  "split": "validation"
+ },
+ {
+  "id": "total-m05-2",
+  "question": "Quero o número de recebimentos em novembro de 2025.",
+  "label": "total",
+  "group_id": "total-m05",
+  "split": "validation"
+ },
+ {
+  "id": "total-m05-3",
+  "question": "Quero o número de quantidade de pedidos de venda em agosto de 2025.",
+  "label": "total",
+  "group_id": "total-m05",
+  "split": "validation"
+ },
+ {
+  "id": "total-m05-4",
+  "question": "Quero o número de clientes novos no mês passado.",
+  "label": "total",
+  "group_id": "total-m05",
+  "split": "validation"
+ },
+ {
+  "id": "total-m05-5",
+  "question": "Quero o número de faturamento emitido no mês passado.",
+  "label": "total",
+  "group_id": "total-m05",
+  "split": "validation"
+ },
+ {
+  "id": "total-m05-6",
+  "question": "Quero o número de ocorrências de pós-venda neste ano.",
+  "label": "total",
+  "group_id": "total-m05",
+  "split": "validation"
+ },
+ {
+  "id": "total-m05-7",
+  "question": "Quero o número de valor contratado em agosto de 2025.",
+  "label": "total",
+  "group_id": "total-m05",
+  "split": "validation"
+ },
+ {
+  "id": "total-m05-8",
+  "question": "Quero o número de valor dos pedidos de venda em julho de 2025.",
+  "label": "total",
+  "group_id": "total-m05",
+  "split": "validation"
+ },
+ {
+  "id": "total-m01-1",
+  "question": "Qual o total de quantidade de pedidos de venda ontem?",
+  "label": "total",
+  "group_id": "total-m01",
+  "split": "test"
+ },
+ {
+  "id": "total-m01-2",
+  "question": "Qual o total de valor dos pedidos de venda no mês passado?",
+  "label": "total",
+  "group_id": "total-m01",
+  "split": "test"
+ },
+ {
+  "id": "total-m01-3",
+  "question": "Qual o total de quantidade de pedidos de venda em maio de 2025?",
+  "label": "total",
+  "group_id": "total-m01",
+  "split": "test"
+ },
+ {
+  "id": "total-m01-4",
+  "question": "Qual o total de faturamento em abril de 2026?",
+  "label": "total",
+  "group_id": "total-m01",
+  "split": "test"
+ },
+ {
+  "id": "total-m01-5",
+  "question": "Qual o total de recebimentos ontem?",
+  "label": "total",
+  "group_id": "total-m01",
+  "split": "test"
+ },
+ {
+  "id": "total-m01-6",
+  "question": "Qual o total de clientes novos em maio de 2025?",
+  "label": "total",
+  "group_id": "total-m01",
+  "split": "test"
+ },
+ {
+  "id": "total-m01-7",
+  "question": "Qual o total de quantidade de pedidos de venda no ano passado?",
+  "label": "total",
+  "group_id": "total-m01",
+  "split": "test"
+ },
+ {
+  "id": "total-m01-8",
+  "question": "Qual o total de ocorrências de pós-venda de 10/03/2025 a 20/03/2025?",
+  "label": "total",
+  "group_id": "total-m01",
+  "split": "test"
+ },
+ {
+  "id": "total-m02-1",
+  "question": "Quanto tivemos de ocorrências de pós-venda neste ano?",
+  "label": "total",
+  "group_id": "total-m02",
+  "split": "test"
+ },
+ {
+  "id": "total-m02-2",
+  "question": "Quanto tivemos de valor dos pedidos de venda em agosto de 2025?",
+  "label": "total",
+  "group_id": "total-m02",
+  "split": "test"
+ },
+ {
+  "id": "total-m02-3",
+  "question": "Quanto tivemos de faturamento no mês passado?",
+  "label": "total",
+  "group_id": "total-m02",
+  "split": "test"
+ },
+ {
+  "id": "total-m02-4",
+  "question": "Quanto tivemos de quantidade de pedidos de venda em outubro de 2025?",
+  "label": "total",
+  "group_id": "total-m02",
+  "split": "test"
+ },
+ {
+  "id": "total-m02-5",
+  "question": "Quanto tivemos de faturamento em julho de 2026?",
+  "label": "total",
+  "group_id": "total-m02",
+  "split": "test"
+ },
+ {
+  "id": "total-m02-6",
+  "question": "Quanto tivemos de quantidade de contratos de fornecimento em maio de 2025?",
+  "label": "total",
+  "group_id": "total-m02",
+  "split": "test"
+ },
+ {
+  "id": "total-m02-7",
+  "question": "Quanto tivemos de faturamento neste ano?",
+  "label": "total",
+  "group_id": "total-m02",
+  "split": "test"
+ },
+ {
+  "id": "total-m02-8",
+  "question": "Quanto tivemos de quantidade de pedidos de venda em março de 2025?",
+  "label": "total",
+  "group_id": "total-m02",
+  "split": "test"
+ },
+ {
+  "id": "total-m11-1",
+  "question": "Só preciso do total de quantidade de contratos de fornecimento em março de 2025.",
+  "label": "total",
+  "group_id": "total-m11",
+  "split": "test"
+ },
+ {
+  "id": "total-m11-2",
+  "question": "Só preciso do total de ocorrências de pós-venda em fevereiro de 2025.",
+  "label": "total",
+  "group_id": "total-m11",
+  "split": "test"
+ },
+ {
+  "id": "total-m11-3",
+  "question": "Só preciso do total de clientes novos em junho de 2025.",
+  "label": "total",
+  "group_id": "total-m11",
+  "split": "test"
+ },
+ {
+  "id": "total-m11-4",
+  "question": "Só preciso do total de clientes novos em novembro de 2025.",
+  "label": "total",
+  "group_id": "total-m11",
+  "split": "test"
+ },
+ {
+  "id": "total-m11-5",
+  "question": "Só preciso do total de faturamento em abril de 2026.",
+  "label": "total",
+  "group_id": "total-m11",
+  "split": "test"
+ },
+ {
+  "id": "total-m11-6",
+  "question": "Só preciso do total de quantidade de contratos de fornecimento em novembro de 2025.",
+  "label": "total",
+  "group_id": "total-m11",
+  "split": "test"
+ },
+ {
+  "id": "total-m11-7",
+  "question": "Só preciso do total de faturamento hoje.",
+  "label": "total",
+  "group_id": "total-m11",
+  "split": "test"
+ },
+ {
+  "id": "total-m11-8",
+  "question": "Só preciso do total de quantidade de contratos de fornecimento no ano passado.",
+  "label": "total",
+  "group_id": "total-m11",
+  "split": "test"
+ },
+ {
+  "id": "comparacao-m02-1",
+  "question": "Clientes novos: junho de 2025 versus outubro de 2025.",
+  "label": "comparacao",
+  "group_id": "comparacao-m02",
+  "split": "train"
+ },
+ {
+  "id": "comparacao-m02-2",
+  "question": "Faturamento emitido: março de 2026 versus abril de 2025.",
+  "label": "comparacao",
+  "group_id": "comparacao-m02",
+  "split": "train"
+ },
+ {
+  "id": "comparacao-m02-3",
+  "question": "Valor contratado: setembro de 2025 versus fevereiro de 2026.",
+  "label": "comparacao",
+  "group_id": "comparacao-m02",
+  "split": "train"
+ },
+ {
+  "id": "comparacao-m02-4",
+  "question": "Faturamento: janeiro de 2026 versus julho de 2025.",
+  "label": "comparacao",
+  "group_id": "comparacao-m02",
+  "split": "train"
+ },
+ {
+  "id": "comparacao-m02-5",
+  "question": "Recebimentos: maio de 2026 versus setembro de 2025.",
+  "label": "comparacao",
+  "group_id": "comparacao-m02",
+  "split": "train"
+ },
+ {
+  "id": "comparacao-m02-6",
+  "question": "Valor contratado: outubro de 2026 versus abril de 2026.",
+  "label": "comparacao",
+  "group_id": "comparacao-m02",
+  "split": "train"
+ },
+ {
+  "id": "comparacao-m02-7",
+  "question": "Recebimentos: junho de 2026 versus janeiro de 2026.",
+  "label": "comparacao",
+  "group_id": "comparacao-m02",
+  "split": "train"
+ },
+ {
+  "id": "comparacao-m02-8",
+  "question": "Faturamento: julho de 2026 versus janeiro de 2026.",
+  "label": "comparacao",
+  "group_id": "comparacao-m02",
+  "split": "train"
+ },
+ {
+  "id": "comparacao-m02-9",
+  "question": "Valor dos pedidos de venda: janeiro de 2026 versus outubro de 2026.",
+  "label": "comparacao",
+  "group_id": "comparacao-m02",
+  "split": "train"
+ },
+ {
+  "id": "comparacao-m02-10",
+  "question": "Valor contratado: novembro de 2025 versus abril de 2025.",
+  "label": "comparacao",
+  "group_id": "comparacao-m02",
+  "split": "train"
+ },
+ {
+  "id": "comparacao-m07-1",
+  "question": "Faça um comparativo de clientes novos: maio de 2025 contra fevereiro de 2026.",
+  "label": "comparacao",
+  "group_id": "comparacao-m07",
+  "split": "train"
+ },
+ {
+  "id": "comparacao-m07-2",
+  "question": "Faça um comparativo de recebimentos: agosto de 2026 contra janeiro de 2026.",
+  "label": "comparacao",
+  "group_id": "comparacao-m07",
+  "split": "train"
+ },
+ {
+  "id": "comparacao-m07-3",
+  "question": "Faça um comparativo de valor dos pedidos de venda: novembro de 2025 contra setembro de 2026.",
+  "label": "comparacao",
+  "group_id": "comparacao-m07",
+  "split": "train"
+ },
+ {
+  "id": "comparacao-m07-4",
+  "question": "Faça um comparativo de faturamento: setembro de 2026 contra outubro de 2026.",
+  "label": "comparacao",
+  "group_id": "comparacao-m07",
+  "split": "train"
+ },
+ {
+  "id": "comparacao-m07-5",
+  "question": "Faça um comparativo de faturamento emitido: setembro de 2026 contra abril de 2025.",
+  "label": "comparacao",
+  "group_id": "comparacao-m07",
+  "split": "train"
+ },
+ {
+  "id": "comparacao-m07-6",
+  "question": "Faça um comparativo de faturamento emitido: novembro de 2025 contra fevereiro de 2025.",
+  "label": "comparacao",
+  "group_id": "comparacao-m07",
+  "split": "train"
+ },
+ {
+  "id": "comparacao-m07-7",
+  "question": "Faça um comparativo de faturamento: maio de 2026 contra fevereiro de 2026.",
+  "label": "comparacao",
+  "group_id": "comparacao-m07",
+  "split": "train"
+ },
+ {
+  "id": "comparacao-m07-8",
+  "question": "Faça um comparativo de valor dos pedidos de venda: agosto de 2026 contra outubro de 2026.",
+  "label": "comparacao",
+  "group_id": "comparacao-m07",
+  "split": "train"
+ },
+ {
+  "id": "comparacao-m07-9",
+  "question": "Faça um comparativo de faturamento: março de 2026 contra setembro de 2026.",
+  "label": "comparacao",
+  "group_id": "comparacao-m07",
+  "split": "train"
+ },
+ {
+  "id": "comparacao-m07-10",
+  "question": "Faça um comparativo de valor dos pedidos de venda: outubro de 2025 contra outubro de 2026.",
+  "label": "comparacao",
+  "group_id": "comparacao-m07",
+  "split": "train"
+ },
+ {
+  "id": "comparacao-m10-1",
+  "question": "Estamos melhor ou pior em recebimentos em setembro de 2026 frente a fevereiro de 2026?",
+  "label": "comparacao",
+  "group_id": "comparacao-m10",
+  "split": "train"
+ },
+ {
+  "id": "comparacao-m10-2",
+  "question": "Estamos melhor ou pior em valor dos pedidos de venda em abril de 2026 frente a abril de 2025?",
+  "label": "comparacao",
+  "group_id": "comparacao-m10",
+  "split": "train"
+ },
+ {
+  "id": "comparacao-m10-3",
+  "question": "Estamos melhor ou pior em recebimentos em outubro de 2025 frente a janeiro de 2025?",
+  "label": "comparacao",
+  "group_id": "comparacao-m10",
+  "split": "train"
+ },
+ {
+  "id": "comparacao-m10-4",
+  "question": "Estamos melhor ou pior em clientes novos em fevereiro de 2025 frente a agosto de 2026?",
+  "label": "comparacao",
+  "group_id": "comparacao-m10",
+  "split": "train"
+ },
+ {
+  "id": "comparacao-m10-5",
+  "question": "Estamos melhor ou pior em valor contratado em dezembro de 2025 frente a agosto de 2025?",
+  "label": "comparacao",
+  "group_id": "comparacao-m10",
+  "split": "train"
+ },
+ {
+  "id": "comparacao-m10-6",
+  "question": "Estamos melhor ou pior em clientes novos em outubro de 2026 frente a maio de 2025?",
+  "label": "comparacao",
+  "group_id": "comparacao-m10",
+  "split": "train"
+ },
+ {
+  "id": "comparacao-m10-7",
+  "question": "Estamos melhor ou pior em valor dos pedidos de venda em fevereiro de 2025 frente a julho de 2026?",
+  "label": "comparacao",
+  "group_id": "comparacao-m10",
+  "split": "train"
+ },
+ {
+  "id": "comparacao-m10-8",
+  "question": "Estamos melhor ou pior em recebimentos em fevereiro de 2026 frente a junho de 2025?",
+  "label": "comparacao",
+  "group_id": "comparacao-m10",
+  "split": "train"
+ },
+ {
+  "id": "comparacao-m10-9",
+  "question": "Estamos melhor ou pior em valor contratado em maio de 2026 frente a setembro de 2025?",
+  "label": "comparacao",
+  "group_id": "comparacao-m10",
+  "split": "train"
+ },
+ {
+  "id": "comparacao-m10-10",
+  "question": "Estamos melhor ou pior em recebimentos em novembro de 2025 frente a abril de 2025?",
+  "label": "comparacao",
+  "group_id": "comparacao-m10",
+  "split": "train"
+ },
+ {
+  "id": "comparacao-m12-1",
+  "question": "O que mudou em clientes novos de janeiro de 2026 para outubro de 2026?",
+  "label": "comparacao",
+  "group_id": "comparacao-m12",
+  "split": "train"
+ },
+ {
+  "id": "comparacao-m12-2",
+  "question": "O que mudou em recebimentos de abril de 2025 para junho de 2026?",
+  "label": "comparacao",
+  "group_id": "comparacao-m12",
+  "split": "train"
+ },
+ {
+  "id": "comparacao-m12-3",
+  "question": "O que mudou em recebimentos de janeiro de 2026 para julho de 2026?",
+  "label": "comparacao",
+  "group_id": "comparacao-m12",
+  "split": "train"
+ },
+ {
+  "id": "comparacao-m12-4",
+  "question": "O que mudou em faturamento emitido de junho de 2026 para agosto de 2026?",
+  "label": "comparacao",
+  "group_id": "comparacao-m12",
+  "split": "train"
+ },
+ {
+  "id": "comparacao-m12-5",
+  "question": "O que mudou em clientes novos de outubro de 2025 para março de 2026?",
+  "label": "comparacao",
+  "group_id": "comparacao-m12",
+  "split": "train"
+ },
+ {
+  "id": "comparacao-m12-6",
+  "question": "O que mudou em recebimentos de abril de 2025 para abril de 2026?",
+  "label": "comparacao",
+  "group_id": "comparacao-m12",
+  "split": "train"
+ },
+ {
+  "id": "comparacao-m12-7",
+  "question": "O que mudou em valor dos pedidos de venda de dezembro de 2025 para março de 2026?",
+  "label": "comparacao",
+  "group_id": "comparacao-m12",
+  "split": "train"
+ },
+ {
+  "id": "comparacao-m12-8",
+  "question": "O que mudou em valor dos pedidos de venda de abril de 2025 para setembro de 2026?",
+  "label": "comparacao",
+  "group_id": "comparacao-m12",
+  "split": "train"
+ },
+ {
+  "id": "comparacao-m12-9",
+  "question": "O que mudou em clientes novos de julho de 2025 para dezembro de 2025?",
+  "label": "comparacao",
+  "group_id": "comparacao-m12",
+  "split": "train"
+ },
+ {
+  "id": "comparacao-m12-10",
+  "question": "O que mudou em faturamento emitido de dezembro de 2025 para outubro de 2026?",
+  "label": "comparacao",
+  "group_id": "comparacao-m12",
+  "split": "train"
+ },
+ {
+  "id": "comparacao-m06-1",
+  "question": "Qual a diferença de faturamento emitido entre março de 2026 e março de 2025?",
+  "label": "comparacao",
+  "group_id": "comparacao-m06",
+  "split": "train"
+ },
+ {
+  "id": "comparacao-m06-2",
+  "question": "Qual a diferença de faturamento emitido entre novembro de 2025 e agosto de 2025?",
+  "label": "comparacao",
+  "group_id": "comparacao-m06",
+  "split": "train"
+ },
+ {
+  "id": "comparacao-m06-3",
+  "question": "Qual a diferença de faturamento entre julho de 2026 e julho de 2025?",
+  "label": "comparacao",
+  "group_id": "comparacao-m06",
+  "split": "train"
+ },
+ {
+  "id": "comparacao-m06-4",
+  "question": "Qual a diferença de faturamento emitido entre setembro de 2025 e maio de 2025?",
+  "label": "comparacao",
+  "group_id": "comparacao-m06",
+  "split": "train"
+ },
+ {
+  "id": "comparacao-m06-5",
+  "question": "Qual a diferença de faturamento emitido entre outubro de 2026 e janeiro de 2025?",
+  "label": "comparacao",
+  "group_id": "comparacao-m06",
+  "split": "train"
+ },
+ {
+  "id": "comparacao-m06-6",
+  "question": "Qual a diferença de valor contratado entre novembro de 2025 e janeiro de 2025?",
+  "label": "comparacao",
+  "group_id": "comparacao-m06",
+  "split": "train"
+ },
+ {
+  "id": "comparacao-m06-7",
+  "question": "Qual a diferença de valor dos pedidos de venda entre maio de 2026 e abril de 2025?",
+  "label": "comparacao",
+  "group_id": "comparacao-m06",
+  "split": "train"
+ },
+ {
+  "id": "comparacao-m06-8",
+  "question": "Qual a diferença de valor contratado entre julho de 2026 e abril de 2025?",
+  "label": "comparacao",
+  "group_id": "comparacao-m06",
+  "split": "train"
+ },
+ {
+  "id": "comparacao-m06-9",
+  "question": "Qual a diferença de clientes novos entre outubro de 2026 e maio de 2026?",
+  "label": "comparacao",
+  "group_id": "comparacao-m06",
+  "split": "train"
+ },
+ {
+  "id": "comparacao-m06-10",
+  "question": "Qual a diferença de valor dos pedidos de venda entre janeiro de 2026 e fevereiro de 2026?",
+  "label": "comparacao",
+  "group_id": "comparacao-m06",
+  "split": "train"
+ },
+ {
+  "id": "comparacao-m11-1",
+  "question": "Variação percentual de faturamento emitido, novembro de 2025 contra agosto de 2026.",
+  "label": "comparacao",
+  "group_id": "comparacao-m11",
+  "split": "train"
+ },
+ {
+  "id": "comparacao-m11-2",
+  "question": "Variação percentual de clientes novos, julho de 2026 contra junho de 2026.",
+  "label": "comparacao",
+  "group_id": "comparacao-m11",
+  "split": "train"
+ },
+ {
+  "id": "comparacao-m11-3",
+  "question": "Variação percentual de valor dos pedidos de venda, maio de 2026 contra agosto de 2026.",
+  "label": "comparacao",
+  "group_id": "comparacao-m11",
+  "split": "train"
+ },
+ {
+  "id": "comparacao-m11-4",
+  "question": "Variação percentual de clientes novos, setembro de 2026 contra junho de 2026.",
+  "label": "comparacao",
+  "group_id": "comparacao-m11",
+  "split": "train"
+ },
+ {
+  "id": "comparacao-m11-5",
+  "question": "Variação percentual de recebimentos, março de 2026 contra janeiro de 2026.",
+  "label": "comparacao",
+  "group_id": "comparacao-m11",
+  "split": "train"
+ },
+ {
+  "id": "comparacao-m11-6",
+  "question": "Variação percentual de recebimentos, outubro de 2026 contra setembro de 2025.",
+  "label": "comparacao",
+  "group_id": "comparacao-m11",
+  "split": "train"
+ },
+ {
+  "id": "comparacao-m11-7",
+  "question": "Variação percentual de faturamento emitido, março de 2025 contra fevereiro de 2026.",
+  "label": "comparacao",
+  "group_id": "comparacao-m11",
+  "split": "train"
+ },
+ {
+  "id": "comparacao-m11-8",
+  "question": "Variação percentual de valor contratado, fevereiro de 2025 contra julho de 2026.",
+  "label": "comparacao",
+  "group_id": "comparacao-m11",
+  "split": "train"
+ },
+ {
+  "id": "comparacao-m11-9",
+  "question": "Variação percentual de clientes novos, fevereiro de 2026 contra fevereiro de 2025.",
+  "label": "comparacao",
+  "group_id": "comparacao-m11",
+  "split": "train"
+ },
+ {
+  "id": "comparacao-m11-10",
+  "question": "Variação percentual de valor contratado, maio de 2026 contra julho de 2025.",
+  "label": "comparacao",
+  "group_id": "comparacao-m11",
+  "split": "train"
+ },
+ {
+  "id": "comparacao-m14-1",
+  "question": "Recebimentos neste ano versus no ano passado.",
+  "label": "comparacao",
+  "group_id": "comparacao-m14",
+  "split": "train"
+ },
+ {
+  "id": "comparacao-m14-2",
+  "question": "Valor contratado neste ano versus no ano passado.",
+  "label": "comparacao",
+  "group_id": "comparacao-m14",
+  "split": "train"
+ },
+ {
+  "id": "comparacao-m14-3",
+  "question": "Faturamento neste ano versus no ano passado.",
+  "label": "comparacao",
+  "group_id": "comparacao-m14",
+  "split": "train"
+ },
+ {
+  "id": "comparacao-m14-4",
+  "question": "Valor dos pedidos de venda neste ano versus no ano passado.",
+  "label": "comparacao",
+  "group_id": "comparacao-m14",
+  "split": "train"
+ },
+ {
+  "id": "comparacao-m14-5",
+  "question": "Faturamento emitido neste ano versus no ano passado.",
+  "label": "comparacao",
+  "group_id": "comparacao-m14",
+  "split": "train"
+ },
+ {
+  "id": "comparacao-m14-6",
+  "question": "Clientes novos neste ano versus no ano passado.",
+  "label": "comparacao",
+  "group_id": "comparacao-m14",
+  "split": "train"
+ },
+ {
+  "id": "comparacao-m03-1",
+  "question": "Como os recebimentos de junho de 2025 se compara a março de 2025?",
+  "label": "comparacao",
+  "group_id": "comparacao-m03",
+  "split": "train"
+ },
+ {
+  "id": "comparacao-m03-2",
+  "question": "Como o valor contratado de agosto de 2026 se compara a maio de 2026?",
+  "label": "comparacao",
+  "group_id": "comparacao-m03",
+  "split": "train"
+ },
+ {
+  "id": "comparacao-m03-3",
+  "question": "Como os recebimentos de abril de 2026 se compara a dezembro de 2025?",
+  "label": "comparacao",
+  "group_id": "comparacao-m03",
+  "split": "train"
+ },
+ {
+  "id": "comparacao-m03-4",
+  "question": "Como o faturamento emitido de agosto de 2025 se compara a maio de 2025?",
+  "label": "comparacao",
+  "group_id": "comparacao-m03",
+  "split": "train"
+ },
+ {
+  "id": "comparacao-m03-5",
+  "question": "Como o faturamento de abril de 2025 se compara a dezembro de 2025?",
+  "label": "comparacao",
+  "group_id": "comparacao-m03",
+  "split": "train"
+ },
+ {
+  "id": "comparacao-m03-6",
+  "question": "Como o valor contratado de agosto de 2026 se compara a fevereiro de 2025?",
+  "label": "comparacao",
+  "group_id": "comparacao-m03",
+  "split": "train"
+ },
+ {
+  "id": "comparacao-m03-7",
+  "question": "Como o faturamento emitido de abril de 2025 se compara a fevereiro de 2026?",
+  "label": "comparacao",
+  "group_id": "comparacao-m03",
+  "split": "train"
+ },
+ {
+  "id": "comparacao-m03-8",
+  "question": "Como o valor dos pedidos de venda de maio de 2025 se compara a julho de 2025?",
+  "label": "comparacao",
+  "group_id": "comparacao-m03",
+  "split": "train"
+ },
+ {
+  "id": "comparacao-m03-9",
+  "question": "Como os clientes novos de maio de 2026 se compara a setembro de 2025?",
+  "label": "comparacao",
+  "group_id": "comparacao-m03",
+  "split": "train"
+ },
+ {
+  "id": "comparacao-m03-10",
+  "question": "Como os clientes novos de agosto de 2026 se compara a abril de 2025?",
+  "label": "comparacao",
+  "group_id": "comparacao-m03",
+  "split": "train"
+ },
+ {
+  "id": "comparacao-m09-1",
+  "question": "Me mostre o faturamento de agosto de 2026 e de julho de 2025 lado a lado.",
+  "label": "comparacao",
+  "group_id": "comparacao-m09",
+  "split": "validation"
+ },
+ {
+  "id": "comparacao-m09-2",
+  "question": "Me mostre o valor dos pedidos de venda de outubro de 2025 e de junho de 2025 lado a lado.",
+  "label": "comparacao",
+  "group_id": "comparacao-m09",
+  "split": "validation"
+ },
+ {
+  "id": "comparacao-m09-3",
+  "question": "Me mostre o valor dos pedidos de venda de novembro de 2025 e de agosto de 2025 lado a lado.",
+  "label": "comparacao",
+  "group_id": "comparacao-m09",
+  "split": "validation"
+ },
+ {
+  "id": "comparacao-m09-4",
+  "question": "Me mostre o valor contratado de outubro de 2026 e de abril de 2026 lado a lado.",
+  "label": "comparacao",
+  "group_id": "comparacao-m09",
+  "split": "validation"
+ },
+ {
+  "id": "comparacao-m09-5",
+  "question": "Me mostre os clientes novos de abril de 2025 e de setembro de 2025 lado a lado.",
+  "label": "comparacao",
+  "group_id": "comparacao-m09",
+  "split": "validation"
+ },
+ {
+  "id": "comparacao-m09-6",
+  "question": "Me mostre o faturamento emitido de abril de 2025 e de junho de 2025 lado a lado.",
+  "label": "comparacao",
+  "group_id": "comparacao-m09",
+  "split": "validation"
+ },
+ {
+  "id": "comparacao-m09-7",
+  "question": "Me mostre os recebimentos de fevereiro de 2026 e de abril de 2025 lado a lado.",
+  "label": "comparacao",
+  "group_id": "comparacao-m09",
+  "split": "validation"
+ },
+ {
+  "id": "comparacao-m09-8",
+  "question": "Me mostre os clientes novos de setembro de 2026 e de junho de 2025 lado a lado.",
+  "label": "comparacao",
+  "group_id": "comparacao-m09",
+  "split": "validation"
+ },
+ {
+  "id": "comparacao-m05-1",
+  "question": "Houve aumento de recebimentos em março de 2025 em relação a dezembro de 2025?",
+  "label": "comparacao",
+  "group_id": "comparacao-m05",
+  "split": "validation"
+ },
+ {
+  "id": "comparacao-m05-2",
+  "question": "Houve aumento de valor dos pedidos de venda em setembro de 2025 em relação a janeiro de 2026?",
+  "label": "comparacao",
+  "group_id": "comparacao-m05",
+  "split": "validation"
+ },
+ {
+  "id": "comparacao-m05-3",
+  "question": "Houve aumento de faturamento emitido em maio de 2025 em relação a fevereiro de 2025?",
+  "label": "comparacao",
+  "group_id": "comparacao-m05",
+  "split": "validation"
+ },
+ {
+  "id": "comparacao-m05-4",
+  "question": "Houve aumento de valor contratado em outubro de 2026 em relação a março de 2026?",
+  "label": "comparacao",
+  "group_id": "comparacao-m05",
+  "split": "validation"
+ },
+ {
+  "id": "comparacao-m05-5",
+  "question": "Houve aumento de valor contratado em janeiro de 2025 em relação a outubro de 2026?",
+  "label": "comparacao",
+  "group_id": "comparacao-m05",
+  "split": "validation"
+ },
+ {
+  "id": "comparacao-m05-6",
+  "question": "Houve aumento de valor dos pedidos de venda em março de 2026 em relação a fevereiro de 2025?",
+  "label": "comparacao",
+  "group_id": "comparacao-m05",
+  "split": "validation"
+ },
+ {
+  "id": "comparacao-m05-7",
+  "question": "Houve aumento de clientes novos em outubro de 2026 em relação a maio de 2026?",
+  "label": "comparacao",
+  "group_id": "comparacao-m05",
+  "split": "validation"
+ },
+ {
+  "id": "comparacao-m05-8",
+  "question": "Houve aumento de valor contratado em agosto de 2026 em relação a abril de 2025?",
+  "label": "comparacao",
+  "group_id": "comparacao-m05",
+  "split": "validation"
+ },
+ {
+  "id": "comparacao-m04-1",
+  "question": "Quero comparar os recebimentos entre outubro de 2026 e setembro de 2026.",
+  "label": "comparacao",
+  "group_id": "comparacao-m04",
+  "split": "validation"
+ },
+ {
+  "id": "comparacao-m04-2",
+  "question": "Quero comparar o valor contratado entre fevereiro de 2025 e janeiro de 2025.",
+  "label": "comparacao",
+  "group_id": "comparacao-m04",
+  "split": "validation"
+ },
+ {
+  "id": "comparacao-m04-3",
+  "question": "Quero comparar o faturamento entre março de 2025 e abril de 2026.",
+  "label": "comparacao",
+  "group_id": "comparacao-m04",
+  "split": "validation"
+ },
+ {
+  "id": "comparacao-m04-4",
+  "question": "Quero comparar o valor contratado entre agosto de 2025 e junho de 2026.",
+  "label": "comparacao",
+  "group_id": "comparacao-m04",
+  "split": "validation"
+ },
+ {
+  "id": "comparacao-m04-5",
+  "question": "Quero comparar o valor dos pedidos de venda entre março de 2026 e julho de 2026.",
+  "label": "comparacao",
+  "group_id": "comparacao-m04",
+  "split": "validation"
+ },
+ {
+  "id": "comparacao-m04-6",
+  "question": "Quero comparar os recebimentos entre abril de 2025 e abril de 2026.",
+  "label": "comparacao",
+  "group_id": "comparacao-m04",
+  "split": "validation"
+ },
+ {
+  "id": "comparacao-m04-7",
+  "question": "Quero comparar o valor contratado entre junho de 2026 e janeiro de 2025.",
+  "label": "comparacao",
+  "group_id": "comparacao-m04",
+  "split": "validation"
+ },
+ {
+  "id": "comparacao-m04-8",
+  "question": "Quero comparar o valor contratado entre junho de 2026 e julho de 2025.",
+  "label": "comparacao",
+  "group_id": "comparacao-m04",
+  "split": "validation"
+ },
+ {
+  "id": "comparacao-m01-1",
+  "question": "Compare o faturamento de março de 2026 com novembro de 2025.",
+  "label": "comparacao",
+  "group_id": "comparacao-m01",
+  "split": "test"
+ },
+ {
+  "id": "comparacao-m01-2",
+  "question": "Compare o valor dos pedidos de venda de abril de 2025 com outubro de 2026.",
+  "label": "comparacao",
+  "group_id": "comparacao-m01",
+  "split": "test"
+ },
+ {
+  "id": "comparacao-m01-3",
+  "question": "Compare os recebimentos de junho de 2026 com maio de 2026.",
+  "label": "comparacao",
+  "group_id": "comparacao-m01",
+  "split": "test"
+ },
+ {
+  "id": "comparacao-m01-4",
+  "question": "Compare o valor dos pedidos de venda de maio de 2025 com fevereiro de 2026.",
+  "label": "comparacao",
+  "group_id": "comparacao-m01",
+  "split": "test"
+ },
+ {
+  "id": "comparacao-m01-5",
+  "question": "Compare o faturamento emitido de janeiro de 2026 com julho de 2025.",
+  "label": "comparacao",
+  "group_id": "comparacao-m01",
+  "split": "test"
+ },
+ {
+  "id": "comparacao-m01-6",
+  "question": "Compare o valor dos pedidos de venda de fevereiro de 2025 com setembro de 2026.",
+  "label": "comparacao",
+  "group_id": "comparacao-m01",
+  "split": "test"
+ },
+ {
+  "id": "comparacao-m01-7",
+  "question": "Compare o valor contratado de maio de 2025 com abril de 2026.",
+  "label": "comparacao",
+  "group_id": "comparacao-m01",
+  "split": "test"
+ },
+ {
+  "id": "comparacao-m01-8",
+  "question": "Compare o valor dos pedidos de venda de julho de 2026 com abril de 2026.",
+  "label": "comparacao",
+  "group_id": "comparacao-m01",
+  "split": "test"
+ },
+ {
+  "id": "comparacao-m13-1",
+  "question": "Compare faturamento deste ano com o ano passado.",
+  "label": "comparacao",
+  "group_id": "comparacao-m13",
+  "split": "test"
+ },
+ {
+  "id": "comparacao-m13-2",
+  "question": "Compare valor contratado deste ano com o ano passado.",
+  "label": "comparacao",
+  "group_id": "comparacao-m13",
+  "split": "test"
+ },
+ {
+  "id": "comparacao-m13-3",
+  "question": "Compare clientes novos deste ano com o ano passado.",
+  "label": "comparacao",
+  "group_id": "comparacao-m13",
+  "split": "test"
+ },
+ {
+  "id": "comparacao-m13-4",
+  "question": "Compare recebimentos deste ano com o ano passado.",
+  "label": "comparacao",
+  "group_id": "comparacao-m13",
+  "split": "test"
+ },
+ {
+  "id": "comparacao-m13-5",
+  "question": "Compare faturamento emitido deste ano com o ano passado.",
+  "label": "comparacao",
+  "group_id": "comparacao-m13",
+  "split": "test"
+ },
+ {
+  "id": "comparacao-m13-6",
+  "question": "Compare valor dos pedidos de venda deste ano com o ano passado.",
+  "label": "comparacao",
+  "group_id": "comparacao-m13",
+  "split": "test"
+ },
+ {
+  "id": "comparacao-m08-1",
+  "question": "Qual a variação de faturamento de março de 2025 para março de 2026?",
+  "label": "comparacao",
+  "group_id": "comparacao-m08",
+  "split": "test"
+ },
+ {
+  "id": "comparacao-m08-2",
+  "question": "Qual a variação de faturamento emitido de junho de 2025 para abril de 2025?",
+  "label": "comparacao",
+  "group_id": "comparacao-m08",
+  "split": "test"
+ },
+ {
+  "id": "comparacao-m08-3",
+  "question": "Qual a variação de faturamento de maio de 2026 para julho de 2025?",
+  "label": "comparacao",
+  "group_id": "comparacao-m08",
+  "split": "test"
+ },
+ {
+  "id": "comparacao-m08-4",
+  "question": "Qual a variação de faturamento de dezembro de 2025 para abril de 2026?",
+  "label": "comparacao",
+  "group_id": "comparacao-m08",
+  "split": "test"
+ },
+ {
+  "id": "comparacao-m08-5",
+  "question": "Qual a variação de recebimentos de março de 2025 para julho de 2025?",
+  "label": "comparacao",
+  "group_id": "comparacao-m08",
+  "split": "test"
+ },
+ {
+  "id": "comparacao-m08-6",
+  "question": "Qual a variação de recebimentos de julho de 2026 para fevereiro de 2026?",
+  "label": "comparacao",
+  "group_id": "comparacao-m08",
+  "split": "test"
+ },
+ {
+  "id": "comparacao-m08-7",
+  "question": "Qual a variação de valor dos pedidos de venda de outubro de 2026 para julho de 2026?",
+  "label": "comparacao",
+  "group_id": "comparacao-m08",
+  "split": "test"
+ },
+ {
+  "id": "comparacao-m08-8",
+  "question": "Qual a variação de recebimentos de setembro de 2025 para junho de 2025?",
+  "label": "comparacao",
+  "group_id": "comparacao-m08",
+  "split": "test"
+ },
+ {
+  "id": "tendencia-m04-1",
+  "question": "Mostre o faturamento emitido por mês ao longo de 2026.",
+  "label": "tendencia",
+  "group_id": "tendencia-m04",
+  "split": "train"
+ },
+ {
+  "id": "tendencia-m04-2",
+  "question": "Mostre o valor dos pedidos de venda por mês ao longo de 2026.",
+  "label": "tendencia",
+  "group_id": "tendencia-m04",
+  "split": "train"
+ },
+ {
+  "id": "tendencia-m04-3",
+  "question": "Mostre as horas de atendimento por mês em 2025.",
+  "label": "tendencia",
+  "group_id": "tendencia-m04",
+  "split": "train"
+ },
+ {
+  "id": "tendencia-m04-4",
+  "question": "Mostre os clientes novos por mês durante 2025.",
+  "label": "tendencia",
+  "group_id": "tendencia-m04",
+  "split": "train"
+ },
+ {
+  "id": "tendencia-m04-5",
+  "question": "Mostre as horas de atendimento por mês ao longo de 2026.",
+  "label": "tendencia",
+  "group_id": "tendencia-m04",
+  "split": "train"
+ },
+ {
+  "id": "tendencia-m04-6",
+  "question": "Mostre os recebimentos por mês durante 2025.",
+  "label": "tendencia",
+  "group_id": "tendencia-m04",
+  "split": "train"
+ },
+ {
+  "id": "tendencia-m04-7",
+  "question": "Mostre o faturamento emitido por mês de janeiro a outubro de 2026.",
+  "label": "tendencia",
+  "group_id": "tendencia-m04",
+  "split": "train"
+ },
+ {
+  "id": "tendencia-m04-8",
+  "question": "Mostre o valor dos pedidos de venda por mês de março a agosto de 2025.",
+  "label": "tendencia",
+  "group_id": "tendencia-m04",
+  "split": "train"
+ },
+ {
+  "id": "tendencia-m04-9",
+  "question": "Mostre o valor dos pedidos de venda por mês em 2025.",
+  "label": "tendencia",
+  "group_id": "tendencia-m04",
+  "split": "train"
+ },
+ {
+  "id": "tendencia-m04-10",
+  "question": "Mostre as horas de atendimento por mês em 2026.",
+  "label": "tendencia",
+  "group_id": "tendencia-m04",
+  "split": "train"
+ },
+ {
+  "id": "tendencia-m09-1",
+  "question": "Me dê o histórico mensal de valor contratado de janeiro a outubro de 2026.",
+  "label": "tendencia",
+  "group_id": "tendencia-m09",
+  "split": "train"
+ },
+ {
+  "id": "tendencia-m09-2",
+  "question": "Me dê o histórico mensal de quantidade de contratos de fornecimento ao longo de 2026.",
+  "label": "tendencia",
+  "group_id": "tendencia-m09",
+  "split": "train"
+ },
+ {
+  "id": "tendencia-m09-3",
+  "question": "Me dê o histórico mensal de quantidade de pedidos de venda de janeiro a outubro de 2026.",
+  "label": "tendencia",
+  "group_id": "tendencia-m09",
+  "split": "train"
+ },
+ {
+  "id": "tendencia-m09-4",
+  "question": "Me dê o histórico mensal de quantidade de contratos de fornecimento de janeiro a outubro de 2026.",
+  "label": "tendencia",
+  "group_id": "tendencia-m09",
+  "split": "train"
+ },
+ {
+  "id": "tendencia-m09-5",
+  "question": "Me dê o histórico mensal de horas de atendimento de janeiro a outubro de 2026.",
+  "label": "tendencia",
+  "group_id": "tendencia-m09",
+  "split": "train"
+ },
+ {
+  "id": "tendencia-m09-6",
+  "question": "Me dê o histórico mensal de quantidade de pedidos de venda de janeiro a setembro de 2026.",
+  "label": "tendencia",
+  "group_id": "tendencia-m09",
+  "split": "train"
+ },
+ {
+  "id": "tendencia-m09-7",
+  "question": "Me dê o histórico mensal de valor dos pedidos de venda em 2025.",
+  "label": "tendencia",
+  "group_id": "tendencia-m09",
+  "split": "train"
+ },
+ {
+  "id": "tendencia-m09-8",
+  "question": "Me dê o histórico mensal de ocorrências de pós-venda de janeiro a setembro de 2026.",
+  "label": "tendencia",
+  "group_id": "tendencia-m09",
+  "split": "train"
+ },
+ {
+  "id": "tendencia-m09-9",
+  "question": "Me dê o histórico mensal de recebimentos durante 2025.",
+  "label": "tendencia",
+  "group_id": "tendencia-m09",
+  "split": "train"
+ },
+ {
+  "id": "tendencia-m09-10",
+  "question": "Me dê o histórico mensal de quantidade de contratos de fornecimento de janeiro a setembro de 2026.",
+  "label": "tendencia",
+  "group_id": "tendencia-m09",
+  "split": "train"
+ },
+ {
+  "id": "tendencia-m01-1",
+  "question": "Qual a evolução de clientes novos mês a mês de março a agosto de 2025?",
+  "label": "tendencia",
+  "group_id": "tendencia-m01",
+  "split": "train"
+ },
+ {
+  "id": "tendencia-m01-2",
+  "question": "Qual a evolução de quantidade de pedidos de venda mês a mês em 2025?",
+  "label": "tendencia",
+  "group_id": "tendencia-m01",
+  "split": "train"
+ },
+ {
+  "id": "tendencia-m01-3",
+  "question": "Qual a evolução de horas de atendimento mês a mês em 2025?",
+  "label": "tendencia",
+  "group_id": "tendencia-m01",
+  "split": "train"
+ },
+ {
+  "id": "tendencia-m01-4",
+  "question": "Qual a evolução de valor contratado mês a mês ao longo de 2026?",
+  "label": "tendencia",
+  "group_id": "tendencia-m01",
+  "split": "train"
+ },
+ {
+  "id": "tendencia-m01-5",
+  "question": "Qual a evolução de quantidade de contratos de fornecimento mês a mês de março a agosto de 2025?",
+  "label": "tendencia",
+  "group_id": "tendencia-m01",
+  "split": "train"
+ },
+ {
+  "id": "tendencia-m01-6",
+  "question": "Qual a evolução de faturamento mês a mês de janeiro a setembro de 2026?",
+  "label": "tendencia",
+  "group_id": "tendencia-m01",
+  "split": "train"
+ },
+ {
+  "id": "tendencia-m01-7",
+  "question": "Qual a evolução de horas de atendimento mês a mês durante 2025?",
+  "label": "tendencia",
+  "group_id": "tendencia-m01",
+  "split": "train"
+ },
+ {
+  "id": "tendencia-m01-8",
+  "question": "Qual a evolução de valor contratado mês a mês em 2026?",
+  "label": "tendencia",
+  "group_id": "tendencia-m01",
+  "split": "train"
+ },
+ {
+  "id": "tendencia-m01-9",
+  "question": "Qual a evolução de quantidade de pedidos de venda mês a mês em 2026?",
+  "label": "tendencia",
+  "group_id": "tendencia-m01",
+  "split": "train"
+ },
+ {
+  "id": "tendencia-m01-10",
+  "question": "Qual a evolução de valor dos pedidos de venda mês a mês de março a agosto de 2025?",
+  "label": "tendencia",
+  "group_id": "tendencia-m01",
+  "split": "train"
+ },
+ {
+  "id": "tendencia-m11-1",
+  "question": "Detalhe as horas de atendimento por mês em 2025.",
+  "label": "tendencia",
+  "group_id": "tendencia-m11",
+  "split": "train"
+ },
+ {
+  "id": "tendencia-m11-2",
+  "question": "Detalhe os recebimentos por mês ao longo de 2026.",
+  "label": "tendencia",
+  "group_id": "tendencia-m11",
+  "split": "train"
+ },
+ {
+  "id": "tendencia-m11-3",
+  "question": "Detalhe os clientes novos por mês ao longo de 2026.",
+  "label": "tendencia",
+  "group_id": "tendencia-m11",
+  "split": "train"
+ },
+ {
+  "id": "tendencia-m11-4",
+  "question": "Detalhe o faturamento por mês ao longo de 2026.",
+  "label": "tendencia",
+  "group_id": "tendencia-m11",
+  "split": "train"
+ },
+ {
+  "id": "tendencia-m11-5",
+  "question": "Detalhe o valor dos pedidos de venda por mês de janeiro a setembro de 2026.",
+  "label": "tendencia",
+  "group_id": "tendencia-m11",
+  "split": "train"
+ },
+ {
+  "id": "tendencia-m11-6",
+  "question": "Detalhe o faturamento por mês em 2025.",
+  "label": "tendencia",
+  "group_id": "tendencia-m11",
+  "split": "train"
+ },
+ {
+  "id": "tendencia-m11-7",
+  "question": "Detalhe as horas de atendimento por mês ao longo de 2026.",
+  "label": "tendencia",
+  "group_id": "tendencia-m11",
+  "split": "train"
+ },
+ {
+  "id": "tendencia-m11-8",
+  "question": "Detalhe o valor dos pedidos de venda por mês em 2025.",
+  "label": "tendencia",
+  "group_id": "tendencia-m11",
+  "split": "train"
+ },
+ {
+  "id": "tendencia-m11-9",
+  "question": "Detalhe os recebimentos por mês de janeiro a setembro de 2026.",
+  "label": "tendencia",
+  "group_id": "tendencia-m11",
+  "split": "train"
+ },
+ {
+  "id": "tendencia-m11-10",
+  "question": "Detalhe as ocorrências de pós-venda por mês de março a agosto de 2025.",
+  "label": "tendencia",
+  "group_id": "tendencia-m11",
+  "split": "train"
+ },
+ {
+  "id": "tendencia-m13-1",
+  "question": "Mês a mês, como andou horas de atendimento durante 2025?",
+  "label": "tendencia",
+  "group_id": "tendencia-m13",
+  "split": "train"
+ },
+ {
+  "id": "tendencia-m13-2",
+  "question": "Mês a mês, como andou valor dos pedidos de venda em 2026?",
+  "label": "tendencia",
+  "group_id": "tendencia-m13",
+  "split": "train"
+ },
+ {
+  "id": "tendencia-m13-3",
+  "question": "Mês a mês, como andou faturamento de março a agosto de 2025?",
+  "label": "tendencia",
+  "group_id": "tendencia-m13",
+  "split": "train"
+ },
+ {
+  "id": "tendencia-m13-4",
+  "question": "Mês a mês, como andou quantidade de contratos de fornecimento de março a agosto de 2025?",
+  "label": "tendencia",
+  "group_id": "tendencia-m13",
+  "split": "train"
+ },
+ {
+  "id": "tendencia-m13-5",
+  "question": "Mês a mês, como andou clientes novos de janeiro a outubro de 2026?",
+  "label": "tendencia",
+  "group_id": "tendencia-m13",
+  "split": "train"
+ },
+ {
+  "id": "tendencia-m13-6",
+  "question": "Mês a mês, como andou quantidade de contratos de fornecimento de janeiro a outubro de 2026?",
+  "label": "tendencia",
+  "group_id": "tendencia-m13",
+  "split": "train"
+ },
+ {
+  "id": "tendencia-m13-7",
+  "question": "Mês a mês, como andou horas de atendimento em 2025?",
+  "label": "tendencia",
+  "group_id": "tendencia-m13",
+  "split": "train"
+ },
+ {
+  "id": "tendencia-m13-8",
+  "question": "Mês a mês, como andou valor contratado de janeiro a outubro de 2026?",
+  "label": "tendencia",
+  "group_id": "tendencia-m13",
+  "split": "train"
+ },
+ {
+  "id": "tendencia-m13-9",
+  "question": "Mês a mês, como andou horas de atendimento de janeiro a outubro de 2026?",
+  "label": "tendencia",
+  "group_id": "tendencia-m13",
+  "split": "train"
+ },
+ {
+  "id": "tendencia-m13-10",
+  "question": "Mês a mês, como andou ocorrências de pós-venda ao longo de 2026?",
+  "label": "tendencia",
+  "group_id": "tendencia-m13",
+  "split": "train"
+ },
+ {
+  "id": "tendencia-m07-1",
+  "question": "Ocorrências de pós-venda mês a mês, de janeiro a outubro de 2026.",
+  "label": "tendencia",
+  "group_id": "tendencia-m07",
+  "split": "train"
+ },
+ {
+  "id": "tendencia-m07-2",
+  "question": "Ocorrências de pós-venda mês a mês, durante 2025.",
+  "label": "tendencia",
+  "group_id": "tendencia-m07",
+  "split": "train"
+ },
+ {
+  "id": "tendencia-m07-3",
+  "question": "Quantidade de contratos de fornecimento mês a mês, de janeiro a outubro de 2026.",
+  "label": "tendencia",
+  "group_id": "tendencia-m07",
+  "split": "train"
+ },
+ {
+  "id": "tendencia-m07-4",
+  "question": "Faturamento mês a mês, em 2026.",
+  "label": "tendencia",
+  "group_id": "tendencia-m07",
+  "split": "train"
+ },
+ {
+  "id": "tendencia-m07-5",
+  "question": "Ocorrências de pós-venda mês a mês, de março a agosto de 2025.",
+  "label": "tendencia",
+  "group_id": "tendencia-m07",
+  "split": "train"
+ },
+ {
+  "id": "tendencia-m07-6",
+  "question": "Faturamento mês a mês, ao longo de 2026.",
+  "label": "tendencia",
+  "group_id": "tendencia-m07",
+  "split": "train"
+ },
+ {
+  "id": "tendencia-m07-7",
+  "question": "Clientes novos mês a mês, de janeiro a setembro de 2026.",
+  "label": "tendencia",
+  "group_id": "tendencia-m07",
+  "split": "train"
+ },
+ {
+  "id": "tendencia-m07-8",
+  "question": "Horas de atendimento mês a mês, de janeiro a outubro de 2026.",
+  "label": "tendencia",
+  "group_id": "tendencia-m07",
+  "split": "train"
+ },
+ {
+  "id": "tendencia-m07-9",
+  "question": "Quantidade de contratos de fornecimento mês a mês, durante 2025.",
+  "label": "tendencia",
+  "group_id": "tendencia-m07",
+  "split": "train"
+ },
+ {
+  "id": "tendencia-m07-10",
+  "question": "Recebimentos mês a mês, de janeiro a outubro de 2026.",
+  "label": "tendencia",
+  "group_id": "tendencia-m07",
+  "split": "train"
+ },
+ {
+  "id": "tendencia-m02-1",
+  "question": "Quero ver a série mensal de faturamento durante 2025.",
+  "label": "tendencia",
+  "group_id": "tendencia-m02",
+  "split": "train"
+ },
+ {
+  "id": "tendencia-m02-2",
+  "question": "Quero ver a série mensal de ocorrências de pós-venda de janeiro a outubro de 2026.",
+  "label": "tendencia",
+  "group_id": "tendencia-m02",
+  "split": "train"
+ },
+ {
+  "id": "tendencia-m02-3",
+  "question": "Quero ver a série mensal de clientes novos em 2025.",
+  "label": "tendencia",
+  "group_id": "tendencia-m02",
+  "split": "train"
+ },
+ {
+  "id": "tendencia-m02-4",
+  "question": "Quero ver a série mensal de ocorrências de pós-venda durante 2025.",
+  "label": "tendencia",
+  "group_id": "tendencia-m02",
+  "split": "train"
+ },
+ {
+  "id": "tendencia-m02-5",
+  "question": "Quero ver a série mensal de faturamento emitido ao longo de 2026.",
+  "label": "tendencia",
+  "group_id": "tendencia-m02",
+  "split": "train"
+ },
+ {
+  "id": "tendencia-m02-6",
+  "question": "Quero ver a série mensal de quantidade de contratos de fornecimento durante 2025.",
+  "label": "tendencia",
+  "group_id": "tendencia-m02",
+  "split": "train"
+ },
+ {
+  "id": "tendencia-m02-7",
+  "question": "Quero ver a série mensal de ocorrências de pós-venda em 2025.",
+  "label": "tendencia",
+  "group_id": "tendencia-m02",
+  "split": "train"
+ },
+ {
+  "id": "tendencia-m02-8",
+  "question": "Quero ver a série mensal de valor contratado de janeiro a outubro de 2026.",
+  "label": "tendencia",
+  "group_id": "tendencia-m02",
+  "split": "train"
+ },
+ {
+  "id": "tendencia-m02-9",
+  "question": "Quero ver a série mensal de faturamento emitido de março a agosto de 2025.",
+  "label": "tendencia",
+  "group_id": "tendencia-m02",
+  "split": "train"
+ },
+ {
+  "id": "tendencia-m02-10",
+  "question": "Quero ver a série mensal de valor contratado durante 2025.",
+  "label": "tendencia",
+  "group_id": "tendencia-m02",
+  "split": "train"
+ },
+ {
+  "id": "tendencia-m12-1",
+  "question": "Evolução de valor contratado ao longo de 2026.",
+  "label": "tendencia",
+  "group_id": "tendencia-m12",
+  "split": "train"
+ },
+ {
+  "id": "tendencia-m12-2",
+  "question": "Evolução de quantidade de contratos de fornecimento ao longo de 2026.",
+  "label": "tendencia",
+  "group_id": "tendencia-m12",
+  "split": "train"
+ },
+ {
+  "id": "tendencia-m12-3",
+  "question": "Evolução de faturamento emitido durante 2025.",
+  "label": "tendencia",
+  "group_id": "tendencia-m12",
+  "split": "train"
+ },
+ {
+  "id": "tendencia-m12-4",
+  "question": "Evolução de ocorrências de pós-venda de março a agosto de 2025.",
+  "label": "tendencia",
+  "group_id": "tendencia-m12",
+  "split": "train"
+ },
+ {
+  "id": "tendencia-m12-5",
+  "question": "Evolução de clientes novos de janeiro a setembro de 2026.",
+  "label": "tendencia",
+  "group_id": "tendencia-m12",
+  "split": "train"
+ },
+ {
+  "id": "tendencia-m12-6",
+  "question": "Evolução de horas de atendimento de janeiro a outubro de 2026.",
+  "label": "tendencia",
+  "group_id": "tendencia-m12",
+  "split": "train"
+ },
+ {
+  "id": "tendencia-m12-7",
+  "question": "Evolução de ocorrências de pós-venda durante 2025.",
+  "label": "tendencia",
+  "group_id": "tendencia-m12",
+  "split": "train"
+ },
+ {
+  "id": "tendencia-m12-8",
+  "question": "Evolução de recebimentos durante 2025.",
+  "label": "tendencia",
+  "group_id": "tendencia-m12",
+  "split": "train"
+ },
+ {
+  "id": "tendencia-m12-9",
+  "question": "Evolução de quantidade de pedidos de venda durante 2025.",
+  "label": "tendencia",
+  "group_id": "tendencia-m12",
+  "split": "train"
+ },
+ {
+  "id": "tendencia-m12-10",
+  "question": "Evolução de horas de atendimento em 2026.",
+  "label": "tendencia",
+  "group_id": "tendencia-m12",
+  "split": "train"
+ },
+ {
+  "id": "tendencia-m10-1",
+  "question": "Como foi o ritmo mensal de quantidade de pedidos de venda de janeiro a setembro de 2026?",
+  "label": "tendencia",
+  "group_id": "tendencia-m10",
+  "split": "validation"
+ },
+ {
+  "id": "tendencia-m10-2",
+  "question": "Como foi o ritmo mensal de quantidade de pedidos de venda de março a agosto de 2025?",
+  "label": "tendencia",
+  "group_id": "tendencia-m10",
+  "split": "validation"
+ },
+ {
+  "id": "tendencia-m10-3",
+  "question": "Como foi o ritmo mensal de quantidade de contratos de fornecimento em 2026?",
+  "label": "tendencia",
+  "group_id": "tendencia-m10",
+  "split": "validation"
+ },
+ {
+  "id": "tendencia-m10-4",
+  "question": "Como foi o ritmo mensal de clientes novos em 2025?",
+  "label": "tendencia",
+  "group_id": "tendencia-m10",
+  "split": "validation"
+ },
+ {
+  "id": "tendencia-m10-5",
+  "question": "Como foi o ritmo mensal de recebimentos de janeiro a setembro de 2026?",
+  "label": "tendencia",
+  "group_id": "tendencia-m10",
+  "split": "validation"
+ },
+ {
+  "id": "tendencia-m10-6",
+  "question": "Como foi o ritmo mensal de horas de atendimento de janeiro a setembro de 2026?",
+  "label": "tendencia",
+  "group_id": "tendencia-m10",
+  "split": "validation"
+ },
+ {
+  "id": "tendencia-m10-7",
+  "question": "Como foi o ritmo mensal de faturamento emitido de janeiro a outubro de 2026?",
+  "label": "tendencia",
+  "group_id": "tendencia-m10",
+  "split": "validation"
+ },
+ {
+  "id": "tendencia-m10-8",
+  "question": "Como foi o ritmo mensal de faturamento durante 2025?",
+  "label": "tendencia",
+  "group_id": "tendencia-m10",
+  "split": "validation"
+ },
+ {
+  "id": "tendencia-m14-1",
+  "question": "Quero a curva mensal de faturamento em 2025.",
+  "label": "tendencia",
+  "group_id": "tendencia-m14",
+  "split": "validation"
+ },
+ {
+  "id": "tendencia-m14-2",
+  "question": "Quero a curva mensal de ocorrências de pós-venda de janeiro a outubro de 2026.",
+  "label": "tendencia",
+  "group_id": "tendencia-m14",
+  "split": "validation"
+ },
+ {
+  "id": "tendencia-m14-3",
+  "question": "Quero a curva mensal de valor dos pedidos de venda em 2026.",
+  "label": "tendencia",
+  "group_id": "tendencia-m14",
+  "split": "validation"
+ },
+ {
+  "id": "tendencia-m14-4",
+  "question": "Quero a curva mensal de clientes novos ao longo de 2026.",
+  "label": "tendencia",
+  "group_id": "tendencia-m14",
+  "split": "validation"
+ },
+ {
+  "id": "tendencia-m14-5",
+  "question": "Quero a curva mensal de faturamento em 2026.",
+  "label": "tendencia",
+  "group_id": "tendencia-m14",
+  "split": "validation"
+ },
+ {
+  "id": "tendencia-m14-6",
+  "question": "Quero a curva mensal de recebimentos durante 2025.",
+  "label": "tendencia",
+  "group_id": "tendencia-m14",
+  "split": "validation"
+ },
+ {
+  "id": "tendencia-m14-7",
+  "question": "Quero a curva mensal de faturamento emitido de janeiro a outubro de 2026.",
+  "label": "tendencia",
+  "group_id": "tendencia-m14",
+  "split": "validation"
+ },
+ {
+  "id": "tendencia-m14-8",
+  "question": "Quero a curva mensal de valor contratado em 2025.",
+  "label": "tendencia",
+  "group_id": "tendencia-m14",
+  "split": "validation"
+ },
+ {
+  "id": "tendencia-m08-1",
+  "question": "Acompanhe a quantidade de pedidos de venda a cada mês de janeiro a setembro de 2026.",
+  "label": "tendencia",
+  "group_id": "tendencia-m08",
+  "split": "validation"
+ },
+ {
+  "id": "tendencia-m08-2",
+  "question": "Acompanhe os clientes novos a cada mês de janeiro a setembro de 2026.",
+  "label": "tendencia",
+  "group_id": "tendencia-m08",
+  "split": "validation"
+ },
+ {
+  "id": "tendencia-m08-3",
+  "question": "Acompanhe os recebimentos a cada mês de março a agosto de 2025.",
+  "label": "tendencia",
+  "group_id": "tendencia-m08",
+  "split": "validation"
+ },
+ {
+  "id": "tendencia-m08-4",
+  "question": "Acompanhe as horas de atendimento a cada mês durante 2025.",
+  "label": "tendencia",
+  "group_id": "tendencia-m08",
+  "split": "validation"
+ },
+ {
+  "id": "tendencia-m08-5",
+  "question": "Acompanhe os clientes novos a cada mês durante 2025.",
+  "label": "tendencia",
+  "group_id": "tendencia-m08",
+  "split": "validation"
+ },
+ {
+  "id": "tendencia-m08-6",
+  "question": "Acompanhe o valor contratado a cada mês de março a agosto de 2025.",
+  "label": "tendencia",
+  "group_id": "tendencia-m08",
+  "split": "validation"
+ },
+ {
+  "id": "tendencia-m08-7",
+  "question": "Acompanhe os recebimentos a cada mês de janeiro a outubro de 2026.",
+  "label": "tendencia",
+  "group_id": "tendencia-m08",
+  "split": "validation"
+ },
+ {
+  "id": "tendencia-m08-8",
+  "question": "Acompanhe os recebimentos a cada mês em 2025.",
+  "label": "tendencia",
+  "group_id": "tendencia-m08",
+  "split": "validation"
+ },
+ {
+  "id": "tendencia-m05-1",
+  "question": "Distribuição mensal de valor contratado em 2025.",
+  "label": "tendencia",
+  "group_id": "tendencia-m05",
+  "split": "test"
+ },
+ {
+  "id": "tendencia-m05-2",
+  "question": "Distribuição mensal de horas de atendimento em 2026.",
+  "label": "tendencia",
+  "group_id": "tendencia-m05",
+  "split": "test"
+ },
+ {
+  "id": "tendencia-m05-3",
+  "question": "Distribuição mensal de recebimentos em 2026.",
+  "label": "tendencia",
+  "group_id": "tendencia-m05",
+  "split": "test"
+ },
+ {
+  "id": "tendencia-m05-4",
+  "question": "Distribuição mensal de valor contratado de março a agosto de 2025.",
+  "label": "tendencia",
+  "group_id": "tendencia-m05",
+  "split": "test"
+ },
+ {
+  "id": "tendencia-m05-5",
+  "question": "Distribuição mensal de clientes novos em 2026.",
+  "label": "tendencia",
+  "group_id": "tendencia-m05",
+  "split": "test"
+ },
+ {
+  "id": "tendencia-m05-6",
+  "question": "Distribuição mensal de quantidade de pedidos de venda de janeiro a setembro de 2026.",
+  "label": "tendencia",
+  "group_id": "tendencia-m05",
+  "split": "test"
+ },
+ {
+  "id": "tendencia-m05-7",
+  "question": "Distribuição mensal de ocorrências de pós-venda de janeiro a outubro de 2026.",
+  "label": "tendencia",
+  "group_id": "tendencia-m05",
+  "split": "test"
+ },
+ {
+  "id": "tendencia-m05-8",
+  "question": "Distribuição mensal de faturamento emitido em 2026.",
+  "label": "tendencia",
+  "group_id": "tendencia-m05",
+  "split": "test"
+ },
+ {
+  "id": "tendencia-m06-1",
+  "question": "Tendência de ocorrências de pós-venda de janeiro a outubro de 2026.",
+  "label": "tendencia",
+  "group_id": "tendencia-m06",
+  "split": "test"
+ },
+ {
+  "id": "tendencia-m06-2",
+  "question": "Tendência de valor contratado durante 2025.",
+  "label": "tendencia",
+  "group_id": "tendencia-m06",
+  "split": "test"
+ },
+ {
+  "id": "tendencia-m06-3",
+  "question": "Tendência de ocorrências de pós-venda em 2025.",
+  "label": "tendencia",
+  "group_id": "tendencia-m06",
+  "split": "test"
+ },
+ {
+  "id": "tendencia-m06-4",
+  "question": "Tendência de valor dos pedidos de venda de março a agosto de 2025.",
+  "label": "tendencia",
+  "group_id": "tendencia-m06",
+  "split": "test"
+ },
+ {
+  "id": "tendencia-m06-5",
+  "question": "Tendência de quantidade de contratos de fornecimento de março a agosto de 2025.",
+  "label": "tendencia",
+  "group_id": "tendencia-m06",
+  "split": "test"
+ },
+ {
+  "id": "tendencia-m06-6",
+  "question": "Tendência de ocorrências de pós-venda ao longo de 2026.",
+  "label": "tendencia",
+  "group_id": "tendencia-m06",
+  "split": "test"
+ },
+ {
+  "id": "tendencia-m06-7",
+  "question": "Tendência de recebimentos em 2025.",
+  "label": "tendencia",
+  "group_id": "tendencia-m06",
+  "split": "test"
+ },
+ {
+  "id": "tendencia-m06-8",
+  "question": "Tendência de faturamento emitido de janeiro a outubro de 2026.",
+  "label": "tendencia",
+  "group_id": "tendencia-m06",
+  "split": "test"
+ },
+ {
+  "id": "tendencia-m03-1",
+  "question": "Como quantidade de pedidos de venda se comportou ao longo dos meses em 2026?",
+  "label": "tendencia",
+  "group_id": "tendencia-m03",
+  "split": "test"
+ },
+ {
+  "id": "tendencia-m03-2",
+  "question": "Como clientes novos se comportou ao longo dos meses em 2026?",
+  "label": "tendencia",
+  "group_id": "tendencia-m03",
+  "split": "test"
+ },
+ {
+  "id": "tendencia-m03-3",
+  "question": "Como valor dos pedidos de venda se comportou ao longo dos meses durante 2025?",
+  "label": "tendencia",
+  "group_id": "tendencia-m03",
+  "split": "test"
+ },
+ {
+  "id": "tendencia-m03-4",
+  "question": "Como quantidade de contratos de fornecimento se comportou ao longo dos meses durante 2025?",
+  "label": "tendencia",
+  "group_id": "tendencia-m03",
+  "split": "test"
+ },
+ {
+  "id": "tendencia-m03-5",
+  "question": "Como valor contratado se comportou ao longo dos meses em 2026?",
+  "label": "tendencia",
+  "group_id": "tendencia-m03",
+  "split": "test"
+ },
+ {
+  "id": "tendencia-m03-6",
+  "question": "Como horas de atendimento se comportou ao longo dos meses de março a agosto de 2025?",
+  "label": "tendencia",
+  "group_id": "tendencia-m03",
+  "split": "test"
+ },
+ {
+  "id": "tendencia-m03-7",
+  "question": "Como recebimentos se comportou ao longo dos meses em 2025?",
+  "label": "tendencia",
+  "group_id": "tendencia-m03",
+  "split": "test"
+ },
+ {
+  "id": "tendencia-m03-8",
+  "question": "Como faturamento emitido se comportou ao longo dos meses de março a agosto de 2025?",
+  "label": "tendencia",
+  "group_id": "tendencia-m03",
+  "split": "test"
+ },
+ {
+  "id": "ranking-m05-1",
+  "question": "Quais contratos lideram em valor contratado neste ano?",
+  "label": "ranking",
+  "group_id": "ranking-m05",
+  "split": "train"
+ },
+ {
+  "id": "ranking-m05-2",
+  "question": "Quais contratos lideram em faturamento em 2025?",
+  "label": "ranking",
+  "group_id": "ranking-m05",
+  "split": "train"
+ },
+ {
+  "id": "ranking-m05-3",
+  "question": "Quais contratos lideram em faturamento emitido em janeiro de 2026?",
+  "label": "ranking",
+  "group_id": "ranking-m05",
+  "split": "train"
+ },
+ {
+  "id": "ranking-m05-4",
+  "question": "Quais clientes lideram em faturamento em junho de 2025?",
+  "label": "ranking",
+  "group_id": "ranking-m05",
+  "split": "train"
+ },
+ {
+  "id": "ranking-m05-5",
+  "question": "Quais clientes lideram em recebimentos em abril de 2026?",
+  "label": "ranking",
+  "group_id": "ranking-m05",
+  "split": "train"
+ },
+ {
+  "id": "ranking-m05-6",
+  "question": "Quais clientes lideram em valor contratado em outubro de 2026?",
+  "label": "ranking",
+  "group_id": "ranking-m05",
+  "split": "train"
+ },
+ {
+  "id": "ranking-m05-7",
+  "question": "Quais contratos lideram em quantidade de pedidos de venda em abril de 2026?",
+  "label": "ranking",
+  "group_id": "ranking-m05",
+  "split": "train"
+ },
+ {
+  "id": "ranking-m05-8",
+  "question": "Quais contratos lideram em quantidade de pedidos de venda em agosto de 2026?",
+  "label": "ranking",
+  "group_id": "ranking-m05",
+  "split": "train"
+ },
+ {
+  "id": "ranking-m05-9",
+  "question": "Quais clientes lideram em valor contratado em novembro de 2025?",
+  "label": "ranking",
+  "group_id": "ranking-m05",
+  "split": "train"
+ },
+ {
+  "id": "ranking-m05-10",
+  "question": "Quais clientes lideram em faturamento em maio de 2026?",
+  "label": "ranking",
+  "group_id": "ranking-m05",
+  "split": "train"
+ },
+ {
+  "id": "ranking-m07-1",
+  "question": "Me dê o top 5 de quantidade de pedidos de venda em março de 2025.",
+  "label": "ranking",
+  "group_id": "ranking-m07",
+  "split": "train"
+ },
+ {
+  "id": "ranking-m07-2",
+  "question": "Me dê o top 5 de recebimentos em maio de 2026.",
+  "label": "ranking",
+  "group_id": "ranking-m07",
+  "split": "train"
+ },
+ {
+  "id": "ranking-m07-3",
+  "question": "Me dê o top 10 de quantidade de pedidos de venda em maio de 2026.",
+  "label": "ranking",
+  "group_id": "ranking-m07",
+  "split": "train"
+ },
+ {
+  "id": "ranking-m07-4",
+  "question": "Me dê o top 5 de valor dos pedidos de venda neste ano.",
+  "label": "ranking",
+  "group_id": "ranking-m07",
+  "split": "train"
+ },
+ {
+  "id": "ranking-m07-5",
+  "question": "Me dê o top 10 de recebimentos em janeiro de 2025.",
+  "label": "ranking",
+  "group_id": "ranking-m07",
+  "split": "train"
+ },
+ {
+  "id": "ranking-m07-6",
+  "question": "Me dê o top 5 de valor contratado em fevereiro de 2025.",
+  "label": "ranking",
+  "group_id": "ranking-m07",
+  "split": "train"
+ },
+ {
+  "id": "ranking-m07-7",
+  "question": "Me dê o top 5 de valor contratado em março de 2026.",
+  "label": "ranking",
+  "group_id": "ranking-m07",
+  "split": "train"
+ },
+ {
+  "id": "ranking-m07-8",
+  "question": "Me dê o top 5 de recebimentos neste ano.",
+  "label": "ranking",
+  "group_id": "ranking-m07",
+  "split": "train"
+ },
+ {
+  "id": "ranking-m07-9",
+  "question": "Me dê o top 5 de quantidade de contratos de fornecimento em janeiro de 2025.",
+  "label": "ranking",
+  "group_id": "ranking-m07",
+  "split": "train"
+ },
+ {
+  "id": "ranking-m07-10",
+  "question": "Me dê o top 10 de faturamento emitido no mês passado.",
+  "label": "ranking",
+  "group_id": "ranking-m07",
+  "split": "train"
+ },
+ {
+  "id": "ranking-m10-1",
+  "question": "5 maiores contratos por valor contratado, ontem.",
+  "label": "ranking",
+  "group_id": "ranking-m10",
+  "split": "train"
+ },
+ {
+  "id": "ranking-m10-2",
+  "question": "3 maiores contratos por valor contratado, em maio de 2025.",
+  "label": "ranking",
+  "group_id": "ranking-m10",
+  "split": "train"
+ },
+ {
+  "id": "ranking-m10-3",
+  "question": "10 maiores clientes por faturamento, em julho de 2025.",
+  "label": "ranking",
+  "group_id": "ranking-m10",
+  "split": "train"
+ },
+ {
+  "id": "ranking-m10-4",
+  "question": "10 maiores contratos por faturamento, hoje.",
+  "label": "ranking",
+  "group_id": "ranking-m10",
+  "split": "train"
+ },
+ {
+  "id": "ranking-m10-5",
+  "question": "3 maiores contratos por faturamento, em abril de 2026.",
+  "label": "ranking",
+  "group_id": "ranking-m10",
+  "split": "train"
+ },
+ {
+  "id": "ranking-m10-6",
+  "question": "5 maiores contratos por faturamento emitido, em abril de 2026.",
+  "label": "ranking",
+  "group_id": "ranking-m10",
+  "split": "train"
+ },
+ {
+  "id": "ranking-m10-7",
+  "question": "5 maiores contratos por quantidade de pedidos de venda, ontem.",
+  "label": "ranking",
+  "group_id": "ranking-m10",
+  "split": "train"
+ },
+ {
+  "id": "ranking-m10-8",
+  "question": "5 maiores clientes por faturamento emitido, hoje.",
+  "label": "ranking",
+  "group_id": "ranking-m10",
+  "split": "train"
+ },
+ {
+  "id": "ranking-m10-9",
+  "question": "5 maiores contratos por valor dos pedidos de venda, em abril de 2026.",
+  "label": "ranking",
+  "group_id": "ranking-m10",
+  "split": "train"
+ },
+ {
+  "id": "ranking-m10-10",
+  "question": "10 maiores contratos por quantidade de pedidos de venda, no mês passado.",
+  "label": "ranking",
+  "group_id": "ranking-m10",
+  "split": "train"
+ },
+ {
+  "id": "ranking-m11-1",
+  "question": "Qual a posição dos contratos em faturamento emitido em março de 2025?",
+  "label": "ranking",
+  "group_id": "ranking-m11",
+  "split": "train"
+ },
+ {
+  "id": "ranking-m11-2",
+  "question": "Qual a posição dos contratos em valor dos pedidos de venda em setembro de 2026?",
+  "label": "ranking",
+  "group_id": "ranking-m11",
+  "split": "train"
+ },
+ {
+  "id": "ranking-m11-3",
+  "question": "Qual a posição dos clientes em valor contratado neste ano?",
+  "label": "ranking",
+  "group_id": "ranking-m11",
+  "split": "train"
+ },
+ {
+  "id": "ranking-m11-4",
+  "question": "Qual a posição dos clientes em recebimentos de 10/03/2025 a 20/03/2025?",
+  "label": "ranking",
+  "group_id": "ranking-m11",
+  "split": "train"
+ },
+ {
+  "id": "ranking-m11-5",
+  "question": "Qual a posição dos clientes em quantidade de pedidos de venda neste ano?",
+  "label": "ranking",
+  "group_id": "ranking-m11",
+  "split": "train"
+ },
+ {
+  "id": "ranking-m11-6",
+  "question": "Qual a posição dos contratos em valor dos pedidos de venda em 2025?",
+  "label": "ranking",
+  "group_id": "ranking-m11",
+  "split": "train"
+ },
+ {
+  "id": "ranking-m11-7",
+  "question": "Qual a posição dos clientes em quantidade de pedidos de venda em abril de 2026?",
+  "label": "ranking",
+  "group_id": "ranking-m11",
+  "split": "train"
+ },
+ {
+  "id": "ranking-m11-8",
+  "question": "Qual a posição dos contratos em faturamento em 2025?",
+  "label": "ranking",
+  "group_id": "ranking-m11",
+  "split": "train"
+ },
+ {
+  "id": "ranking-m11-9",
+  "question": "Qual a posição dos clientes em recebimentos em dezembro de 2025?",
+  "label": "ranking",
+  "group_id": "ranking-m11",
+  "split": "train"
+ },
+ {
+  "id": "ranking-m11-10",
+  "question": "Qual a posição dos clientes em valor contratado em novembro de 2025?",
+  "label": "ranking",
+  "group_id": "ranking-m11",
+  "split": "train"
+ },
+ {
+  "id": "ranking-m12-1",
+  "question": "Ordene os clientes por quantidade de pedidos de venda em setembro de 2025 e mostre os 5 primeiros.",
+  "label": "ranking",
+  "group_id": "ranking-m12",
+  "split": "train"
+ },
+ {
+  "id": "ranking-m12-2",
+  "question": "Ordene os contratos por quantidade de contratos de fornecimento hoje e mostre os 10 primeiros.",
+  "label": "ranking",
+  "group_id": "ranking-m12",
+  "split": "train"
+ },
+ {
+  "id": "ranking-m12-3",
+  "question": "Ordene os clientes por quantidade de pedidos de venda em 2025 e mostre os 3 primeiros.",
+  "label": "ranking",
+  "group_id": "ranking-m12",
+  "split": "train"
+ },
+ {
+  "id": "ranking-m12-4",
+  "question": "Ordene os clientes por faturamento emitido em abril de 2025 e mostre os 10 primeiros.",
+  "label": "ranking",
+  "group_id": "ranking-m12",
+  "split": "train"
+ },
+ {
+  "id": "ranking-m12-5",
+  "question": "Ordene os clientes por faturamento emitido em outubro de 2025 e mostre os 5 primeiros.",
+  "label": "ranking",
+  "group_id": "ranking-m12",
+  "split": "train"
+ },
+ {
+  "id": "ranking-m12-6",
+  "question": "Ordene os clientes por quantidade de contratos de fornecimento em setembro de 2026 e mostre os 5 primeiros.",
+  "label": "ranking",
+  "group_id": "ranking-m12",
+  "split": "train"
+ },
+ {
+  "id": "ranking-m12-7",
+  "question": "Ordene os clientes por quantidade de contratos de fornecimento em fevereiro de 2026 e mostre os 3 primeiros.",
+  "label": "ranking",
+  "group_id": "ranking-m12",
+  "split": "train"
+ },
+ {
+  "id": "ranking-m12-8",
+  "question": "Ordene os contratos por faturamento em junho de 2025 e mostre os 5 primeiros.",
+  "label": "ranking",
+  "group_id": "ranking-m12",
+  "split": "train"
+ },
+ {
+  "id": "ranking-m12-9",
+  "question": "Ordene os clientes por recebimentos no ano passado e mostre os 10 primeiros.",
+  "label": "ranking",
+  "group_id": "ranking-m12",
+  "split": "train"
+ },
+ {
+  "id": "ranking-m12-10",
+  "question": "Ordene os contratos por valor dos pedidos de venda de 10/03/2025 a 20/03/2025 e mostre os 5 primeiros.",
+  "label": "ranking",
+  "group_id": "ranking-m12",
+  "split": "train"
+ },
+ {
+  "id": "ranking-m13-1",
+  "question": "Qual o ranking de quantidade de contratos de fornecimento em março de 2026?",
+  "label": "ranking",
+  "group_id": "ranking-m13",
+  "split": "train"
+ },
+ {
+  "id": "ranking-m13-2",
+  "question": "Qual o ranking de valor contratado em novembro de 2025?",
+  "label": "ranking",
+  "group_id": "ranking-m13",
+  "split": "train"
+ },
+ {
+  "id": "ranking-m13-3",
+  "question": "Qual o ranking de valor dos pedidos de venda de 10/03/2025 a 20/03/2025?",
+  "label": "ranking",
+  "group_id": "ranking-m13",
+  "split": "train"
+ },
+ {
+  "id": "ranking-m13-4",
+  "question": "Qual o ranking de quantidade de pedidos de venda em janeiro de 2026?",
+  "label": "ranking",
+  "group_id": "ranking-m13",
+  "split": "train"
+ },
+ {
+  "id": "ranking-m13-5",
+  "question": "Qual o ranking de quantidade de pedidos de venda ontem?",
+  "label": "ranking",
+  "group_id": "ranking-m13",
+  "split": "train"
+ },
+ {
+  "id": "ranking-m13-6",
+  "question": "Qual o ranking de quantidade de pedidos de venda em julho de 2025?",
+  "label": "ranking",
+  "group_id": "ranking-m13",
+  "split": "train"
+ },
+ {
+  "id": "ranking-m13-7",
+  "question": "Qual o ranking de quantidade de contratos de fornecimento em dezembro de 2025?",
+  "label": "ranking",
+  "group_id": "ranking-m13",
+  "split": "train"
+ },
+ {
+  "id": "ranking-m13-8",
+  "question": "Qual o ranking de valor dos pedidos de venda em junho de 2026?",
+  "label": "ranking",
+  "group_id": "ranking-m13",
+  "split": "train"
+ },
+ {
+  "id": "ranking-m13-9",
+  "question": "Qual o ranking de valor contratado em março de 2025?",
+  "label": "ranking",
+  "group_id": "ranking-m13",
+  "split": "train"
+ },
+ {
+  "id": "ranking-m13-10",
+  "question": "Qual o ranking de recebimentos em janeiro de 2025?",
+  "label": "ranking",
+  "group_id": "ranking-m13",
+  "split": "train"
+ },
+ {
+  "id": "ranking-m04-1",
+  "question": "Liste os 3 principais contratos em quantidade de pedidos de venda em fevereiro de 2026.",
+  "label": "ranking",
+  "group_id": "ranking-m04",
+  "split": "train"
+ },
+ {
+  "id": "ranking-m04-2",
+  "question": "Liste os 3 principais contratos em valor contratado em maio de 2026.",
+  "label": "ranking",
+  "group_id": "ranking-m04",
+  "split": "train"
+ },
+ {
+  "id": "ranking-m04-3",
+  "question": "Liste os 3 principais contratos em faturamento emitido em julho de 2026.",
+  "label": "ranking",
+  "group_id": "ranking-m04",
+  "split": "train"
+ },
+ {
+  "id": "ranking-m04-4",
+  "question": "Liste os 10 principais clientes em valor dos pedidos de venda em outubro de 2025.",
+  "label": "ranking",
+  "group_id": "ranking-m04",
+  "split": "train"
+ },
+ {
+  "id": "ranking-m04-5",
+  "question": "Liste os 10 principais clientes em quantidade de contratos de fornecimento em janeiro de 2026.",
+  "label": "ranking",
+  "group_id": "ranking-m04",
+  "split": "train"
+ },
+ {
+  "id": "ranking-m04-6",
+  "question": "Liste os 3 principais clientes em faturamento em março de 2026.",
+  "label": "ranking",
+  "group_id": "ranking-m04",
+  "split": "train"
+ },
+ {
+  "id": "ranking-m04-7",
+  "question": "Liste os 5 principais clientes em valor contratado em fevereiro de 2026.",
+  "label": "ranking",
+  "group_id": "ranking-m04",
+  "split": "train"
+ },
+ {
+  "id": "ranking-m04-8",
+  "question": "Liste os 10 principais contratos em faturamento em maio de 2026.",
+  "label": "ranking",
+  "group_id": "ranking-m04",
+  "split": "train"
+ },
+ {
+  "id": "ranking-m04-9",
+  "question": "Liste os 5 principais contratos em quantidade de pedidos de venda em abril de 2026.",
+  "label": "ranking",
+  "group_id": "ranking-m04",
+  "split": "train"
+ },
+ {
+  "id": "ranking-m04-10",
+  "question": "Liste os 5 principais clientes em valor dos pedidos de venda em maio de 2026.",
+  "label": "ranking",
+  "group_id": "ranking-m04",
+  "split": "train"
+ },
+ {
+  "id": "ranking-m09-1",
+  "question": "Quem são os 5 melhores clientes em valor contratado em julho de 2025?",
+  "label": "ranking",
+  "group_id": "ranking-m09",
+  "split": "train"
+ },
+ {
+  "id": "ranking-m09-2",
+  "question": "Quem são os 5 melhores contratos em faturamento emitido em agosto de 2026?",
+  "label": "ranking",
+  "group_id": "ranking-m09",
+  "split": "train"
+ },
+ {
+  "id": "ranking-m09-3",
+  "question": "Quem são os 3 melhores contratos em faturamento emitido em maio de 2026?",
+  "label": "ranking",
+  "group_id": "ranking-m09",
+  "split": "train"
+ },
+ {
+  "id": "ranking-m09-4",
+  "question": "Quem são os 3 melhores contratos em recebimentos em abril de 2026?",
+  "label": "ranking",
+  "group_id": "ranking-m09",
+  "split": "train"
+ },
+ {
+  "id": "ranking-m09-5",
+  "question": "Quem são os 3 melhores clientes em faturamento de 01/09/2026 a 15/09/2026?",
+  "label": "ranking",
+  "group_id": "ranking-m09",
+  "split": "train"
+ },
+ {
+  "id": "ranking-m09-6",
+  "question": "Quem são os 3 melhores clientes em faturamento em dezembro de 2025?",
+  "label": "ranking",
+  "group_id": "ranking-m09",
+  "split": "train"
+ },
+ {
+  "id": "ranking-m09-7",
+  "question": "Quem são os 5 melhores contratos em valor dos pedidos de venda em março de 2026?",
+  "label": "ranking",
+  "group_id": "ranking-m09",
+  "split": "train"
+ },
+ {
+  "id": "ranking-m09-8",
+  "question": "Quem são os 5 melhores clientes em valor dos pedidos de venda em setembro de 2026?",
+  "label": "ranking",
+  "group_id": "ranking-m09",
+  "split": "train"
+ },
+ {
+  "id": "ranking-m09-9",
+  "question": "Quem são os 10 melhores contratos em valor contratado em 2025?",
+  "label": "ranking",
+  "group_id": "ranking-m09",
+  "split": "train"
+ },
+ {
+  "id": "ranking-m09-10",
+  "question": "Quem são os 3 melhores clientes em quantidade de pedidos de venda em novembro de 2025?",
+  "label": "ranking",
+  "group_id": "ranking-m09",
+  "split": "train"
+ },
+ {
+  "id": "ranking-m08-1",
+  "question": "Os 10 clientes que mais geraram valor contratado no mês passado.",
+  "label": "ranking",
+  "group_id": "ranking-m08",
+  "split": "validation"
+ },
+ {
+  "id": "ranking-m08-2",
+  "question": "Os 3 clientes que mais geraram valor contratado em junho de 2026.",
+  "label": "ranking",
+  "group_id": "ranking-m08",
+  "split": "validation"
+ },
+ {
+  "id": "ranking-m08-3",
+  "question": "Os 5 clientes que mais geraram quantidade de pedidos de venda em maio de 2026.",
+  "label": "ranking",
+  "group_id": "ranking-m08",
+  "split": "validation"
+ },
+ {
+  "id": "ranking-m08-4",
+  "question": "Os 3 clientes que mais geraram quantidade de pedidos de venda em setembro de 2025.",
+  "label": "ranking",
+  "group_id": "ranking-m08",
+  "split": "validation"
+ },
+ {
+  "id": "ranking-m08-5",
+  "question": "Os 5 clientes que mais geraram faturamento em agosto de 2026.",
+  "label": "ranking",
+  "group_id": "ranking-m08",
+  "split": "validation"
+ },
+ {
+  "id": "ranking-m08-6",
+  "question": "Os 5 clientes que mais geraram quantidade de pedidos de venda em fevereiro de 2026.",
+  "label": "ranking",
+  "group_id": "ranking-m08",
+  "split": "validation"
+ },
+ {
+  "id": "ranking-m08-7",
+  "question": "Os 3 contratos que mais geraram faturamento emitido em março de 2025.",
+  "label": "ranking",
+  "group_id": "ranking-m08",
+  "split": "validation"
+ },
+ {
+  "id": "ranking-m08-8",
+  "question": "Os 3 clientes que mais geraram faturamento em agosto de 2026.",
+  "label": "ranking",
+  "group_id": "ranking-m08",
+  "split": "validation"
+ },
+ {
+  "id": "ranking-m02-1",
+  "question": "Top 5 contratos por faturamento emitido em novembro de 2025.",
+  "label": "ranking",
+  "group_id": "ranking-m02",
+  "split": "validation"
+ },
+ {
+  "id": "ranking-m02-2",
+  "question": "Top 10 clientes por recebimentos em julho de 2025.",
+  "label": "ranking",
+  "group_id": "ranking-m02",
+  "split": "validation"
+ },
+ {
+  "id": "ranking-m02-3",
+  "question": "Top 5 contratos por quantidade de pedidos de venda em setembro de 2025.",
+  "label": "ranking",
+  "group_id": "ranking-m02",
+  "split": "validation"
+ },
+ {
+  "id": "ranking-m02-4",
+  "question": "Top 10 clientes por valor dos pedidos de venda em janeiro de 2025.",
+  "label": "ranking",
+  "group_id": "ranking-m02",
+  "split": "validation"
+ },
+ {
+  "id": "ranking-m02-5",
+  "question": "Top 10 clientes por faturamento no ano passado.",
+  "label": "ranking",
+  "group_id": "ranking-m02",
+  "split": "validation"
+ },
+ {
+  "id": "ranking-m02-6",
+  "question": "Top 10 contratos por quantidade de contratos de fornecimento em março de 2025.",
+  "label": "ranking",
+  "group_id": "ranking-m02",
+  "split": "validation"
+ },
+ {
+  "id": "ranking-m02-7",
+  "question": "Top 3 contratos por quantidade de pedidos de venda em junho de 2025.",
+  "label": "ranking",
+  "group_id": "ranking-m02",
+  "split": "validation"
+ },
+ {
+  "id": "ranking-m02-8",
+  "question": "Top 5 contratos por quantidade de pedidos de venda em janeiro de 2025.",
+  "label": "ranking",
+  "group_id": "ranking-m02",
+  "split": "validation"
+ },
+ {
+  "id": "ranking-m01-1",
+  "question": "Quais os 5 maiores clientes em quantidade de contratos de fornecimento em fevereiro de 2025?",
+  "label": "ranking",
+  "group_id": "ranking-m01",
+  "split": "validation"
+ },
+ {
+  "id": "ranking-m01-2",
+  "question": "Quais os 3 maiores contratos em quantidade de pedidos de venda ontem?",
+  "label": "ranking",
+  "group_id": "ranking-m01",
+  "split": "validation"
+ },
+ {
+  "id": "ranking-m01-3",
+  "question": "Quais os 10 maiores clientes em quantidade de pedidos de venda neste ano?",
+  "label": "ranking",
+  "group_id": "ranking-m01",
+  "split": "validation"
+ },
+ {
+  "id": "ranking-m01-4",
+  "question": "Quais os 3 maiores contratos em faturamento emitido em abril de 2025?",
+  "label": "ranking",
+  "group_id": "ranking-m01",
+  "split": "validation"
+ },
+ {
+  "id": "ranking-m01-5",
+  "question": "Quais os 5 maiores contratos em valor contratado em agosto de 2026?",
+  "label": "ranking",
+  "group_id": "ranking-m01",
+  "split": "validation"
+ },
+ {
+  "id": "ranking-m01-6",
+  "question": "Quais os 3 maiores contratos em valor contratado em março de 2026?",
+  "label": "ranking",
+  "group_id": "ranking-m01",
+  "split": "validation"
+ },
+ {
+  "id": "ranking-m01-7",
+  "question": "Quais os 10 maiores contratos em valor contratado em novembro de 2025?",
+  "label": "ranking",
+  "group_id": "ranking-m01",
+  "split": "validation"
+ },
+ {
+  "id": "ranking-m01-8",
+  "question": "Quais os 10 maiores contratos em faturamento de 01/09/2026 a 15/09/2026?",
+  "label": "ranking",
+  "group_id": "ranking-m01",
+  "split": "validation"
+ },
+ {
+  "id": "ranking-m03-1",
+  "question": "Ranking de contratos por faturamento em junho de 2026.",
+  "label": "ranking",
+  "group_id": "ranking-m03",
+  "split": "test"
+ },
+ {
+  "id": "ranking-m03-2",
+  "question": "Ranking de clientes por valor contratado em março de 2026.",
+  "label": "ranking",
+  "group_id": "ranking-m03",
+  "split": "test"
+ },
+ {
+  "id": "ranking-m03-3",
+  "question": "Ranking de contratos por recebimentos em junho de 2025.",
+  "label": "ranking",
+  "group_id": "ranking-m03",
+  "split": "test"
+ },
+ {
+  "id": "ranking-m03-4",
+  "question": "Ranking de contratos por faturamento emitido em março de 2026.",
+  "label": "ranking",
+  "group_id": "ranking-m03",
+  "split": "test"
+ },
+ {
+  "id": "ranking-m03-5",
+  "question": "Ranking de contratos por valor contratado em março de 2025.",
+  "label": "ranking",
+  "group_id": "ranking-m03",
+  "split": "test"
+ },
+ {
+  "id": "ranking-m03-6",
+  "question": "Ranking de clientes por valor contratado em dezembro de 2025.",
+  "label": "ranking",
+  "group_id": "ranking-m03",
+  "split": "test"
+ },
+ {
+  "id": "ranking-m03-7",
+  "question": "Ranking de clientes por valor dos pedidos de venda ontem.",
+  "label": "ranking",
+  "group_id": "ranking-m03",
+  "split": "test"
+ },
+ {
+  "id": "ranking-m03-8",
+  "question": "Ranking de contratos por faturamento emitido em junho de 2026.",
+  "label": "ranking",
+  "group_id": "ranking-m03",
+  "split": "test"
+ },
+ {
+  "id": "ranking-m06-1",
+  "question": "Classifique os clientes por valor contratado em julho de 2026, do maior para o menor.",
+  "label": "ranking",
+  "group_id": "ranking-m06",
+  "split": "test"
+ },
+ {
+  "id": "ranking-m06-2",
+  "question": "Classifique os clientes por faturamento emitido neste ano, do maior para o menor.",
+  "label": "ranking",
+  "group_id": "ranking-m06",
+  "split": "test"
+ },
+ {
+  "id": "ranking-m06-3",
+  "question": "Classifique os contratos por faturamento em junho de 2026, do maior para o menor.",
+  "label": "ranking",
+  "group_id": "ranking-m06",
+  "split": "test"
+ },
+ {
+  "id": "ranking-m06-4",
+  "question": "Classifique os clientes por valor dos pedidos de venda em fevereiro de 2026, do maior para o menor.",
+  "label": "ranking",
+  "group_id": "ranking-m06",
+  "split": "test"
+ },
+ {
+  "id": "ranking-m06-5",
+  "question": "Classifique os contratos por recebimentos em dezembro de 2025, do maior para o menor.",
+  "label": "ranking",
+  "group_id": "ranking-m06",
+  "split": "test"
+ },
+ {
+  "id": "ranking-m06-6",
+  "question": "Classifique os contratos por valor contratado em junho de 2026, do maior para o menor.",
+  "label": "ranking",
+  "group_id": "ranking-m06",
+  "split": "test"
+ },
+ {
+  "id": "ranking-m06-7",
+  "question": "Classifique os contratos por faturamento emitido de 01/09/2026 a 15/09/2026, do maior para o menor.",
+  "label": "ranking",
+  "group_id": "ranking-m06",
+  "split": "test"
+ },
+ {
+  "id": "ranking-m06-8",
+  "question": "Classifique os clientes por valor contratado em julho de 2025, do maior para o menor.",
+  "label": "ranking",
+  "group_id": "ranking-m06",
+  "split": "test"
+ },
+ {
+  "id": "ranking-m14-1",
+  "question": "Quem mais contribuiu com recebimentos em abril de 2026? Quero os 3 primeiros.",
+  "label": "ranking",
+  "group_id": "ranking-m14",
+  "split": "test"
+ },
+ {
+  "id": "ranking-m14-2",
+  "question": "Quem mais contribuiu com quantidade de pedidos de venda em abril de 2025? Quero os 3 primeiros.",
+  "label": "ranking",
+  "group_id": "ranking-m14",
+  "split": "test"
+ },
+ {
+  "id": "ranking-m14-3",
+  "question": "Quem mais contribuiu com recebimentos no ano passado? Quero os 10 primeiros.",
+  "label": "ranking",
+  "group_id": "ranking-m14",
+  "split": "test"
+ },
+ {
+  "id": "ranking-m14-4",
+  "question": "Quem mais contribuiu com valor dos pedidos de venda em abril de 2025? Quero os 3 primeiros.",
+  "label": "ranking",
+  "group_id": "ranking-m14",
+  "split": "test"
+ },
+ {
+  "id": "ranking-m14-5",
+  "question": "Quem mais contribuiu com faturamento emitido em fevereiro de 2025? Quero os 5 primeiros.",
+  "label": "ranking",
+  "group_id": "ranking-m14",
+  "split": "test"
+ },
+ {
+  "id": "ranking-m14-6",
+  "question": "Quem mais contribuiu com faturamento emitido em abril de 2025? Quero os 3 primeiros.",
+  "label": "ranking",
+  "group_id": "ranking-m14",
+  "split": "test"
+ },
+ {
+  "id": "ranking-m14-7",
+  "question": "Quem mais contribuiu com quantidade de pedidos de venda em abril de 2025? Quero os 5 primeiros.",
+  "label": "ranking",
+  "group_id": "ranking-m14",
+  "split": "test"
+ },
+ {
+  "id": "ranking-m14-8",
+  "question": "Quem mais contribuiu com faturamento em janeiro de 2026? Quero os 5 primeiros.",
+  "label": "ranking",
+  "group_id": "ranking-m14",
+  "split": "test"
+ },
+ {
+  "id": "segmentacao-m09-1",
+  "question": "Mostre a quantidade de pedidos de venda aberto por tipo de cliente em maio de 2026.",
+  "label": "segmentacao",
+  "group_id": "segmentacao-m09",
+  "split": "train"
+ },
+ {
+  "id": "segmentacao-m09-2",
+  "question": "Mostre o valor dos pedidos de venda aberto por segmento em agosto de 2025.",
+  "label": "segmentacao",
+  "group_id": "segmentacao-m09",
+  "split": "train"
+ },
+ {
+  "id": "segmentacao-m09-3",
+  "question": "Mostre o faturamento emitido aberto por tipo de cliente em setembro de 2026.",
+  "label": "segmentacao",
+  "group_id": "segmentacao-m09",
+  "split": "train"
+ },
+ {
+  "id": "segmentacao-m09-4",
+  "question": "Mostre os recebimentos aberto por segmento em abril de 2026.",
+  "label": "segmentacao",
+  "group_id": "segmentacao-m09",
+  "split": "train"
+ },
+ {
+  "id": "segmentacao-m09-5",
+  "question": "Mostre os recebimentos aberto por tipo de cliente em julho de 2026.",
+  "label": "segmentacao",
+  "group_id": "segmentacao-m09",
+  "split": "train"
+ },
+ {
+  "id": "segmentacao-m09-6",
+  "question": "Mostre o faturamento aberto por cidade em dezembro de 2025.",
+  "label": "segmentacao",
+  "group_id": "segmentacao-m09",
+  "split": "train"
+ },
+ {
+  "id": "segmentacao-m09-7",
+  "question": "Mostre o valor contratado aberto por segmento em outubro de 2026.",
+  "label": "segmentacao",
+  "group_id": "segmentacao-m09",
+  "split": "train"
+ },
+ {
+  "id": "segmentacao-m09-8",
+  "question": "Mostre o valor contratado aberto por tipo de cliente em julho de 2026.",
+  "label": "segmentacao",
+  "group_id": "segmentacao-m09",
+  "split": "train"
+ },
+ {
+  "id": "segmentacao-m09-9",
+  "question": "Mostre os recebimentos aberto por segmento em março de 2026.",
+  "label": "segmentacao",
+  "group_id": "segmentacao-m09",
+  "split": "train"
+ },
+ {
+  "id": "segmentacao-m09-10",
+  "question": "Mostre o valor dos pedidos de venda aberto por tipo de cliente em agosto de 2025.",
+  "label": "segmentacao",
+  "group_id": "segmentacao-m09",
+  "split": "train"
+ },
+ {
+  "id": "segmentacao-m03-1",
+  "question": "Faturamento por tipo de cliente em janeiro de 2026.",
+  "label": "segmentacao",
+  "group_id": "segmentacao-m03",
+  "split": "train"
+ },
+ {
+  "id": "segmentacao-m03-2",
+  "question": "Faturamento por segmento em dezembro de 2025.",
+  "label": "segmentacao",
+  "group_id": "segmentacao-m03",
+  "split": "train"
+ },
+ {
+  "id": "segmentacao-m03-3",
+  "question": "Faturamento emitido por segmento em setembro de 2026.",
+  "label": "segmentacao",
+  "group_id": "segmentacao-m03",
+  "split": "train"
+ },
+ {
+  "id": "segmentacao-m03-4",
+  "question": "Faturamento emitido por cidade em junho de 2025.",
+  "label": "segmentacao",
+  "group_id": "segmentacao-m03",
+  "split": "train"
+ },
+ {
+  "id": "segmentacao-m03-5",
+  "question": "Valor contratado por segmento em julho de 2025.",
+  "label": "segmentacao",
+  "group_id": "segmentacao-m03",
+  "split": "train"
+ },
+ {
+  "id": "segmentacao-m03-6",
+  "question": "Quantidade de contratos de fornecimento por tipo de cliente em maio de 2025.",
+  "label": "segmentacao",
+  "group_id": "segmentacao-m03",
+  "split": "train"
+ },
+ {
+  "id": "segmentacao-m03-7",
+  "question": "Quantidade de contratos de fornecimento por cidade em março de 2026.",
+  "label": "segmentacao",
+  "group_id": "segmentacao-m03",
+  "split": "train"
+ },
+ {
+  "id": "segmentacao-m03-8",
+  "question": "Quantidade de contratos de fornecimento por tipo de cliente em 2025.",
+  "label": "segmentacao",
+  "group_id": "segmentacao-m03",
+  "split": "train"
+ },
+ {
+  "id": "segmentacao-m03-9",
+  "question": "Valor contratado por segmento em 2025.",
+  "label": "segmentacao",
+  "group_id": "segmentacao-m03",
+  "split": "train"
+ },
+ {
+  "id": "segmentacao-m03-10",
+  "question": "Quantidade de pedidos de venda por tipo de cliente em fevereiro de 2026.",
+  "label": "segmentacao",
+  "group_id": "segmentacao-m03",
+  "split": "train"
+ },
+ {
+  "id": "segmentacao-m04-1",
+  "question": "Quanto cada tipo de cliente representa de faturamento emitido em outubro de 2025?",
+  "label": "segmentacao",
+  "group_id": "segmentacao-m04",
+  "split": "train"
+ },
+ {
+  "id": "segmentacao-m04-2",
+  "question": "Quanto cada segmento representa de recebimentos hoje?",
+  "label": "segmentacao",
+  "group_id": "segmentacao-m04",
+  "split": "train"
+ },
+ {
+  "id": "segmentacao-m04-3",
+  "question": "Quanto cada tipo de cliente representa de valor dos pedidos de venda em agosto de 2026?",
+  "label": "segmentacao",
+  "group_id": "segmentacao-m04",
+  "split": "train"
+ },
+ {
+  "id": "segmentacao-m04-4",
+  "question": "Quanto cada cidade representa de quantidade de pedidos de venda em maio de 2026?",
+  "label": "segmentacao",
+  "group_id": "segmentacao-m04",
+  "split": "train"
+ },
+ {
+  "id": "segmentacao-m04-5",
+  "question": "Quanto cada tipo de cliente representa de recebimentos em abril de 2026?",
+  "label": "segmentacao",
+  "group_id": "segmentacao-m04",
+  "split": "train"
+ },
+ {
+  "id": "segmentacao-m04-6",
+  "question": "Quanto cada segmento representa de quantidade de pedidos de venda em agosto de 2025?",
+  "label": "segmentacao",
+  "group_id": "segmentacao-m04",
+  "split": "train"
+ },
+ {
+  "id": "segmentacao-m04-7",
+  "question": "Quanto cada cidade representa de quantidade de contratos de fornecimento em fevereiro de 2026?",
+  "label": "segmentacao",
+  "group_id": "segmentacao-m04",
+  "split": "train"
+ },
+ {
+  "id": "segmentacao-m04-8",
+  "question": "Quanto cada segmento representa de faturamento no ano passado?",
+  "label": "segmentacao",
+  "group_id": "segmentacao-m04",
+  "split": "train"
+ },
+ {
+  "id": "segmentacao-m04-9",
+  "question": "Quanto cada tipo de cliente representa de valor dos pedidos de venda em fevereiro de 2025?",
+  "label": "segmentacao",
+  "group_id": "segmentacao-m04",
+  "split": "train"
+ },
+ {
+  "id": "segmentacao-m04-10",
+  "question": "Quanto cada cidade representa de quantidade de pedidos de venda em fevereiro de 2026?",
+  "label": "segmentacao",
+  "group_id": "segmentacao-m04",
+  "split": "train"
+ },
+ {
+  "id": "segmentacao-m07-1",
+  "question": "Qual cidade pesa mais em quantidade de contratos de fornecimento em janeiro de 2025?",
+  "label": "segmentacao",
+  "group_id": "segmentacao-m07",
+  "split": "train"
+ },
+ {
+  "id": "segmentacao-m07-2",
+  "question": "Qual cidade pesa mais em faturamento de 01/09/2026 a 15/09/2026?",
+  "label": "segmentacao",
+  "group_id": "segmentacao-m07",
+  "split": "train"
+ },
+ {
+  "id": "segmentacao-m07-3",
+  "question": "Qual cidade pesa mais em quantidade de contratos de fornecimento de 10/03/2025 a 20/03/2025?",
+  "label": "segmentacao",
+  "group_id": "segmentacao-m07",
+  "split": "train"
+ },
+ {
+  "id": "segmentacao-m07-4",
+  "question": "Qual tipo de cliente pesa mais em faturamento emitido em julho de 2025?",
+  "label": "segmentacao",
+  "group_id": "segmentacao-m07",
+  "split": "train"
+ },
+ {
+  "id": "segmentacao-m07-5",
+  "question": "Qual tipo de cliente pesa mais em valor contratado ontem?",
+  "label": "segmentacao",
+  "group_id": "segmentacao-m07",
+  "split": "train"
+ },
+ {
+  "id": "segmentacao-m07-6",
+  "question": "Qual tipo de cliente pesa mais em quantidade de contratos de fornecimento neste ano?",
+  "label": "segmentacao",
+  "group_id": "segmentacao-m07",
+  "split": "train"
+ },
+ {
+  "id": "segmentacao-m07-7",
+  "question": "Qual cidade pesa mais em faturamento emitido ontem?",
+  "label": "segmentacao",
+  "group_id": "segmentacao-m07",
+  "split": "train"
+ },
+ {
+  "id": "segmentacao-m07-8",
+  "question": "Qual cidade pesa mais em faturamento emitido em agosto de 2025?",
+  "label": "segmentacao",
+  "group_id": "segmentacao-m07",
+  "split": "train"
+ },
+ {
+  "id": "segmentacao-m07-9",
+  "question": "Qual tipo de cliente pesa mais em valor contratado em julho de 2026?",
+  "label": "segmentacao",
+  "group_id": "segmentacao-m07",
+  "split": "train"
+ },
+ {
+  "id": "segmentacao-m07-10",
+  "question": "Qual cidade pesa mais em quantidade de contratos de fornecimento hoje?",
+  "label": "segmentacao",
+  "group_id": "segmentacao-m07",
+  "split": "train"
+ },
+ {
+  "id": "segmentacao-m13-1",
+  "question": "Participação de cidades no total de quantidade de contratos de fornecimento hoje.",
+  "label": "segmentacao",
+  "group_id": "segmentacao-m13",
+  "split": "train"
+ },
+ {
+  "id": "segmentacao-m13-2",
+  "question": "Participação de cidades no total de recebimentos neste ano.",
+  "label": "segmentacao",
+  "group_id": "segmentacao-m13",
+  "split": "train"
+ },
+ {
+  "id": "segmentacao-m13-3",
+  "question": "Participação de segmentos no total de quantidade de contratos de fornecimento em fevereiro de 2026.",
+  "label": "segmentacao",
+  "group_id": "segmentacao-m13",
+  "split": "train"
+ },
+ {
+  "id": "segmentacao-m13-4",
+  "question": "Participação de cidades no total de quantidade de contratos de fornecimento em julho de 2026.",
+  "label": "segmentacao",
+  "group_id": "segmentacao-m13",
+  "split": "train"
+ },
+ {
+  "id": "segmentacao-m13-5",
+  "question": "Participação de segmentos no total de quantidade de pedidos de venda em janeiro de 2026.",
+  "label": "segmentacao",
+  "group_id": "segmentacao-m13",
+  "split": "train"
+ },
+ {
+  "id": "segmentacao-m13-6",
+  "question": "Participação de cidades no total de valor dos pedidos de venda em julho de 2026.",
+  "label": "segmentacao",
+  "group_id": "segmentacao-m13",
+  "split": "train"
+ },
+ {
+  "id": "segmentacao-m13-7",
+  "question": "Participação de tipos de cliente no total de recebimentos em junho de 2026.",
+  "label": "segmentacao",
+  "group_id": "segmentacao-m13",
+  "split": "train"
+ },
+ {
+  "id": "segmentacao-m13-8",
+  "question": "Participação de segmentos no total de quantidade de contratos de fornecimento em julho de 2025.",
+  "label": "segmentacao",
+  "group_id": "segmentacao-m13",
+  "split": "train"
+ },
+ {
+  "id": "segmentacao-m13-9",
+  "question": "Participação de tipos de cliente no total de recebimentos em maio de 2026.",
+  "label": "segmentacao",
+  "group_id": "segmentacao-m13",
+  "split": "train"
+ },
+ {
+  "id": "segmentacao-m13-10",
+  "question": "Participação de segmentos no total de faturamento emitido em novembro de 2025.",
+  "label": "segmentacao",
+  "group_id": "segmentacao-m13",
+  "split": "train"
+ },
+ {
+  "id": "segmentacao-m12-1",
+  "question": "De onde vem o valor dos pedidos de venda em fevereiro de 2026: por tipo de cliente?",
+  "label": "segmentacao",
+  "group_id": "segmentacao-m12",
+  "split": "train"
+ },
+ {
+  "id": "segmentacao-m12-2",
+  "question": "De onde vem o faturamento emitido em outubro de 2025: por segmento?",
+  "label": "segmentacao",
+  "group_id": "segmentacao-m12",
+  "split": "train"
+ },
+ {
+  "id": "segmentacao-m12-3",
+  "question": "De onde vem o valor contratado em julho de 2025: por tipo de cliente?",
+  "label": "segmentacao",
+  "group_id": "segmentacao-m12",
+  "split": "train"
+ },
+ {
+  "id": "segmentacao-m12-4",
+  "question": "De onde vem o valor contratado em maio de 2025: por segmento?",
+  "label": "segmentacao",
+  "group_id": "segmentacao-m12",
+  "split": "train"
+ },
+ {
+  "id": "segmentacao-m12-5",
+  "question": "De onde vem a quantidade de contratos de fornecimento em novembro de 2025: por tipo de cliente?",
+  "label": "segmentacao",
+  "group_id": "segmentacao-m12",
+  "split": "train"
+ },
+ {
+  "id": "segmentacao-m12-6",
+  "question": "De onde vem o valor dos pedidos de venda em março de 2025: por tipo de cliente?",
+  "label": "segmentacao",
+  "group_id": "segmentacao-m12",
+  "split": "train"
+ },
+ {
+  "id": "segmentacao-m12-7",
+  "question": "De onde vem o valor dos pedidos de venda ontem: por tipo de cliente?",
+  "label": "segmentacao",
+  "group_id": "segmentacao-m12",
+  "split": "train"
+ },
+ {
+  "id": "segmentacao-m12-8",
+  "question": "De onde vem o valor dos pedidos de venda em janeiro de 2026: por cidade?",
+  "label": "segmentacao",
+  "group_id": "segmentacao-m12",
+  "split": "train"
+ },
+ {
+  "id": "segmentacao-m12-9",
+  "question": "De onde vem o valor contratado em fevereiro de 2025: por tipo de cliente?",
+  "label": "segmentacao",
+  "group_id": "segmentacao-m12",
+  "split": "train"
+ },
+ {
+  "id": "segmentacao-m12-10",
+  "question": "De onde vem os recebimentos de 10/03/2025 a 20/03/2025: por tipo de cliente?",
+  "label": "segmentacao",
+  "group_id": "segmentacao-m12",
+  "split": "train"
+ },
+ {
+  "id": "segmentacao-m05-1",
+  "question": "Divida o valor contratado por tipo de cliente em abril de 2025.",
+  "label": "segmentacao",
+  "group_id": "segmentacao-m05",
+  "split": "train"
+ },
+ {
+  "id": "segmentacao-m05-2",
+  "question": "Divida a quantidade de contratos de fornecimento por cidade em março de 2026.",
+  "label": "segmentacao",
+  "group_id": "segmentacao-m05",
+  "split": "train"
+ },
+ {
+  "id": "segmentacao-m05-3",
+  "question": "Divida o faturamento por segmento em março de 2025.",
+  "label": "segmentacao",
+  "group_id": "segmentacao-m05",
+  "split": "train"
+ },
+ {
+  "id": "segmentacao-m05-4",
+  "question": "Divida o valor contratado por tipo de cliente em janeiro de 2026.",
+  "label": "segmentacao",
+  "group_id": "segmentacao-m05",
+  "split": "train"
+ },
+ {
+  "id": "segmentacao-m05-5",
+  "question": "Divida o valor dos pedidos de venda por segmento no mês passado.",
+  "label": "segmentacao",
+  "group_id": "segmentacao-m05",
+  "split": "train"
+ },
+ {
+  "id": "segmentacao-m05-6",
+  "question": "Divida o valor contratado por segmento em março de 2025.",
+  "label": "segmentacao",
+  "group_id": "segmentacao-m05",
+  "split": "train"
+ },
+ {
+  "id": "segmentacao-m05-7",
+  "question": "Divida o faturamento por cidade ontem.",
+  "label": "segmentacao",
+  "group_id": "segmentacao-m05",
+  "split": "train"
+ },
+ {
+  "id": "segmentacao-m05-8",
+  "question": "Divida a quantidade de contratos de fornecimento por segmento em outubro de 2025.",
+  "label": "segmentacao",
+  "group_id": "segmentacao-m05",
+  "split": "train"
+ },
+ {
+  "id": "segmentacao-m05-9",
+  "question": "Divida o valor contratado por tipo de cliente no ano passado.",
+  "label": "segmentacao",
+  "group_id": "segmentacao-m05",
+  "split": "train"
+ },
+ {
+  "id": "segmentacao-m05-10",
+  "question": "Divida os recebimentos por segmento em julho de 2025.",
+  "label": "segmentacao",
+  "group_id": "segmentacao-m05",
+  "split": "train"
+ },
+ {
+  "id": "segmentacao-m11-1",
+  "question": "Como valor contratado se reparte entre tipos de cliente em fevereiro de 2025?",
+  "label": "segmentacao",
+  "group_id": "segmentacao-m11",
+  "split": "train"
+ },
+ {
+  "id": "segmentacao-m11-2",
+  "question": "Como quantidade de contratos de fornecimento se reparte entre cidades no mês passado?",
+  "label": "segmentacao",
+  "group_id": "segmentacao-m11",
+  "split": "train"
+ },
+ {
+  "id": "segmentacao-m11-3",
+  "question": "Como faturamento emitido se reparte entre cidades no ano passado?",
+  "label": "segmentacao",
+  "group_id": "segmentacao-m11",
+  "split": "train"
+ },
+ {
+  "id": "segmentacao-m11-4",
+  "question": "Como recebimentos se reparte entre segmentos em fevereiro de 2026?",
+  "label": "segmentacao",
+  "group_id": "segmentacao-m11",
+  "split": "train"
+ },
+ {
+  "id": "segmentacao-m11-5",
+  "question": "Como recebimentos se reparte entre segmentos de 01/09/2026 a 15/09/2026?",
+  "label": "segmentacao",
+  "group_id": "segmentacao-m11",
+  "split": "train"
+ },
+ {
+  "id": "segmentacao-m11-6",
+  "question": "Como faturamento se reparte entre tipos de cliente em abril de 2025?",
+  "label": "segmentacao",
+  "group_id": "segmentacao-m11",
+  "split": "train"
+ },
+ {
+  "id": "segmentacao-m11-7",
+  "question": "Como recebimentos se reparte entre tipos de cliente em julho de 2025?",
+  "label": "segmentacao",
+  "group_id": "segmentacao-m11",
+  "split": "train"
+ },
+ {
+  "id": "segmentacao-m11-8",
+  "question": "Como valor dos pedidos de venda se reparte entre segmentos em dezembro de 2025?",
+  "label": "segmentacao",
+  "group_id": "segmentacao-m11",
+  "split": "train"
+ },
+ {
+  "id": "segmentacao-m11-9",
+  "question": "Como faturamento emitido se reparte entre segmentos em janeiro de 2026?",
+  "label": "segmentacao",
+  "group_id": "segmentacao-m11",
+  "split": "train"
+ },
+ {
+  "id": "segmentacao-m11-10",
+  "question": "Como faturamento se reparte entre tipos de cliente em agosto de 2026?",
+  "label": "segmentacao",
+  "group_id": "segmentacao-m11",
+  "split": "train"
+ },
+ {
+  "id": "segmentacao-m08-1",
+  "question": "Percentual de faturamento emitido por tipo de cliente em abril de 2026.",
+  "label": "segmentacao",
+  "group_id": "segmentacao-m08",
+  "split": "validation"
+ },
+ {
+  "id": "segmentacao-m08-2",
+  "question": "Percentual de quantidade de pedidos de venda por segmento em agosto de 2026.",
+  "label": "segmentacao",
+  "group_id": "segmentacao-m08",
+  "split": "validation"
+ },
+ {
+  "id": "segmentacao-m08-3",
+  "question": "Percentual de valor contratado por cidade em junho de 2025.",
+  "label": "segmentacao",
+  "group_id": "segmentacao-m08",
+  "split": "validation"
+ },
+ {
+  "id": "segmentacao-m08-4",
+  "question": "Percentual de recebimentos por cidade em janeiro de 2025.",
+  "label": "segmentacao",
+  "group_id": "segmentacao-m08",
+  "split": "validation"
+ },
+ {
+  "id": "segmentacao-m08-5",
+  "question": "Percentual de valor dos pedidos de venda por tipo de cliente em julho de 2026.",
+  "label": "segmentacao",
+  "group_id": "segmentacao-m08",
+  "split": "validation"
+ },
+ {
+  "id": "segmentacao-m08-6",
+  "question": "Percentual de faturamento por cidade em agosto de 2025.",
+  "label": "segmentacao",
+  "group_id": "segmentacao-m08",
+  "split": "validation"
+ },
+ {
+  "id": "segmentacao-m08-7",
+  "question": "Percentual de quantidade de contratos de fornecimento por segmento em maio de 2025.",
+  "label": "segmentacao",
+  "group_id": "segmentacao-m08",
+  "split": "validation"
+ },
+ {
+  "id": "segmentacao-m08-8",
+  "question": "Percentual de recebimentos por segmento em setembro de 2026.",
+  "label": "segmentacao",
+  "group_id": "segmentacao-m08",
+  "split": "validation"
+ },
+ {
+  "id": "segmentacao-m01-1",
+  "question": "Como se distribui o valor contratado por segmento em setembro de 2025?",
+  "label": "segmentacao",
+  "group_id": "segmentacao-m01",
+  "split": "validation"
+ },
+ {
+  "id": "segmentacao-m01-2",
+  "question": "Como se distribui a quantidade de contratos de fornecimento por tipo de cliente ontem?",
+  "label": "segmentacao",
+  "group_id": "segmentacao-m01",
+  "split": "validation"
+ },
+ {
+  "id": "segmentacao-m01-3",
+  "question": "Como se distribui o faturamento por tipo de cliente em fevereiro de 2025?",
+  "label": "segmentacao",
+  "group_id": "segmentacao-m01",
+  "split": "validation"
+ },
+ {
+  "id": "segmentacao-m01-4",
+  "question": "Como se distribui a quantidade de contratos de fornecimento por tipo de cliente em novembro de 2025?",
+  "label": "segmentacao",
+  "group_id": "segmentacao-m01",
+  "split": "validation"
+ },
+ {
+  "id": "segmentacao-m01-5",
+  "question": "Como se distribui o valor contratado por segmento em julho de 2025?",
+  "label": "segmentacao",
+  "group_id": "segmentacao-m01",
+  "split": "validation"
+ },
+ {
+  "id": "segmentacao-m01-6",
+  "question": "Como se distribui o faturamento por segmento em julho de 2026?",
+  "label": "segmentacao",
+  "group_id": "segmentacao-m01",
+  "split": "validation"
+ },
+ {
+  "id": "segmentacao-m01-7",
+  "question": "Como se distribui o faturamento por tipo de cliente em março de 2026?",
+  "label": "segmentacao",
+  "group_id": "segmentacao-m01",
+  "split": "validation"
+ },
+ {
+  "id": "segmentacao-m01-8",
+  "question": "Como se distribui o valor contratado por segmento em agosto de 2026?",
+  "label": "segmentacao",
+  "group_id": "segmentacao-m01",
+  "split": "validation"
+ },
+ {
+  "id": "segmentacao-m06-1",
+  "question": "Distribuição de recebimentos por cidade, hoje.",
+  "label": "segmentacao",
+  "group_id": "segmentacao-m06",
+  "split": "validation"
+ },
+ {
+  "id": "segmentacao-m06-2",
+  "question": "Distribuição de faturamento emitido por segmento, em abril de 2026.",
+  "label": "segmentacao",
+  "group_id": "segmentacao-m06",
+  "split": "validation"
+ },
+ {
+  "id": "segmentacao-m06-3",
+  "question": "Distribuição de quantidade de pedidos de venda por cidade, em janeiro de 2025.",
+  "label": "segmentacao",
+  "group_id": "segmentacao-m06",
+  "split": "validation"
+ },
+ {
+  "id": "segmentacao-m06-4",
+  "question": "Distribuição de valor dos pedidos de venda por tipo de cliente, neste ano.",
+  "label": "segmentacao",
+  "group_id": "segmentacao-m06",
+  "split": "validation"
+ },
+ {
+  "id": "segmentacao-m06-5",
+  "question": "Distribuição de valor dos pedidos de venda por cidade, em janeiro de 2026.",
+  "label": "segmentacao",
+  "group_id": "segmentacao-m06",
+  "split": "validation"
+ },
+ {
+  "id": "segmentacao-m06-6",
+  "question": "Distribuição de valor dos pedidos de venda por tipo de cliente, em abril de 2026.",
+  "label": "segmentacao",
+  "group_id": "segmentacao-m06",
+  "split": "validation"
+ },
+ {
+  "id": "segmentacao-m06-7",
+  "question": "Distribuição de faturamento por cidade, em janeiro de 2026.",
+  "label": "segmentacao",
+  "group_id": "segmentacao-m06",
+  "split": "validation"
+ },
+ {
+  "id": "segmentacao-m06-8",
+  "question": "Distribuição de valor contratado por cidade, em setembro de 2026.",
+  "label": "segmentacao",
+  "group_id": "segmentacao-m06",
+  "split": "validation"
+ },
+ {
+  "id": "segmentacao-m02-1",
+  "question": "Qual a participação de cada tipo de cliente em valor dos pedidos de venda em junho de 2025?",
+  "label": "segmentacao",
+  "group_id": "segmentacao-m02",
+  "split": "test"
+ },
+ {
+  "id": "segmentacao-m02-2",
+  "question": "Qual a participação de cada tipo de cliente em recebimentos no mês passado?",
+  "label": "segmentacao",
+  "group_id": "segmentacao-m02",
+  "split": "test"
+ },
+ {
+  "id": "segmentacao-m02-3",
+  "question": "Qual a participação de cada tipo de cliente em faturamento emitido em agosto de 2025?",
+  "label": "segmentacao",
+  "group_id": "segmentacao-m02",
+  "split": "test"
+ },
+ {
+  "id": "segmentacao-m02-4",
+  "question": "Qual a participação de cada tipo de cliente em faturamento emitido em outubro de 2026?",
+  "label": "segmentacao",
+  "group_id": "segmentacao-m02",
+  "split": "test"
+ },
+ {
+  "id": "segmentacao-m02-5",
+  "question": "Qual a participação de cada cidade em recebimentos em agosto de 2025?",
+  "label": "segmentacao",
+  "group_id": "segmentacao-m02",
+  "split": "test"
+ },
+ {
+  "id": "segmentacao-m02-6",
+  "question": "Qual a participação de cada segmento em valor contratado em setembro de 2026?",
+  "label": "segmentacao",
+  "group_id": "segmentacao-m02",
+  "split": "test"
+ },
+ {
+  "id": "segmentacao-m02-7",
+  "question": "Qual a participação de cada cidade em valor dos pedidos de venda em junho de 2025?",
+  "label": "segmentacao",
+  "group_id": "segmentacao-m02",
+  "split": "test"
+ },
+ {
+  "id": "segmentacao-m02-8",
+  "question": "Qual a participação de cada tipo de cliente em recebimentos em outubro de 2025?",
+  "label": "segmentacao",
+  "group_id": "segmentacao-m02",
+  "split": "test"
+ },
+ {
+  "id": "segmentacao-m14-1",
+  "question": "Qual segmento concentra mais quantidade de contratos de fornecimento em setembro de 2025?",
+  "label": "segmentacao",
+  "group_id": "segmentacao-m14",
+  "split": "test"
+ },
+ {
+  "id": "segmentacao-m14-2",
+  "question": "Qual segmento concentra mais valor contratado ontem?",
+  "label": "segmentacao",
+  "group_id": "segmentacao-m14",
+  "split": "test"
+ },
+ {
+  "id": "segmentacao-m14-3",
+  "question": "Qual tipo de cliente concentra mais faturamento emitido em outubro de 2025?",
+  "label": "segmentacao",
+  "group_id": "segmentacao-m14",
+  "split": "test"
+ },
+ {
+  "id": "segmentacao-m14-4",
+  "question": "Qual tipo de cliente concentra mais faturamento em maio de 2025?",
+  "label": "segmentacao",
+  "group_id": "segmentacao-m14",
+  "split": "test"
+ },
+ {
+  "id": "segmentacao-m14-5",
+  "question": "Qual tipo de cliente concentra mais faturamento ontem?",
+  "label": "segmentacao",
+  "group_id": "segmentacao-m14",
+  "split": "test"
+ },
+ {
+  "id": "segmentacao-m14-6",
+  "question": "Qual cidade concentra mais faturamento de 01/09/2026 a 15/09/2026?",
+  "label": "segmentacao",
+  "group_id": "segmentacao-m14",
+  "split": "test"
+ },
+ {
+  "id": "segmentacao-m14-7",
+  "question": "Qual tipo de cliente concentra mais valor dos pedidos de venda em junho de 2025?",
+  "label": "segmentacao",
+  "group_id": "segmentacao-m14",
+  "split": "test"
+ },
+ {
+  "id": "segmentacao-m14-8",
+  "question": "Qual segmento concentra mais faturamento emitido em novembro de 2025?",
+  "label": "segmentacao",
+  "group_id": "segmentacao-m14",
+  "split": "test"
+ },
+ {
+  "id": "segmentacao-m10-1",
+  "question": "Fatie o faturamento por segmento em fevereiro de 2025.",
+  "label": "segmentacao",
+  "group_id": "segmentacao-m10",
+  "split": "test"
+ },
+ {
+  "id": "segmentacao-m10-2",
+  "question": "Fatie o valor contratado por segmento em maio de 2026.",
+  "label": "segmentacao",
+  "group_id": "segmentacao-m10",
+  "split": "test"
+ },
+ {
+  "id": "segmentacao-m10-3",
+  "question": "Fatie o valor dos pedidos de venda por cidade em abril de 2026.",
+  "label": "segmentacao",
+  "group_id": "segmentacao-m10",
+  "split": "test"
+ },
+ {
+  "id": "segmentacao-m10-4",
+  "question": "Fatie a quantidade de pedidos de venda por tipo de cliente de 01/09/2026 a 15/09/2026.",
+  "label": "segmentacao",
+  "group_id": "segmentacao-m10",
+  "split": "test"
+ },
+ {
+  "id": "segmentacao-m10-5",
+  "question": "Fatie a quantidade de contratos de fornecimento por cidade em agosto de 2026.",
+  "label": "segmentacao",
+  "group_id": "segmentacao-m10",
+  "split": "test"
+ },
+ {
+  "id": "segmentacao-m10-6",
+  "question": "Fatie a quantidade de contratos de fornecimento por cidade hoje.",
+  "label": "segmentacao",
+  "group_id": "segmentacao-m10",
+  "split": "test"
+ },
+ {
+  "id": "segmentacao-m10-7",
+  "question": "Fatie o valor contratado por tipo de cliente em setembro de 2025.",
+  "label": "segmentacao",
+  "group_id": "segmentacao-m10",
+  "split": "test"
+ },
+ {
+  "id": "segmentacao-m10-8",
+  "question": "Fatie os recebimentos por tipo de cliente em fevereiro de 2026.",
+  "label": "segmentacao",
+  "group_id": "segmentacao-m10",
+  "split": "test"
+ },
+ {
+  "id": "operacional-m03-1",
+  "question": "Quantas horas passamos do previsto em janeiro de 2026?",
+  "label": "operacional",
+  "group_id": "operacional-m03",
+  "split": "train"
+ },
+ {
+  "id": "operacional-m03-2",
+  "question": "Quantas horas passamos do previsto em abril de 2026?",
+  "label": "operacional",
+  "group_id": "operacional-m03",
+  "split": "train"
+ },
+ {
+  "id": "operacional-m03-3",
+  "question": "Quantas horas passamos do previsto de 01/09/2026 a 15/09/2026?",
+  "label": "operacional",
+  "group_id": "operacional-m03",
+  "split": "train"
+ },
+ {
+  "id": "operacional-m03-4",
+  "question": "Quantas horas passamos do previsto em julho de 2025?",
+  "label": "operacional",
+  "group_id": "operacional-m03",
+  "split": "train"
+ },
+ {
+  "id": "operacional-m03-5",
+  "question": "Quantas horas passamos do previsto de 10/03/2025 a 20/03/2025?",
+  "label": "operacional",
+  "group_id": "operacional-m03",
+  "split": "train"
+ },
+ {
+  "id": "operacional-m03-6",
+  "question": "Quantas horas passamos do previsto em abril de 2025?",
+  "label": "operacional",
+  "group_id": "operacional-m03",
+  "split": "train"
+ },
+ {
+  "id": "operacional-m03-7",
+  "question": "Quantas horas passamos do previsto em novembro de 2025?",
+  "label": "operacional",
+  "group_id": "operacional-m03",
+  "split": "train"
+ },
+ {
+  "id": "operacional-m03-8",
+  "question": "Quantas horas passamos do previsto em agosto de 2025?",
+  "label": "operacional",
+  "group_id": "operacional-m03",
+  "split": "train"
+ },
+ {
+  "id": "operacional-m03-9",
+  "question": "Quantas horas passamos do previsto neste ano?",
+  "label": "operacional",
+  "group_id": "operacional-m03",
+  "split": "train"
+ },
+ {
+  "id": "operacional-m03-10",
+  "question": "Quantas horas passamos do previsto em fevereiro de 2026?",
+  "label": "operacional",
+  "group_id": "operacional-m03",
+  "split": "train"
+ },
+ {
+  "id": "operacional-m09-1",
+  "question": "Horas previstas contra realizadas por contrato em janeiro de 2026.",
+  "label": "operacional",
+  "group_id": "operacional-m09",
+  "split": "train"
+ },
+ {
+  "id": "operacional-m09-2",
+  "question": "Horas previstas contra realizadas por contrato em abril de 2026.",
+  "label": "operacional",
+  "group_id": "operacional-m09",
+  "split": "train"
+ },
+ {
+  "id": "operacional-m09-3",
+  "question": "Horas previstas contra realizadas por contrato em outubro de 2026.",
+  "label": "operacional",
+  "group_id": "operacional-m09",
+  "split": "train"
+ },
+ {
+  "id": "operacional-m09-4",
+  "question": "Horas previstas contra realizadas por contrato no mês passado.",
+  "label": "operacional",
+  "group_id": "operacional-m09",
+  "split": "train"
+ },
+ {
+  "id": "operacional-m09-5",
+  "question": "Horas previstas contra realizadas por contrato em outubro de 2025.",
+  "label": "operacional",
+  "group_id": "operacional-m09",
+  "split": "train"
+ },
+ {
+  "id": "operacional-m09-6",
+  "question": "Horas previstas contra realizadas por contrato de 10/03/2025 a 20/03/2025.",
+  "label": "operacional",
+  "group_id": "operacional-m09",
+  "split": "train"
+ },
+ {
+  "id": "operacional-m09-7",
+  "question": "Horas previstas contra realizadas por contrato ontem.",
+  "label": "operacional",
+  "group_id": "operacional-m09",
+  "split": "train"
+ },
+ {
+  "id": "operacional-m09-8",
+  "question": "Horas previstas contra realizadas por contrato no ano passado.",
+  "label": "operacional",
+  "group_id": "operacional-m09",
+  "split": "train"
+ },
+ {
+  "id": "operacional-m09-9",
+  "question": "Horas previstas contra realizadas por contrato em maio de 2025.",
+  "label": "operacional",
+  "group_id": "operacional-m09",
+  "split": "train"
+ },
+ {
+  "id": "operacional-m09-10",
+  "question": "Horas previstas contra realizadas por contrato em 2025.",
+  "label": "operacional",
+  "group_id": "operacional-m09",
+  "split": "train"
+ },
+ {
+  "id": "operacional-m05-1",
+  "question": "Ocorrências abertas e resolvidas, com saldo e taxa, em 2025.",
+  "label": "operacional",
+  "group_id": "operacional-m05",
+  "split": "train"
+ },
+ {
+  "id": "operacional-m05-2",
+  "question": "Ocorrências abertas e resolvidas, com saldo e taxa, em abril de 2025.",
+  "label": "operacional",
+  "group_id": "operacional-m05",
+  "split": "train"
+ },
+ {
+  "id": "operacional-m05-3",
+  "question": "Ocorrências abertas e resolvidas, com saldo e taxa, em fevereiro de 2026.",
+  "label": "operacional",
+  "group_id": "operacional-m05",
+  "split": "train"
+ },
+ {
+  "id": "operacional-m05-4",
+  "question": "Ocorrências abertas e resolvidas, com saldo e taxa, em janeiro de 2026.",
+  "label": "operacional",
+  "group_id": "operacional-m05",
+  "split": "train"
+ },
+ {
+  "id": "operacional-m05-5",
+  "question": "Ocorrências abertas e resolvidas, com saldo e taxa, em setembro de 2026.",
+  "label": "operacional",
+  "group_id": "operacional-m05",
+  "split": "train"
+ },
+ {
+  "id": "operacional-m05-6",
+  "question": "Ocorrências abertas e resolvidas, com saldo e taxa, no mês passado.",
+  "label": "operacional",
+  "group_id": "operacional-m05",
+  "split": "train"
+ },
+ {
+  "id": "operacional-m05-7",
+  "question": "Ocorrências abertas e resolvidas, com saldo e taxa, ontem.",
+  "label": "operacional",
+  "group_id": "operacional-m05",
+  "split": "train"
+ },
+ {
+  "id": "operacional-m05-8",
+  "question": "Ocorrências abertas e resolvidas, com saldo e taxa, em outubro de 2026.",
+  "label": "operacional",
+  "group_id": "operacional-m05",
+  "split": "train"
+ },
+ {
+  "id": "operacional-m05-9",
+  "question": "Ocorrências abertas e resolvidas, com saldo e taxa, em junho de 2026.",
+  "label": "operacional",
+  "group_id": "operacional-m05",
+  "split": "train"
+ },
+ {
+  "id": "operacional-m05-10",
+  "question": "Ocorrências abertas e resolvidas, com saldo e taxa, de 01/09/2026 a 15/09/2026.",
+  "label": "operacional",
+  "group_id": "operacional-m05",
+  "split": "train"
+ },
+ {
+  "id": "operacional-m07-1",
+  "question": "Faturamento emitido versus recebimentos em novembro de 2025.",
+  "label": "operacional",
+  "group_id": "operacional-m07",
+  "split": "train"
+ },
+ {
+  "id": "operacional-m07-2",
+  "question": "Faturamento emitido versus recebimentos em abril de 2025.",
+  "label": "operacional",
+  "group_id": "operacional-m07",
+  "split": "train"
+ },
+ {
+  "id": "operacional-m07-3",
+  "question": "Faturamento emitido versus recebimentos hoje.",
+  "label": "operacional",
+  "group_id": "operacional-m07",
+  "split": "train"
+ },
+ {
+  "id": "operacional-m07-4",
+  "question": "Faturamento emitido versus recebimentos em dezembro de 2025.",
+  "label": "operacional",
+  "group_id": "operacional-m07",
+  "split": "train"
+ },
+ {
+  "id": "operacional-m07-5",
+  "question": "Faturamento emitido versus recebimentos em janeiro de 2026.",
+  "label": "operacional",
+  "group_id": "operacional-m07",
+  "split": "train"
+ },
+ {
+  "id": "operacional-m07-6",
+  "question": "Faturamento emitido versus recebimentos em fevereiro de 2026.",
+  "label": "operacional",
+  "group_id": "operacional-m07",
+  "split": "train"
+ },
+ {
+  "id": "operacional-m07-7",
+  "question": "Faturamento emitido versus recebimentos no mês passado.",
+  "label": "operacional",
+  "group_id": "operacional-m07",
+  "split": "train"
+ },
+ {
+  "id": "operacional-m07-8",
+  "question": "Faturamento emitido versus recebimentos ontem.",
+  "label": "operacional",
+  "group_id": "operacional-m07",
+  "split": "train"
+ },
+ {
+  "id": "operacional-m07-9",
+  "question": "Faturamento emitido versus recebimentos em setembro de 2025.",
+  "label": "operacional",
+  "group_id": "operacional-m07",
+  "split": "train"
+ },
+ {
+  "id": "operacional-m07-10",
+  "question": "Faturamento emitido versus recebimentos em junho de 2025.",
+  "label": "operacional",
+  "group_id": "operacional-m07",
+  "split": "train"
+ },
+ {
+  "id": "operacional-m02-1",
+  "question": "Qual o desvio de horas de atendimento em dezembro de 2025?",
+  "label": "operacional",
+  "group_id": "operacional-m02",
+  "split": "train"
+ },
+ {
+  "id": "operacional-m02-2",
+  "question": "Qual o desvio de horas de atendimento em junho de 2025?",
+  "label": "operacional",
+  "group_id": "operacional-m02",
+  "split": "train"
+ },
+ {
+  "id": "operacional-m02-3",
+  "question": "Qual o desvio de horas de atendimento em julho de 2026?",
+  "label": "operacional",
+  "group_id": "operacional-m02",
+  "split": "train"
+ },
+ {
+  "id": "operacional-m02-4",
+  "question": "Qual o desvio de horas de atendimento em maio de 2025?",
+  "label": "operacional",
+  "group_id": "operacional-m02",
+  "split": "train"
+ },
+ {
+  "id": "operacional-m02-5",
+  "question": "Qual o desvio de horas de atendimento no ano passado?",
+  "label": "operacional",
+  "group_id": "operacional-m02",
+  "split": "train"
+ },
+ {
+  "id": "operacional-m02-6",
+  "question": "Qual o desvio de horas de atendimento no mês passado?",
+  "label": "operacional",
+  "group_id": "operacional-m02",
+  "split": "train"
+ },
+ {
+  "id": "operacional-m02-7",
+  "question": "Qual o desvio de horas de atendimento em outubro de 2026?",
+  "label": "operacional",
+  "group_id": "operacional-m02",
+  "split": "train"
+ },
+ {
+  "id": "operacional-m02-8",
+  "question": "Qual o desvio de horas de atendimento em janeiro de 2025?",
+  "label": "operacional",
+  "group_id": "operacional-m02",
+  "split": "train"
+ },
+ {
+  "id": "operacional-m02-9",
+  "question": "Qual o desvio de horas de atendimento neste ano?",
+  "label": "operacional",
+  "group_id": "operacional-m02",
+  "split": "train"
+ },
+ {
+  "id": "operacional-m02-10",
+  "question": "Qual o desvio de horas de atendimento em maio de 2026?",
+  "label": "operacional",
+  "group_id": "operacional-m02",
+  "split": "train"
+ },
+ {
+  "id": "operacional-m04-1",
+  "question": "Taxa de resolução das ocorrências de pós-venda em abril de 2025.",
+  "label": "operacional",
+  "group_id": "operacional-m04",
+  "split": "train"
+ },
+ {
+  "id": "operacional-m04-2",
+  "question": "Taxa de resolução das ocorrências de pós-venda em abril de 2026.",
+  "label": "operacional",
+  "group_id": "operacional-m04",
+  "split": "train"
+ },
+ {
+  "id": "operacional-m04-3",
+  "question": "Taxa de resolução das ocorrências de pós-venda de 10/03/2025 a 20/03/2025.",
+  "label": "operacional",
+  "group_id": "operacional-m04",
+  "split": "train"
+ },
+ {
+  "id": "operacional-m04-4",
+  "question": "Taxa de resolução das ocorrências de pós-venda em dezembro de 2025.",
+  "label": "operacional",
+  "group_id": "operacional-m04",
+  "split": "train"
+ },
+ {
+  "id": "operacional-m04-5",
+  "question": "Taxa de resolução das ocorrências de pós-venda em janeiro de 2025.",
+  "label": "operacional",
+  "group_id": "operacional-m04",
+  "split": "train"
+ },
+ {
+  "id": "operacional-m04-6",
+  "question": "Taxa de resolução das ocorrências de pós-venda em fevereiro de 2026.",
+  "label": "operacional",
+  "group_id": "operacional-m04",
+  "split": "train"
+ },
+ {
+  "id": "operacional-m04-7",
+  "question": "Taxa de resolução das ocorrências de pós-venda em janeiro de 2026.",
+  "label": "operacional",
+  "group_id": "operacional-m04",
+  "split": "train"
+ },
+ {
+  "id": "operacional-m04-8",
+  "question": "Taxa de resolução das ocorrências de pós-venda em março de 2026.",
+  "label": "operacional",
+  "group_id": "operacional-m04",
+  "split": "train"
+ },
+ {
+  "id": "operacional-m04-9",
+  "question": "Taxa de resolução das ocorrências de pós-venda em maio de 2025.",
+  "label": "operacional",
+  "group_id": "operacional-m04",
+  "split": "train"
+ },
+ {
+  "id": "operacional-m04-10",
+  "question": "Taxa de resolução das ocorrências de pós-venda em outubro de 2026.",
+  "label": "operacional",
+  "group_id": "operacional-m04",
+  "split": "train"
+ },
+ {
+  "id": "operacional-m08-1",
+  "question": "Quanto emitimos e quanto recebemos no mês passado?",
+  "label": "operacional",
+  "group_id": "operacional-m08",
+  "split": "train"
+ },
+ {
+  "id": "operacional-m08-2",
+  "question": "Quanto emitimos e quanto recebemos em abril de 2025?",
+  "label": "operacional",
+  "group_id": "operacional-m08",
+  "split": "train"
+ },
+ {
+  "id": "operacional-m08-3",
+  "question": "Quanto emitimos e quanto recebemos em agosto de 2025?",
+  "label": "operacional",
+  "group_id": "operacional-m08",
+  "split": "train"
+ },
+ {
+  "id": "operacional-m08-4",
+  "question": "Quanto emitimos e quanto recebemos em abril de 2026?",
+  "label": "operacional",
+  "group_id": "operacional-m08",
+  "split": "train"
+ },
+ {
+  "id": "operacional-m08-5",
+  "question": "Quanto emitimos e quanto recebemos em maio de 2025?",
+  "label": "operacional",
+  "group_id": "operacional-m08",
+  "split": "train"
+ },
+ {
+  "id": "operacional-m08-6",
+  "question": "Quanto emitimos e quanto recebemos neste ano?",
+  "label": "operacional",
+  "group_id": "operacional-m08",
+  "split": "train"
+ },
+ {
+  "id": "operacional-m08-7",
+  "question": "Quanto emitimos e quanto recebemos em janeiro de 2025?",
+  "label": "operacional",
+  "group_id": "operacional-m08",
+  "split": "train"
+ },
+ {
+  "id": "operacional-m08-8",
+  "question": "Quanto emitimos e quanto recebemos em outubro de 2025?",
+  "label": "operacional",
+  "group_id": "operacional-m08",
+  "split": "train"
+ },
+ {
+  "id": "operacional-m08-9",
+  "question": "Quanto emitimos e quanto recebemos em fevereiro de 2025?",
+  "label": "operacional",
+  "group_id": "operacional-m08",
+  "split": "train"
+ },
+ {
+  "id": "operacional-m08-10",
+  "question": "Quanto emitimos e quanto recebemos em setembro de 2025?",
+  "label": "operacional",
+  "group_id": "operacional-m08",
+  "split": "train"
+ },
+ {
+  "id": "operacional-m10-1",
+  "question": "Qual a diferença entre o emitido e o recebido em fevereiro de 2025?",
+  "label": "operacional",
+  "group_id": "operacional-m10",
+  "split": "train"
+ },
+ {
+  "id": "operacional-m10-2",
+  "question": "Qual a diferença entre o emitido e o recebido de 10/03/2025 a 20/03/2025?",
+  "label": "operacional",
+  "group_id": "operacional-m10",
+  "split": "train"
+ },
+ {
+  "id": "operacional-m10-3",
+  "question": "Qual a diferença entre o emitido e o recebido em novembro de 2025?",
+  "label": "operacional",
+  "group_id": "operacional-m10",
+  "split": "train"
+ },
+ {
+  "id": "operacional-m10-4",
+  "question": "Qual a diferença entre o emitido e o recebido em dezembro de 2025?",
+  "label": "operacional",
+  "group_id": "operacional-m10",
+  "split": "train"
+ },
+ {
+  "id": "operacional-m10-5",
+  "question": "Qual a diferença entre o emitido e o recebido em setembro de 2026?",
+  "label": "operacional",
+  "group_id": "operacional-m10",
+  "split": "train"
+ },
+ {
+  "id": "operacional-m10-6",
+  "question": "Qual a diferença entre o emitido e o recebido no mês passado?",
+  "label": "operacional",
+  "group_id": "operacional-m10",
+  "split": "train"
+ },
+ {
+  "id": "operacional-m10-7",
+  "question": "Qual a diferença entre o emitido e o recebido neste ano?",
+  "label": "operacional",
+  "group_id": "operacional-m10",
+  "split": "train"
+ },
+ {
+  "id": "operacional-m10-8",
+  "question": "Qual a diferença entre o emitido e o recebido em fevereiro de 2026?",
+  "label": "operacional",
+  "group_id": "operacional-m10",
+  "split": "train"
+ },
+ {
+  "id": "operacional-m10-9",
+  "question": "Qual a diferença entre o emitido e o recebido em março de 2026?",
+  "label": "operacional",
+  "group_id": "operacional-m10",
+  "split": "train"
+ },
+ {
+  "id": "operacional-m10-10",
+  "question": "Qual a diferença entre o emitido e o recebido em setembro de 2025?",
+  "label": "operacional",
+  "group_id": "operacional-m10",
+  "split": "train"
+ },
+ {
+  "id": "operacional-m13-1",
+  "question": "Como está a resolução de garantias e devoluções no mês passado?",
+  "label": "operacional",
+  "group_id": "operacional-m13",
+  "split": "validation"
+ },
+ {
+  "id": "operacional-m13-2",
+  "question": "Como está a resolução de garantias e devoluções em outubro de 2025?",
+  "label": "operacional",
+  "group_id": "operacional-m13",
+  "split": "validation"
+ },
+ {
+  "id": "operacional-m13-3",
+  "question": "Como está a resolução de garantias e devoluções em junho de 2026?",
+  "label": "operacional",
+  "group_id": "operacional-m13",
+  "split": "validation"
+ },
+ {
+  "id": "operacional-m13-4",
+  "question": "Como está a resolução de garantias e devoluções em setembro de 2025?",
+  "label": "operacional",
+  "group_id": "operacional-m13",
+  "split": "validation"
+ },
+ {
+  "id": "operacional-m13-5",
+  "question": "Como está a resolução de garantias e devoluções em setembro de 2026?",
+  "label": "operacional",
+  "group_id": "operacional-m13",
+  "split": "validation"
+ },
+ {
+  "id": "operacional-m13-6",
+  "question": "Como está a resolução de garantias e devoluções de 01/09/2026 a 15/09/2026?",
+  "label": "operacional",
+  "group_id": "operacional-m13",
+  "split": "validation"
+ },
+ {
+  "id": "operacional-m13-7",
+  "question": "Como está a resolução de garantias e devoluções em fevereiro de 2025?",
+  "label": "operacional",
+  "group_id": "operacional-m13",
+  "split": "validation"
+ },
+ {
+  "id": "operacional-m13-8",
+  "question": "Como está a resolução de garantias e devoluções em janeiro de 2025?",
+  "label": "operacional",
+  "group_id": "operacional-m13",
+  "split": "validation"
+ },
+ {
+  "id": "operacional-m12-1",
+  "question": "Qual o saldo de ocorrências em aberto em setembro de 2026?",
+  "label": "operacional",
+  "group_id": "operacional-m12",
+  "split": "validation"
+ },
+ {
+  "id": "operacional-m12-2",
+  "question": "Qual o saldo de ocorrências em aberto em julho de 2025?",
+  "label": "operacional",
+  "group_id": "operacional-m12",
+  "split": "validation"
+ },
+ {
+  "id": "operacional-m12-3",
+  "question": "Qual o saldo de ocorrências em aberto neste ano?",
+  "label": "operacional",
+  "group_id": "operacional-m12",
+  "split": "validation"
+ },
+ {
+  "id": "operacional-m12-4",
+  "question": "Qual o saldo de ocorrências em aberto em março de 2026?",
+  "label": "operacional",
+  "group_id": "operacional-m12",
+  "split": "validation"
+ },
+ {
+  "id": "operacional-m12-5",
+  "question": "Qual o saldo de ocorrências em aberto em outubro de 2025?",
+  "label": "operacional",
+  "group_id": "operacional-m12",
+  "split": "validation"
+ },
+ {
+  "id": "operacional-m12-6",
+  "question": "Qual o saldo de ocorrências em aberto em maio de 2025?",
+  "label": "operacional",
+  "group_id": "operacional-m12",
+  "split": "validation"
+ },
+ {
+  "id": "operacional-m12-7",
+  "question": "Qual o saldo de ocorrências em aberto em janeiro de 2025?",
+  "label": "operacional",
+  "group_id": "operacional-m12",
+  "split": "validation"
+ },
+ {
+  "id": "operacional-m12-8",
+  "question": "Qual o saldo de ocorrências em aberto em março de 2025?",
+  "label": "operacional",
+  "group_id": "operacional-m12",
+  "split": "validation"
+ },
+ {
+  "id": "operacional-m14-1",
+  "question": "Previsto versus realizado em horas de atendimento em novembro de 2025.",
+  "label": "operacional",
+  "group_id": "operacional-m14",
+  "split": "validation"
+ },
+ {
+  "id": "operacional-m14-2",
+  "question": "Previsto versus realizado em horas de atendimento em junho de 2026.",
+  "label": "operacional",
+  "group_id": "operacional-m14",
+  "split": "validation"
+ },
+ {
+  "id": "operacional-m14-3",
+  "question": "Previsto versus realizado em horas de atendimento em maio de 2026.",
+  "label": "operacional",
+  "group_id": "operacional-m14",
+  "split": "validation"
+ },
+ {
+  "id": "operacional-m14-4",
+  "question": "Previsto versus realizado em horas de atendimento em fevereiro de 2026.",
+  "label": "operacional",
+  "group_id": "operacional-m14",
+  "split": "validation"
+ },
+ {
+  "id": "operacional-m14-5",
+  "question": "Previsto versus realizado em horas de atendimento em janeiro de 2026.",
+  "label": "operacional",
+  "group_id": "operacional-m14",
+  "split": "validation"
+ },
+ {
+  "id": "operacional-m14-6",
+  "question": "Previsto versus realizado em horas de atendimento em abril de 2025.",
+  "label": "operacional",
+  "group_id": "operacional-m14",
+  "split": "validation"
+ },
+ {
+  "id": "operacional-m14-7",
+  "question": "Previsto versus realizado em horas de atendimento de 10/03/2025 a 20/03/2025.",
+  "label": "operacional",
+  "group_id": "operacional-m14",
+  "split": "validation"
+ },
+ {
+  "id": "operacional-m14-8",
+  "question": "Previsto versus realizado em horas de atendimento ontem.",
+  "label": "operacional",
+  "group_id": "operacional-m14",
+  "split": "validation"
+ },
+ {
+  "id": "operacional-m06-1",
+  "question": "Quantas ocorrências ficaram sem resolver em 2025?",
+  "label": "operacional",
+  "group_id": "operacional-m06",
+  "split": "test"
+ },
+ {
+  "id": "operacional-m06-2",
+  "question": "Quantas ocorrências ficaram sem resolver em maio de 2025?",
+  "label": "operacional",
+  "group_id": "operacional-m06",
+  "split": "test"
+ },
+ {
+  "id": "operacional-m06-3",
+  "question": "Quantas ocorrências ficaram sem resolver em setembro de 2025?",
+  "label": "operacional",
+  "group_id": "operacional-m06",
+  "split": "test"
+ },
+ {
+  "id": "operacional-m06-4",
+  "question": "Quantas ocorrências ficaram sem resolver em novembro de 2025?",
+  "label": "operacional",
+  "group_id": "operacional-m06",
+  "split": "test"
+ },
+ {
+  "id": "operacional-m06-5",
+  "question": "Quantas ocorrências ficaram sem resolver em junho de 2026?",
+  "label": "operacional",
+  "group_id": "operacional-m06",
+  "split": "test"
+ },
+ {
+  "id": "operacional-m06-6",
+  "question": "Quantas ocorrências ficaram sem resolver no mês passado?",
+  "label": "operacional",
+  "group_id": "operacional-m06",
+  "split": "test"
+ },
+ {
+  "id": "operacional-m06-7",
+  "question": "Quantas ocorrências ficaram sem resolver em janeiro de 2025?",
+  "label": "operacional",
+  "group_id": "operacional-m06",
+  "split": "test"
+ },
+ {
+  "id": "operacional-m06-8",
+  "question": "Quantas ocorrências ficaram sem resolver em fevereiro de 2025?",
+  "label": "operacional",
+  "group_id": "operacional-m06",
+  "split": "test"
+ },
+ {
+  "id": "operacional-m11-1",
+  "question": "O atendimento estourou o previsto de 10/03/2025 a 20/03/2025?",
+  "label": "operacional",
+  "group_id": "operacional-m11",
+  "split": "test"
+ },
+ {
+  "id": "operacional-m11-2",
+  "question": "O atendimento estourou o previsto no mês passado?",
+  "label": "operacional",
+  "group_id": "operacional-m11",
+  "split": "test"
+ },
+ {
+  "id": "operacional-m11-3",
+  "question": "O atendimento estourou o previsto em maio de 2025?",
+  "label": "operacional",
+  "group_id": "operacional-m11",
+  "split": "test"
+ },
+ {
+  "id": "operacional-m11-4",
+  "question": "O atendimento estourou o previsto ontem?",
+  "label": "operacional",
+  "group_id": "operacional-m11",
+  "split": "test"
+ },
+ {
+  "id": "operacional-m11-5",
+  "question": "O atendimento estourou o previsto em maio de 2026?",
+  "label": "operacional",
+  "group_id": "operacional-m11",
+  "split": "test"
+ },
+ {
+  "id": "operacional-m11-6",
+  "question": "O atendimento estourou o previsto no ano passado?",
+  "label": "operacional",
+  "group_id": "operacional-m11",
+  "split": "test"
+ },
+ {
+  "id": "operacional-m11-7",
+  "question": "O atendimento estourou o previsto de 01/09/2026 a 15/09/2026?",
+  "label": "operacional",
+  "group_id": "operacional-m11",
+  "split": "test"
+ },
+ {
+  "id": "operacional-m11-8",
+  "question": "O atendimento estourou o previsto em agosto de 2025?",
+  "label": "operacional",
+  "group_id": "operacional-m11",
+  "split": "test"
+ },
+ {
+  "id": "operacional-m01-1",
+  "question": "Compare as horas previstas com as realizadas neste ano.",
+  "label": "operacional",
+  "group_id": "operacional-m01",
+  "split": "test"
+ },
+ {
+  "id": "operacional-m01-2",
+  "question": "Compare as horas previstas com as realizadas ontem.",
+  "label": "operacional",
+  "group_id": "operacional-m01",
+  "split": "test"
+ },
+ {
+  "id": "operacional-m01-3",
+  "question": "Compare as horas previstas com as realizadas em setembro de 2026.",
+  "label": "operacional",
+  "group_id": "operacional-m01",
+  "split": "test"
+ },
+ {
+  "id": "operacional-m01-4",
+  "question": "Compare as horas previstas com as realizadas em fevereiro de 2026.",
+  "label": "operacional",
+  "group_id": "operacional-m01",
+  "split": "test"
+ },
+ {
+  "id": "operacional-m01-5",
+  "question": "Compare as horas previstas com as realizadas no ano passado.",
+  "label": "operacional",
+  "group_id": "operacional-m01",
+  "split": "test"
+ },
+ {
+  "id": "operacional-m01-6",
+  "question": "Compare as horas previstas com as realizadas em abril de 2025.",
+  "label": "operacional",
+  "group_id": "operacional-m01",
+  "split": "test"
+ },
+ {
+  "id": "operacional-m01-7",
+  "question": "Compare as horas previstas com as realizadas em julho de 2025.",
+  "label": "operacional",
+  "group_id": "operacional-m01",
+  "split": "test"
+ },
+ {
+  "id": "operacional-m01-8",
+  "question": "Compare as horas previstas com as realizadas em 2025.",
+  "label": "operacional",
+  "group_id": "operacional-m01",
+  "split": "test"
+ },
+ {
+  "id": "generica-m10-1",
+  "question": "Resuma o desempenho de 01/09/2026 a 15/09/2026.",
+  "label": "generica",
+  "group_id": "generica-m10",
+  "split": "train"
+ },
+ {
+  "id": "generica-m10-2",
+  "question": "Resuma o desempenho em 2025.",
+  "label": "generica",
+  "group_id": "generica-m10",
+  "split": "train"
+ },
+ {
+  "id": "generica-m10-3",
+  "question": "Resuma o desempenho em outubro de 2026.",
+  "label": "generica",
+  "group_id": "generica-m10",
+  "split": "train"
+ },
+ {
+  "id": "generica-m10-4",
+  "question": "Resuma o desempenho em junho de 2025.",
+  "label": "generica",
+  "group_id": "generica-m10",
+  "split": "train"
+ },
+ {
+  "id": "generica-m10-5",
+  "question": "Resuma o desempenho em julho de 2026.",
+  "label": "generica",
+  "group_id": "generica-m10",
+  "split": "train"
+ },
+ {
+  "id": "generica-m10-6",
+  "question": "Resuma o desempenho hoje.",
+  "label": "generica",
+  "group_id": "generica-m10",
+  "split": "train"
+ },
+ {
+  "id": "generica-m10-7",
+  "question": "Resuma o desempenho de 10/03/2025 a 20/03/2025.",
+  "label": "generica",
+  "group_id": "generica-m10",
+  "split": "train"
+ },
+ {
+  "id": "generica-m10-8",
+  "question": "Resuma o desempenho em março de 2025.",
+  "label": "generica",
+  "group_id": "generica-m10",
+  "split": "train"
+ },
+ {
+  "id": "generica-m10-9",
+  "question": "Resuma o desempenho em setembro de 2026.",
+  "label": "generica",
+  "group_id": "generica-m10",
+  "split": "train"
+ },
+ {
+  "id": "generica-m10-10",
+  "question": "Resuma o desempenho em janeiro de 2026.",
+  "label": "generica",
+  "group_id": "generica-m10",
+  "split": "train"
+ },
+ {
+  "id": "generica-m07-1",
+  "question": "O faturamento vai subir depois de março de 2026?",
+  "label": "generica",
+  "group_id": "generica-m07",
+  "split": "train"
+ },
+ {
+  "id": "generica-m07-2",
+  "question": "O faturamento vai subir depois de junho de 2026?",
+  "label": "generica",
+  "group_id": "generica-m07",
+  "split": "train"
+ },
+ {
+  "id": "generica-m07-3",
+  "question": "O faturamento vai subir depois de janeiro de 2026?",
+  "label": "generica",
+  "group_id": "generica-m07",
+  "split": "train"
+ },
+ {
+  "id": "generica-m07-4",
+  "question": "O faturamento vai subir depois de dezembro de 2025?",
+  "label": "generica",
+  "group_id": "generica-m07",
+  "split": "train"
+ },
+ {
+  "id": "generica-m07-5",
+  "question": "O faturamento vai subir depois de março de 2025?",
+  "label": "generica",
+  "group_id": "generica-m07",
+  "split": "train"
+ },
+ {
+  "id": "generica-m07-6",
+  "question": "O faturamento vai subir depois de novembro de 2025?",
+  "label": "generica",
+  "group_id": "generica-m07",
+  "split": "train"
+ },
+ {
+  "id": "generica-m07-7",
+  "question": "O faturamento vai subir depois de abril de 2025?",
+  "label": "generica",
+  "group_id": "generica-m07",
+  "split": "train"
+ },
+ {
+  "id": "generica-m07-8",
+  "question": "O faturamento vai subir depois de setembro de 2026?",
+  "label": "generica",
+  "group_id": "generica-m07",
+  "split": "train"
+ },
+ {
+  "id": "generica-m07-9",
+  "question": "O faturamento vai subir depois de setembro de 2025?",
+  "label": "generica",
+  "group_id": "generica-m07",
+  "split": "train"
+ },
+ {
+  "id": "generica-m07-10",
+  "question": "O faturamento vai subir depois de junho de 2025?",
+  "label": "generica",
+  "group_id": "generica-m07",
+  "split": "train"
+ },
+ {
+  "id": "generica-m09-1",
+  "question": "Por que as vendas mudaram em abril de 2026?",
+  "label": "generica",
+  "group_id": "generica-m09",
+  "split": "train"
+ },
+ {
+  "id": "generica-m09-2",
+  "question": "Por que as vendas mudaram em junho de 2026?",
+  "label": "generica",
+  "group_id": "generica-m09",
+  "split": "train"
+ },
+ {
+  "id": "generica-m09-3",
+  "question": "Por que as vendas mudaram em outubro de 2026?",
+  "label": "generica",
+  "group_id": "generica-m09",
+  "split": "train"
+ },
+ {
+  "id": "generica-m09-4",
+  "question": "Por que as vendas mudaram neste ano?",
+  "label": "generica",
+  "group_id": "generica-m09",
+  "split": "train"
+ },
+ {
+  "id": "generica-m09-5",
+  "question": "Por que as vendas mudaram em julho de 2025?",
+  "label": "generica",
+  "group_id": "generica-m09",
+  "split": "train"
+ },
+ {
+  "id": "generica-m09-6",
+  "question": "Por que as vendas mudaram em dezembro de 2025?",
+  "label": "generica",
+  "group_id": "generica-m09",
+  "split": "train"
+ },
+ {
+  "id": "generica-m09-7",
+  "question": "Por que as vendas mudaram em outubro de 2025?",
+  "label": "generica",
+  "group_id": "generica-m09",
+  "split": "train"
+ },
+ {
+  "id": "generica-m09-8",
+  "question": "Por que as vendas mudaram em fevereiro de 2026?",
+  "label": "generica",
+  "group_id": "generica-m09",
+  "split": "train"
+ },
+ {
+  "id": "generica-m09-9",
+  "question": "Por que as vendas mudaram de 10/03/2025 a 20/03/2025?",
+  "label": "generica",
+  "group_id": "generica-m09",
+  "split": "train"
+ },
+ {
+  "id": "generica-m09-10",
+  "question": "Por que as vendas mudaram em 2025?",
+  "label": "generica",
+  "group_id": "generica-m09",
+  "split": "train"
+ },
+ {
+  "id": "generica-m03-1",
+  "question": "Qual a situação da empresa em abril de 2026?",
+  "label": "generica",
+  "group_id": "generica-m03",
+  "split": "train"
+ },
+ {
+  "id": "generica-m03-2",
+  "question": "Qual a situação da empresa em julho de 2026?",
+  "label": "generica",
+  "group_id": "generica-m03",
+  "split": "train"
+ },
+ {
+  "id": "generica-m03-3",
+  "question": "Qual a situação da empresa em junho de 2026?",
+  "label": "generica",
+  "group_id": "generica-m03",
+  "split": "train"
+ },
+ {
+  "id": "generica-m03-4",
+  "question": "Qual a situação da empresa em fevereiro de 2026?",
+  "label": "generica",
+  "group_id": "generica-m03",
+  "split": "train"
+ },
+ {
+  "id": "generica-m03-5",
+  "question": "Qual a situação da empresa em outubro de 2025?",
+  "label": "generica",
+  "group_id": "generica-m03",
+  "split": "train"
+ },
+ {
+  "id": "generica-m03-6",
+  "question": "Qual a situação da empresa de 01/09/2026 a 15/09/2026?",
+  "label": "generica",
+  "group_id": "generica-m03",
+  "split": "train"
+ },
+ {
+  "id": "generica-m03-7",
+  "question": "Qual a situação da empresa ontem?",
+  "label": "generica",
+  "group_id": "generica-m03",
+  "split": "train"
+ },
+ {
+  "id": "generica-m03-8",
+  "question": "Qual a situação da empresa em junho de 2025?",
+  "label": "generica",
+  "group_id": "generica-m03",
+  "split": "train"
+ },
+ {
+  "id": "generica-m03-9",
+  "question": "Qual a situação da empresa em março de 2025?",
+  "label": "generica",
+  "group_id": "generica-m03",
+  "split": "train"
+ },
+ {
+  "id": "generica-m03-10",
+  "question": "Qual a situação da empresa em agosto de 2026?",
+  "label": "generica",
+  "group_id": "generica-m03",
+  "split": "train"
+ },
+ {
+  "id": "generica-m12-1",
+  "question": "Quais clientes vão cancelar depois de julho de 2026?",
+  "label": "generica",
+  "group_id": "generica-m12",
+  "split": "train"
+ },
+ {
+  "id": "generica-m12-2",
+  "question": "Quais clientes vão cancelar depois de junho de 2025?",
+  "label": "generica",
+  "group_id": "generica-m12",
+  "split": "train"
+ },
+ {
+  "id": "generica-m12-3",
+  "question": "Quais clientes vão cancelar depois de setembro de 2025?",
+  "label": "generica",
+  "group_id": "generica-m12",
+  "split": "train"
+ },
+ {
+  "id": "generica-m12-4",
+  "question": "Quais clientes vão cancelar depois de setembro de 2026?",
+  "label": "generica",
+  "group_id": "generica-m12",
+  "split": "train"
+ },
+ {
+  "id": "generica-m12-5",
+  "question": "Quais clientes vão cancelar depois de maio de 2025?",
+  "label": "generica",
+  "group_id": "generica-m12",
+  "split": "train"
+ },
+ {
+  "id": "generica-m12-6",
+  "question": "Quais clientes vão cancelar depois de julho de 2025?",
+  "label": "generica",
+  "group_id": "generica-m12",
+  "split": "train"
+ },
+ {
+  "id": "generica-m12-7",
+  "question": "Quais clientes vão cancelar depois de abril de 2026?",
+  "label": "generica",
+  "group_id": "generica-m12",
+  "split": "train"
+ },
+ {
+  "id": "generica-m12-8",
+  "question": "Quais clientes vão cancelar depois de agosto de 2026?",
+  "label": "generica",
+  "group_id": "generica-m12",
+  "split": "train"
+ },
+ {
+  "id": "generica-m12-9",
+  "question": "Quais clientes vão cancelar depois de março de 2025?",
+  "label": "generica",
+  "group_id": "generica-m12",
+  "split": "train"
+ },
+ {
+  "id": "generica-m12-10",
+  "question": "Quais clientes vão cancelar depois de junho de 2026?",
+  "label": "generica",
+  "group_id": "generica-m12",
+  "split": "train"
+ },
+ {
+  "id": "generica-m08-1",
+  "question": "Faça uma previsão de vendas a partir de maio de 2026.",
+  "label": "generica",
+  "group_id": "generica-m08",
+  "split": "train"
+ },
+ {
+  "id": "generica-m08-2",
+  "question": "Faça uma previsão de vendas a partir de janeiro de 2026.",
+  "label": "generica",
+  "group_id": "generica-m08",
+  "split": "train"
+ },
+ {
+  "id": "generica-m08-3",
+  "question": "Faça uma previsão de vendas a partir de fevereiro de 2026.",
+  "label": "generica",
+  "group_id": "generica-m08",
+  "split": "train"
+ },
+ {
+  "id": "generica-m08-4",
+  "question": "Faça uma previsão de vendas a partir de abril de 2025.",
+  "label": "generica",
+  "group_id": "generica-m08",
+  "split": "train"
+ },
+ {
+  "id": "generica-m08-5",
+  "question": "Faça uma previsão de vendas a partir de setembro de 2026.",
+  "label": "generica",
+  "group_id": "generica-m08",
+  "split": "train"
+ },
+ {
+  "id": "generica-m08-6",
+  "question": "Faça uma previsão de vendas a partir de julho de 2026.",
+  "label": "generica",
+  "group_id": "generica-m08",
+  "split": "train"
+ },
+ {
+  "id": "generica-m08-7",
+  "question": "Faça uma previsão de vendas a partir de dezembro de 2025.",
+  "label": "generica",
+  "group_id": "generica-m08",
+  "split": "train"
+ },
+ {
+  "id": "generica-m08-8",
+  "question": "Faça uma previsão de vendas a partir de novembro de 2025.",
+  "label": "generica",
+  "group_id": "generica-m08",
+  "split": "train"
+ },
+ {
+  "id": "generica-m08-9",
+  "question": "Faça uma previsão de vendas a partir de julho de 2025.",
+  "label": "generica",
+  "group_id": "generica-m08",
+  "split": "train"
+ },
+ {
+  "id": "generica-m08-10",
+  "question": "Faça uma previsão de vendas a partir de agosto de 2026.",
+  "label": "generica",
+  "group_id": "generica-m08",
+  "split": "train"
+ },
+ {
+  "id": "generica-m04-1",
+  "question": "Está tudo bem com a empresa no ano passado?",
+  "label": "generica",
+  "group_id": "generica-m04",
+  "split": "train"
+ },
+ {
+  "id": "generica-m04-2",
+  "question": "Está tudo bem com a empresa em fevereiro de 2025?",
+  "label": "generica",
+  "group_id": "generica-m04",
+  "split": "train"
+ },
+ {
+  "id": "generica-m04-3",
+  "question": "Está tudo bem com a empresa em novembro de 2025?",
+  "label": "generica",
+  "group_id": "generica-m04",
+  "split": "train"
+ },
+ {
+  "id": "generica-m04-4",
+  "question": "Está tudo bem com a empresa em setembro de 2026?",
+  "label": "generica",
+  "group_id": "generica-m04",
+  "split": "train"
+ },
+ {
+  "id": "generica-m04-5",
+  "question": "Está tudo bem com a empresa em abril de 2026?",
+  "label": "generica",
+  "group_id": "generica-m04",
+  "split": "train"
+ },
+ {
+  "id": "generica-m04-6",
+  "question": "Está tudo bem com a empresa em março de 2025?",
+  "label": "generica",
+  "group_id": "generica-m04",
+  "split": "train"
+ },
+ {
+  "id": "generica-m04-7",
+  "question": "Está tudo bem com a empresa no mês passado?",
+  "label": "generica",
+  "group_id": "generica-m04",
+  "split": "train"
+ },
+ {
+  "id": "generica-m04-8",
+  "question": "Está tudo bem com a empresa em agosto de 2025?",
+  "label": "generica",
+  "group_id": "generica-m04",
+  "split": "train"
+ },
+ {
+  "id": "generica-m04-9",
+  "question": "Está tudo bem com a empresa em junho de 2025?",
+  "label": "generica",
+  "group_id": "generica-m04",
+  "split": "train"
+ },
+ {
+  "id": "generica-m04-10",
+  "question": "Está tudo bem com a empresa de 01/09/2026 a 15/09/2026?",
+  "label": "generica",
+  "group_id": "generica-m04",
+  "split": "train"
+ },
+ {
+  "id": "generica-m11-1",
+  "question": "Me dá um panorama geral em novembro de 2025.",
+  "label": "generica",
+  "group_id": "generica-m11",
+  "split": "train"
+ },
+ {
+  "id": "generica-m11-2",
+  "question": "Me dá um panorama geral em março de 2026.",
+  "label": "generica",
+  "group_id": "generica-m11",
+  "split": "train"
+ },
+ {
+  "id": "generica-m11-3",
+  "question": "Me dá um panorama geral em abril de 2026.",
+  "label": "generica",
+  "group_id": "generica-m11",
+  "split": "train"
+ },
+ {
+  "id": "generica-m11-4",
+  "question": "Me dá um panorama geral no mês passado.",
+  "label": "generica",
+  "group_id": "generica-m11",
+  "split": "train"
+ },
+ {
+  "id": "generica-m11-5",
+  "question": "Me dá um panorama geral em março de 2025.",
+  "label": "generica",
+  "group_id": "generica-m11",
+  "split": "train"
+ },
+ {
+  "id": "generica-m11-6",
+  "question": "Me dá um panorama geral ontem.",
+  "label": "generica",
+  "group_id": "generica-m11",
+  "split": "train"
+ },
+ {
+  "id": "generica-m11-7",
+  "question": "Me dá um panorama geral no ano passado.",
+  "label": "generica",
+  "group_id": "generica-m11",
+  "split": "train"
+ },
+ {
+  "id": "generica-m11-8",
+  "question": "Me dá um panorama geral em abril de 2025.",
+  "label": "generica",
+  "group_id": "generica-m11",
+  "split": "train"
+ },
+ {
+  "id": "generica-m11-9",
+  "question": "Me dá um panorama geral em julho de 2025.",
+  "label": "generica",
+  "group_id": "generica-m11",
+  "split": "train"
+ },
+ {
+  "id": "generica-m11-10",
+  "question": "Me dá um panorama geral em setembro de 2026.",
+  "label": "generica",
+  "group_id": "generica-m11",
+  "split": "train"
+ },
+ {
+  "id": "generica-m13-1",
+  "question": "Bom dia, preciso de ajuda com os números em junho de 2025.",
+  "label": "generica",
+  "group_id": "generica-m13",
+  "split": "validation"
+ },
+ {
+  "id": "generica-m13-2",
+  "question": "Bom dia, preciso de ajuda com os números em setembro de 2025.",
+  "label": "generica",
+  "group_id": "generica-m13",
+  "split": "validation"
+ },
+ {
+  "id": "generica-m13-3",
+  "question": "Bom dia, preciso de ajuda com os números em janeiro de 2026.",
+  "label": "generica",
+  "group_id": "generica-m13",
+  "split": "validation"
+ },
+ {
+  "id": "generica-m13-4",
+  "question": "Bom dia, preciso de ajuda com os números em dezembro de 2025.",
+  "label": "generica",
+  "group_id": "generica-m13",
+  "split": "validation"
+ },
+ {
+  "id": "generica-m13-5",
+  "question": "Bom dia, preciso de ajuda com os números em fevereiro de 2026.",
+  "label": "generica",
+  "group_id": "generica-m13",
+  "split": "validation"
+ },
+ {
+  "id": "generica-m13-6",
+  "question": "Bom dia, preciso de ajuda com os números em abril de 2025.",
+  "label": "generica",
+  "group_id": "generica-m13",
+  "split": "validation"
+ },
+ {
+  "id": "generica-m13-7",
+  "question": "Bom dia, preciso de ajuda com os números ontem.",
+  "label": "generica",
+  "group_id": "generica-m13",
+  "split": "validation"
+ },
+ {
+  "id": "generica-m13-8",
+  "question": "Bom dia, preciso de ajuda com os números em setembro de 2026.",
+  "label": "generica",
+  "group_id": "generica-m13",
+  "split": "validation"
+ },
+ {
+  "id": "generica-m14-1",
+  "question": "O que devo fazer para vender mais em maio de 2026?",
+  "label": "generica",
+  "group_id": "generica-m14",
+  "split": "validation"
+ },
+ {
+  "id": "generica-m14-2",
+  "question": "O que devo fazer para vender mais em outubro de 2026?",
+  "label": "generica",
+  "group_id": "generica-m14",
+  "split": "validation"
+ },
+ {
+  "id": "generica-m14-3",
+  "question": "O que devo fazer para vender mais em junho de 2025?",
+  "label": "generica",
+  "group_id": "generica-m14",
+  "split": "validation"
+ },
+ {
+  "id": "generica-m14-4",
+  "question": "O que devo fazer para vender mais hoje?",
+  "label": "generica",
+  "group_id": "generica-m14",
+  "split": "validation"
+ },
+ {
+  "id": "generica-m14-5",
+  "question": "O que devo fazer para vender mais em abril de 2026?",
+  "label": "generica",
+  "group_id": "generica-m14",
+  "split": "validation"
+ },
+ {
+  "id": "generica-m14-6",
+  "question": "O que devo fazer para vender mais em dezembro de 2025?",
+  "label": "generica",
+  "group_id": "generica-m14",
+  "split": "validation"
+ },
+ {
+  "id": "generica-m14-7",
+  "question": "O que devo fazer para vender mais em setembro de 2025?",
+  "label": "generica",
+  "group_id": "generica-m14",
+  "split": "validation"
+ },
+ {
+  "id": "generica-m14-8",
+  "question": "O que devo fazer para vender mais em maio de 2025?",
+  "label": "generica",
+  "group_id": "generica-m14",
+  "split": "validation"
+ },
+ {
+  "id": "generica-m05-1",
+  "question": "Qual o lucro em julho de 2025?",
+  "label": "generica",
+  "group_id": "generica-m05",
+  "split": "validation"
+ },
+ {
+  "id": "generica-m05-2",
+  "question": "Qual o lucro de 01/09/2026 a 15/09/2026?",
+  "label": "generica",
+  "group_id": "generica-m05",
+  "split": "validation"
+ },
+ {
+  "id": "generica-m05-3",
+  "question": "Qual o lucro de 10/03/2025 a 20/03/2025?",
+  "label": "generica",
+  "group_id": "generica-m05",
+  "split": "validation"
+ },
+ {
+  "id": "generica-m05-4",
+  "question": "Qual o lucro em outubro de 2025?",
+  "label": "generica",
+  "group_id": "generica-m05",
+  "split": "validation"
+ },
+ {
+  "id": "generica-m05-5",
+  "question": "Qual o lucro em 2025?",
+  "label": "generica",
+  "group_id": "generica-m05",
+  "split": "validation"
+ },
+ {
+  "id": "generica-m05-6",
+  "question": "Qual o lucro em junho de 2026?",
+  "label": "generica",
+  "group_id": "generica-m05",
+  "split": "validation"
+ },
+ {
+  "id": "generica-m05-7",
+  "question": "Qual o lucro em janeiro de 2025?",
+  "label": "generica",
+  "group_id": "generica-m05",
+  "split": "validation"
+ },
+ {
+  "id": "generica-m05-8",
+  "question": "Qual o lucro em abril de 2026?",
+  "label": "generica",
+  "group_id": "generica-m05",
+  "split": "validation"
+ },
+ {
+  "id": "generica-m02-1",
+  "question": "Me fala como está o negócio em setembro de 2025.",
+  "label": "generica",
+  "group_id": "generica-m02",
+  "split": "test"
+ },
+ {
+  "id": "generica-m02-2",
+  "question": "Me fala como está o negócio no mês passado.",
+  "label": "generica",
+  "group_id": "generica-m02",
+  "split": "test"
+ },
+ {
+  "id": "generica-m02-3",
+  "question": "Me fala como está o negócio em agosto de 2025.",
+  "label": "generica",
+  "group_id": "generica-m02",
+  "split": "test"
+ },
+ {
+  "id": "generica-m02-4",
+  "question": "Me fala como está o negócio em janeiro de 2026.",
+  "label": "generica",
+  "group_id": "generica-m02",
+  "split": "test"
+ },
+ {
+  "id": "generica-m02-5",
+  "question": "Me fala como está o negócio em fevereiro de 2026.",
+  "label": "generica",
+  "group_id": "generica-m02",
+  "split": "test"
+ },
+ {
+  "id": "generica-m02-6",
+  "question": "Me fala como está o negócio em maio de 2025.",
+  "label": "generica",
+  "group_id": "generica-m02",
+  "split": "test"
+ },
+ {
+  "id": "generica-m02-7",
+  "question": "Me fala como está o negócio de 10/03/2025 a 20/03/2025.",
+  "label": "generica",
+  "group_id": "generica-m02",
+  "split": "test"
+ },
+ {
+  "id": "generica-m02-8",
+  "question": "Me fala como está o negócio em dezembro de 2025.",
+  "label": "generica",
+  "group_id": "generica-m02",
+  "split": "test"
+ },
+ {
+  "id": "generica-m06-1",
+  "question": "Qual a margem em janeiro de 2025?",
+  "label": "generica",
+  "group_id": "generica-m06",
+  "split": "test"
+ },
+ {
+  "id": "generica-m06-2",
+  "question": "Qual a margem em julho de 2026?",
+  "label": "generica",
+  "group_id": "generica-m06",
+  "split": "test"
+ },
+ {
+  "id": "generica-m06-3",
+  "question": "Qual a margem no ano passado?",
+  "label": "generica",
+  "group_id": "generica-m06",
+  "split": "test"
+ },
+ {
+  "id": "generica-m06-4",
+  "question": "Qual a margem em 2025?",
+  "label": "generica",
+  "group_id": "generica-m06",
+  "split": "test"
+ },
+ {
+  "id": "generica-m06-5",
+  "question": "Qual a margem ontem?",
+  "label": "generica",
+  "group_id": "generica-m06",
+  "split": "test"
+ },
+ {
+  "id": "generica-m06-6",
+  "question": "Qual a margem em abril de 2026?",
+  "label": "generica",
+  "group_id": "generica-m06",
+  "split": "test"
+ },
+ {
+  "id": "generica-m06-7",
+  "question": "Qual a margem em julho de 2025?",
+  "label": "generica",
+  "group_id": "generica-m06",
+  "split": "test"
+ },
+ {
+  "id": "generica-m06-8",
+  "question": "Qual a margem em setembro de 2026?",
+  "label": "generica",
+  "group_id": "generica-m06",
+  "split": "test"
+ },
+ {
+  "id": "generica-m01-1",
+  "question": "Como foram as vendas em agosto de 2026?",
+  "label": "generica",
+  "group_id": "generica-m01",
+  "split": "test"
+ },
+ {
+  "id": "generica-m01-2",
+  "question": "Como foram as vendas de 01/09/2026 a 15/09/2026?",
+  "label": "generica",
+  "group_id": "generica-m01",
+  "split": "test"
+ },
+ {
+  "id": "generica-m01-3",
+  "question": "Como foram as vendas em janeiro de 2025?",
+  "label": "generica",
+  "group_id": "generica-m01",
+  "split": "test"
+ },
+ {
+  "id": "generica-m01-4",
+  "question": "Como foram as vendas em janeiro de 2026?",
+  "label": "generica",
+  "group_id": "generica-m01",
+  "split": "test"
+ },
+ {
+  "id": "generica-m01-5",
+  "question": "Como foram as vendas ontem?",
+  "label": "generica",
+  "group_id": "generica-m01",
+  "split": "test"
+ },
+ {
+  "id": "generica-m01-6",
+  "question": "Como foram as vendas em abril de 2026?",
+  "label": "generica",
+  "group_id": "generica-m01",
+  "split": "test"
+ },
+ {
+  "id": "generica-m01-7",
+  "question": "Como foram as vendas em setembro de 2025?",
+  "label": "generica",
+  "group_id": "generica-m01",
+  "split": "test"
+ },
+ {
+  "id": "generica-m01-8",
+  "question": "Como foram as vendas em outubro de 2025?",
+  "label": "generica",
+  "group_id": "generica-m01",
+  "split": "test"
+ }
+]

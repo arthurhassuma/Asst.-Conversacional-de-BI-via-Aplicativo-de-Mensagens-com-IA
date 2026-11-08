@@ -14,6 +14,11 @@ def main():
     parser.add_argument("command", choices=["validate", "train", "test"])
     parser.add_argument("--corpus", type=Path, default=ROOT / "training/questions-v1.json")
     parser.add_argument("--seed", type=int, default=42)
+    parser.add_argument(
+        "--c-grid",
+        default="0.5,1,2",
+        help="Valores de C da regressão logística, escolhidos só pela validação.",
+    )
     parser.add_argument("--model", type=Path)
     parser.add_argument("--output", type=Path)
     args = parser.parse_args()
@@ -29,7 +34,8 @@ def main():
                 "Informe uma pasta de saída nova; resultados existentes são preservados."
             )
         if args.command == "train":
-            artifact, report = fit_model(rows, args.seed)
+            c_grid = tuple(float(value) for value in args.c_grid.split(","))
+            artifact, report = fit_model(rows, args.seed, c_grid)
         else:
             if args.model is None:
                 raise ValueError("Informe --model com o artefato congelado.")
