@@ -69,9 +69,8 @@ def test_render_managerial_group_merges_same_header_once():
     count_result = {"columns": ["total"], "rows": [["7"]], "truncated": False}
     text = render_managerial_group([(value_result, value_context), (count_result, count_context)])
     assert text.count("Período:") == 1
-    assert text.count("Resumo de pedidos de serviços") == 1
-    assert "▸ Valor" in text and "▸ Quantidade" in text
-    assert "1.000,00" in text and "7" in text
+    assert text.count("Resumo de pedidos de venda") == 1
+    assert text.splitlines()[2:] == ["Valor: R$ 1.000,00", "Quantidade: 7 pedidos"]
 
 
 def test_grouping_key_distinguishes_period_metric_and_kind():
@@ -112,7 +111,7 @@ def test_monthly_series_keeps_every_month_when_it_fits():
     text = render_managerial(
         {"columns": ["item", "valor"], "rows": rows, "truncated": False}, context
     )
-    assert "2026-12-01" in text
+    assert "Dezembro de 2026 — R$ 1.200,00" in text
     assert "primeiros registros" not in text
 
 
@@ -125,3 +124,60 @@ def test_free_sql_results_are_friendly_without_inventing_units():
     )
     assert text.startswith("📊") and "1.234,56" in text
     assert "R$" not in text and "causa" not in text
+
+
+def _context(**changes):
+    period = {"start": "2026-10-01", "end": "2026-11-01", "evidence": "outubro de 2026"}
+    base = {
+        "source": "controlled_template",
+        "kind": "ranking",
+        "group_by": "cliente",
+        "metric": "pedidos",
+        "measure": "quantidade",
+        "unit": "quantidade",
+        "period": period,
+    }
+    return {**base, **changes}
+
+
+def test_ranking_is_compact_numbered_and_hides_internal_ids():
+    rows = [
+        ["12 — Auto Mecânica Santa Cruz", "9", 9, 1],
+        ["3 — Funilaria Carvalho", "1", 1, 2],
+    ]
+    text = render_managerial(
+        {"columns": ["item", "valor", "registros", "posicao"], "rows": rows, "truncated": False},
+        _context(),
+    )
+    lines = text.splitlines()
+    assert "1. Auto Mecânica Santa Cruz — 9 pedidos" in lines
+    assert "2. Funilaria Carvalho — 1 pedido" in lines
+    assert "12 —" not in text and "Posição" not in text
+    assert "" not in lines[3:-1]  # sem linhas em branco entre os itens
+
+
+def test_contract_ranking_keeps_contract_number_after_the_name():
+    text = render_managerial(
+        {
+            "columns": ["item", "valor", "registros", "posicao"],
+            "rows": [["7 — Auto Elétrica Brasil", "4", 4, 1]],
+            "truncated": False,
+        },
+        _context(group_by="contrato"),
+    )
+    assert "1. Auto Elétrica Brasil · contrato 7 — 4 pedidos" in text
+
+
+def test_single_day_period_is_not_repeated_as_a_range():
+    period = {"start": "2026-11-05", "end": "2026-11-06", "evidence": "ontem"}
+    text = render_managerial(
+        {"columns": ["quantidade", "registros"], "rows": [[None, 0]], "truncated": False},
+        _context(kind="total", group_by=None, metric="clientes", period=period),
+    )
+    assert "Período: 05/11/2026\n" in text + "\n" and " a 05/11/2026" not in text
+
+
+def test_total_lines_use_the_measure_label_once():
+    result = {"columns": ["total", "registros"], "rows": [["2401621.96", 295]], "truncated": False}
+    text = render_managerial(result, _context(kind="total", group_by=None, measure="valor", unit="BRL"))
+    assert text.splitlines()[2:] == ["Valor: R$ 2.401.621,96"]

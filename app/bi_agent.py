@@ -15,6 +15,7 @@ from google.genai.errors import APIError
 from app.analysis_contract import UNSUPPORTED, validate_analysis, validate_period
 from app.config import Settings
 from app.database_tools import DatabaseTools
+from app.domain import CITY_NAMES
 from app.intent_classifier import intent_context, load_classifier, select_examples
 from app.managerial_queries import managerial_query
 from app.managerial_rendering import grouping_key, render_managerial, render_managerial_group
@@ -25,11 +26,13 @@ from app.relative_periods import current_date, normalize_relative_plan
 from app.rendering import METRICS, InvalidAnswer, render_answer
 from training.corpus import load_corpus
 
+# Pedido restrito a uma cidade exige SQL personalizado, nunca o total padrão.
+CITY_FILTER = r"\b(?:em|de|na)\s+(?:" + "|".join(map(re.escape, CITY_NAMES)) + r")\b"
 FAILURE = "Não consegui concluir a consulta com segurança. Reformule a pergunta ou tente novamente."
 PERIOD_QUESTION = "Qual período deseja consultar? Informe as datas ou o mês e o ano."
 METRIC_QUESTION = (
-    "Qual métrica deseja consultar: faturamento emitido, recebimentos, "
-    "pedidos, contratos, clientes, horas ou chamados?"
+    "Qual métrica deseja consultar: faturamento emitido, recebimentos, pedidos de venda, "
+    "contratos, clientes, horas de atendimento ou ocorrências de pós-venda?"
 )
 
 
@@ -162,7 +165,7 @@ def clarify_query(plan: dict, messages: list, *, today=None) -> str | None:
             "pedidos": "você deseja o valor ou a quantidade? Pode pedir ambos.",
             "contratos": "você deseja o valor ou a quantidade? Pode pedir ambos.",
             "horas": "deseja horas previstas, realizadas ou ambas?",
-            "chamados": "deseja chamados abertos, resolvidos ou a taxa de resolução?",
+            "chamados": "deseja ocorrências abertas, resolvidas ou a taxa de resolução?",
             "clientes": "deseja a quantidade de clientes?",
             "faturamento": "deseja o valor total emitido?",
             "recebimentos": "deseja o valor total recebido?",
@@ -354,8 +357,7 @@ class BIAgent:
                 re.search(
                     r"\b(somente|apenas|só|pag[oa]s?|cancelad[oa]s?|entregues?|ativos?|média|médio|mediana|percentil)\b|"
                     r"arredond|casas decimais|em milhares|por (?:status|situação|modalidade)|"
-                    r"\bcliente\s+\d+\b|"
-                    r"\b(?:em|de|na)\s+(Curitiba|Joinville|Blumenau|Florianópolis|São Paulo|Porto Alegre)\b",
+                    r"\bcliente\s+\d+\b|" + CITY_FILTER,
                     question,
                     re.IGNORECASE,
                 )

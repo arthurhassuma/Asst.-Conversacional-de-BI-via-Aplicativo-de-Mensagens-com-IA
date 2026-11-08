@@ -157,6 +157,10 @@ def generate_data(
     start_month: str = "2025-01",
     end_month: str = "2026-10",
 ) -> dict[str, list[dict]]:
+    if profile == "autopecas":
+        from scripts.autopecas_seed import generate_autopecas_data
+
+        return generate_autopecas_data(seed, clients, start_month, end_month)
     if profile in ("comparativo", "comparativo-v2"):
         from scripts.comparative_seed import generate_comparative_data
 
@@ -166,7 +170,7 @@ def generate_data(
         return generate_data_v2(seed, clients)
     if profile != "original":
         raise ValueError(
-            "Perfil desconhecido. Use original, original-v2, comparativo ou comparativo-v2."
+            "Perfil desconhecido. Use original, original-v2, comparativo, comparativo-v2 ou autopecas."
         )
     if not 1 <= clients <= 1000:
         raise ValueError("A quantidade de clientes deve estar entre um e mil.")

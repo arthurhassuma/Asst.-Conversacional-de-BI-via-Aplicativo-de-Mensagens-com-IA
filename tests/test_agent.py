@@ -340,11 +340,13 @@ async def test_same_metric_and_period_measures_are_merged_without_repeating_head
         ]
     )
     text, _ = await BIAgent(Settings(_env_file=None), client, db).answer(
-        "Pedidos de serviços, ambos, em janeiro de 2025", []
+        "Pedidos de venda, ambos, em janeiro de 2025", []
     )
     assert text.count("Período:") == 1
-    assert text.count("Resumo de pedidos de serviços") == 1
-    assert "▸ Valor" in text and "▸ Quantidade" in text
+    assert text.count("Resumo de pedidos de venda") == 1
+    # Cada medida aparece uma única vez, como linha rotulada (sem subtítulo repetido).
+    assert text.count("Valor:") == 1 and text.count("Quantidade:") == 1
+    assert "▸" not in text and "• Total" not in text
 
 
 async def test_custom_filter_uses_analysis_instead_of_unfiltered_total():

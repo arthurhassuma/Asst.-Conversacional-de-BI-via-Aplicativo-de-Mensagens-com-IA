@@ -158,6 +158,25 @@ recupera os dados anteriores (via `psql ... < backup-pgdata-AAAAMMDD.sql` num ba
 novo). Teste a mudança num ambiente separado antes, se possível, e confirme com um
 `/comecar` e uma pergunta real pelo Telegram após o passo 5.
 
+## Trocar o banco pelo perfil autopecas (destrutivo, decisão do responsável)
+
+O perfil `autopecas` (revenda pequena-média, 100 clientes, jan/2025–out/2026, sem "Empresa
+Fictícia" nos nomes) substitui a base de serviços de software. Mudou também o código do
+backend (formato das respostas, vocabulário e prompts), então faça as duas coisas:
+
+1. Envie o código novo e reconstrua com `--no-cache` (seção sobre atualização de código acima).
+2. Siga os passos 1 a 5 da seção anterior (backup, parar, remover o volume, recriar), trocando
+   as duas linhas de carga por:
+
+```bash
+sudo docker compose -p pac-bi-24h -f .local/hospedagem/compose.yaml --profile setup run --rm setup manage-db seed --profile autopecas --clients 100 --seed 42 --start-month 2025-01 --end-month 2026-10
+sudo docker compose -p pac-bi-24h -f .local/hospedagem/compose.yaml --profile setup run --rm setup manage-db coverage --profile autopecas --start-month 2025-01 --end-month 2026-10
+```
+
+Os comentários do schema são só documentação do banco: o agente lê o glossário do código. Se
+quiser atualizá-los sem recriar a base, execute `db/migrations/2026-11-autopecas-comentarios.sql`
+com o usuário proprietário. Valem os mesmos avisos de ponto sem volta da seção anterior.
+
 ## Credenciais e limites
 
 Nenhum arquivo private/, .env, banco, log, chave SSH ou valor de credencial faz
