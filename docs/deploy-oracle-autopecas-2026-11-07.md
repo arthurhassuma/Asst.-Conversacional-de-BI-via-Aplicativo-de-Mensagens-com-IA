@@ -84,8 +84,10 @@ resultado aqui quando executados:
 
 ## Reversão
 
-- Dados: restaurar `~/backup-pgdata-AAAAMMDD.sql` (gerado na troca, confirmar a data do
-  arquivo) num banco novo, conforme o guia da Oracle.
+- Dados: restaurar o backup gerado na troca, de 07/11/2026, `~/backup-pgdata-20261107.sql`,
+  num banco novo, conforme o guia da Oracle. O nome usa o `date` da VM, que está em UTC e
+  já marcava 08/11 no início da sessão (01:43); se `20261107` não existir, o arquivo é
+  `~/backup-pgdata-20261108.sql`. Confirme com `ls ~/backup-pgdata-*.sql`.
 - Código: reenviar os arquivos da `main` anterior (`git show 3e43545:<arquivo>`),
   reconstruir com `--no-cache` e recriar backend/polling.
 - Guardar o backup até concluir os testes pendentes.
