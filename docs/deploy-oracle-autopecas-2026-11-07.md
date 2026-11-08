@@ -1,7 +1,7 @@
 # Implantação na Oracle: respostas limpas e perfil autopecas (07/11/2026)
 
 Registro da atualização da VM Oracle com o formato de respostas revisado, o vocabulário
-de revenda de autopeças e o perfil de dados `autopecas`, em quatro rodadas entre a noite de
+de revenda de autopeças e o perfil de dados `autopecas`, em cinco rodadas entre a noite de
 07/11/2026 e a madrugada de 08/11/2026. Distingue o que foi observado do que foi apenas informado ou inferido, no
 mesmo critério dos registros anteriores. Horários do Telegram são de Brasília (UTC-3);
 os da VM estão em UTC, por isso o nome dos backups já marca 08/11.
@@ -16,12 +16,14 @@ os da VM estão em UTC, por isso o nome dos backups já marca 08/11.
 | 4 | #15 | `fb1f611` | `4a482ca` | Intervalos de datas e mês fixado na conversa |
 | 4 | #16 | `46bfb7b` | `640f847` | Taxa de resolução em porcentagem; respostas agrupadas sem falha |
 | 4 | #17 | `471b57a` | `0db3a33` | Escopo de CTE no filtro de SQL; polling que não trava |
+| 5 | #19 | `f6df14a` | `ca2e83e` | Classificador de intenções v2 (autopeças), avaliado e ligado por padrão |
+| 5 | #20 | `4292e39` | `8146065` | Entrypoint do container passa a respeitar `INTENT_CLASSIFIER_ENABLED` |
 
 Mudanças documentadas no [README](../README.md) (seção do perfil `autopecas`), no
 [dicionário de dados](dicionario-de-dados.md) e no [guia da Oracle](../deploy/oracle/README.md).
 
 Verificação local antes de cada envio: 230, 232 e 234 testes aprovados nas rodadas 1 a 3
-e 257 na `main` após os PRs #15 a #17 (241, 243 e 255 em cada PR), com 28 ignorados (dependem de PostgreSQL, indisponível na máquina de desenvolvimento) e
+e 257 na `main` após os PRs #15 a #17 (241, 243 e 255 em cada PR), 265 após o #19 e 268 após o #20, com 28 ignorados (dependem de PostgreSQL, indisponível na máquina de desenvolvimento) e
 `ruff check` limpo. A carga do perfil em PostgreSQL real só foi executada na VM.
 
 ## Rodada 1: respostas, vocabulário e perfil `autopecas`
@@ -140,6 +142,44 @@ inteiro. O caso vago continua protegido por teste automatizado.
 Sem confirmação visual (não aparecem pelo Telegram, só por teste automatizado): o bloqueio do
 CTE sobre o catálogo e o descarte de update recusado no polling.
 
+## Rodada 5: classificador de intenções v2 em uso
+
+O treinamento supervisionado v2, em vocabulário de autopeças, está descrito em
+[treinamento-intencoes-v2.md](treinamento-intencoes-v2.md): teste reservado com acurácia de 87,9%,
+cobertura de 80,8% e precisão de 95,0% nas sugestões aceitas, critério declarado antes do treino e
+atingido. Ele só sugere até dois exemplos ao planejador do Gemini; o ganho nas respostas **não foi
+medido**.
+
+Primeira tentativa (PR #19). Arquivos enviados por `scp`: `app/bi_agent.py`, `app/config.py`,
+`app/main.py`, `training/` (modelo, corpus, protocolo, gerador e `fit.py`), `scripts/train_intents.py` e
+`pyproject.toml`. Observado: os `grep` de conferência retornaram 1, os dois arquivos do modelo estavam
+dentro da imagem (build de 17 etapas, 225 s) e o `sed` gravou `INTENT_CLASSIFIER_ENABLED=true` no
+arquivo privado (`grep -c` igual a 1). O `/health` respondeu. **Mas a linha de log `intencao` não
+apareceu**, ou seja, o classificador não estava em uso. Uma segunda causa de confusão: o comando de
+conferência foi colado no chat do Telegram, e o bot o tratou como pergunta.
+
+Causa: o `runtime_entrypoint.py` original forçava `intent_classifier_enabled=False` em todos os modos
+de aplicação e exportava o valor, ignorando o arquivo privado. A instrução com `sed` nunca poderia ter
+efeito, falha de quem a escreveu sem ler esse arquivo. Correção no PR #20: a linha foi removida (as
+credenciais administrativas continuam removidas), a mudança foi registrada em
+`deploy/oracle/origem-recuperacao.json` com o hash do original e há testes que falham sem a correção.
+
+Segunda tentativa. Enviado `runtime_entrypoint.py`, imagem reconstruída com `--no-cache` e backend e
+polling recriados. Evidência observada no terminal, depois da pergunta "Top 3 clientes por
+faturamento em setembro de 2026" enviada no Telegram às 01:31:
+
+```
+backend-1  | INFO:app.bi_agent:intencao rotulo=ranking confianca=0.99 aceita=True
+```
+
+A resposta do bot foi a de antes (Peças Floresta, R$ 23.439,00), como esperado: o classificador não
+escolhe métrica, período, SQL nem números. Sem confirmação visual: a saída de
+`printenv INTENT_CLASSIFIER_ENABLED` e a linha com abstenção para uma pergunta vaga
+(`aceita=False`); só uma pergunta foi verificada no log.
+
+Para desligar sem rebuild: trocar `true` por `false` no arquivo privado e recriar o backend (agora tem
+efeito, depois da correção do entrypoint).
+
 ## Antes e depois (mesmas perguntas do teste de 05/11)
 
 | Item | Antes | Depois |
@@ -160,8 +200,10 @@ CTE sobre o catálogo e o descarte de update recusado no polling.
   caminho livre ou o controlado conforme o planejador: "Faturamento de 01/09/2026 a
   15/09/2026" saiu como `Valor: 240.102,20`, enquanto "até hoje" saiu com `R$`. Os números
   estão corretos nos dois; só o formato difere.
-- Perfis anteriores, avaliação congelada, relatório entregue (PDF e Word) e experimentos
-  antigos continuam no vocabulário de software.
+- O classificador v2 não teve o efeito nas respostas medido; o teste que o aprovou é sintético, e a
+  checagem informal com 22 perguntas reais deu 77% de acerto. A classe operacional é a mais frágil.
+- Perfis anteriores, avaliação congelada, relatório entregue (PDF e Word), experimentos antigos e o
+  classificador v1 continuam no vocabulário de software.
 
 ## Reversão
 
@@ -178,6 +220,6 @@ CTE sobre o catálogo e o descarte de update recusado no polling.
   - Restaurar num banco novo, conforme o guia da Oracle.
 - Código: reenviar os arquivos de um commit anterior (`git show 3e43545:<arquivo>` para antes
   do PR #8; `git show 6125efe:<arquivo>` para o estado da rodada 1; `git show 2974dad:<arquivo>`
-  para o estado anterior à rodada 4), reconstruir com
-  `--no-cache` e recriar backend/polling.
+  para o estado anterior à rodada 4; `git show 778b45d:<arquivo>` para o anterior à rodada 5),
+  reconstruir com `--no-cache` e recriar backend/polling.
 - Guardar os backups até a apresentação.
