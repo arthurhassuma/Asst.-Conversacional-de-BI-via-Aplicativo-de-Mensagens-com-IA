@@ -1,8 +1,8 @@
 # Implantação na Oracle: respostas limpas e perfil autopecas (07/11/2026)
 
 Registro da atualização da VM Oracle com o formato de respostas revisado, o vocabulário
-de revenda de autopeças e o perfil de dados `autopecas`, em três rodadas na noite de
-07/11/2026. Distingue o que foi observado do que foi apenas informado ou inferido, no
+de revenda de autopeças e o perfil de dados `autopecas`, em quatro rodadas entre a noite de
+07/11/2026 e a madrugada de 08/11/2026. Distingue o que foi observado do que foi apenas informado ou inferido, no
 mesmo critério dos registros anteriores. Horários do Telegram são de Brasília (UTC-3);
 os da VM estão em UTC, por isso o nome dos backups já marca 08/11.
 
@@ -11,14 +11,17 @@ os da VM estão em UTC, por isso o nome dos backups já marca 08/11.
 | Rodada | PR | Commit | Merge na `main` | Conteúdo |
 |---|---|---|---|---|
 | 1 | #8 | `6125efe` | `2ac4127` | Formato de respostas, vocabulário de autopeças, perfil `autopecas` |
-| 2 | #11 | `35fe6d9` | `f193e94` | Taxa de resolução da pós-venda, resposta de valor único, total filtrado |
-| 3 | #12 | `496fc7e` | `2974dad` | Substantivo repetido nos totais de ocorrências |
+| 2 e 3 | #11 | `35fe6d9` | `f193e94` | Taxa de resolução da pós-venda, resposta de valor único, total filtrado |
+| 2 e 3 | #12 | `496fc7e` | `2974dad` | Substantivo repetido nos totais de ocorrências |
+| 4 | #15 | `fb1f611` | `4a482ca` | Intervalos de datas e mês fixado na conversa |
+| 4 | #16 | `46bfb7b` | `640f847` | Taxa de resolução em porcentagem; respostas agrupadas sem falha |
+| 4 | #17 | `471b57a` | `0db3a33` | Escopo de CTE no filtro de SQL; polling que não trava |
 
 Mudanças documentadas no [README](../README.md) (seção do perfil `autopecas`), no
 [dicionário de dados](dicionario-de-dados.md) e no [guia da Oracle](../deploy/oracle/README.md).
 
-Verificação local antes de cada envio: 230, 232 e 234 testes aprovados, respectivamente,
-com 28 ignorados (dependem de PostgreSQL, indisponível na máquina de desenvolvimento) e
+Verificação local antes de cada envio: 230, 232 e 234 testes aprovados nas rodadas 1 a 3
+e 257 na `main` após os PRs #15 a #17 (241, 243 e 255 em cada PR), com 28 ignorados (dependem de PostgreSQL, indisponível na máquina de desenvolvimento) e
 `ruff check` limpo. A carga do perfil em PostgreSQL real só foi executada na VM.
 
 ## Rodada 1: respostas, vocabulário e perfil `autopecas`
@@ -95,6 +98,48 @@ O que ficou sem confirmação visual: a remoção do substantivo repetido (`Ocor
 abertas: 20` em vez de `20 ocorrências`), validada apenas por teste automatizado, e o
 `/health` desta rodada.
 
+## Rodada 4: correções do ultrareview do repositório inteiro
+
+Um ultrareview do código-fonte completo (PR descartável #14, fechado sem mesclar; 50
+arquivos, sem `tests/`) apontou 10 achados. Todos foram reproduzidos antes de corrigir; nenhum
+era falso positivo, e um era defeito introduzido nesta mesma sessão (o limite de 12 mil
+caracteres no agrupamento de medidas). Seis foram corrigidos nos PRs #15 a #17:
+
+| Achado | Correção |
+|---|---|
+| Intervalo com `hoje`, `ontem` ou data numérica virava um dia só, sem aviso | Só uma expressão de dia isolada é resolvida; intervalos mantêm o período |
+| "Compara com o ano passado" depois de fixar um mês comparava o ano inteiro | O mês vem do outro período da comparação, validado contra o que o gestor digitou |
+| Taxa de resolução em total saía com 20 casas decimais | Consulta em pontos percentuais e unidade `percentual`: `85,71%` |
+| Pergunta com várias medidas falhava se o texto junto passasse de 12 mil caracteres | Cai para as respostas separadas |
+| CTE podia ler `pg_roles` e outras relações do catálogo pelo próprio nome | Cada corpo enxerga só o escopo externo e os CTEs anteriores |
+| Um update recusado (400, 413, 422) travava o polling para todos | Ignorado com log; 401/403, 429, 5xx e rede continuam em nova tentativa |
+
+Ficaram de fora, por serem menores: `EXTRACT` na lista permitida mas nunca aceito, fila de
+sessões (4 mensagens seguidas de um gestor ocupam os 4 trabalhadores), `get_schema` chamado só
+para checar erro e o seed `comparativo-v2` legado (6 de 5.892 notas com pagamento antes da
+emissão; o `autopecas` tem 0).
+
+Arquivos enviados por `scp` (6, todos em `app/`): `analysis_contract`, `bi_agent`,
+`query_templates`, `relative_periods`, `sql_policy`, `telegram_bot`, seguidos de reconstrução da
+imagem e recriação de backend e polling, sem reseed. A saída do terminal desta rodada não foi
+vista pelo agente. Evidência no Telegram (00:37 a 00:39), conferida com o gerador de dados:
+
+| Pergunta | Resposta observada |
+|---|---|
+| Faturamento de 01/09/2026 a 15/09/2026 | Período `01/09/2026 a 15/09/2026` (antes: um dia só); `Valor: 240.102,20` |
+| Contratos em agosto de 2026, "ambos" | `Valor: R$ 85.830,45` e `Quantidade: 27 contratos` |
+| "Compara com o ano passado" na sequência | Base `01/08/2025 a 31/08/2025` contra `01/08/2026 a 31/08/2026`; valor R$ 121.032,03 contra R$ 85.830,45 (-29,08%), quantidade 29 contra 27 (-6,90%) |
+| Taxa de resolução das ocorrências, setembro/2026 | `Taxa de resolução: 65,00%` (antes: razão bruta) |
+| Pedidos de venda em setembro/2026, valor e quantidade | `R$ 468.323,95` e `385 pedidos`, sem regressão |
+| Faturamento de janeiro até hoje | Período `01/01/2026 a 08/11/2026`, `R$ 4.010.237,73` |
+
+A previsão de que "janeiro até hoje" passaria a pedir o período não se confirmou: o Gemini
+devolveu uma evidência que o validador aceitou e a resposta veio correta, com o intervalo
+inteiro. O caso vago continua protegido por teste automatizado.
+
+Sem confirmação visual (não aparecem pelo Telegram, só por teste automatizado): o bloqueio do
+CTE sobre o catálogo e o descarte de update recusado no polling.
+
 ## Antes e depois (mesmas perguntas do teste de 05/11)
 
 | Item | Antes | Depois |
@@ -111,7 +156,10 @@ abertas: 20` em vez de `20 ocorrências`), validada apenas por teste automatizad
 - Janeiro de 2025 tem recebimentos baixos: o cenário não traz notas de dezembro de 2024.
 - Pedidos `aprovado` (ainda não entregues) existem só nos últimos dias de outubro de 2026.
 - Consultas de SQL livre (por exemplo, filtro por cidade) mostram o valor sem `R$`: o texto
-  não afirma a moeda de uma consulta que o modelo escreveu.
+  não afirma a moeda de uma consulta que o modelo escreveu. A mesma pergunta pode seguir o
+  caminho livre ou o controlado conforme o planejador: "Faturamento de 01/09/2026 a
+  15/09/2026" saiu como `Valor: 240.102,20`, enquanto "até hoje" saiu com `R$`. Os números
+  estão corretos nos dois; só o formato difere.
 - Perfis anteriores, avaliação congelada, relatório entregue (PDF e Word) e experimentos
   antigos continuam no vocabulário de software.
 
@@ -129,6 +177,7 @@ abertas: 20` em vez de `20 ocorrências`), validada apenas por teste automatizad
   - Os três nomes, tamanhos e horários foram conferidos com `ls -lh` na VM (observado).
   - Restaurar num banco novo, conforme o guia da Oracle.
 - Código: reenviar os arquivos de um commit anterior (`git show 3e43545:<arquivo>` para antes
-  do PR #8; `git show 6125efe:<arquivo>` para o estado da rodada 1), reconstruir com
+  do PR #8; `git show 6125efe:<arquivo>` para o estado da rodada 1; `git show 2974dad:<arquivo>`
+  para o estado anterior à rodada 4), reconstruir com
   `--no-cache` e recriar backend/polling.
 - Guardar os backups até a apresentação.
