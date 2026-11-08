@@ -75,7 +75,7 @@ bi-db validate
 bi-db coverage --profile autopecas
 ```
 
-O schema não mudou; só o significado de negócio, descrito em [dicionário de dados](docs/dicionario-de-dados.md): pedidos são pedidos de venda, contratos são contratos de fornecimento, horas são horas de atendimento e chamados são ocorrências de pós-venda (garantias, trocas e devoluções). O planejador aceita as duas formas ("chamados" e "ocorrências"). Os perfis anteriores continuam disponíveis para reproduzir a avaliação congelada. Para trocar a base da VM Oracle, veja [Trocar o banco pelo perfil autopecas](deploy/oracle/README.md).
+O schema não mudou; só o significado de negócio, descrito em [dicionário de dados](docs/dicionario-de-dados.md): pedidos são pedidos de venda, contratos são contratos de fornecimento, horas são horas de atendimento e chamados são ocorrências de pós-venda (garantias, trocas e devoluções). O planejador aceita as duas formas ("chamados" e "ocorrências"). Os perfis anteriores continuam disponíveis para reproduzir a avaliação congelada. Para trocar a base da VM Oracle, veja [Trocar o banco pelo perfil autopecas](deploy/oracle/README.md). O deploy de 07/11/2026 está registrado em [docs/deploy-oracle-autopecas-2026-11-07.md](docs/deploy-oracle-autopecas-2026-11-07.md).
 
 As respostas passaram a ter um único formato: cabeçalho, período uma vez e uma linha por medida (`Valor: R$ …`, `Quantidade: 295 pedidos`); rankings são listas numeradas sem o identificador interno do cliente; dia único aparece como `05/11/2026`. O texto é montado em `app/managerial_rendering.py` e `app/rendering.py` apenas a partir das células do SQL.
 
