@@ -128,8 +128,6 @@ def render_answer(
         "chamados_resolvidos": "ocorrências resolvidas",
         "taxa_resolucao": "taxa de resolução",
     }
-    if measure in measures:
-        lines.append(f"Medida: {measures[measure]}")
     # SUM sem linhas produz uma linha NULL. Só afirmar ausência quando a
     # consulta traz a contagem de registros; NULL sozinho pode ser dado ausente.
     columns, rows = result["columns"], result["rows"]
@@ -173,6 +171,23 @@ def render_answer(
                 text += f"\nPeríodo: {period_text(period)}"
             return text
     labels = COLUMN_LABELS
+    visible = [column for column in columns if column != "registros"]
+    if len(rows) == 1 and len(visible) == 1 and not result.get("truncated"):
+        # Uma única célula: uma linha rotulada pela medida pedida, sem marcador nem
+        # linha "Medida" repetindo o mesmo dado. O alias não prova moeda: sem "R$".
+        column = visible[0]
+        value = rows[0][columns.index(column)]
+        label = labels.get(column, "Campo")
+        if measure in measures and column in {"total", "valor", "quantidade", "horas", "taxa"}:
+            label = measures[measure].capitalize()
+        shown = (
+            percent_text(value) + ("%" if value is not None else "")
+            if column in PERCENT_COLUMNS
+            else cell_text(value)
+        )
+        return "\n".join(lines + [f"{label}: {shown}"])
+    if measure in measures:
+        lines.append(f"Medida: {measures[measure]}")
     for row in result["rows"]:
         lines.append(
             "• "

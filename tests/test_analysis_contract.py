@@ -77,3 +77,23 @@ async def test_unsupported_requests_explain_limit_without_sql(reason, word):
     assert trace["status"] == "unsupported_request"
     assert word in text
     assert not db.queries
+
+
+def test_filtered_total_without_ranking_needs_no_analysis_block():
+    # "Faturamento em Joinville em setembro de 2026": um número só, SQL personalizado.
+    from app.bi_agent import clarify
+    from app.prompts import PLANNER_PROMPT
+
+    plan = {
+        "metric": "faturamento",
+        "measure": "valor",
+        "operation": "analysis",
+        "period": {"start": "2026-09-01", "end": "2026-10-01", "evidence": "setembro de 2026"},
+        "comparison_period": None,
+        "analysis": None,
+    }
+    messages = [{"role": "user", "content": "Faturamento em Joinville em setembro de 2026"}]
+    assert clarify({"queries": [plan]}, messages) is None
+    ranking = {**plan, "analysis": {**PLAN["analysis"], "kind": "ranking", "limit": None}}
+    assert "ranking" in clarify({"queries": [ranking]}, messages).lower()
+    assert 'operation="analysis" com analysis=null' in PLANNER_PROMPT
