@@ -85,19 +85,20 @@ As respostas passaram a ter um único formato: cabeçalho, período uma vez e um
 
 A evolução de 12/10/2026 adiciona comparações entre períodos, contribuição para variações, séries mensais, rankings, participação e desvio operacional, com texto PT-BR, emojis moderados e valores exatos do SQL. Consulte o [guia gerencial](docs/perguntas-gerenciais.md), o [treinamento de intenções](docs/treinamento-intencoes.md) e o [protocolo novo](docs/protocolo-avaliacao-gerencial.md).
 
-O modelo local TF-IDF + regressão logística foi treinado com 280 formulações em 70 cenários agrupados. **Isso não é fine-tuning do Gemini.** A validação teve sugestões aceitas zero no limiar escolhido; por isso `INTENT_CLASSIFIER_ENABLED=false` é o padrão. O assistente gerencial funciona pelo planejador Gemini mesmo com o classificador desativado. O teste de classificação não é acurácia SQL nem comprovação de ganho para o bot.
+O modelo local TF-IDF + regressão logística (versão 2, de 08/11/2026) foi treinado com 1.112 perguntas sintéticas em vocabulário de autopeças e avaliado em 224 perguntas de teste escritas de formas que o treino nunca viu: **acurácia de 87,9% e, nas sugestões aceitas, cobertura de 80,8% e precisão de 95,0%**, atingindo o critério declarado antes do teste. Ele está **ligado por padrão** (`INTENT_CLASSIFIER_ENABLED=true`): quando confiante, acrescenta até dois exemplos de treino ao prompt do planejador, sem autoridade sobre datas, SQL ou números, e registra no log `intencao rotulo=... confianca=... aceita=...` sem o texto da pergunta. **Isso não é fine-tuning do Gemini**, e **o ganho nas respostas não foi medido**: o teste de classificação não é acurácia de SQL. Método, limites e a classe mais frágil (operacional, F1 de 0,67) estão em [treinamento v2](docs/treinamento-intencoes-v2.md); a [versão 1](docs/treinamento-intencoes.md) fica como histórico. O assistente funciona pelo planejador Gemini mesmo com o classificador desativado. Num servidor já configurado, o arquivo privado de configuração pode ter `INTENT_CLASSIFIER_ENABLED=false` e precisa ser ajustado (veja o [guia da Oracle](deploy/oracle/README.md)).
 
 Para reproduzir o treino/testes de aprendizagem com Python 3.12/3.13:
 
 ```powershell
 python -m pip install -r requirements-training-lock.txt
-python -m scripts.train_intents validate
-python -m scripts.train_intents train --seed 42 --output .local/intent-training-nova
+python -m training.build_corpus_v2
+python -m scripts.train_intents validate --corpus training/questions-v2.json
+python -m scripts.train_intents train --corpus training/questions-v2.json --c-grid 0.5,1,2,5,10,20,50,100 --thresholds 0.3,0.4,0.5,0.6,0.7 --joint-selection --seed 42 --output .local/intent-training-nova
 # Depois de congelar o artefato e concluir ajustes somente na validação:
-python -m scripts.train_intents test --model .local/intent-training-nova/model.json --output .local/intent-test-novo
+python -m scripts.train_intents test --corpus training/questions-v2.json --model .local/intent-training-nova/model.json --output .local/intent-test-novo
 ```
 
-Pastas existentes são recusadas. O bot usa inferência JSON sem sklearn no runtime e não treina com conversas. Ativar `INTENT_CLASSIFIER_ENABLED=true` é opção experimental; baixa confiança, artefato ausente/inválido ou intenção genérica mantêm o caminho geral. `INTENT_MODEL_PATH` vazio usa o artefato empacotado, com hashes registrados nas avaliações.
+Pastas existentes são recusadas. O bot usa inferência JSON sem sklearn no runtime e não treina com conversas. Baixa confiança, artefato ausente/inválido ou intenção genérica mantêm o caminho geral. `INTENT_MODEL_PATH` vazio usa o artefato empacotado (`training/intent-model-v2.json`), com hashes registrados nas avaliações.
 
 O conjunto gerencial tem 35 cenários separados dos 40 casos originais. `scripts.evaluate --dataset` seleciona explicitamente a nova avaliação; sem esse argumento o conjunto original continua sendo o padrão. Não executar o reservado para ajustar prompts. Rodadas reais precisam do ambiente conectado e respeitam a quota existente; simulações não comprovam interpretação Gemini ou entrega Telegram.
 

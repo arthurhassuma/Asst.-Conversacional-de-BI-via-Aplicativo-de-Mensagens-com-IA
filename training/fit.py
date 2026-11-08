@@ -27,17 +27,53 @@ def metrics(actual, predicted, *, accepted=None):
         "matrix_labels": list(LABELS),
         "confusion_matrix": confusion_matrix(actual, predicted, labels=list(LABELS)).tolist(),
         "coverage": sum(accepted) / len(actual) if accepted is not None else None,
+        # Das sugestões aceitas, quantas acertaram a classe: o que decide se vale usar.
+        "accepted_precision": (
+            sum(a == p for a, p, ok in zip(actual, predicted, accepted, strict=True) if ok)
+            / sum(accepted)
+            if accepted is not None and sum(accepted)
+            else None
+        ),
     }
 
 
-def fit_model(records: list[dict], seed: int = 42) -> tuple[dict, dict]:
+DEFAULT_C_GRID = (0.5, 1.0, 2.0)
+DEFAULT_THRESHOLDS = (0.50, 0.60, 0.70)
+
+
+def threshold_report(model, vx, vy, labels, threshold):
+    """Desempenho na validação quando só se aceita sugestão com confiança >= limiar."""
+    probability = model.predict_proba(vx)
+    accepted = [
+        (labels[row.argmax()] != "generica" and row.max() >= threshold) for row in probability
+    ]
+    predicted = [
+        labels[row.argmax()] if ok else "generica"
+        for row, ok in zip(probability, accepted, strict=True)
+    ]
+    return metrics(vy, predicted, accepted=accepted)
+
+
+def fit_model(
+    records: list[dict],
+    seed: int = 42,
+    c_grid: tuple[float, ...] = DEFAULT_C_GRID,
+    thresholds: tuple[float, ...] = DEFAULT_THRESHOLDS,
+    joint: bool = False,
+) -> tuple[dict, dict]:
+    """Treina na partição de treino e escolhe hiperparâmetros só pela validação.
+
+    Por padrão escolhe C pelo macro-F1 puro e depois o limiar (protocolo v1). Com
+    ``joint`` escolhe C e limiar juntos pelo macro-F1 com abstenção, que já pune
+    cobertura baixa; é o que importa quando as sugestões só são usadas acima do limiar.
+    """
     validate_corpus(records)
     train = [r for r in records if r["split"] == "train"]
     validation = [r for r in records if r["split"] == "validation"]
     x, y = [r["question"] for r in train], [r["label"] for r in train]
     vx, vy = [r["question"] for r in validation], [r["label"] for r in validation]
     candidates = []
-    for c in (0.5, 1.0, 2.0):
+    for c in c_grid:
         model = Pipeline(
             [
                 ("tfidf", TfidfVectorizer(strip_accents="unicode", ngram_range=(1, 2))),
@@ -52,22 +88,29 @@ def fit_model(records: list[dict], seed: int = 42) -> tuple[dict, dict]:
             vy, model.predict(vx), labels=list(LABELS), average="macro", zero_division=0
         )
         candidates.append((score, -c, model))
-    score, negative_c, model = max(candidates, key=lambda item: item[:2])
+    labels = candidates[0][2].named_steps["classifier"].classes_.tolist()
+    if joint:
+        options = [
+            (r["macro_f1"], r["coverage"], negative_c, t, negative_c, model, r)
+            for score, negative_c, model in candidates
+            for t in thresholds
+            for r in [threshold_report(model, vx, vy, labels, t)]
+        ]
+        _, _, _, threshold, negative_c, model, accepted_report = max(
+            options, key=lambda item: item[:4]
+        )
+        score = f1_score(
+            vy, model.predict(vx), labels=list(LABELS), average="macro", zero_division=0
+        )
+    else:
+        score, negative_c, model = max(candidates, key=lambda item: item[:2])
+        results = [
+            (r["macro_f1"], r["coverage"], t, r)
+            for t in thresholds
+            for r in [threshold_report(model, vx, vy, labels, t)]
+        ]
+        _, _, threshold, accepted_report = max(results, key=lambda item: item[:3])
     clf, vectorizer = model.named_steps["classifier"], model.named_steps["tfidf"]
-    probability = model.predict_proba(vx)
-    labels = clf.classes_.tolist()
-    thresholds = []
-    for threshold in (0.50, 0.60, 0.70):
-        accepted = [
-            (labels[row.argmax()] != "generica" and row.max() >= threshold) for row in probability
-        ]
-        predicted = [
-            labels[row.argmax()] if ok else "generica"
-            for row, ok in zip(probability, accepted, strict=True)
-        ]
-        result = metrics(vy, predicted, accepted=accepted)
-        thresholds.append((result["macro_f1"], result["coverage"], threshold, result))
-    _, _, threshold, accepted_report = max(thresholds, key=lambda item: item[:3])
     artifact = {
         "schema_version": "intent-v1",
         "classes": labels,

@@ -1,31 +1,75 @@
 # Como explicar o treinamento na apresentação
 
+Estado em 08/11/2026: versão 2 do classificador, em uso. Detalhes e números em
+[treinamento v2](treinamento-intencoes-v2.md). A [versão 1](treinamento-intencoes.md) fica como histórico.
+
 ## Qual modelo foi treinado?
 
-Foi treinado um classificador local de perguntas com TF-IDF e regressão logística. Sua entrada é o texto em português; seu alvo é uma das sete intenções: total, comparação, tendência, ranking, segmentação, operacional ou genérica. O `fit` aprende vocabulário, pesos IDF e coeficientes usando somente a partição de treino. Isso constitui aprendizagem supervisionada com rótulos. O Gemini continua sendo um modelo previamente treinado pelo provedor; este projeto não modificou seus pesos.
+Um classificador local de perguntas, com TF-IDF e regressão logística. Entrada: o texto em português.
+Alvo: uma de sete intenções (total, comparação, tendência, ranking, segmentação, operacional ou
+genérica). O `fit` aprende vocabulário, pesos IDF e coeficientes só com a partição de treino:
+aprendizagem supervisionada com rótulos. **O Gemini é um modelo previamente treinado pelo provedor, usado
+por API; este projeto não modificou seus pesos.** Dizer "treinamos o Gemini" seria falso.
 
-## Relação com aprendizagem de máquina e análise preditiva
+## Frase pronta
 
-O fluxo usa conceitos das disciplinas: preparação de dados, atributos, variável alvo, treino/validação/teste, escolha de hiperparâmetro, baseline, matriz de confusão, precision, recall e macro F1. A regressão logística também pode ser usada em problemas de churn, mas aqui o alvo é uma intenção textual. Classificar uma pergunta não equivale a prever faturamento, vendas ou cancelamento de clientes. O BI gerencial implementado é descritivo: consulta e compara registros.
+> "Usamos o Gemini já treinado pelo Google, por API, para interpretar as perguntas. Além disso,
+> treinamos um classificador supervisionado local, com 1.112 perguntas sintéticas de autopeças, que
+> reconhece a intenção da pergunta e, quando está confiante, passa dois exemplos ao Gemini. Foi
+> avaliado em 224 perguntas de teste escritas de formas que ele não viu, com critério definido antes:
+> acertou 87,9%, e nas sugestões que aceita a precisão é de 95%."
 
-Cada cenário do corpus possui quatro formulações relacionadas. As quatro ficam na mesma partição para evitar que uma paráfrase apareça no treino e sua equivalente no teste. As 280 formulações correspondem a 70 grupos; a quantidade efetiva de cenários independentes é menor que a quantidade de textos. Todos são sintéticos e revisados tecnicamente. Não houve coleta nem treinamento com mensagens de gestores.
+## Resultados que podem ser citados
 
-## O que os resultados permitem afirmar?
+| Medida | Validação | Teste |
+|---|---:|---:|
+| Acurácia | 84,8% | 87,9% |
+| Macro-F1 | 0,85 | 0,87 |
+| Cobertura das sugestões aceitas | 76,8% | 80,8% |
+| Precisão das sugestões aceitas | 93,6% | 95,0% |
 
-O experimento foi executado, tem artefato versionado e é reproduzível. O hiperparâmetro e o limiar foram selecionados com validação, antes de abrir o teste. A validação teve 12/28 acertos brutos; o teste teve 48/56 e macro F1 de 0,8. A classe operacional teve 0/8 acertos no teste. Esses resultados não medem correção de SQL, competência do Gemini ou satisfação do gestor.
+O critério de uso foi gravado antes do treino (precisão de pelo menos 0,90 e cobertura de pelo menos
+0,50 no teste) e foi atingido. A versão 1, com 4 formas de perguntar por cenário, teve acurácia de
+42,9% e nenhuma sugestão aceita na validação, e por isso ficou desligada.
 
-Com o limiar congelado de 0,7, nenhuma sugestão foi aceita em validação ou teste. Por isso, o classificador permanece desligado por padrão e o agente usa seu planejador genérico. A conclusão é que o protótipo demonstra o método, mas ainda precisa de outros cenários para uso operacional. Não se deve ajustar o limiar olhando esse teste e depois apresentá-lo como evidência independente.
+## Relação com a disciplina
 
-## Como o treinamento se relaciona com as respostas gerenciais?
+O fluxo usa preparação de dados, atributos, variável alvo, treino/validação/teste, escolha de
+hiperparâmetros, baseline, matriz de confusão, precisão, recall e macro-F1. Classificar uma pergunta
+**não equivale a prever** faturamento, vendas ou cancelamento. O BI implementado é descritivo: consulta
+e compara registros. Se o objetivo futuro for previsão, é outro alvo e outro protocolo, com divisão
+temporal.
 
-Quando habilitado e suficientemente confiante, o classificador pode sugerir até dois exemplos do treino ao planejador. Ele não escolhe datas, métricas, SQL, permissões ou números finais. A aplicação valida o plano; o PostgreSQL calcula diferenças, percentuais, participações, posições e desvios. O renderizador usa as células retornadas, com texto controlado em português e emojis. Uma consulta SQL pode ser executável e ainda interpretar errado o pedido; a avaliação gerencial usa referências independentes para verificar essa distinção.
+## Perguntas difíceis da banca
 
-## Se a banca perguntar sobre melhoria comprovada
+**"O classificador melhora as respostas?"** Não medimos. O que está medido é a qualidade da
+classificação. O papel dele é modesto: sugere até dois exemplos ao planejador, sem escolher métrica,
+período, SQL, permissão ou número. Uma comparação do bot com e sem classificador seria o próximo
+experimento.
 
-Não houve benefício demonstrado do classificador nesta versão. Os prompts com a classificação ligada e desligada foram iguais nos vinte exemplos de resposta de desenvolvimento conferidos localmente, porque nenhuma sugestão ultrapassou o limiar. Não repetimos uma rodada real idêntica para atribuir um ganho inexistente. As novas consultas gerenciais, os controles e a apresentação dos resultados foram implementados separadamente e têm verificações próprias.
+**"Os dados de treino são reais?"** Não: são sintéticos, gerados por moldes, e nenhuma conversa de
+gestor foi usada. Por isso não há dado pessoal no treino.
 
-## Como evoluir de forma correta?
+**"O teste é independente?"** É independente do treino (os moldes do teste nunca aparecem no treino),
+mas é sintético e foi escrito pela mesma equipe. Uma checagem informal com 22 perguntas reais deu 77% de
+acerto, abaixo dos 87,9% do teste: perguntas reais curtas e simples são mais difíceis.
 
-Ampliar cenários e diversidade linguística, especialmente operacional; submeter rótulos a revisão humana; criar novas partições por cenário; comparar alternativas na validação; congelar a decisão; avaliar uma única vez em outro reservado independente. Se o objetivo futuro for previsão de negócio, definir outro alvo e outro protocolo, com divisão temporal e histórico apropriado. Não usar dados sintéticos de outubro/2026 como fatos reais observados.
+**"Por que o resultado melhorou tanto em relação à versão 1?"** Mais formas de perguntar (24 por
+intenção, em vez de 4), domínio coerente com a base e escolha conjunta de C e limiar pela validação. O
+protocolo e uma emenda, feita olhando só a validação, estão em `training/protocol-v2.json`.
 
-Fontes do próprio projeto: [método e resultados](treinamento-intencoes.md), [relatório completo](treinamento-intencoes-resultados-v1.json), [protocolo gerencial](protocolo-avaliacao-gerencial.md), `training/fit.py` e `app/intent_classifier.py`.
+**"Qual a classe mais fraca?"** Operacional (F1 de 0,67): perguntas como "faturamento emitido versus
+recebimentos" são confundidas com comparação.
+
+**"Isso é overfitting?"** A acurácia de treino é de 100%, então o modelo memoriza o treino. A avaliação em
+moldes novos (87,9%) é o que sustenta a generalização, e ela é limitada pelo tamanho e pelo caráter
+sintético do corpus.
+
+## Como evoluir de forma correta
+
+Coletar perguntas reais de gestores (com consentimento e anonimização), rotulá-las com revisão humana,
+criar nova partição de teste independente, melhorar a classe operacional e medir o efeito no bot
+(com e sem classificador) em perguntas reais.
+
+Fontes do próprio projeto: [método e resultados](treinamento-intencoes-v2.md),
+`training/build_corpus_v2.py`, `training/fit.py`, `training/protocol-v2.json` e `app/intent_classifier.py`.
