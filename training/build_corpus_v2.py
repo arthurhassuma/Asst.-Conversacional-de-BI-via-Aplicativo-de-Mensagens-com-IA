@@ -1,7 +1,7 @@
 """Gera o corpus sintético v2 de intenções, no domínio de revenda de autopeças.
 
-Cada classe tem 14 formas de perguntar ("moldes"). Os moldes são sorteados, por classe,
-para treino (8), validação (3) e teste (3) e **nunca se repetem entre partições**: a
+Cada classe tem 24 formas de perguntar ("moldes"). Os moldes são sorteados, por classe,
+para treino (16), validação (4) e teste (4) e **nunca se repetem entre partições**: a
 validação e o teste medem perguntas escritas de um jeito que o modelo não viu, não só
 outro mês ou outra métrica no mesmo molde. Dentro de cada molde, métricas e períodos
 variam. Tudo é determinístico e sintético; nenhuma mensagem de gestor foi usada.
@@ -70,6 +70,16 @@ FRAMES = {
         "{m} {p}: qual o valor?",
         "Qual é o montante de {m} {p}?",
         "Fechamos com quanto de {m} {p}?",
+        "Me conta quanto foi {a} {p}.",
+        "Gostaria de saber {a} {p}.",
+        "Quanto registramos de {m} {p}?",
+        "Traga {a} {p}.",
+        "Preciso do valor de {m} {p} para a reunião.",
+        "Qual o número fechado de {m} {p}?",
+        "Diga quanto foi {a} {p}.",
+        "Pode confirmar {a} {p}?",
+        "Estou precisando de {m} {p}, qual o total?",
+        "Qual ficou {a} {p}?",
     ],
     "comparacao": [
         "Compare {a} de {p1} com {p2}.",
@@ -86,6 +96,16 @@ FRAMES = {
         "O que mudou em {m} de {p2} para {p1}?",
         "Compare {m} deste ano com o ano passado.",
         "{m} neste ano versus no ano passado.",
+        "{a} de {p1} foi maior ou menor que o de {p2}?",
+        "Quanto {m} cresceu ou caiu entre {p2} e {p1}?",
+        "Coloque {a} de {p1} ao lado do de {p2}.",
+        "Em relação a {p2}, como ficou {a} de {p1}?",
+        "Mostre a diferença de {m} entre {p1} e {p2}.",
+        "Avalie {a} em {p1} contra {p2}.",
+        "Houve queda de {m} em {p1} na comparação com {p2}?",
+        "Compare os dois períodos, {p1} e {p2}, em {m}.",
+        "{p1} contra {p2}: como foi {m}?",
+        "Quero saber se {m} melhorou de {p2} para {p1}.",
     ],
     "tendencia": [
         "Qual a evolução de {m} mês a mês {r}?",
@@ -102,6 +122,16 @@ FRAMES = {
         "Evolução de {m} {r}.",
         "Mês a mês, como andou {m} {r}?",
         "Quero a curva mensal de {m} {r}.",
+        "Mostre como {m} evoluiu mês a mês {r}.",
+        "Preciso do comportamento mensal de {m} {r}.",
+        "{a} em cada mês {r}, por favor.",
+        "Liste {m} mês por mês {r}.",
+        "Quero acompanhar a trajetória de {m} {r}.",
+        "Série histórica mensal de {m} {r}.",
+        "Como oscilou {m} de mês para mês {r}?",
+        "Faça um quadro mensal de {m} {r}.",
+        "Qual foi a progressão de {m} a cada mês {r}?",
+        "Mostre a linha do tempo mensal de {m} {r}.",
     ],
     "ranking": [
         "Quais os {n} maiores {gs} em {m} {p}?",
@@ -118,6 +148,16 @@ FRAMES = {
         "Ordene os {gs} por {m} {p} e mostre os {n} primeiros.",
         "Qual o ranking de {m} {p}?",
         "Quem mais contribuiu com {m} {p}? Quero os {n} primeiros.",
+        "Quem são os {n} {gs} que mais renderam em {m} {p}?",
+        "Mostre os {n} primeiros {gs} em {m} {p}.",
+        "Lista dos {n} {gs} com maior {m} {p}.",
+        "Quem está no topo em {m} {p}? Mostre {n}.",
+        "Coloque os {gs} em ordem de {m} {p}, só os {n} primeiros.",
+        "Quais são os campeões de {m} entre os {gs} {p}?",
+        "Destaque os {n} {gs} de maior {m} {p}.",
+        "Preciso do pódio de {gs} em {m} {p}.",
+        "Os {n} {gs} no alto do ranking de {m} {p}.",
+        "Quais {n} {gs} mais se destacaram em {m} {p}?",
     ],
     "segmentacao": [
         "Como se distribui {a} por {s} {p}?",
@@ -134,6 +174,16 @@ FRAMES = {
         "De onde vem {a} {p}: por {s}?",
         "Participação de {ss} no total de {m} {p}.",
         "Qual {s} concentra mais {m} {p}?",
+        "Quanto vem de cada {s} em {m} {p}?",
+        "Abra {a} por {s} {p}.",
+        "Qual a fatia de cada {s} em {m} {p}?",
+        "Mostre a proporção de {m} por {s} {p}.",
+        "{m} dividido por {s} {p}.",
+        "Como {m} se espalha pelos {ss} {p}?",
+        "Qual o peso de cada {s} em {m} {p}?",
+        "Quero ver {a} separado por {s} {p}.",
+        "Quanto do total de {m} {p} vem de cada {s}?",
+        "Agrupe {a} por {s} {p}.",
     ],
     "operacional": [
         "Compare as horas previstas com as realizadas {p}.",
@@ -150,6 +200,16 @@ FRAMES = {
         "Qual o saldo de ocorrências em aberto {p}?",
         "Como está a resolução de garantias e devoluções {p}?",
         "Previsto versus realizado em horas de atendimento {p}.",
+        "As horas de atendimento ficaram acima do previsto {p}?",
+        "Quantas garantias e devoluções foram resolvidas {p}?",
+        "Qual a taxa de resolução do pós-venda {p}?",
+        "Quanto do faturamento emitido já foi recebido {p}?",
+        "Mostre horas previstas e horas realizadas {p}.",
+        "Qual o desvio entre o previsto e o realizado de atendimento {p}?",
+        "Tem ocorrência de pós-venda aberta {p}? Quantas e qual o saldo?",
+        "Emitido menos recebido {p}: qual a diferença?",
+        "Como ficou a resolução das ocorrências {p}?",
+        "Estourou o orçamento de horas de atendimento {p}?",
     ],
     "generica": [
         "Como foram as vendas {p}?",
@@ -166,10 +226,20 @@ FRAMES = {
         "Quais clientes vão cancelar depois de {p1}?",
         "Bom dia, preciso de ajuda com os números {p}.",
         "O que devo fazer para vender mais {p}?",
+        "Me ajuda a entender os números {p}.",
+        "O que acha do desempenho {p}?",
+        "Como estamos {p}?",
+        "Qual o futuro da empresa depois de {p1}?",
+        "Vale a pena investir mais em estoque depois de {p1}?",
+        "Preciso de um resumo executivo {p}.",
+        "O que aconteceu na empresa {p}?",
+        "Quanto vamos lucrar a partir de {p1}?",
+        "Quais são os problemas da empresa {p}?",
+        "Me dá uma opinião sobre as vendas {p}.",
     ],
 }
-# Moldes de cada classe por partição: 8 treino, 3 validação, 3 teste.
-SPLIT_SIZES = (("train", 8, 10), ("validation", 3, 8), ("test", 3, 8))  # (partição, moldes, perguntas)
+# Moldes de cada classe por partição: 16 treino, 4 validação, 4 teste.
+SPLIT_SIZES = (("train", 16, 10), ("validation", 4, 8), ("test", 4, 8))  # (partição, moldes, perguntas)
 
 
 def fill(label: str, frame: str, rng: Random) -> str:
