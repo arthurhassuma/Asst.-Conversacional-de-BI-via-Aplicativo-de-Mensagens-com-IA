@@ -126,7 +126,12 @@ def merge_groupable_answers(answers: list[str], evidences: list[dict]) -> list[s
                 break
             group.append((next_result, next_context))
             end += 1
-        merged.append(render_managerial_group(group) if len(group) > 1 else answers[index])
+        try:
+            merged.append(render_managerial_group(group) if len(group) > 1 else answers[index])
+        except InvalidAnswer:
+            # O grupo junto passa do limite, mas cada resposta já foi montada sozinha:
+            # entregue-as separadas em vez de falhar a pergunta inteira.
+            merged.extend(answers[index:end])
         index = end
     return merged
 
@@ -428,6 +433,8 @@ class BIAgent:
             unit = (
                 "BRL"
                 if plan["measure"] == "valor"
+                else "percentual"
+                if plan["measure"] == "taxa_resolucao"
                 else "horas"
                 if plan["metric"] == "horas"
                 else "quantidade"
