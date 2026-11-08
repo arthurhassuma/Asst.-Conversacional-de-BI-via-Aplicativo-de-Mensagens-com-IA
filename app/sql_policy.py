@@ -106,11 +106,22 @@ def walk(value):
 
 
 def validate_relations(value, visible_ctes=frozenset()):
-    """CTE autoriza referências só dentro do seu escopo lexical, nunca em irmãos."""
+    """CTE autoriza referências só dentro do seu escopo lexical, nunca em irmãos.
+
+    Num WITH não recursivo, o corpo de cada CTE enxerga apenas os CTEs anteriores e os do
+    escopo externo: o próprio nome e os seguintes caem na relação real do search_path
+    (pg_catalog primeiro). Só a consulta principal enxerga todos eles.
+    """
     if isinstance(value, dict):
         if value.get("@") == "SelectStmt":
-            clause = value.get("withClause") or {}
-            visible_ctes = visible_ctes | {cte["ctename"] for cte in clause.get("ctes") or []}
+            scope = visible_ctes
+            for cte in (value.get("withClause") or {}).get("ctes") or []:
+                validate_relations(cte, scope)
+                scope = scope | {cte["ctename"]}
+            for key, child in value.items():
+                if key != "withClause":
+                    validate_relations(child, scope)
+            return
         if value.get("@") == "RangeVar":
             schema = value.get("schemaname")
             allowed = TABLES if schema else TABLES | visible_ctes
