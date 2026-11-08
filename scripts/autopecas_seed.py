@@ -304,15 +304,23 @@ def generate_autopecas_data(seed: int, clients: int, start: str, end: str) -> di
             if contract["inicio"].day == 1 or not first_month:
                 opened = sum(rng.random() < 0.06 for _ in range(count))
                 planned = (2 if project else 4) + 2 * count + rng.randint(0, 4)
+                performed_pct = rng.randint(78, 128)
+                rate = rng.randint(70, 98)
+                # Cada ocorrência é sorteada à parte, num gerador próprio: com poucas por mês,
+                # opened * rate // 100 zerava quase todas as resolvidas (taxa perto de 10%).
+                # Manter a ordem dos sorteios acima e usar outro gerador aqui preserva todo
+                # o resto da base, que já está implantada.
+                resolver = Random(f"{seed}-{contract['id']}-{month:%Y%m}")
+                resolved = sum(resolver.random() * 100 < rate for _ in range(opened))
                 data["indicadores_operacionais"].append(
                     dict(
                         id=len(data["indicadores_operacionais"]) + 1,
                         contrato_id=contract["id"],
                         competencia=month,
                         horas_previstas=Decimal(planned),
-                        horas_realizadas=Decimal(planned * rng.randint(78, 128)) / 100,
+                        horas_realizadas=Decimal(planned * performed_pct) / 100,
                         chamados_abertos=opened,
-                        chamados_resolvidos=opened * rng.randint(70, 98) // 100,
+                        chamados_resolvidos=resolved,
                     )
                 )
         # O valor contratado é o previsto: sempre cobre o que foi pedido.

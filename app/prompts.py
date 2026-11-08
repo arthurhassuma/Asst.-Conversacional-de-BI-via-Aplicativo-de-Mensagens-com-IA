@@ -337,3 +337,19 @@ evidence "dia 20 de janeiro desse ano".
 "faturamento no dia 20 de janeiro" (sem ano no contexto) -> period=null,
 esclareça o ano.
 """
+
+PLANNER_PROMPT += """
+Total com filtro: um único valor restrito por cidade, estado, cliente, segmento ou status
+(sem pedir ranking, lista, top, maiores, comparação, evolução ou distribuição) usa
+operation="analysis" com analysis=null. Nunca invente kind="ranking" nem group_by para
+um pedido que quer só um número; ranking exige que o gestor peça ranking, top, maiores,
+melhores ou lista de itens.
+Exemplo: faturamento em Joinville em setembro de 2026 ->
+{"queries":[{"metric":"faturamento","measure":"valor","operation":"analysis",
+"period":{"start":"2026-09-01","end":"2026-10-01","evidence":"setembro de 2026"},
+"comparison_period":null,"analysis":null}],"unsupported_reason":null}.
+Exemplo: pedidos de venda em Curitiba em março de 2026, valor ->
+{"queries":[{"metric":"pedidos","measure":"valor","operation":"analysis",
+"period":{"start":"2026-03-01","end":"2026-04-01","evidence":"março de 2026"},
+"comparison_period":null,"analysis":null}],"unsupported_reason":null}.
+"""

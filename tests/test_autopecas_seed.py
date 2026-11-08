@@ -126,3 +126,14 @@ def test_only_schema_allowed_values_are_generated(data):
 def test_too_few_clients_for_the_monthly_registrations_is_rejected():
     with pytest.raises(ValueError, match="exige entre"):
         generate_data(seed=42, clients=40, profile="autopecas")
+
+
+def test_after_sales_resolution_rate_is_realistic(data):
+    # Regressão: o arredondamento para baixo deixava a taxa de resolução perto de 10%.
+    rows = data["indicadores_operacionais"]
+    opened = sum(r["chamados_abertos"] for r in rows)
+    resolved = sum(r["chamados_resolvidos"] for r in rows)
+    assert opened > 300
+    assert 0.75 <= resolved / opened <= 0.95
+    sept = [r for r in rows if (r["competencia"].year, r["competencia"].month) == (2026, 9)]
+    assert sum(r["chamados_resolvidos"] for r in sept) >= 10

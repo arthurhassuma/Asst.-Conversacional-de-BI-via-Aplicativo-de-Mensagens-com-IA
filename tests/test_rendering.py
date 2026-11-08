@@ -138,4 +138,19 @@ def test_aggregate_absence_requires_row_count_not_just_null_or_zero(total, count
     if absent:
         assert "não informado" not in text
     else:
-        assert f"Total: {'não informado' if total is None else total}" in text
+        assert f"Valor: {'não informado' if total is None else total}" in text
+
+
+def test_single_free_sql_value_is_one_labeled_line_without_repeating_the_measure():
+    text = render_answer(
+        {"kind": "answer", "result_id": "q1"},
+        {"q1": {"columns": ["quantidade", "registros"], "rows": [[1, 1]], "truncated": False}},
+        "clientes",
+        {"start": "2026-10-01", "end": "2026-11-01"},
+        "quantidade",
+    )
+    assert text.splitlines() == [
+        "📊 Resultado de clientes",
+        "Período: 01/10/2026 a 31/10/2026",
+        "Quantidade: 1",
+    ]
