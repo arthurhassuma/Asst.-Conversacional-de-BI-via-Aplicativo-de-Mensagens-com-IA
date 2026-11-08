@@ -7,9 +7,11 @@ from app.monthly_comparisons import monthly_decline_request
 from app.relative_periods import (
     comparable_previous_end,
     current_date,
+    month_numbers,
     normalize_relative_plan,
     relative_info,
     resolved_period,
+    single_month,
 )
 
 MONTHS = (
@@ -117,6 +119,21 @@ def validate_period(period: dict, messages: list[dict], *, today=None) -> dict:
             allowed = {(expected["start"], expected["end"])}
             if "exact" not in info and info["offset"] == -1 and info["month"] is None:
                 allowed.add((expected["start"], comparable_previous_end(anchor).isoformat()))
+            if "exact" not in info and info["month"] is None:
+                # Mês fixado antes na conversa ("agosto de 2026") e reaproveitado no
+                # ano relativo: aceito só se o próprio gestor nomeou esse mês.
+                carried = single_month(period)
+                named = set().union(
+                    *(
+                        month_numbers(m["content"])
+                        for m in messages
+                        if m.get("role") == "user" and isinstance(m.get("content"), str)
+                    )
+                )
+                if carried in named and date.fromisoformat(period["start"]).year == (
+                    anchor.year + info["offset"]
+                ):
+                    allowed.add((period["start"], period["end"]))
             if (period["start"], period["end"]) not in allowed:
                 raise ValueError
     except (KeyError, TypeError, ValueError):

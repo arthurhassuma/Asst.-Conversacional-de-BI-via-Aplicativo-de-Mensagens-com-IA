@@ -46,8 +46,33 @@ def month_numbers(text):
     }
 
 
+RANGE_WORDS = re.compile(r"\b(?:ate|desde|entre)\b")
+DAY_WORDS = re.compile(r"\b(?:anteontem|ontem|hoje)\b")
+
+
+def is_single_day_expression(evidence):
+    """Só uma expressão de dia, sem outro limite, mês ou palavra de intervalo.
+
+    "ontem até hoje", "de janeiro até hoje" e "01/02/2026 a 15/02/2026" são intervalos:
+    reduzi-los a um dia devolveria um total errado sem avisar o gestor.
+    """
+    text = plain(evidence)
+    expressions = (
+        len(DAY_WORDS.findall(text))
+        + len(EXPLICIT_DATE.findall(evidence))
+        + len(NAMED_DAY.findall(text))
+    )
+    if expressions != 1 or RANGE_WORDS.search(text):
+        return False
+    named = NAMED_DAY.search(text)
+    # O mês de "dia 20 de janeiro" pertence à própria expressão; qualquer outro, não.
+    return len(month_numbers(text)) <= (1 if named else 0)
+
+
 def exact_day(evidence, today):
     """Resolve hoje/ontem/anteontem e datas de um único dia, explícitas ou nomeadas."""
+    if not is_single_day_expression(evidence):
+        return None
     text = plain(evidence)
     if re.search(DAY_BEFORE_YESTERDAY_WORD, text):
         return today - timedelta(days=2)
@@ -114,6 +139,16 @@ def relative_info(period, messages, today):
     return {"offset": 0 if current else -1, "month": next(iter(months), None)}
 
 
+def single_month(period):
+    """Mês de um período que cobre exatamente um mês de calendário, senão None."""
+    try:
+        start, end = date.fromisoformat(period["start"]), date.fromisoformat(period["end"])
+    except (KeyError, TypeError, ValueError):
+        return None
+    following = date(start.year + (start.month == 12), start.month % 12 + 1, 1)
+    return start.month if start.day == 1 and end == following else None
+
+
 def comparable_previous_end(today):
     year = today.year - 1
     day = min(today.day, calendar.monthrange(year, today.month)[1])
@@ -153,6 +188,14 @@ def normalize_relative_plan(plan, messages, today=None):
         exact = any("exact" in (info or {}) for info in infos.values())
         analysis = query.get("analysis") or {}
         comparison = isinstance(analysis, dict) and analysis.get("kind") == "comparacao"
+        if comparison and not exact:
+            # "Compara com o ano passado" depois de fixar um mês: o mês está no outro
+            # período do plano ("agosto de 2026"), não na evidência relativa.
+            for field, other in (("period", "comparison_period"), ("comparison_period", "period")):
+                info = infos[field]
+                month = single_month(query.get(other) or {})
+                if info and info["month"] is None and month and not infos[other]:
+                    infos[field] = {**info, "month": month}
         pair = (
             comparison
             and not exact

@@ -198,3 +198,77 @@ async def test_portuguese_start_commands_are_handled_without_model(command):
     )
     await service.process(update(text=command))
     assert sender.sent[0][1].startswith("Olá!")
+
+
+def total_plan(start, end, evidence):
+    plan = query(evidence)
+    plan["period"] = {"start": start, "end": end, "evidence": evidence}
+    return {"queries": [plan]}
+
+
+@pytest.mark.parametrize(
+    "message,evidence,start,end",
+    [
+        ("faturamento de ontem até hoje", "ontem até hoje", "2026-10-11", "2026-10-13"),
+        ("faturamento de 01/02/2026 a 15/02/2026", "01/02/2026 a 15/02/2026", "2026-02-01", "2026-02-16"),
+        ("pedidos entre 05/03/2025 e 10/03/2025", "05/03/2025 e 10/03/2025", "2025-03-05", "2025-03-11"),
+        ("faturamento de hoje e ontem", "hoje e ontem", "2026-10-11", "2026-10-13"),
+    ],
+)
+def test_range_with_a_day_expression_is_not_collapsed_to_one_day(message, evidence, start, end):
+    messages = [{"role": "user", "content": message}]
+    plan = total_plan(start, end, evidence)
+    resolved = normalize_relative_plan(plan, messages, TODAY)
+    assert resolved == plan
+
+
+def test_numeric_date_range_is_accepted_but_a_vague_range_asks_for_the_period():
+    numeric = [{"role": "user", "content": "faturamento de 01/02/2026 a 15/02/2026"}]
+    period = total_plan("2026-02-01", "2026-02-16", "01/02/2026 a 15/02/2026")["queries"][0]["period"]
+    validate_period(period, numeric, today=TODAY)
+    vague = [{"role": "user", "content": "faturamento de janeiro até hoje"}]
+    period = total_plan("2026-01-01", "2026-10-13", "de janeiro até hoje")["queries"][0]["period"]
+    with pytest.raises(ValueError):  # vira pergunta de esclarecimento, nunca um dia só
+        validate_period(period, vague, today=TODAY)
+
+
+def month_comparison(base, current):
+    return {
+        "queries": [
+            {
+                **query(base[2], comparison=current[2]),
+                "period": {"start": base[0], "end": base[1], "evidence": base[2]},
+                "comparison_period": {"start": current[0], "end": current[1], "evidence": current[2]},
+            }
+        ]
+    }
+
+
+def test_compare_with_last_year_keeps_the_month_fixed_earlier_in_the_conversation():
+    messages = [
+        {"role": "user", "content": "contratos em agosto de 2026"},
+        {"role": "assistant", "content": "resposta"},
+        {"role": "user", "content": "compara com o ano passado"},
+    ]
+    plan = month_comparison(
+        ("2025-08-01", "2025-09-01", "ano passado"),
+        ("2026-08-01", "2026-09-01", "agosto de 2026"),
+    )
+    result = normalize_relative_plan(plan, messages, TODAY)["queries"][0]
+    assert (result["period"]["start"], result["period"]["end"]) == ("2025-08-01", "2025-09-01")
+    assert (result["comparison_period"]["start"], result["comparison_period"]["end"]) == (
+        "2026-08-01",
+        "2026-09-01",
+    )
+    validate_analysis(result, messages, today=TODAY)
+
+
+def test_compare_with_last_year_still_means_the_whole_year_when_no_month_is_involved():
+    messages = [{"role": "user", "content": "compare o faturamento do ano passado com este ano"}]
+    plan = month_comparison(
+        ("2025-01-01", "2026-01-01", "ano passado"),
+        ("2026-01-01", "2026-10-13", "este ano"),
+    )
+    result = normalize_relative_plan(plan, messages, TODAY)["queries"][0]
+    assert result["period"]["start"] == "2025-01-01"
+    assert result["period"]["end"] == "2025-10-13"  # mesmo corte do ano atual
