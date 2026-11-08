@@ -125,8 +125,9 @@ def test_simple_total_business_rules_against_independent_rows(settings, metric, 
             if metric == "horas":
                 expected = sum(row[1] for row in selected)
             else:
-                expected = Decimal(sum(row[3] for row in selected)) / sum(
-                    row[2] for row in selected
+                # O total devolve pontos percentuais (85,71), não a razão (0,8571).
+                expected = (
+                    Decimal(sum(row[3] for row in selected)) * 100 / sum(row[2] for row in selected)
                 )
     result = DatabaseTools(settings).execute_sql(
         total_query(
@@ -139,4 +140,4 @@ def test_simple_total_business_rules_against_independent_rows(settings, metric, 
     )
     assert "error" not in result
     assert result["rows"][0][1] == count > 0
-    assert abs(Decimal(result["rows"][0][0]) - expected) < Decimal("1e-16")
+    assert abs(Decimal(result["rows"][0][0]) - expected) < Decimal("1e-14")

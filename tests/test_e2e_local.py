@@ -112,7 +112,7 @@ async def test_webhook_to_postgres_to_telegram_with_simulated_external_apis():
                 await app.state.queue.join()
     assert telegram_messages == [
         f"📊 Resultado para quantidade de clientes: {expected}."
-        "\nPeríodo: 01/01/2023 a 31/12/2023."
+        "\nPeríodo: 01/01/2023 a 31/12/2023"
     ]
     tool_result = model_requests[-1]["contents"][-1]["parts"][0]["functionResponse"]
     assert tool_result["response"]["rows"] == [[expected]]
@@ -156,6 +156,6 @@ async def test_composite_question_uses_postgres_counts_and_preserves_each_metric
         formatted = (
             format(expected[1][0], ",f").replace(",", "_").replace(".", ",").replace("_", ".")
         )
-        assert f"Total: R$ {formatted}" in revenue
+        assert f"Valor: R$ {formatted}" in revenue
     if year == 2027:
         assert expected == [(0, 0), (None, 0)]
