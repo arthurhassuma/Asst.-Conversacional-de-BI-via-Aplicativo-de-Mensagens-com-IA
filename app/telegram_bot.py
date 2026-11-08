@@ -11,14 +11,36 @@ from telegram.error import TelegramError
 from app.cli_support import PortugueseArgumentParser
 from app.config import Settings
 
+# O backend recusou o conteúdo do update; reenviá-lo nunca terá outro resultado. Já 401/403
+# (segredo errado) e 5xx são problemas de configuração ou temporários: seguem em nova tentativa.
+PERMANENT_REJECTIONS = frozenset({400, 413, 422})
+
 
 async def forward_update(client, update, backend_url, secret):
+    """Encaminha ao backend; devolve o status se ele recusou o update de forma permanente."""
     result = await client.post(
         backend_url + "/telegram/webhook",
         json=update.to_dict(),
         headers={"X-Telegram-Bot-Api-Secret-Token": secret},
     )
+    if result.status_code in PERMANENT_REJECTIONS:
+        return result.status_code
     result.raise_for_status()
+    return None
+
+
+async def forward_updates(client, updates, backend_url, secret):
+    """Encaminha o lote em ordem e devolve o próximo offset a cada update tratado.
+
+    Falha temporária propaga sem avançar o offset daquele update; os anteriores já foram
+    entregues. Recusa permanente é registrada e o update é descartado, senão um único
+    update ruim travaria o bot para todos os gestores.
+    """
+    for update in updates:
+        rejected = await forward_update(client, update, backend_url, secret)
+        if rejected:
+            print(f"Update {update.update_id} recusado pelo backend (HTTP {rejected}); ignorado.")
+        yield update.update_id + 1
 
 
 async def run(command, backend_url):
@@ -59,10 +81,8 @@ async def run(command, backend_url):
                     updates = await bot.get_updates(
                         offset=offset, timeout=25, allowed_updates=["message"]
                     )
-                    for update in updates:
-                        # Não avança o offset se o backend não aceitar a mensagem.
-                        await forward_update(client, update, backend_url, secret)
-                        offset = update.update_id + 1
+                    async for offset in forward_updates(client, updates, backend_url, secret):
+                        pass
                 except (TelegramError, httpx.HTTPError):
                     print("Falha temporária de conexão. Tentando novamente.")
                     await asyncio.sleep(3)

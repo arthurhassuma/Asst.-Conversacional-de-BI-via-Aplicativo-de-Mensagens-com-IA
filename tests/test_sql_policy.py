@@ -53,3 +53,31 @@ def test_cte_in_subquery_does_not_authorize_outer_table():
         validate_select(
             "SELECT * FROM segredo, (WITH segredo AS (SELECT 1) SELECT * FROM segredo) x"
         )
+
+
+@pytest.mark.parametrize(
+    "sql",
+    [
+        # O corpo do CTE não enxerga o próprio nome: cai em pg_catalog.pg_roles.
+        "WITH pg_roles AS (SELECT * FROM pg_roles) SELECT * FROM pg_roles",
+        # Nem os irmãos seguintes: "pg_settings" ainda não existe quando x é resolvido.
+        "WITH x AS (SELECT * FROM pg_settings), pg_settings AS (SELECT 1) SELECT * FROM x",
+        "WITH a AS (SELECT * FROM b), b AS (SELECT id FROM clientes) SELECT * FROM a",
+    ],
+)
+def test_cte_cannot_shadow_a_catalog_relation_through_its_own_or_a_later_name(sql):
+    with pytest.raises(UnsafeQuery):
+        validate_select(sql)
+
+
+@pytest.mark.parametrize(
+    "sql",
+    [
+        "WITH a AS (SELECT id FROM clientes), b AS (SELECT id FROM a) SELECT count(*) FROM b",
+        "WITH a AS (SELECT id FROM clientes) SELECT count(*) FROM (SELECT id FROM a) x",
+        "WITH a AS (SELECT id FROM clientes), b AS (WITH c AS (SELECT id FROM a) SELECT id FROM c)"
+        " SELECT count(*) FROM b JOIN a USING (id)",
+    ],
+)
+def test_earlier_and_outer_ctes_remain_visible(sql):
+    assert validate_select(sql).startswith("WITH")
