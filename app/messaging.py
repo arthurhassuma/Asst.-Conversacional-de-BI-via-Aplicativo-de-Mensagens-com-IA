@@ -7,6 +7,7 @@ from telegram import ReplyKeyboardMarkup, ReplyKeyboardRemove, Update
 from telegram.error import NetworkError, RetryAfter
 
 from app.bi_agent import FAILURE
+from app.rendering import METRICS
 from app.sessions import SessionsBusy
 
 logger = logging.getLogger(__name__)
@@ -18,27 +19,25 @@ def clarification_keyboard(text):
         return ReplyKeyboardMarkup(
             [
                 ["Faturamento emitido", "Recebimentos"],
-                ["Pedidos", "Contratos", "Clientes"],
-                ["Horas", "Chamados"],
+                ["Pedidos de venda", "Contratos", "Clientes"],
+                ["Horas de atendimento", "Pós-venda"],
             ],
             resize_keyboard=True,
             one_time_keyboard=True,
             input_field_placeholder="Escolha a métrica",
         )
+    # O prefixo vem de METRICS: é o mesmo texto que o agente usa ao pedir a medida.
     choices = {
-        "Para pedidos de serviços,": [["Valor", "Quantidade", "Ambos"]],
-        "Para contratos,": [["Valor", "Quantidade", "Ambos"]],
-        "Para horas de trabalho,": [["Horas previstas", "Horas realizadas"], ["Ambas"]],
-        "Para chamados operacionais,": [
-            ["Chamados abertos", "Chamados resolvidos"],
-            ["Taxa de resolução"],
-        ],
-        "Para clientes,": [["Quantidade de clientes"]],
-        "Para faturamento emitido,": [["Valor total emitido"]],
-        "Para recebimentos,": [["Valor total recebido"]],
+        "pedidos": [["Valor", "Quantidade", "Ambos"]],
+        "contratos": [["Valor", "Quantidade", "Ambos"]],
+        "horas": [["Horas previstas", "Horas realizadas"], ["Ambas"]],
+        "chamados": [["Ocorrências abertas", "Ocorrências resolvidas"], ["Taxa de resolução"]],
+        "clientes": [["Quantidade de clientes"]],
+        "faturamento": [["Valor total emitido"]],
+        "recebimentos": [["Valor total recebido"]],
     }
-    for prefix, keyboard in choices.items():
-        if text.removeprefix("💬 ").startswith(prefix):
+    for metric, keyboard in choices.items():
+        if text.removeprefix("💬 ").startswith(f"Para {METRICS[metric]},"):
             return ReplyKeyboardMarkup(
                 keyboard,
                 resize_keyboard=True,

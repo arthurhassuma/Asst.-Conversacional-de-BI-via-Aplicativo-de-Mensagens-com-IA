@@ -1,4 +1,5 @@
 -- Dados inteiramente sintéticos. Execute com o proprietário administrativo.
+-- Domínio: revenda de autopeças. Nomes de tabelas e colunas são mantidos por compatibilidade.
 CREATE TABLE clientes (
     id integer PRIMARY KEY,
     nome varchar(160) NOT NULL,
@@ -60,8 +61,12 @@ CREATE INDEX ON faturamento(emissao);
 CREATE INDEX ON faturamento(pagamento) WHERE pagamento IS NOT NULL;
 CREATE INDEX ON indicadores_operacionais(competencia);
 
-COMMENT ON TABLE clientes IS 'Empresas fictícias B2B, sem identificação fiscal ou contato real.';
-COMMENT ON TABLE contratos IS 'Escopo contratado. Valor contratado não equivale a receita faturada.';
-COMMENT ON TABLE pedidos IS 'Pedidos de serviços vinculados ao contrato, por data de aprovação.';
-COMMENT ON TABLE faturamento IS 'Documentos sintéticos. Faturamento usa emissão e exclui canceladas; recebimentos usam pagamento e status paga.';
-COMMENT ON TABLE indicadores_operacionais IS 'Medições mensais por contrato. Taxa de resolução = soma resolvidos / soma abertos.';
+COMMENT ON TABLE clientes IS 'Clientes B2B da revenda de autopeças (oficinas, auto elétricas, funilarias, autocenters, frotas, retíficas e lojas). Dados sintéticos, sem identificação fiscal ou contato real.';
+COMMENT ON TABLE contratos IS 'Contratos de fornecimento. Modalidade sustentacao = reposição recorrente de peças; projeto = fornecimento pontual por demanda. Valor contratado não equivale a receita faturada.';
+COMMENT ON TABLE pedidos IS 'Pedidos de venda de peças vinculados ao contrato de fornecimento, por data de aprovação.';
+COMMENT ON TABLE faturamento IS 'Notas fiscais sintéticas. Faturamento usa emissão e exclui canceladas; recebimentos usam pagamento e status paga.';
+COMMENT ON TABLE indicadores_operacionais IS 'Medições mensais por contrato: horas de atendimento (balcão e televendas) e ocorrências de pós-venda (garantias, trocas e devoluções). Taxa de resolução = soma resolvidos / soma abertos.';
+COMMENT ON COLUMN indicadores_operacionais.horas_previstas IS 'Horas de atendimento previstas no mês.';
+COMMENT ON COLUMN indicadores_operacionais.horas_realizadas IS 'Horas de atendimento efetivamente realizadas no mês.';
+COMMENT ON COLUMN indicadores_operacionais.chamados_abertos IS 'Ocorrências de pós-venda (garantia, troca, devolução) abertas no mês.';
+COMMENT ON COLUMN indicadores_operacionais.chamados_resolvidos IS 'Ocorrências de pós-venda da mesma coorte do mês que já foram resolvidas.';

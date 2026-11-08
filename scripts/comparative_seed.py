@@ -234,8 +234,16 @@ def generate_comparative_data(
     return data
 
 
-def coverage_report(data: dict, start: str = "2025-01", end: str = "2026-10") -> dict:
-    """Confere presença mensal e todos os status antes de publicar os totais."""
+def coverage_report(
+    data: dict,
+    start: str = "2025-01",
+    end: str = "2026-10",
+    *,
+    required: dict[str, set[str]] | None = None,
+    profile: str = "comparativo-v1",
+) -> dict:
+    """Confere presença mensal e os status exigidos em cada mês antes de publicar os totais."""
+    required = STATUSES if required is None else required
     months = month_range(start, end)
     monthly = []
     for month in months:
@@ -247,7 +255,7 @@ def coverage_report(data: dict, start: str = "2025-01", end: str = "2026-10") ->
         for name, rows in groups.items():
             if not rows:
                 raise ValueError(f"Cobertura ausente em {name}, competência {month:%Y-%m}.")
-            if name in STATUSES and {r["status"] for r in rows} != STATUSES[name]:
+            if required.get(name) and not required[name] <= {r["status"] for r in rows}:
                 raise ValueError(f"Status incompletos em {name}, competência {month:%Y-%m}.")
         paid = [
             r
@@ -285,7 +293,7 @@ def coverage_report(data: dict, start: str = "2025-01", end: str = "2026-10") ->
             }
         )
     return {
-        "perfil": "comparativo-v1",
+        "perfil": profile,
         "inicio": start,
         "fim": end,
         "meses": len(months),

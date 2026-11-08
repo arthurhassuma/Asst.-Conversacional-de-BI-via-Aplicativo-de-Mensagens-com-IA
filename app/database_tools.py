@@ -92,6 +92,12 @@ class DatabaseTools:
                 "Pedidos: soma valor por data_pedido, exceto cancelado. "
                 "Contratos: valor_contratado; não somar após joins multiplicadores. "
                 "Competência operacional mensal; taxa = soma resolvidos / soma abertos. "
+                "Domínio: revenda de autopeças que vende a oficinas, frotas e lojas. "
+                "Pedidos são pedidos de venda de peças; contratos são contratos de fornecimento "
+                "(sustentacao = reposição recorrente, projeto = fornecimento pontual); "
+                "faturamento são notas fiscais; horas_previstas/horas_realizadas são horas de "
+                "atendimento; chamados_abertos/chamados_resolvidos são ocorrências de pós-venda "
+                "(garantias, trocas e devoluções). "
                 "Moeda BRL. Todas as datas e empresas são sintéticas.",
             }
         except (psycopg.Error, ValueError):

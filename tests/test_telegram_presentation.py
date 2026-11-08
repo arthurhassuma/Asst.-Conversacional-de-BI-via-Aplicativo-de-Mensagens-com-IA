@@ -50,7 +50,7 @@ async def test_choice_button_uses_same_conversation_and_keyboard_is_removed_afte
         async def answer(self, text, history):
             self.calls.append((text, history))
             reply = (
-                "💬 Para pedidos de serviços, você deseja o valor ou a quantidade? Pode pedir ambos."
+                "💬 Para pedidos de venda, você deseja o valor ou a quantidade? Pode pedir ambos."
                 if len(self.calls) == 1
                 else "Resultado dos pedidos."
             )

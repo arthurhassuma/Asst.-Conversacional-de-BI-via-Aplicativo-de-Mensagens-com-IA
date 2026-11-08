@@ -8,7 +8,7 @@ Veja [publicação e verificação atual](docs/publicacao-github.md), [testes au
 
 Revisão de 10/10/2026: [comparação com a proposta aprovada](docs/comparacao-proposta.md) e [verificação da continuidade](docs/verificacao-2026-10-10.md). Foram aprovados 77 testes com PostgreSQL real e APIs externas simuladas. A conexão Gemini/Telegram em outro ambiente foi informada pelo usuário; não foi reproduzida com credenciais externas nesta revisão.
 
-MVP acadêmico em português do Brasil: **Telegram → FastAPI → Gemini → PostgreSQL 16**. Base B2B integralmente sintética, inspirada em serviços de desenvolvimento de software. A continuidade autorizada até a entrega final inclui 40 casos de avaliação, experimentos reais com Gemini, aceite declarado do gestor e relatório final. As limitações medidas e as providências institucionais estão no índice da entrega.
+MVP acadêmico em português do Brasil: **Telegram → FastAPI → Gemini → PostgreSQL 16**. Base B2B integralmente sintética. Os perfis originais eram inspirados em serviços de software; desde 07/11/2026 o domínio de apresentação é uma **revenda de autopeças** de porte pequeno a médio (perfil `autopecas`, veja abaixo). A continuidade autorizada até a entrega final inclui 40 casos de avaliação, experimentos reais com Gemini, aceite declarado do gestor e relatório final. As limitações medidas e as providências institucionais estão no índice da entrega.
 
 O provedor foi alterado de Anthropic para Gemini por decisão do usuário para usar a cota gratuita. A proposta original permanece preservada. Veja a [justificativa e detalhes da migração](docs/migracao-gemini.md).
 
@@ -63,6 +63,21 @@ bi-db validate
 Use `bi-db seed --profile original-v2 --seed 42 --clients 30` para uma base com os mesmos 30 clientes e contratos 2024/2025 do perfil original, mas com pedidos distribuídos em qualquer dia do mês (não só dia 5), descrições variadas por pedido/contrato e valores com flutuação mensal em vez de repetidos. `bi-db seed --profile original-v2 ...` audita automaticamente a variedade (dias, descrições e valores distintos) antes de aceitar a carga; o perfil `original` continua inalterado porque alimenta a avaliação congelada de 40 casos.
 
 Da mesma forma, `bi-db seed --profile comparativo-v2 --clients 100 --seed 42 --start-month 2025-01 --end-month 2026-10` preserva os 100 clientes, 22 meses e todas as regras de cobertura mensal/status do perfil `comparativo`, mas espalha os pedidos pelo mês inteiro (em vez de só dias 2 a 18) e varia as descrições de pedidos e contratos. O perfil `comparativo` original também fica intocado, porque `docs/base-comparativa.md` publica um hash SHA256 do conteúdo gerado por ele.
+
+### Perfil `autopecas` e formato das respostas (07/11/2026)
+
+Para a apresentação use a base de revenda de autopeças. São 100 clientes sintéticos com perfil de nicho (oficinas, auto elétricas, funilarias, autocenters, frotas, retíficas e lojas, sem o prefixo "Empresa Fictícia"), 22 meses e escala de empresa pequena-média: em média R$ 350–410 mil e 320–360 pedidos por mês, com ticket médio perto de R$ 1.100.
+
+```powershell
+bi-db init
+bi-db seed --profile autopecas --clients 100 --seed 42 --start-month 2025-01 --end-month 2026-10
+bi-db validate
+bi-db coverage --profile autopecas
+```
+
+O schema não mudou; só o significado de negócio, descrito em [dicionário de dados](docs/dicionario-de-dados.md): pedidos são pedidos de venda, contratos são contratos de fornecimento, horas são horas de atendimento e chamados são ocorrências de pós-venda (garantias, trocas e devoluções). O planejador aceita as duas formas ("chamados" e "ocorrências"). Os perfis anteriores continuam disponíveis para reproduzir a avaliação congelada. Para trocar a base da VM Oracle, veja [Trocar o banco pelo perfil autopecas](deploy/oracle/README.md).
+
+As respostas passaram a ter um único formato: cabeçalho, período uma vez e uma linha por medida (`Valor: R$ …`, `Quantidade: 295 pedidos`); rankings são listas numeradas sem o identificador interno do cliente; dia único aparece como `05/11/2026`. O texto é montado em `app/managerial_rendering.py` e `app/rendering.py` apenas a partir das células do SQL.
 
 ## CLI local
 

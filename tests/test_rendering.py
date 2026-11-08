@@ -31,7 +31,7 @@ def test_numeric_alias_is_not_printed_and_empty_does_not_imply_zero():
         "pedidos",
     )
     assert "999" not in text
-    assert "Nenhum registro" in text
+    assert "Não encontrei registros" in text
     assert "0" not in text
 
 
@@ -132,7 +132,7 @@ def test_aggregate_absence_requires_row_count_not_just_null_or_zero(total, count
         {"start": "2026-09-01", "end": "2026-10-01"},
         "valor",
     )
-    assert ("Nenhum registro" in text) is absent
+    assert ("Não encontrei registros" in text) is absent
     assert "01/09/2026 a 30/09/2026" in text
     assert "Campo:" not in text
     if absent:

@@ -8,6 +8,8 @@ from psycopg import sql
 
 from app.cli_support import PortugueseArgumentParser
 from app.config import Settings
+from scripts.autopecas_seed import PROFILE as AUTOPECAS_PROFILE
+from scripts.autopecas_seed import REQUIRED_STATUSES as AUTOPECAS_STATUSES
 from scripts.comparative_seed import TABLE_DATES, coverage_report
 from scripts.seed import day_coverage_report, generate_data
 
@@ -51,6 +53,10 @@ def seed_database(
     )
     if profile in ("comparativo", "comparativo-v2"):
         coverage_report(data, start_month, end_month)
+    if profile == "autopecas":
+        coverage_report(
+            data, start_month, end_month, required=AUTOPECAS_STATUSES, profile=AUTOPECAS_PROFILE
+        )
     if profile in ("original-v2", "comparativo-v2"):
         day_coverage_report(data)
     with conn.cursor() as cur:
@@ -65,7 +71,7 @@ def seed_database(
     return {table: len(rows) for table, rows in data.items()}
 
 
-def database_coverage(conn, start: str = "2025-01", end: str = "2026-10"):
+def database_coverage(conn, start: str = "2025-01", end: str = "2026-10", profile: str = ""):
     """Auditoria administrativa da base comparativa, sem usar a API de IA."""
     from psycopg.rows import dict_row
 
@@ -75,6 +81,10 @@ def database_coverage(conn, start: str = "2025-01", end: str = "2026-10"):
         for table in TABLE_DATES:
             cur.execute(sql.SQL("SELECT * FROM {} ORDER BY id").format(sql.Identifier(table)))
             data[table] = cur.fetchall()
+    if profile == "autopecas":
+        return coverage_report(
+            data, start, end, required=AUTOPECAS_STATUSES, profile=AUTOPECAS_PROFILE
+        )
     return coverage_report(data, start, end)
 
 
@@ -109,11 +119,11 @@ def main():
         "--clients",
         type=int,
         default=None,
-        help="Padrão: 30 no perfil original, 100 no comparativo.",
+        help="Padrão: 30 nos perfis original e original-v2; 100 nos demais.",
     )
     parser.add_argument(
         "--profile",
-        choices=["original", "original-v2", "comparativo", "comparativo-v2"],
+        choices=["original", "original-v2", "comparativo", "comparativo-v2", "autopecas"],
         default="original",
     )
     parser.add_argument("--start-month", default="2025-01")
@@ -133,7 +143,7 @@ def main():
                 clients = (
                     args.clients
                     if args.clients is not None
-                    else (100 if args.profile in ("comparativo", "comparativo-v2") else 30)
+                    else (30 if args.profile in ("original", "original-v2") else 100)
                 )
                 result = seed_database(
                     conn,
@@ -147,7 +157,7 @@ def main():
             elif args.command == "coverage":
                 conn.execute("SET TRANSACTION READ ONLY")
                 validate_data(conn)
-                result = database_coverage(conn, args.start_month, args.end_month)
+                result = database_coverage(conn, args.start_month, args.end_month, args.profile)
             else:
                 result = validate_data(conn)
         print(json.dumps(result, ensure_ascii=False))
