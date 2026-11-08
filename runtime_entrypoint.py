@@ -21,7 +21,6 @@ def configured():
         settings = settings.model_copy(update={
             "admin_database_url": SecretStr(""),
             "readonly_password": SecretStr(""),
-            "intent_classifier_enabled": False,
         })
     for name, value in settings.__dict__.items():
         os.environ[name.upper()] = (

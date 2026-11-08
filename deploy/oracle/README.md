@@ -179,22 +179,39 @@ com o usuário proprietário. Valem os mesmos avisos de ponto sem volta da seç�
 
 ## Ligar o classificador de intenções (treinamento v2)
 
-O classificador v2 vem ligado por padrão no código e no `.env.example`, mas o `configure.py`
-(preservado byte a byte) grava `INTENT_CLASSIFIER_ENABLED=false` no arquivo privado do servidor,
-e o valor do arquivo prevalece. Em um servidor já configurado, depois de enviar `app/` e `training/`
-e reconstruir a imagem com `--no-cache`:
+O classificador v2 vem ligado por padrão no código e no `.env.example`, mas dois pontos da
+instalação original o mantinham desligado:
+
+1. O `configure.py` (preservado byte a byte) grava `INTENT_CLASSIFIER_ENABLED=false` no arquivo
+   privado do servidor, e o valor do arquivo prevalece sobre o padrão do código.
+2. O `runtime_entrypoint.py` original **forçava `intent_classifier_enabled=False`** em todos os modos
+   de aplicação, ignorando o arquivo privado. Essa linha foi removida em 08/11/2026 (o resto do
+   arquivo é igual ao original; veja `alterados_depois_da_recuperacao` em
+   [origem-recuperacao.json](origem-recuperacao.json)). Sem essa correção, ligar a variável não tem efeito.
+
+Em um servidor já configurado, envie `app/`, `training/` e `runtime_entrypoint.py`, reconstrua com
+`--no-cache` e então:
 
 ```bash
 cd ~/pac_privado
 sudo sed -i 's/^INTENT_CLASSIFIER_ENABLED=.*/INTENT_CLASSIFIER_ENABLED=true/' .local/hospedagem/private/application.env
 sudo grep -c '^INTENT_CLASSIFIER_ENABLED=true' .local/hospedagem/private/application.env   # deve imprimir 1
 C="sudo docker compose -p pac-bi-24h -f .local/hospedagem/compose.yaml"
-$C up -d --force-recreate backend
+$C up -d --force-recreate backend polling
 ```
 
-Esse arquivo contém segredos: não mostre seu conteúdo, só conte a linha com `grep -c`. Para confirmar
-o uso, mande uma pergunta ao bot e veja o log, que não contém o texto da pergunta:
-`$C logs backend --tail 20 | grep intencao`.
+Esse arquivo contém segredos: não mostre seu conteúdo, só conte a linha com `grep -c`.
+
+**Como confirmar o uso.** Mande uma pergunta ao bot (no Telegram, não no terminal) e leia o log do
+backend, que não contém o texto da pergunta:
+
+```bash
+$C logs backend --tail 50 | grep intencao
+```
+
+Esperado: `INFO:app.bi_agent:intencao rotulo=ranking confianca=0.99 aceita=True`. Se nenhuma linha
+aparecer **depois** de uma pergunta, o classificador não está em uso. Também dá para conferir se o
+processo viu a variável: `$C exec backend printenv INTENT_CLASSIFIER_ENABLED` deve imprimir `True`.
 
 ## Credenciais e limites
 

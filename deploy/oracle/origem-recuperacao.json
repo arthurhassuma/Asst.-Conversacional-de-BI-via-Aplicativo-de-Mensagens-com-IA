@@ -33,5 +33,13 @@
       "sha256": "dece316a73808fdf0fc60ab434abae057381c209fe0d194d1e55d44620d0d458"
     }
   ],
-  "scope": "Proveniência histórica dos cinco arquivos recuperados, não manifesto integral do repositório."
+  "scope": "Proveniência histórica dos cinco arquivos recuperados, não manifesto integral do repositório.",
+  "alterados_depois_da_recuperacao": [
+    {
+      "arquivo": "runtime_entrypoint.py",
+      "data": "2026-11-08",
+      "motivo": "O original forcava intent_classifier_enabled=False em todos os modos de aplicacao, o que ignorava INTENT_CLASSIFIER_ENABLED do arquivo privado. A linha foi removida para o classificador v2 poder ser ligado; o restante do arquivo e igual ao original.",
+      "sha256_original": "0040c55d230928bd67cb5361f5a370c5b1ec857714d12952f4a2479514e98a99"
+    }
+  ]
 }
