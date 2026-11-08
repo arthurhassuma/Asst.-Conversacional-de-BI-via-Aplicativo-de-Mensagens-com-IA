@@ -82,11 +82,11 @@ def _cell(column, value, context):
     return formatted + (" h" if unit == "horas" else "")
 
 
-def _amount(column, value, context):
+def _amount(column, value, context, *, noun=True):
     """Valor de uma linha isolada; contagens ganham o substantivo ("6 pedidos")."""
     text = _cell(column, value, context)
     nouns = COUNT_NOUNS.get(context["metric"])
-    if value is not None and nouns and context["unit"] == "quantidade":
+    if noun and value is not None and nouns and context["unit"] == "quantidade":
         if column in {"valor", "quantidade", "total"}:
             text += " " + nouns[0 if str(value) == "1" else 1]
     return text
@@ -179,7 +179,9 @@ def _total_lines(record, context):
             continue
         if column not in LABELS:
             raise InvalidAnswer("Campo gerencial não reconhecido.")
-        lines.append(f"{_label(column, context)}: {_amount(column, value, context)}")
+        # "Ocorrências abertas: 20" já nomeia o item; só "Quantidade" pede o substantivo.
+        noun = context.get("measure") in (None, "quantidade")
+        lines.append(f"{_label(column, context)}: {_amount(column, value, context, noun=noun)}")
     return lines
 
 

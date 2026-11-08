@@ -181,3 +181,14 @@ def test_total_lines_use_the_measure_label_once():
     result = {"columns": ["total", "registros"], "rows": [["2401621.96", 295]], "truncated": False}
     text = render_managerial(result, _context(kind="total", group_by=None, measure="valor", unit="BRL"))
     assert text.splitlines()[2:] == ["Valor: R$ 2.401.621,96"]
+
+
+def test_after_sales_total_does_not_repeat_the_noun_in_the_value():
+    result = {"columns": ["total", "registros"], "rows": [["20", 20]], "truncated": False}
+    text = render_managerial(
+        result,
+        _context(
+            kind="total", group_by=None, metric="chamados", measure="chamados_abertos"
+        ),
+    )
+    assert text.splitlines()[2:] == ["Ocorrências abertas: 20"]
