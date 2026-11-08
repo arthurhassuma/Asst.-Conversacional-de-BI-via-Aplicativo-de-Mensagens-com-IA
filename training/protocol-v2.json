@@ -46,7 +46,7 @@
     "coverage_min": 0.5,
     "rule": "O classificador so e ligado no bot se as duas condicoes forem atingidas no teste reservado. Se nao forem, ele permanece desligado e o resultado e relatado como nao atingido."
   },
-  "limitations": "Perguntas geradas por moldes sinteticos com concordancia as vezes imperfeita; 98 moldes, nao perguntas reais independentes. O teste mede moldes nao vistos no treino, mas continua sendo sintetico e escrito pela mesma equipe. Nao mede a corretude do SQL nem o desempenho do Gemini.",
+  "limitations": "Perguntas geradas por moldes sinteticos com concordancia as vezes imperfeita; 168 moldes, nao perguntas reais independentes. O teste mede moldes nao vistos no treino, mas continua sendo sintetico e escrito pela mesma equipe. Nao mede a corretude do SQL nem o desempenho do Gemini.",
   "amendments": [
     {
       "quando": "depois do primeiro treino e olhando SOMENTE a validacao; antes de abrir o teste",

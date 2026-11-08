@@ -27,7 +27,14 @@ include = ["app*", "scripts*", "evaluation*", "training*"]
 
 [tool.setuptools.package-data]
 evaluation = ["cases.json", "cases-original-v2.json", "managerial-cases-v1.json"]
-training = ["questions-v1.json", "protocol.json", "intent-model-v1.json"]
+training = [
+    "questions-v1.json",
+    "protocol.json",
+    "intent-model-v1.json",
+    "questions-v2.json",
+    "protocol-v2.json",
+    "intent-model-v2.json",
+]
 
 [tool.pytest.ini_options]
 asyncio_mode = "auto"

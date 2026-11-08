@@ -1,0 +1,4004 @@
+{
+  "split": "test",
+  "classifier": {
+    "samples": 224,
+    "accuracy": 0.8794642857142857,
+    "macro_f1": 0.8736579807670349,
+    "per_class": {
+      "total": {
+        "precision": 0.8421052631578947,
+        "recall": 1.0,
+        "f1-score": 0.9142857142857143,
+        "support": 32.0
+      },
+      "comparacao": {
+        "precision": 0.64,
+        "recall": 1.0,
+        "f1-score": 0.7804878048780488,
+        "support": 32.0
+      },
+      "tendencia": {
+        "precision": 1.0,
+        "recall": 0.96875,
+        "f1-score": 0.9841269841269841,
+        "support": 32.0
+      },
+      "ranking": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1-score": 1.0,
+        "support": 32.0
+      },
+      "segmentacao": {
+        "precision": 0.9142857142857143,
+        "recall": 1.0,
+        "f1-score": 0.9552238805970149,
+        "support": 32.0
+      },
+      "operacional": {
+        "precision": 1.0,
+        "recall": 0.5,
+        "f1-score": 0.6666666666666666,
+        "support": 32.0
+      },
+      "generica": {
+        "precision": 1.0,
+        "recall": 0.6875,
+        "f1-score": 0.8148148148148148,
+        "support": 32.0
+      },
+      "accuracy": 0.8794642857142857,
+      "macro avg": {
+        "precision": 0.9137701396348012,
+        "recall": 0.8794642857142857,
+        "f1-score": 0.8736579807670349,
+        "support": 224.0
+      },
+      "weighted avg": {
+        "precision": 0.9137701396348012,
+        "recall": 0.8794642857142857,
+        "f1-score": 0.8736579807670349,
+        "support": 224.0
+      }
+    },
+    "matrix_labels": [
+      "total",
+      "comparacao",
+      "tendencia",
+      "ranking",
+      "segmentacao",
+      "operacional",
+      "generica"
+    ],
+    "confusion_matrix": [
+      [
+        32,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        32,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        1,
+        0,
+        31,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        32,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        32,
+        0,
+        0
+      ],
+      [
+        2,
+        11,
+        0,
+        0,
+        3,
+        16,
+        0
+      ],
+      [
+        3,
+        7,
+        0,
+        0,
+        0,
+        0,
+        22
+      ]
+    ],
+    "coverage": null,
+    "accepted_precision": null
+  },
+  "with_abstention": {
+    "samples": 224,
+    "accuracy": 0.9107142857142857,
+    "macro_f1": 0.9045227121464651,
+    "per_class": {
+      "total": {
+        "precision": 1.0,
+        "recall": 0.90625,
+        "f1-score": 0.9508196721311475,
+        "support": 32.0
+      },
+      "comparacao": {
+        "precision": 0.7804878048780488,
+        "recall": 1.0,
+        "f1-score": 0.8767123287671232,
+        "support": 32.0
+      },
+      "tendencia": {
+        "precision": 1.0,
+        "recall": 0.96875,
+        "f1-score": 0.9841269841269841,
+        "support": 32.0
+      },
+      "ranking": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1-score": 1.0,
+        "support": 32.0
+      },
+      "segmentacao": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1-score": 1.0,
+        "support": 32.0
+      },
+      "operacional": {
+        "precision": 1.0,
+        "recall": 0.5,
+        "f1-score": 0.6666666666666666,
+        "support": 32.0
+      },
+      "generica": {
+        "precision": 0.7441860465116279,
+        "recall": 1.0,
+        "f1-score": 0.8533333333333334,
+        "support": 32.0
+      },
+      "accuracy": 0.9107142857142857,
+      "macro avg": {
+        "precision": 0.9320962644842395,
+        "recall": 0.9107142857142857,
+        "f1-score": 0.9045227121464651,
+        "support": 224.0
+      },
+      "weighted avg": {
+        "precision": 0.9320962644842395,
+        "recall": 0.9107142857142857,
+        "f1-score": 0.9045227121464651,
+        "support": 224.0
+      }
+    },
+    "matrix_labels": [
+      "total",
+      "comparacao",
+      "tendencia",
+      "ranking",
+      "segmentacao",
+      "operacional",
+      "generica"
+    ],
+    "confusion_matrix": [
+      [
+        29,
+        0,
+        0,
+        0,
+        0,
+        0,
+        3
+      ],
+      [
+        0,
+        32,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        31,
+        0,
+        0,
+        0,
+        1
+      ],
+      [
+        0,
+        0,
+        0,
+        32,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        32,
+        0,
+        0
+      ],
+      [
+        0,
+        9,
+        0,
+        0,
+        0,
+        16,
+        7
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        32
+      ]
+    ],
+    "coverage": 0.8080357142857143,
+    "accepted_precision": 0.9502762430939227
+  },
+  "baseline": {
+    "samples": 224,
+    "accuracy": 0.14285714285714285,
+    "macro_f1": 0.03571428571428571,
+    "per_class": {
+      "total": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1-score": 0.0,
+        "support": 32.0
+      },
+      "comparacao": {
+        "precision": 0.14285714285714285,
+        "recall": 1.0,
+        "f1-score": 0.25,
+        "support": 32.0
+      },
+      "tendencia": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1-score": 0.0,
+        "support": 32.0
+      },
+      "ranking": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1-score": 0.0,
+        "support": 32.0
+      },
+      "segmentacao": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1-score": 0.0,
+        "support": 32.0
+      },
+      "operacional": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1-score": 0.0,
+        "support": 32.0
+      },
+      "generica": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1-score": 0.0,
+        "support": 32.0
+      },
+      "accuracy": 0.14285714285714285,
+      "macro avg": {
+        "precision": 0.02040816326530612,
+        "recall": 0.14285714285714285,
+        "f1-score": 0.03571428571428571,
+        "support": 224.0
+      },
+      "weighted avg": {
+        "precision": 0.02040816326530612,
+        "recall": 0.14285714285714285,
+        "f1-score": 0.03571428571428571,
+        "support": 224.0
+      }
+    },
+    "matrix_labels": [
+      "total",
+      "comparacao",
+      "tendencia",
+      "ranking",
+      "segmentacao",
+      "operacional",
+      "generica"
+    ],
+    "confusion_matrix": [
+      [
+        0,
+        32,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        32,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        32,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        32,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        32,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        32,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        32,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    ],
+    "coverage": null,
+    "accepted_precision": null
+  },
+  "model_sha256": "80cadf63de619c9cac4512b6f88280e03ca39b89033296d8cd0fdfdb6696477c",
+  "predictions": [
+    {
+      "id": "total-m09-1",
+      "expected": "total",
+      "label": "total",
+      "confidence": 0.6039259898009435,
+      "probabilities": {
+        "comparacao": 0.05972870347582035,
+        "generica": 0.055217822403997543,
+        "operacional": 0.009362623450984897,
+        "ranking": 0.2293632090499804,
+        "segmentacao": 0.036706351835759064,
+        "tendencia": 0.005695299982514267,
+        "total": 0.6039259898009435
+      },
+      "accepted": true
+    },
+    {
+      "id": "total-m09-2",
+      "expected": "total",
+      "label": "total",
+      "confidence": 0.6028862661900771,
+      "probabilities": {
+        "comparacao": 0.01436215198278261,
+        "generica": 0.011285895740513316,
+        "operacional": 0.004438696981991465,
+        "ranking": 0.24114346804247278,
+        "segmentacao": 0.0731436300481557,
+        "tendencia": 0.052739891014007036,
+        "total": 0.6028862661900771
+      },
+      "accepted": true
+    },
+    {
+      "id": "total-m09-3",
+      "expected": "total",
+      "label": "total",
+      "confidence": 0.9162375936900858,
+      "probabilities": {
+        "comparacao": 0.0064197906447685206,
+        "generica": 0.023410340584859874,
+        "operacional": 0.030576672755017367,
+        "ranking": 0.004840810015538674,
+        "segmentacao": 0.001864579765058467,
+        "tendencia": 0.016650212544671337,
+        "total": 0.9162375936900858
+      },
+      "accepted": true
+    },
+    {
+      "id": "total-m09-4",
+      "expected": "total",
+      "label": "total",
+      "confidence": 0.3969330277487408,
+      "probabilities": {
+        "comparacao": 0.12042269220417638,
+        "generica": 0.033087941787935796,
+        "operacional": 0.036896690861853806,
+        "ranking": 0.2892484618688061,
+        "segmentacao": 0.06610913565831873,
+        "tendencia": 0.05730204987016835,
+        "total": 0.3969330277487408
+      },
+      "accepted": false
+    },
+    {
+      "id": "total-m09-5",
+      "expected": "total",
+      "label": "total",
+      "confidence": 0.8969136832511543,
+      "probabilities": {
+        "comparacao": 0.014563773713964272,
+        "generica": 0.026334012667736578,
+        "operacional": 0.04019512507817601,
+        "ranking": 0.006821777521611605,
+        "segmentacao": 0.0027981956248418916,
+        "tendencia": 0.01237343214251532,
+        "total": 0.8969136832511543
+      },
+      "accepted": true
+    },
+    {
+      "id": "total-m09-6",
+      "expected": "total",
+      "label": "total",
+      "confidence": 0.3495365071397291,
+      "probabilities": {
+        "comparacao": 0.17250823589969477,
+        "generica": 0.029694408526347096,
+        "operacional": 0.010919615720990518,
+        "ranking": 0.29968134637141974,
+        "segmentacao": 0.05123693849404448,
+        "tendencia": 0.08642294784777425,
+        "total": 0.3495365071397291
+      },
+      "accepted": false
+    },
+    {
+      "id": "total-m09-7",
+      "expected": "total",
+      "label": "total",
+      "confidence": 0.8192023500505287,
+      "probabilities": {
+        "comparacao": 0.007721354309630869,
+        "generica": 0.03593638174128267,
+        "operacional": 0.10300449864583425,
+        "ranking": 0.004260907021613842,
+        "segmentacao": 0.002881980806742635,
+        "tendencia": 0.026992527424367023,
+        "total": 0.8192023500505287
+      },
+      "accepted": true
+    },
+    {
+      "id": "total-m09-8",
+      "expected": "total",
+      "label": "total",
+      "confidence": 0.4087958918715906,
+      "probabilities": {
+        "comparacao": 0.25320624364810523,
+        "generica": 0.05876763682207632,
+        "operacional": 0.04415448690739407,
+        "ranking": 0.18140636591830828,
+        "segmentacao": 0.047870015965119535,
+        "tendencia": 0.0057993588674060325,
+        "total": 0.4087958918715906
+      },
+      "accepted": false
+    },
+    {
+      "id": "total-m01-1",
+      "expected": "total",
+      "label": "total",
+      "confidence": 0.9177225066673694,
+      "probabilities": {
+        "comparacao": 0.026441253352849123,
+        "generica": 0.003807910536594429,
+        "operacional": 0.0019756373951753123,
+        "ranking": 0.010975898811895955,
+        "segmentacao": 0.03200834495100959,
+        "tendencia": 0.0070684482851061286,
+        "total": 0.9177225066673694
+      },
+      "accepted": true
+    },
+    {
+      "id": "total-m01-2",
+      "expected": "total",
+      "label": "total",
+      "confidence": 0.8857107424723438,
+      "probabilities": {
+        "comparacao": 0.0023452742873120405,
+        "generica": 0.0026366535489369593,
+        "operacional": 0.0012887878486513226,
+        "ranking": 0.015244412341349135,
+        "segmentacao": 0.07460996845521796,
+        "tendencia": 0.018164161046188745,
+        "total": 0.8857107424723438
+      },
+      "accepted": true
+    },
+    {
+      "id": "total-m01-3",
+      "expected": "total",
+      "label": "total",
+      "confidence": 0.9275600819633841,
+      "probabilities": {
+        "comparacao": 0.005415772724230169,
+        "generica": 0.00504225985223672,
+        "operacional": 0.009496053359232998,
+        "ranking": 0.005383967462184419,
+        "segmentacao": 0.0392920979718712,
+        "tendencia": 0.007809766666860244,
+        "total": 0.9275600819633841
+      },
+      "accepted": true
+    },
+    {
+      "id": "total-m01-4",
+      "expected": "total",
+      "label": "total",
+      "confidence": 0.9112735935753812,
+      "probabilities": {
+        "comparacao": 0.0025335195208286664,
+        "generica": 0.0015896372768963527,
+        "operacional": 0.002080819002151729,
+        "ranking": 0.012377013433599008,
+        "segmentacao": 0.0642564962827711,
+        "tendencia": 0.005888920908371939,
+        "total": 0.9112735935753812
+      },
+      "accepted": true
+    },
+    {
+      "id": "total-m01-5",
+      "expected": "total",
+      "label": "total",
+      "confidence": 0.8377229030527114,
+      "probabilities": {
+        "comparacao": 0.0051956961794775,
+        "generica": 0.01857036646426718,
+        "operacional": 0.011739313674918112,
+        "ranking": 0.023676415599184646,
+        "segmentacao": 0.09769771251965957,
+        "tendencia": 0.0053975925097816835,
+        "total": 0.8377229030527114
+      },
+      "accepted": true
+    },
+    {
+      "id": "total-m01-6",
+      "expected": "total",
+      "label": "total",
+      "confidence": 0.945040292264348,
+      "probabilities": {
+        "comparacao": 0.0034240673099267573,
+        "generica": 0.0017319548822274822,
+        "operacional": 0.0017081452856195407,
+        "ranking": 0.008190311195293759,
+        "segmentacao": 0.03675503875097471,
+        "tendencia": 0.0031501903116097655,
+        "total": 0.945040292264348
+      },
+      "accepted": true
+    },
+    {
+      "id": "total-m01-7",
+      "expected": "total",
+      "label": "total",
+      "confidence": 0.7550233235722615,
+      "probabilities": {
+        "comparacao": 0.005401358249706631,
+        "generica": 0.00408734849393713,
+        "operacional": 0.21846861867682563,
+        "ranking": 0.0010845413751109745,
+        "segmentacao": 0.009916202123326768,
+        "tendencia": 0.0060186075088312935,
+        "total": 0.7550233235722615
+      },
+      "accepted": true
+    },
+    {
+      "id": "total-m01-8",
+      "expected": "total",
+      "label": "total",
+      "confidence": 0.9095790437650906,
+      "probabilities": {
+        "comparacao": 0.021284348752556442,
+        "generica": 0.008454339644605048,
+        "operacional": 0.011976199967033105,
+        "ranking": 0.006449665737180632,
+        "segmentacao": 0.0398811692965006,
+        "tendencia": 0.0023752328370335502,
+        "total": 0.9095790437650906
+      },
+      "accepted": true
+    },
+    {
+      "id": "total-m04-1",
+      "expected": "total",
+      "label": "total",
+      "confidence": 0.8929834129563459,
+      "probabilities": {
+        "comparacao": 0.02483797956995158,
+        "generica": 0.0071563061538506955,
+        "operacional": 0.008506879723206245,
+        "ranking": 0.049384022643145974,
+        "segmentacao": 0.01291333350380678,
+        "tendencia": 0.004218065449692835,
+        "total": 0.8929834129563459
+      },
+      "accepted": true
+    },
+    {
+      "id": "total-m04-2",
+      "expected": "total",
+      "label": "total",
+      "confidence": 0.9475267379204466,
+      "probabilities": {
+        "comparacao": 0.004905668850366661,
+        "generica": 0.007012853663943585,
+        "operacional": 0.02083929700837076,
+        "ranking": 0.003404121948272996,
+        "segmentacao": 0.0019716880152342944,
+        "tendencia": 0.014339632593365103,
+        "total": 0.9475267379204466
+      },
+      "accepted": true
+    },
+    {
+      "id": "total-m04-3",
+      "expected": "total",
+      "label": "total",
+      "confidence": 0.8091801602670107,
+      "probabilities": {
+        "comparacao": 0.03545311522097877,
+        "generica": 0.03204458886355555,
+        "operacional": 0.028794522980226264,
+        "ranking": 0.060855375374407814,
+        "segmentacao": 0.02080189300453814,
+        "tendencia": 0.012870344289282874,
+        "total": 0.8091801602670107
+      },
+      "accepted": true
+    },
+    {
+      "id": "total-m04-4",
+      "expected": "total",
+      "label": "total",
+      "confidence": 0.934487301085175,
+      "probabilities": {
+        "comparacao": 0.006879899837500035,
+        "generica": 0.007869173896917612,
+        "operacional": 0.04134077108170795,
+        "ranking": 0.0020957044916561063,
+        "segmentacao": 0.001384748954241958,
+        "tendencia": 0.005942400652801405,
+        "total": 0.934487301085175
+      },
+      "accepted": true
+    },
+    {
+      "id": "total-m04-5",
+      "expected": "total",
+      "label": "total",
+      "confidence": 0.8999592365563407,
+      "probabilities": {
+        "comparacao": 0.011430800112936899,
+        "generica": 0.0016307931470129725,
+        "operacional": 0.0018888696880209508,
+        "ranking": 0.036677859437386814,
+        "segmentacao": 0.026467172183639486,
+        "tendencia": 0.021945268874662284,
+        "total": 0.8999592365563407
+      },
+      "accepted": true
+    },
+    {
+      "id": "total-m04-6",
+      "expected": "total",
+      "label": "total",
+      "confidence": 0.7289916445797979,
+      "probabilities": {
+        "comparacao": 0.010500767769151667,
+        "generica": 0.0468218868019643,
+        "operacional": 0.020235492210167624,
+        "ranking": 0.16164488312283684,
+        "segmentacao": 0.0208902353565326,
+        "tendencia": 0.010915090159549128,
+        "total": 0.7289916445797979
+      },
+      "accepted": true
+    },
+    {
+      "id": "total-m04-7",
+      "expected": "total",
+      "label": "total",
+      "confidence": 0.8479321935881442,
+      "probabilities": {
+        "comparacao": 0.05854374017898596,
+        "generica": 0.0027862290301134537,
+        "operacional": 0.0021253364241155606,
+        "ranking": 0.06216030972426259,
+        "segmentacao": 0.019560905626400983,
+        "tendencia": 0.006891285427977244,
+        "total": 0.8479321935881442
+      },
+      "accepted": true
+    },
+    {
+      "id": "total-m04-8",
+      "expected": "total",
+      "label": "total",
+      "confidence": 0.8893622187443443,
+      "probabilities": {
+        "comparacao": 0.033844542472860374,
+        "generica": 0.01258131502492722,
+        "operacional": 0.009355367214070287,
+        "ranking": 0.024940029573664833,
+        "segmentacao": 0.015292959075436959,
+        "tendencia": 0.014623567894696113,
+        "total": 0.8893622187443443
+      },
+      "accepted": true
+    },
+    {
+      "id": "total-m21-1",
+      "expected": "total",
+      "label": "total",
+      "confidence": 0.9681699673490383,
+      "probabilities": {
+        "comparacao": 0.01021529924988825,
+        "generica": 0.0029836152612663226,
+        "operacional": 0.004066480526573415,
+        "ranking": 0.01066439451892074,
+        "segmentacao": 0.0012660134835235633,
+        "tendencia": 0.0026342296107894946,
+        "total": 0.9681699673490383
+      },
+      "accepted": true
+    },
+    {
+      "id": "total-m21-2",
+      "expected": "total",
+      "label": "total",
+      "confidence": 0.9603267216052596,
+      "probabilities": {
+        "comparacao": 0.0029715951214684478,
+        "generica": 0.0017243661448217778,
+        "operacional": 0.003411898677644183,
+        "ranking": 0.012221933387513723,
+        "segmentacao": 0.009852450175542678,
+        "tendencia": 0.009491034887749723,
+        "total": 0.9603267216052596
+      },
+      "accepted": true
+    },
+    {
+      "id": "total-m21-3",
+      "expected": "total",
+      "label": "total",
+      "confidence": 0.9101114147299608,
+      "probabilities": {
+        "comparacao": 0.0393196618114673,
+        "generica": 0.005300152933758531,
+        "operacional": 0.01180706052483667,
+        "ranking": 0.013500660347506488,
+        "segmentacao": 0.009511719898707723,
+        "tendencia": 0.010449329753762593,
+        "total": 0.9101114147299608
+      },
+      "accepted": true
+    },
+    {
+      "id": "total-m21-4",
+      "expected": "total",
+      "label": "total",
+      "confidence": 0.9694067085020517,
+      "probabilities": {
+        "comparacao": 0.0022495972725432626,
+        "generica": 0.001847011147487693,
+        "operacional": 0.01678771827573719,
+        "ranking": 0.000730471860941992,
+        "segmentacao": 0.000944568452237983,
+        "tendencia": 0.008033924489000196,
+        "total": 0.9694067085020517
+      },
+      "accepted": true
+    },
+    {
+      "id": "total-m21-5",
+      "expected": "total",
+      "label": "total",
+      "confidence": 0.9803606487271279,
+      "probabilities": {
+        "comparacao": 0.0031488987647177395,
+        "generica": 0.0004324507107296594,
+        "operacional": 0.0013988244684508247,
+        "ranking": 0.003938815239730665,
+        "segmentacao": 0.006657738030200946,
+        "tendencia": 0.004062624059042264,
+        "total": 0.9803606487271279
+      },
+      "accepted": true
+    },
+    {
+      "id": "total-m21-6",
+      "expected": "total",
+      "label": "total",
+      "confidence": 0.9690846738051719,
+      "probabilities": {
+        "comparacao": 0.005606159492268646,
+        "generica": 0.0006871204720477759,
+        "operacional": 0.0028130113934943368,
+        "ranking": 0.007693659277484703,
+        "segmentacao": 0.008458461950532528,
+        "tendencia": 0.005656913609000078,
+        "total": 0.9690846738051719
+      },
+      "accepted": true
+    },
+    {
+      "id": "total-m21-7",
+      "expected": "total",
+      "label": "total",
+      "confidence": 0.9418508295064951,
+      "probabilities": {
+        "comparacao": 0.0032393018722420065,
+        "generica": 0.0030722793156703954,
+        "operacional": 0.04709425091488966,
+        "ranking": 0.0007054490671432395,
+        "segmentacao": 0.0012155224041902318,
+        "tendencia": 0.00282236691936941,
+        "total": 0.9418508295064951
+      },
+      "accepted": true
+    },
+    {
+      "id": "total-m21-8",
+      "expected": "total",
+      "label": "total",
+      "confidence": 0.9748601756410187,
+      "probabilities": {
+        "comparacao": 0.004313862163748198,
+        "generica": 0.0009300643641323553,
+        "operacional": 0.003263305029549435,
+        "ranking": 0.006784206970539277,
+        "segmentacao": 0.007706276178145771,
+        "tendencia": 0.0021421096528662976,
+        "total": 0.9748601756410187
+      },
+      "accepted": true
+    },
+    {
+      "id": "comparacao-m04-1",
+      "expected": "comparacao",
+      "label": "comparacao",
+      "confidence": 0.9406470033717844,
+      "probabilities": {
+        "comparacao": 0.9406470033717844,
+        "generica": 0.008210232760278267,
+        "operacional": 0.0036768049564451393,
+        "ranking": 0.017261396343901513,
+        "segmentacao": 0.002716356994102734,
+        "tendencia": 0.016446926304571247,
+        "total": 0.011041279268916586
+      },
+      "accepted": true
+    },
+    {
+      "id": "comparacao-m04-2",
+      "expected": "comparacao",
+      "label": "comparacao",
+      "confidence": 0.9869837171127742,
+      "probabilities": {
+        "comparacao": 0.9869837171127742,
+        "generica": 0.004650863995209734,
+        "operacional": 0.0019990832585388154,
+        "ranking": 0.0010799342044315826,
+        "segmentacao": 0.0024218289938371215,
+        "tendencia": 0.0010521072692191845,
+        "total": 0.0018124651659892428
+      },
+      "accepted": true
+    },
+    {
+      "id": "comparacao-m04-3",
+      "expected": "comparacao",
+      "label": "comparacao",
+      "confidence": 0.9657939600837007,
+      "probabilities": {
+        "comparacao": 0.9657939600837007,
+        "generica": 0.008029921174232782,
+        "operacional": 0.004973163249271244,
+        "ranking": 0.002275200127873827,
+        "segmentacao": 0.005969555257241777,
+        "tendencia": 0.0078038109616841034,
+        "total": 0.005154389145995506
+      },
+      "accepted": true
+    },
+    {
+      "id": "comparacao-m04-4",
+      "expected": "comparacao",
+      "label": "comparacao",
+      "confidence": 0.9828220244792739,
+      "probabilities": {
+        "comparacao": 0.9828220244792739,
+        "generica": 0.004914609313634678,
+        "operacional": 0.0031146995469859976,
+        "ranking": 0.0011092031850603455,
+        "segmentacao": 0.0026311040759568064,
+        "tendencia": 0.0024052209214199915,
+        "total": 0.00300313847766819
+      },
+      "accepted": true
+    },
+    {
+      "id": "comparacao-m04-5",
+      "expected": "comparacao",
+      "label": "comparacao",
+      "confidence": 0.9840052711390664,
+      "probabilities": {
+        "comparacao": 0.9840052711390664,
+        "generica": 0.0034245749685022325,
+        "operacional": 0.0036012636358303696,
+        "ranking": 0.0019611265631177973,
+        "segmentacao": 0.0032348597243197063,
+        "tendencia": 0.0008592400555759349,
+        "total": 0.002913663913587407
+      },
+      "accepted": true
+    },
+    {
+      "id": "comparacao-m04-6",
+      "expected": "comparacao",
+      "label": "comparacao",
+      "confidence": 0.9803922490937748,
+      "probabilities": {
+        "comparacao": 0.9803922490937748,
+        "generica": 0.0027486021227039114,
+        "operacional": 0.0021580554136639367,
+        "ranking": 0.0019338157019195216,
+        "segmentacao": 0.0043837919496228775,
+        "tendencia": 0.0029871710749937996,
+        "total": 0.005396314643321184
+      },
+      "accepted": true
+    },
+    {
+      "id": "comparacao-m04-7",
+      "expected": "comparacao",
+      "label": "comparacao",
+      "confidence": 0.97868372188794,
+      "probabilities": {
+        "comparacao": 0.97868372188794,
+        "generica": 0.004168982369948017,
+        "operacional": 0.0037119843227851283,
+        "ranking": 0.0026335308215343555,
+        "segmentacao": 0.004608429723833658,
+        "tendencia": 0.002354222199190262,
+        "total": 0.0038391286747687784
+      },
+      "accepted": true
+    },
+    {
+      "id": "comparacao-m04-8",
+      "expected": "comparacao",
+      "label": "comparacao",
+      "confidence": 0.9706459182180632,
+      "probabilities": {
+        "comparacao": 0.9706459182180632,
+        "generica": 0.00157121014010727,
+        "operacional": 0.001380887191937876,
+        "ranking": 0.006476160343716874,
+        "segmentacao": 0.007827998771652417,
+        "tendencia": 0.0030640476732211584,
+        "total": 0.009033777661301165
+      },
+      "accepted": true
+    },
+    {
+      "id": "comparacao-m10-1",
+      "expected": "comparacao",
+      "label": "comparacao",
+      "confidence": 0.6089748116660468,
+      "probabilities": {
+        "comparacao": 0.6089748116660468,
+        "generica": 0.07119635663582514,
+        "operacional": 0.01635766630254124,
+        "ranking": 0.1542255725231928,
+        "segmentacao": 0.06793887894189746,
+        "tendencia": 0.03376448887554098,
+        "total": 0.04754222505495548
+      },
+      "accepted": true
+    },
+    {
+      "id": "comparacao-m10-2",
+      "expected": "comparacao",
+      "label": "comparacao",
+      "confidence": 0.52497071051137,
+      "probabilities": {
+        "comparacao": 0.52497071051137,
+        "generica": 0.10628776453383702,
+        "operacional": 0.024784554775350163,
+        "ranking": 0.20412909329376988,
+        "segmentacao": 0.05580080555157581,
+        "tendencia": 0.010926373799508797,
+        "total": 0.07310069753458825
+      },
+      "accepted": true
+    },
+    {
+      "id": "comparacao-m10-3",
+      "expected": "comparacao",
+      "label": "comparacao",
+      "confidence": 0.6700735337775989,
+      "probabilities": {
+        "comparacao": 0.6700735337775989,
+        "generica": 0.01655959490505866,
+        "operacional": 0.00645139771067709,
+        "ranking": 0.15791959981601775,
+        "segmentacao": 0.05433560747798397,
+        "tendencia": 0.006295010778050938,
+        "total": 0.08836525553461268
+      },
+      "accepted": true
+    },
+    {
+      "id": "comparacao-m10-4",
+      "expected": "comparacao",
+      "label": "comparacao",
+      "confidence": 0.6775785539724007,
+      "probabilities": {
+        "comparacao": 0.6775785539724007,
+        "generica": 0.12913846000005783,
+        "operacional": 0.007997942997559829,
+        "ranking": 0.021669441316611075,
+        "segmentacao": 0.006617898430657581,
+        "tendencia": 0.01748670572461902,
+        "total": 0.13951099755809396
+      },
+      "accepted": true
+    },
+    {
+      "id": "comparacao-m10-5",
+      "expected": "comparacao",
+      "label": "comparacao",
+      "confidence": 0.7354527806691116,
+      "probabilities": {
+        "comparacao": 0.7354527806691116,
+        "generica": 0.0806221326106884,
+        "operacional": 0.01705849142002593,
+        "ranking": 0.045127652633886156,
+        "segmentacao": 0.028820994151287322,
+        "tendencia": 0.016521535014488033,
+        "total": 0.07639641350051267
+      },
+      "accepted": true
+    },
+    {
+      "id": "comparacao-m10-6",
+      "expected": "comparacao",
+      "label": "comparacao",
+      "confidence": 0.6915410385864963,
+      "probabilities": {
+        "comparacao": 0.6915410385864963,
+        "generica": 0.050888324422071037,
+        "operacional": 0.012489639932941632,
+        "ranking": 0.12224625450065639,
+        "segmentacao": 0.04316476133060135,
+        "tendencia": 0.03662568742699477,
+        "total": 0.04304429380023862
+      },
+      "accepted": true
+    },
+    {
+      "id": "comparacao-m10-7",
+      "expected": "comparacao",
+      "label": "comparacao",
+      "confidence": 0.6562421498762316,
+      "probabilities": {
+        "comparacao": 0.6562421498762316,
+        "generica": 0.012195799887905095,
+        "operacional": 0.003896991821931383,
+        "ranking": 0.17091578254148548,
+        "segmentacao": 0.04931491662362991,
+        "tendencia": 0.029658911569929995,
+        "total": 0.07777544767888646
+      },
+      "accepted": true
+    },
+    {
+      "id": "comparacao-m10-8",
+      "expected": "comparacao",
+      "label": "comparacao",
+      "confidence": 0.7285920953759231,
+      "probabilities": {
+        "comparacao": 0.7285920953759231,
+        "generica": 0.05865509271118074,
+        "operacional": 0.01383336592493521,
+        "ranking": 0.11228046164003014,
+        "segmentacao": 0.04138782355341329,
+        "tendencia": 0.012979347220935878,
+        "total": 0.03227181357358179
+      },
+      "accepted": true
+    },
+    {
+      "id": "comparacao-m03-1",
+      "expected": "comparacao",
+      "label": "comparacao",
+      "confidence": 0.9295798396725077,
+      "probabilities": {
+        "comparacao": 0.9295798396725077,
+        "generica": 0.01233123297312661,
+        "operacional": 0.003196171843045301,
+        "ranking": 0.0013555336297139836,
+        "segmentacao": 0.041027202180736765,
+        "tendencia": 0.009206344085662685,
+        "total": 0.0033036756152068966
+      },
+      "accepted": true
+    },
+    {
+      "id": "comparacao-m03-2",
+      "expected": "comparacao",
+      "label": "comparacao",
+      "confidence": 0.9270565715049368,
+      "probabilities": {
+        "comparacao": 0.9270565715049368,
+        "generica": 0.007827821612175104,
+        "operacional": 0.0030862957038360886,
+        "ranking": 0.0039504193076561715,
+        "segmentacao": 0.03970853244112592,
+        "tendencia": 0.005808207105858243,
+        "total": 0.012562152324411734
+      },
+      "accepted": true
+    },
+    {
+      "id": "comparacao-m03-3",
+      "expected": "comparacao",
+      "label": "comparacao",
+      "confidence": 0.9405402995933596,
+      "probabilities": {
+        "comparacao": 0.9405402995933596,
+        "generica": 0.014717911693927643,
+        "operacional": 0.0025783253469917468,
+        "ranking": 0.014630967726419824,
+        "segmentacao": 0.0067489758473412795,
+        "tendencia": 0.008512340775263074,
+        "total": 0.012271179016696946
+      },
+      "accepted": true
+    },
+    {
+      "id": "comparacao-m03-4",
+      "expected": "comparacao",
+      "label": "comparacao",
+      "confidence": 0.9166620841627138,
+      "probabilities": {
+        "comparacao": 0.9166620841627138,
+        "generica": 0.0042081774069635865,
+        "operacional": 0.002089893895043296,
+        "ranking": 0.00299868615427345,
+        "segmentacao": 0.04478938882903167,
+        "tendencia": 0.016615291199794102,
+        "total": 0.012636478352180158
+      },
+      "accepted": true
+    },
+    {
+      "id": "comparacao-m03-5",
+      "expected": "comparacao",
+      "label": "comparacao",
+      "confidence": 0.8981873785215329,
+      "probabilities": {
+        "comparacao": 0.8981873785215329,
+        "generica": 0.010667491422519734,
+        "operacional": 0.006781777931286257,
+        "ranking": 0.004779897546326151,
+        "segmentacao": 0.059048838029566675,
+        "tendencia": 0.014894563260058915,
+        "total": 0.005640053288709281
+      },
+      "accepted": true
+    },
+    {
+      "id": "comparacao-m03-6",
+      "expected": "comparacao",
+      "label": "comparacao",
+      "confidence": 0.9538680311172033,
+      "probabilities": {
+        "comparacao": 0.9538680311172033,
+        "generica": 0.009445089698127126,
+        "operacional": 0.0018062259279787325,
+        "ranking": 0.011775981443644277,
+        "segmentacao": 0.005478892683879811,
+        "tendencia": 0.005132065168805933,
+        "total": 0.012493713960360928
+      },
+      "accepted": true
+    },
+    {
+      "id": "comparacao-m03-7",
+      "expected": "comparacao",
+      "label": "comparacao",
+      "confidence": 0.8981887501081554,
+      "probabilities": {
+        "comparacao": 0.8981887501081554,
+        "generica": 0.004881811394982158,
+        "operacional": 0.005355900832865343,
+        "ranking": 0.0034015243350733965,
+        "segmentacao": 0.07062484300240171,
+        "tendencia": 0.01269181874709182,
+        "total": 0.004855351579430195
+      },
+      "accepted": true
+    },
+    {
+      "id": "comparacao-m03-8",
+      "expected": "comparacao",
+      "label": "comparacao",
+      "confidence": 0.8540834740036364,
+      "probabilities": {
+        "comparacao": 0.8540834740036364,
+        "generica": 0.01411322917008694,
+        "operacional": 0.009841287217730553,
+        "ranking": 0.007095973692974158,
+        "segmentacao": 0.09936579051296836,
+        "tendencia": 0.008018333787237864,
+        "total": 0.00748191161536587
+      },
+      "accepted": true
+    },
+    {
+      "id": "comparacao-m05-1",
+      "expected": "comparacao",
+      "label": "comparacao",
+      "confidence": 0.8317981102461588,
+      "probabilities": {
+        "comparacao": 0.8317981102461588,
+        "generica": 0.009273390098856252,
+        "operacional": 0.013801417370882082,
+        "ranking": 0.04645794600288852,
+        "segmentacao": 0.027981865121487544,
+        "tendencia": 0.012769959346556078,
+        "total": 0.05791731181317068
+      },
+      "accepted": true
+    },
+    {
+      "id": "comparacao-m05-2",
+      "expected": "comparacao",
+      "label": "comparacao",
+      "confidence": 0.7691008701970797,
+      "probabilities": {
+        "comparacao": 0.7691008701970797,
+        "generica": 0.010518302620184572,
+        "operacional": 0.027668291845562305,
+        "ranking": 0.04536606970172351,
+        "segmentacao": 0.030923843774729565,
+        "tendencia": 0.019116371511986068,
+        "total": 0.09730625034873423
+      },
+      "accepted": true
+    },
+    {
+      "id": "comparacao-m05-3",
+      "expected": "comparacao",
+      "label": "comparacao",
+      "confidence": 0.9135225643288298,
+      "probabilities": {
+        "comparacao": 0.9135225643288298,
+        "generica": 0.007445956199724767,
+        "operacional": 0.009715286286322391,
+        "ranking": 0.01792153529478406,
+        "segmentacao": 0.012952007067181978,
+        "tendencia": 0.007064449646943553,
+        "total": 0.03137820117621342
+      },
+      "accepted": true
+    },
+    {
+      "id": "comparacao-m05-4",
+      "expected": "comparacao",
+      "label": "comparacao",
+      "confidence": 0.7829856895220804,
+      "probabilities": {
+        "comparacao": 0.7829856895220804,
+        "generica": 0.0021469506378083637,
+        "operacional": 0.0022539062335300143,
+        "ranking": 0.06136143493196136,
+        "segmentacao": 0.02801410589540807,
+        "tendencia": 0.018901591605730177,
+        "total": 0.1043363211734817
+      },
+      "accepted": true
+    },
+    {
+      "id": "comparacao-m05-5",
+      "expected": "comparacao",
+      "label": "comparacao",
+      "confidence": 0.7990637038401729,
+      "probabilities": {
+        "comparacao": 0.7990637038401729,
+        "generica": 0.0017069875379991024,
+        "operacional": 0.00179557985982611,
+        "ranking": 0.02900580791498434,
+        "segmentacao": 0.02509431288279822,
+        "tendencia": 0.010124931156345465,
+        "total": 0.13320867680787382
+      },
+      "accepted": true
+    },
+    {
+      "id": "comparacao-m05-6",
+      "expected": "comparacao",
+      "label": "comparacao",
+      "confidence": 0.8548498546871832,
+      "probabilities": {
+        "comparacao": 0.8548498546871832,
+        "generica": 0.005457095785901791,
+        "operacional": 0.006828992859982081,
+        "ranking": 0.042557905777320666,
+        "segmentacao": 0.02423915377003997,
+        "tendencia": 0.02443690598405887,
+        "total": 0.04163009113551345
+      },
+      "accepted": true
+    },
+    {
+      "id": "comparacao-m05-7",
+      "expected": "comparacao",
+      "label": "comparacao",
+      "confidence": 0.7732697036903203,
+      "probabilities": {
+        "comparacao": 0.7732697036903203,
+        "generica": 0.017093537179885543,
+        "operacional": 0.011820643145910128,
+        "ranking": 0.01309874888808261,
+        "segmentacao": 0.006290620629079797,
+        "tendencia": 0.017776788048343345,
+        "total": 0.16064995841837829
+      },
+      "accepted": true
+    },
+    {
+      "id": "comparacao-m05-8",
+      "expected": "comparacao",
+      "label": "comparacao",
+      "confidence": 0.8048487279010459,
+      "probabilities": {
+        "comparacao": 0.8048487279010459,
+        "generica": 0.0023490645242770125,
+        "operacional": 0.0011138495951559082,
+        "ranking": 0.04434973930193166,
+        "segmentacao": 0.017090933524459628,
+        "tendencia": 0.012401558843236222,
+        "total": 0.11784612630989373
+      },
+      "accepted": true
+    },
+    {
+      "id": "tendencia-m17-1",
+      "expected": "tendencia",
+      "label": "tendencia",
+      "confidence": 0.9625570882325287,
+      "probabilities": {
+        "comparacao": 0.0006112447409208241,
+        "generica": 0.001026439828653768,
+        "operacional": 0.000969271224785491,
+        "ranking": 0.002301814874913959,
+        "segmentacao": 0.003686773773143486,
+        "tendencia": 0.9625570882325287,
+        "total": 0.028847367325053795
+      },
+      "accepted": true
+    },
+    {
+      "id": "tendencia-m17-2",
+      "expected": "tendencia",
+      "label": "tendencia",
+      "confidence": 0.6597043453349156,
+      "probabilities": {
+        "comparacao": 0.0007363505356724406,
+        "generica": 0.005142613409752296,
+        "operacional": 0.0034872566126587937,
+        "ranking": 0.018254802194596874,
+        "segmentacao": 0.023190055154074553,
+        "tendencia": 0.6597043453349156,
+        "total": 0.28948457675832945
+      },
+      "accepted": true
+    },
+    {
+      "id": "tendencia-m17-3",
+      "expected": "tendencia",
+      "label": "tendencia",
+      "confidence": 0.7584829659834813,
+      "probabilities": {
+        "comparacao": 0.00108015325231257,
+        "generica": 0.004281225527065475,
+        "operacional": 0.0013514510051240466,
+        "ranking": 0.01268930743771107,
+        "segmentacao": 0.0028626872528859865,
+        "tendencia": 0.7584829659834813,
+        "total": 0.21925220954141947
+      },
+      "accepted": true
+    },
+    {
+      "id": "tendencia-m17-4",
+      "expected": "tendencia",
+      "label": "tendencia",
+      "confidence": 0.899748046154422,
+      "probabilities": {
+        "comparacao": 0.0027978628551216596,
+        "generica": 0.002052333417965553,
+        "operacional": 0.0008362386006889699,
+        "ranking": 0.004791405185343349,
+        "segmentacao": 0.0063027757173476405,
+        "tendencia": 0.899748046154422,
+        "total": 0.08347133806911078
+      },
+      "accepted": true
+    },
+    {
+      "id": "tendencia-m17-5",
+      "expected": "tendencia",
+      "label": "tendencia",
+      "confidence": 0.8552765481961474,
+      "probabilities": {
+        "comparacao": 0.0004741021842920511,
+        "generica": 0.002641347242005426,
+        "operacional": 0.0039149242608119625,
+        "ranking": 0.009474338796353713,
+        "segmentacao": 0.01733922946655153,
+        "tendencia": 0.8552765481961474,
+        "total": 0.11087950985383788
+      },
+      "accepted": true
+    },
+    {
+      "id": "tendencia-m17-6",
+      "expected": "tendencia",
+      "label": "tendencia",
+      "confidence": 0.7273181740794984,
+      "probabilities": {
+        "comparacao": 0.0002597700297773505,
+        "generica": 0.002562014541097006,
+        "operacional": 0.00393391001706156,
+        "ranking": 0.0009611770731769786,
+        "segmentacao": 0.0019886122619057656,
+        "tendencia": 0.7273181740794984,
+        "total": 0.26297634199748293
+      },
+      "accepted": true
+    },
+    {
+      "id": "tendencia-m17-7",
+      "expected": "tendencia",
+      "label": "tendencia",
+      "confidence": 0.9620054668430132,
+      "probabilities": {
+        "comparacao": 0.0016474875630552793,
+        "generica": 0.0009338127200678979,
+        "operacional": 0.0007636491329381613,
+        "ranking": 0.0021628968959926886,
+        "segmentacao": 0.003967526869797856,
+        "tendencia": 0.9620054668430132,
+        "total": 0.028519159975134777
+      },
+      "accepted": true
+    },
+    {
+      "id": "tendencia-m17-8",
+      "expected": "tendencia",
+      "label": "tendencia",
+      "confidence": 0.8894058071433663,
+      "probabilities": {
+        "comparacao": 0.0008087907005913561,
+        "generica": 0.0030422109978175244,
+        "operacional": 0.0024002088700027543,
+        "ranking": 0.006926049756199048,
+        "segmentacao": 0.012277130908265096,
+        "tendencia": 0.8894058071433663,
+        "total": 0.08513980162375795
+      },
+      "accepted": true
+    },
+    {
+      "id": "tendencia-m21-1",
+      "expected": "tendencia",
+      "label": "tendencia",
+      "confidence": 0.9912093763030915,
+      "probabilities": {
+        "comparacao": 0.007211933225440919,
+        "generica": 0.00047733958397589983,
+        "operacional": 0.00020896897541628802,
+        "ranking": 0.00017999443937122785,
+        "segmentacao": 0.00040213130291655573,
+        "tendencia": 0.9912093763030915,
+        "total": 0.0003102561697876698
+      },
+      "accepted": true
+    },
+    {
+      "id": "tendencia-m21-2",
+      "expected": "tendencia",
+      "label": "tendencia",
+      "confidence": 0.9910802052442985,
+      "probabilities": {
+        "comparacao": 0.00022821839790343812,
+        "generica": 0.0006296217068820003,
+        "operacional": 0.0001741049809849063,
+        "ranking": 0.0012996181155649107,
+        "segmentacao": 0.0019955108806340273,
+        "tendencia": 0.9910802052442985,
+        "total": 0.004592720673732233
+      },
+      "accepted": true
+    },
+    {
+      "id": "tendencia-m21-3",
+      "expected": "tendencia",
+      "label": "tendencia",
+      "confidence": 0.9951951201522617,
+      "probabilities": {
+        "comparacao": 0.0014926994841256342,
+        "generica": 0.000525085120176821,
+        "operacional": 0.0018315709641600385,
+        "ranking": 4.081142550507321e-05,
+        "segmentacao": 0.00013255351666675074,
+        "tendencia": 0.9951951201522617,
+        "total": 0.0007821593371039607
+      },
+      "accepted": true
+    },
+    {
+      "id": "tendencia-m21-4",
+      "expected": "tendencia",
+      "label": "tendencia",
+      "confidence": 0.993550938902207,
+      "probabilities": {
+        "comparacao": 0.0026498828243423328,
+        "generica": 0.0019085306637010246,
+        "operacional": 0.0002476775666988005,
+        "ranking": 0.0002636487568758288,
+        "segmentacao": 0.0002479553178946667,
+        "tendencia": 0.993550938902207,
+        "total": 0.0011313659682803444
+      },
+      "accepted": true
+    },
+    {
+      "id": "tendencia-m21-5",
+      "expected": "tendencia",
+      "label": "tendencia",
+      "confidence": 0.9914942884623476,
+      "probabilities": {
+        "comparacao": 0.006738496113430374,
+        "generica": 0.0005661285489859078,
+        "operacional": 0.00021045677499678474,
+        "ranking": 0.00020540666388694704,
+        "segmentacao": 0.00041700063413517357,
+        "tendencia": 0.9914942884623476,
+        "total": 0.0003682228022173143
+      },
+      "accepted": true
+    },
+    {
+      "id": "tendencia-m21-6",
+      "expected": "tendencia",
+      "label": "tendencia",
+      "confidence": 0.9957615444876539,
+      "probabilities": {
+        "comparacao": 0.00037185470875190436,
+        "generica": 0.00036692794472882557,
+        "operacional": 9.152380504237708e-05,
+        "ranking": 0.0004744102405706427,
+        "segmentacao": 0.0007344422836515448,
+        "tendencia": 0.9957615444876539,
+        "total": 0.002199296529600762
+      },
+      "accepted": true
+    },
+    {
+      "id": "tendencia-m21-7",
+      "expected": "tendencia",
+      "label": "tendencia",
+      "confidence": 0.9956938596439278,
+      "probabilities": {
+        "comparacao": 0.0013024033427994734,
+        "generica": 0.0013596990965830697,
+        "operacional": 0.0003230840708218153,
+        "ranking": 0.00023392665497634301,
+        "segmentacao": 0.0006018709485424877,
+        "tendencia": 0.9956938596439278,
+        "total": 0.00048515624234894504
+      },
+      "accepted": true
+    },
+    {
+      "id": "tendencia-m21-8",
+      "expected": "tendencia",
+      "label": "tendencia",
+      "confidence": 0.9954266804315852,
+      "probabilities": {
+        "comparacao": 0.0011199367236308826,
+        "generica": 0.0003118270262723721,
+        "operacional": 7.46109440453062e-05,
+        "ranking": 0.0004124524123873608,
+        "segmentacao": 0.0007903664551757513,
+        "tendencia": 0.9954266804315852,
+        "total": 0.0018641260069032148
+      },
+      "accepted": true
+    },
+    {
+      "id": "tendencia-m02-1",
+      "expected": "tendencia",
+      "label": "tendencia",
+      "confidence": 0.9851989235388577,
+      "probabilities": {
+        "comparacao": 0.0011962974344536938,
+        "generica": 0.001010545977658976,
+        "operacional": 0.00465685213602196,
+        "ranking": 0.00030181318171766425,
+        "segmentacao": 0.0004501286893303429,
+        "tendencia": 0.9851989235388577,
+        "total": 0.007185439041959663
+      },
+      "accepted": true
+    },
+    {
+      "id": "tendencia-m02-2",
+      "expected": "tendencia",
+      "label": "tendencia",
+      "confidence": 0.9964192183444246,
+      "probabilities": {
+        "comparacao": 0.0017973686185437311,
+        "generica": 0.0005421209053912572,
+        "operacional": 0.00018208103789718388,
+        "ranking": 0.0002953036050595969,
+        "segmentacao": 0.0003408964805354527,
+        "tendencia": 0.9964192183444246,
+        "total": 0.0004230110081481246
+      },
+      "accepted": true
+    },
+    {
+      "id": "tendencia-m02-3",
+      "expected": "tendencia",
+      "label": "tendencia",
+      "confidence": 0.9847521114767783,
+      "probabilities": {
+        "comparacao": 0.01337814312704045,
+        "generica": 0.00015422256255822285,
+        "operacional": 9.437235980653527e-05,
+        "ranking": 0.00032746202702115456,
+        "segmentacao": 0.0003302707830388512,
+        "tendencia": 0.9847521114767783,
+        "total": 0.0009634176637565226
+      },
+      "accepted": true
+    },
+    {
+      "id": "tendencia-m02-4",
+      "expected": "tendencia",
+      "label": "tendencia",
+      "confidence": 0.9851492406624313,
+      "probabilities": {
+        "comparacao": 0.0009589179114123814,
+        "generica": 0.0009017339571664897,
+        "operacional": 0.01062253564949115,
+        "ranking": 0.00021599836328435587,
+        "segmentacao": 0.00035751581150383953,
+        "tendencia": 0.9851492406624313,
+        "total": 0.0017940576447104172
+      },
+      "accepted": true
+    },
+    {
+      "id": "tendencia-m02-5",
+      "expected": "tendencia",
+      "label": "tendencia",
+      "confidence": 0.9914716249351225,
+      "probabilities": {
+        "comparacao": 0.0038145348671182536,
+        "generica": 0.00026903200871988223,
+        "operacional": 0.0016366810443770074,
+        "ranking": 0.00010757532643455433,
+        "segmentacao": 0.00013847572037288,
+        "tendencia": 0.9914716249351225,
+        "total": 0.002562076097854894
+      },
+      "accepted": true
+    },
+    {
+      "id": "tendencia-m02-6",
+      "expected": "tendencia",
+      "label": "tendencia",
+      "confidence": 0.9912266372477873,
+      "probabilities": {
+        "comparacao": 0.003587687562801273,
+        "generica": 0.0003131816909346502,
+        "operacional": 0.001637464025676347,
+        "ranking": 0.00012097908025672814,
+        "segmentacao": 0.0001430398292359622,
+        "tendencia": 0.9912266372477873,
+        "total": 0.0029710105633077226
+      },
+      "accepted": true
+    },
+    {
+      "id": "tendencia-m02-7",
+      "expected": "tendencia",
+      "label": "tendencia",
+      "confidence": 0.9464673514632634,
+      "probabilities": {
+        "comparacao": 0.04954618774157765,
+        "generica": 0.0008658750633499372,
+        "operacional": 0.0005053383912436321,
+        "ranking": 0.0004219421750050984,
+        "segmentacao": 0.0008492439777660197,
+        "tendencia": 0.9464673514632634,
+        "total": 0.0013440611877942584
+      },
+      "accepted": true
+    },
+    {
+      "id": "tendencia-m02-8",
+      "expected": "tendencia",
+      "label": "tendencia",
+      "confidence": 0.982500347523125,
+      "probabilities": {
+        "comparacao": 0.0036118295225210494,
+        "generica": 0.001381408332381652,
+        "operacional": 0.0010683359606037295,
+        "ranking": 0.0014471656877332497,
+        "segmentacao": 0.0005322908365920374,
+        "tendencia": 0.982500347523125,
+        "total": 0.009458622137043208
+      },
+      "accepted": true
+    },
+    {
+      "id": "tendencia-m19-1",
+      "expected": "tendencia",
+      "label": "total",
+      "confidence": 0.48143953864069405,
+      "probabilities": {
+        "comparacao": 0.008445663970043305,
+        "generica": 0.006031583492312033,
+        "operacional": 0.15472495160165192,
+        "ranking": 0.0071496343084347545,
+        "segmentacao": 0.006640394201149905,
+        "tendencia": 0.33556823378571393,
+        "total": 0.48143953864069405
+      },
+      "accepted": false
+    },
+    {
+      "id": "tendencia-m19-2",
+      "expected": "tendencia",
+      "label": "tendencia",
+      "confidence": 0.9358126068447583,
+      "probabilities": {
+        "comparacao": 0.008295938922245623,
+        "generica": 0.002429228077799229,
+        "operacional": 0.015727562326743064,
+        "ranking": 0.0009256476065162948,
+        "segmentacao": 0.001233745724188624,
+        "tendencia": 0.9358126068447583,
+        "total": 0.03557527049774888
+      },
+      "accepted": true
+    },
+    {
+      "id": "tendencia-m19-3",
+      "expected": "tendencia",
+      "label": "tendencia",
+      "confidence": 0.6461880104472121,
+      "probabilities": {
+        "comparacao": 0.06993603509157004,
+        "generica": 0.015308193225332173,
+        "operacional": 0.01343887461102676,
+        "ranking": 0.08397530090555198,
+        "segmentacao": 0.029773220592149603,
+        "tendencia": 0.6461880104472121,
+        "total": 0.14138036512715738
+      },
+      "accepted": true
+    },
+    {
+      "id": "tendencia-m19-4",
+      "expected": "tendencia",
+      "label": "tendencia",
+      "confidence": 0.5807490408417861,
+      "probabilities": {
+        "comparacao": 0.3852162397024465,
+        "generica": 0.002960590531140764,
+        "operacional": 0.0036444658337546616,
+        "ranking": 0.008187887807126482,
+        "segmentacao": 0.006681276735393076,
+        "tendencia": 0.5807490408417861,
+        "total": 0.01256049854835236
+      },
+      "accepted": true
+    },
+    {
+      "id": "tendencia-m19-5",
+      "expected": "tendencia",
+      "label": "tendencia",
+      "confidence": 0.6926557997251553,
+      "probabilities": {
+        "comparacao": 0.08464709683431883,
+        "generica": 0.006453571503138101,
+        "operacional": 0.17928734022069776,
+        "ranking": 0.0015269042837182875,
+        "segmentacao": 0.00398005915208913,
+        "tendencia": 0.6926557997251553,
+        "total": 0.03144922828088245
+      },
+      "accepted": true
+    },
+    {
+      "id": "tendencia-m19-6",
+      "expected": "tendencia",
+      "label": "tendencia",
+      "confidence": 0.7544997064185541,
+      "probabilities": {
+        "comparacao": 0.017501948914644645,
+        "generica": 0.010574248176959046,
+        "operacional": 0.060904947681140645,
+        "ranking": 0.003816321136636489,
+        "segmentacao": 0.005383332973855199,
+        "tendencia": 0.7544997064185541,
+        "total": 0.14731949469820974
+      },
+      "accepted": true
+    },
+    {
+      "id": "tendencia-m19-7",
+      "expected": "tendencia",
+      "label": "tendencia",
+      "confidence": 0.5786909554656632,
+      "probabilities": {
+        "comparacao": 0.37110543026306153,
+        "generica": 0.0009004527772138309,
+        "operacional": 0.0005116612504322881,
+        "ranking": 0.012639849636574916,
+        "segmentacao": 0.0067977013422936775,
+        "tendencia": 0.5786909554656632,
+        "total": 0.029353949264760516
+      },
+      "accepted": true
+    },
+    {
+      "id": "tendencia-m19-8",
+      "expected": "tendencia",
+      "label": "tendencia",
+      "confidence": 0.9007220225949983,
+      "probabilities": {
+        "comparacao": 0.06701289117650014,
+        "generica": 0.007410143757616997,
+        "operacional": 0.004440291995417117,
+        "ranking": 0.004293227847474327,
+        "segmentacao": 0.00547881831103846,
+        "tendencia": 0.9007220225949983,
+        "total": 0.010642604316954693
+      },
+      "accepted": true
+    },
+    {
+      "id": "ranking-m03-1",
+      "expected": "ranking",
+      "label": "ranking",
+      "confidence": 0.9725061436914834,
+      "probabilities": {
+        "comparacao": 0.0012535088248738441,
+        "generica": 0.0004277067800129977,
+        "operacional": 0.0005558996632460748,
+        "ranking": 0.9725061436914834,
+        "segmentacao": 0.011838825328709904,
+        "tendencia": 0.0024356116714630894,
+        "total": 0.010982304040210606
+      },
+      "accepted": true
+    },
+    {
+      "id": "ranking-m03-2",
+      "expected": "ranking",
+      "label": "ranking",
+      "confidence": 0.8496061269915498,
+      "probabilities": {
+        "comparacao": 0.00557193641047874,
+        "generica": 0.019668945879982056,
+        "operacional": 0.03703401237711894,
+        "ranking": 0.8496061269915498,
+        "segmentacao": 0.047301128579207444,
+        "tendencia": 0.0071520208418342805,
+        "total": 0.033665828919828784
+      },
+      "accepted": true
+    },
+    {
+      "id": "ranking-m03-3",
+      "expected": "ranking",
+      "label": "ranking",
+      "confidence": 0.9807905997036617,
+      "probabilities": {
+        "comparacao": 0.002780680272054204,
+        "generica": 0.001016331573971587,
+        "operacional": 0.0010003086965362704,
+        "ranking": 0.9807905997036617,
+        "segmentacao": 0.0076094628854327,
+        "tendencia": 0.0026143464624554056,
+        "total": 0.004188270405888123
+      },
+      "accepted": true
+    },
+    {
+      "id": "ranking-m03-4",
+      "expected": "ranking",
+      "label": "ranking",
+      "confidence": 0.975124858939714,
+      "probabilities": {
+        "comparacao": 0.004159104812785373,
+        "generica": 0.0002474170879794489,
+        "operacional": 0.00034323539709801815,
+        "ranking": 0.975124858939714,
+        "segmentacao": 0.008418078121054856,
+        "tendencia": 0.001688765770119262,
+        "total": 0.010018539871249016
+      },
+      "accepted": true
+    },
+    {
+      "id": "ranking-m03-5",
+      "expected": "ranking",
+      "label": "ranking",
+      "confidence": 0.9738866701140484,
+      "probabilities": {
+        "comparacao": 0.001024440758812942,
+        "generica": 0.00039430333861005653,
+        "operacional": 0.0005249065045489628,
+        "ranking": 0.9738866701140484,
+        "segmentacao": 0.011426259588244635,
+        "tendencia": 0.002922780638087175,
+        "total": 0.009820639057647847
+      },
+      "accepted": true
+    },
+    {
+      "id": "ranking-m03-6",
+      "expected": "ranking",
+      "label": "ranking",
+      "confidence": 0.9653820566452544,
+      "probabilities": {
+        "comparacao": 0.00792658402508157,
+        "generica": 0.0014017378697692982,
+        "operacional": 0.0027989367139297436,
+        "ranking": 0.9653820566452544,
+        "segmentacao": 0.008981155458416433,
+        "tendencia": 0.0073636025855856576,
+        "total": 0.006145926701962822
+      },
+      "accepted": true
+    },
+    {
+      "id": "ranking-m03-7",
+      "expected": "ranking",
+      "label": "ranking",
+      "confidence": 0.9695184548396101,
+      "probabilities": {
+        "comparacao": 0.005054952429484151,
+        "generica": 0.0015439535844837305,
+        "operacional": 0.0022360107751236533,
+        "ranking": 0.9695184548396101,
+        "segmentacao": 0.007200241613547271,
+        "tendencia": 0.008205597622088036,
+        "total": 0.006240789135663138
+      },
+      "accepted": true
+    },
+    {
+      "id": "ranking-m03-8",
+      "expected": "ranking",
+      "label": "ranking",
+      "confidence": 0.970651541030674,
+      "probabilities": {
+        "comparacao": 0.0040758592962006155,
+        "generica": 0.0003726930364960297,
+        "operacional": 0.0003586855604046088,
+        "ranking": 0.970651541030674,
+        "segmentacao": 0.00875872022896754,
+        "tendencia": 0.0024883248392972078,
+        "total": 0.013294176007959959
+      },
+      "accepted": true
+    },
+    {
+      "id": "ranking-m14-1",
+      "expected": "ranking",
+      "label": "ranking",
+      "confidence": 0.811291081157125,
+      "probabilities": {
+        "comparacao": 0.07321226938169875,
+        "generica": 0.002775729040649135,
+        "operacional": 0.0015250089110339692,
+        "ranking": 0.811291081157125,
+        "segmentacao": 0.035799234176765615,
+        "tendencia": 0.009348113221729069,
+        "total": 0.06604856411099844
+      },
+      "accepted": true
+    },
+    {
+      "id": "ranking-m14-2",
+      "expected": "ranking",
+      "label": "ranking",
+      "confidence": 0.7948479071196736,
+      "probabilities": {
+        "comparacao": 0.08604637749334666,
+        "generica": 0.022608945634674416,
+        "operacional": 0.010113732265507885,
+        "ranking": 0.7948479071196736,
+        "segmentacao": 0.03759131102091741,
+        "tendencia": 0.010256590167290145,
+        "total": 0.038535136298590004
+      },
+      "accepted": true
+    },
+    {
+      "id": "ranking-m14-3",
+      "expected": "ranking",
+      "label": "ranking",
+      "confidence": 0.9268952150464846,
+      "probabilities": {
+        "comparacao": 0.023482953805610746,
+        "generica": 0.016412623632320815,
+        "operacional": 0.00587898400008001,
+        "ranking": 0.9268952150464846,
+        "segmentacao": 0.011092220855173742,
+        "tendencia": 0.0019376441260132737,
+        "total": 0.014300358534316666
+      },
+      "accepted": true
+    },
+    {
+      "id": "ranking-m14-4",
+      "expected": "ranking",
+      "label": "ranking",
+      "confidence": 0.8645604842896707,
+      "probabilities": {
+        "comparacao": 0.06407850313150514,
+        "generica": 0.013633374038802949,
+        "operacional": 0.00662766760301973,
+        "ranking": 0.8645604842896707,
+        "segmentacao": 0.025530976742217028,
+        "tendencia": 0.004830737479811628,
+        "total": 0.02073825671497292
+      },
+      "accepted": true
+    },
+    {
+      "id": "ranking-m14-5",
+      "expected": "ranking",
+      "label": "ranking",
+      "confidence": 0.6711925504601034,
+      "probabilities": {
+        "comparacao": 0.005576610568261407,
+        "generica": 0.03186992619521276,
+        "operacional": 0.024721561757099077,
+        "ranking": 0.6711925504601034,
+        "segmentacao": 0.10013631485302169,
+        "tendencia": 0.010235006463039379,
+        "total": 0.15626802970326226
+      },
+      "accepted": true
+    },
+    {
+      "id": "ranking-m14-6",
+      "expected": "ranking",
+      "label": "ranking",
+      "confidence": 0.9349202034119765,
+      "probabilities": {
+        "comparacao": 0.021893294684837,
+        "generica": 0.008319302531739403,
+        "operacional": 0.00647157895704656,
+        "ranking": 0.9349202034119765,
+        "segmentacao": 0.013666137753624349,
+        "tendencia": 0.0022160598441501585,
+        "total": 0.012513422816626008
+      },
+      "accepted": true
+    },
+    {
+      "id": "ranking-m14-7",
+      "expected": "ranking",
+      "label": "ranking",
+      "confidence": 0.8867845846979449,
+      "probabilities": {
+        "comparacao": 0.010210727153550288,
+        "generica": 0.006839815646545351,
+        "operacional": 0.003551915316998872,
+        "ranking": 0.8867845846979449,
+        "segmentacao": 0.040581017291247294,
+        "tendencia": 0.008039770559992561,
+        "total": 0.043992169333720785
+      },
+      "accepted": true
+    },
+    {
+      "id": "ranking-m14-8",
+      "expected": "ranking",
+      "label": "ranking",
+      "confidence": 0.7985480993667644,
+      "probabilities": {
+        "comparacao": 0.07611880774543167,
+        "generica": 0.03150134416982197,
+        "operacional": 0.012671952268467004,
+        "ranking": 0.7985480993667644,
+        "segmentacao": 0.0234973640352837,
+        "tendencia": 0.007622409329219068,
+        "total": 0.050040023085012285
+      },
+      "accepted": true
+    },
+    {
+      "id": "ranking-m20-1",
+      "expected": "ranking",
+      "label": "ranking",
+      "confidence": 0.9839182305979598,
+      "probabilities": {
+        "comparacao": 0.003916283265178062,
+        "generica": 0.002102277836739367,
+        "operacional": 0.0004567383034656482,
+        "ranking": 0.9839182305979598,
+        "segmentacao": 0.003449892214589332,
+        "tendencia": 0.0016353488938190628,
+        "total": 0.004521228888248858
+      },
+      "accepted": true
+    },
+    {
+      "id": "ranking-m20-2",
+      "expected": "ranking",
+      "label": "ranking",
+      "confidence": 0.9558091883241157,
+      "probabilities": {
+        "comparacao": 0.005864855217234637,
+        "generica": 0.005521197158439749,
+        "operacional": 0.0008841875514280878,
+        "ranking": 0.9558091883241157,
+        "segmentacao": 0.005791763024470927,
+        "tendencia": 0.0028941486751438267,
+        "total": 0.02323466004916712
+      },
+      "accepted": true
+    },
+    {
+      "id": "ranking-m20-3",
+      "expected": "ranking",
+      "label": "ranking",
+      "confidence": 0.9694707939787888,
+      "probabilities": {
+        "comparacao": 0.01429137407113262,
+        "generica": 0.00625488351733955,
+        "operacional": 0.0013754052968145696,
+        "ranking": 0.9694707939787888,
+        "segmentacao": 0.0016734585151162642,
+        "tendencia": 0.00273973549203857,
+        "total": 0.004194349128769648
+      },
+      "accepted": true
+    },
+    {
+      "id": "ranking-m20-4",
+      "expected": "ranking",
+      "label": "ranking",
+      "confidence": 0.9560897568348492,
+      "probabilities": {
+        "comparacao": 0.022742030565890168,
+        "generica": 0.009403503241724702,
+        "operacional": 0.0006496920879137251,
+        "ranking": 0.9560897568348492,
+        "segmentacao": 0.0019628011842253404,
+        "tendencia": 0.003097991765651366,
+        "total": 0.0060542243197454736
+      },
+      "accepted": true
+    },
+    {
+      "id": "ranking-m20-5",
+      "expected": "ranking",
+      "label": "ranking",
+      "confidence": 0.9776778555615451,
+      "probabilities": {
+        "comparacao": 0.011918427003345246,
+        "generica": 0.0021055860928348505,
+        "operacional": 0.00031439356360892667,
+        "ranking": 0.9776778555615451,
+        "segmentacao": 0.00208808427984094,
+        "tendencia": 0.0013151225132813932,
+        "total": 0.004580530985543593
+      },
+      "accepted": true
+    },
+    {
+      "id": "ranking-m20-6",
+      "expected": "ranking",
+      "label": "ranking",
+      "confidence": 0.9817514385386975,
+      "probabilities": {
+        "comparacao": 0.0014638110931570573,
+        "generica": 0.0026034173095994214,
+        "operacional": 0.0004365313434838714,
+        "ranking": 0.9817514385386975,
+        "segmentacao": 0.00277160688114732,
+        "tendencia": 0.0030328333741386896,
+        "total": 0.007940361459776052
+      },
+      "accepted": true
+    },
+    {
+      "id": "ranking-m20-7",
+      "expected": "ranking",
+      "label": "ranking",
+      "confidence": 0.9072567592359387,
+      "probabilities": {
+        "comparacao": 0.00128922721615525,
+        "generica": 0.015831666426647854,
+        "operacional": 0.0024500271073991534,
+        "ranking": 0.9072567592359387,
+        "segmentacao": 0.02062689275456591,
+        "tendencia": 0.003884497854195567,
+        "total": 0.048660929405097496
+      },
+      "accepted": true
+    },
+    {
+      "id": "ranking-m20-8",
+      "expected": "ranking",
+      "label": "ranking",
+      "confidence": 0.9661685933966487,
+      "probabilities": {
+        "comparacao": 0.01772489708788208,
+        "generica": 0.0029720019340657737,
+        "operacional": 0.00048440964852035384,
+        "ranking": 0.9661685933966487,
+        "segmentacao": 0.0025394338701358802,
+        "tendencia": 0.0017674812743573524,
+        "total": 0.008343182788389848
+      },
+      "accepted": true
+    },
+    {
+      "id": "ranking-m24-1",
+      "expected": "ranking",
+      "label": "ranking",
+      "confidence": 0.9489526210027506,
+      "probabilities": {
+        "comparacao": 0.0038430112723832157,
+        "generica": 0.0006894020984973794,
+        "operacional": 0.0003612720984494127,
+        "ranking": 0.9489526210027506,
+        "segmentacao": 0.037444317154495296,
+        "tendencia": 0.00274586228055205,
+        "total": 0.005963514092872069
+      },
+      "accepted": true
+    },
+    {
+      "id": "ranking-m24-2",
+      "expected": "ranking",
+      "label": "ranking",
+      "confidence": 0.9042364044823424,
+      "probabilities": {
+        "comparacao": 0.01371459115696069,
+        "generica": 0.004445153509142879,
+        "operacional": 0.0008790310072049649,
+        "ranking": 0.9042364044823424,
+        "segmentacao": 0.0592101220389095,
+        "tendencia": 0.0025477635595411822,
+        "total": 0.014966934245898476
+      },
+      "accepted": true
+    },
+    {
+      "id": "ranking-m24-3",
+      "expected": "ranking",
+      "label": "ranking",
+      "confidence": 0.9633280594907696,
+      "probabilities": {
+        "comparacao": 0.0026881983687241416,
+        "generica": 0.0006051524601298748,
+        "operacional": 0.0002911295156855634,
+        "ranking": 0.9633280594907696,
+        "segmentacao": 0.027043674292632994,
+        "tendencia": 0.0013271961172631032,
+        "total": 0.004716589754794726
+      },
+      "accepted": true
+    },
+    {
+      "id": "ranking-m24-4",
+      "expected": "ranking",
+      "label": "ranking",
+      "confidence": 0.8973364555171179,
+      "probabilities": {
+        "comparacao": 0.005393861117412115,
+        "generica": 0.013459613176660414,
+        "operacional": 0.0026955954760826714,
+        "ranking": 0.8973364555171179,
+        "segmentacao": 0.07183159401403928,
+        "tendencia": 0.005247576629852187,
+        "total": 0.004035304068835401
+      },
+      "accepted": true
+    },
+    {
+      "id": "ranking-m24-5",
+      "expected": "ranking",
+      "label": "ranking",
+      "confidence": 0.9272320957006968,
+      "probabilities": {
+        "comparacao": 0.0013883159112127795,
+        "generica": 0.0009846902112147548,
+        "operacional": 0.0005105640914209106,
+        "ranking": 0.9272320957006968,
+        "segmentacao": 0.06189110150427628,
+        "tendencia": 0.0019588733407850463,
+        "total": 0.006034359240393456
+      },
+      "accepted": true
+    },
+    {
+      "id": "ranking-m24-6",
+      "expected": "ranking",
+      "label": "ranking",
+      "confidence": 0.8930674727286068,
+      "probabilities": {
+        "comparacao": 0.008461881338276151,
+        "generica": 0.013837178470973136,
+        "operacional": 0.002957966036773137,
+        "ranking": 0.8930674727286068,
+        "segmentacao": 0.07359009160493474,
+        "tendencia": 0.0032442615488002687,
+        "total": 0.004841148271635784
+      },
+      "accepted": true
+    },
+    {
+      "id": "ranking-m24-7",
+      "expected": "ranking",
+      "label": "ranking",
+      "confidence": 0.9596719354674129,
+      "probabilities": {
+        "comparacao": 0.0007694160117193768,
+        "generica": 0.0008480913931308909,
+        "operacional": 0.0002747163683932978,
+        "ranking": 0.9596719354674129,
+        "segmentacao": 0.03148317879711818,
+        "tendencia": 0.0011905540440668885,
+        "total": 0.005762107918158365
+      },
+      "accepted": true
+    },
+    {
+      "id": "ranking-m24-8",
+      "expected": "ranking",
+      "label": "ranking",
+      "confidence": 0.8936957706858992,
+      "probabilities": {
+        "comparacao": 0.007301272878568657,
+        "generica": 0.009785801301226303,
+        "operacional": 0.005598240480670896,
+        "ranking": 0.8936957706858992,
+        "segmentacao": 0.07643232705017106,
+        "tendencia": 0.001975152138066053,
+        "total": 0.005211435465397838
+      },
+      "accepted": true
+    },
+    {
+      "id": "segmentacao-m03-1",
+      "expected": "segmentacao",
+      "label": "segmentacao",
+      "confidence": 0.9979524717484356,
+      "probabilities": {
+        "comparacao": 0.0005578227757327713,
+        "generica": 0.0003464951021997108,
+        "operacional": 0.00039028403743911617,
+        "ranking": 0.00041602430570480693,
+        "segmentacao": 0.9979524717484356,
+        "tendencia": 0.0001551917040033189,
+        "total": 0.00018171032648477755
+      },
+      "accepted": true
+    },
+    {
+      "id": "segmentacao-m03-2",
+      "expected": "segmentacao",
+      "label": "segmentacao",
+      "confidence": 0.9896156079361338,
+      "probabilities": {
+        "comparacao": 0.00014465643806282652,
+        "generica": 0.00036699938365050954,
+        "operacional": 0.00022877936001103295,
+        "ranking": 0.002674931222488196,
+        "segmentacao": 0.9896156079361338,
+        "tendencia": 0.0027207650192251267,
+        "total": 0.0042482606404285785
+      },
+      "accepted": true
+    },
+    {
+      "id": "segmentacao-m03-3",
+      "expected": "segmentacao",
+      "label": "segmentacao",
+      "confidence": 0.9953200447416202,
+      "probabilities": {
+        "comparacao": 0.001722402530602188,
+        "generica": 5.9344461277144404e-05,
+        "operacional": 6.670305112059069e-05,
+        "ranking": 0.001356986900802787,
+        "segmentacao": 0.9953200447416202,
+        "tendencia": 0.0006725594886046306,
+        "total": 0.0008019588259725803
+      },
+      "accepted": true
+    },
+    {
+      "id": "segmentacao-m03-4",
+      "expected": "segmentacao",
+      "label": "segmentacao",
+      "confidence": 0.999076825534375,
+      "probabilities": {
+        "comparacao": 0.000280967763254987,
+        "generica": 0.00013499031139129543,
+        "operacional": 0.0001042439556553114,
+        "ranking": 0.00014771066664401685,
+        "segmentacao": 0.999076825534375,
+        "tendencia": 0.00014323305959059045,
+        "total": 0.0001120287090886576
+      },
+      "accepted": true
+    },
+    {
+      "id": "segmentacao-m03-5",
+      "expected": "segmentacao",
+      "label": "segmentacao",
+      "confidence": 0.9977845857431294,
+      "probabilities": {
+        "comparacao": 0.000154868489002893,
+        "generica": 0.000561775459482677,
+        "operacional": 0.0002444781641240568,
+        "ranking": 0.0002630902640353645,
+        "segmentacao": 0.9977845857431294,
+        "tendencia": 0.0003623418126641606,
+        "total": 0.0006288600675613215
+      },
+      "accepted": true
+    },
+    {
+      "id": "segmentacao-m03-6",
+      "expected": "segmentacao",
+      "label": "segmentacao",
+      "confidence": 0.9707410781208614,
+      "probabilities": {
+        "comparacao": 0.0004814162890283539,
+        "generica": 0.002236197769564338,
+        "operacional": 0.001396609656884866,
+        "ranking": 0.011449534943137035,
+        "segmentacao": 0.9707410781208614,
+        "tendencia": 0.0015184320785618939,
+        "total": 0.01217673114196203
+      },
+      "accepted": true
+    },
+    {
+      "id": "segmentacao-m03-7",
+      "expected": "segmentacao",
+      "label": "segmentacao",
+      "confidence": 0.9908159044541421,
+      "probabilities": {
+        "comparacao": 0.002573821356213595,
+        "generica": 0.000782612737830944,
+        "operacional": 0.0006133349616913574,
+        "ranking": 0.0020782611293540493,
+        "segmentacao": 0.9908159044541421,
+        "tendencia": 0.001209289184129452,
+        "total": 0.001926776176638349
+      },
+      "accepted": true
+    },
+    {
+      "id": "segmentacao-m03-8",
+      "expected": "segmentacao",
+      "label": "segmentacao",
+      "confidence": 0.9922470837404308,
+      "probabilities": {
+        "comparacao": 0.00030929693697500656,
+        "generica": 0.002418828644751224,
+        "operacional": 0.0008972342861399903,
+        "ranking": 0.000938901112539239,
+        "segmentacao": 0.9922470837404308,
+        "tendencia": 0.001285609113024487,
+        "total": 0.0019030461661393655
+      },
+      "accepted": true
+    },
+    {
+      "id": "segmentacao-m08-1",
+      "expected": "segmentacao",
+      "label": "segmentacao",
+      "confidence": 0.9660884527010486,
+      "probabilities": {
+        "comparacao": 0.021600071785249975,
+        "generica": 0.0011117836229263415,
+        "operacional": 0.001272052724394783,
+        "ranking": 0.003198132647499676,
+        "segmentacao": 0.9660884527010486,
+        "tendencia": 0.0028581748875682175,
+        "total": 0.003871331631312326
+      },
+      "accepted": true
+    },
+    {
+      "id": "segmentacao-m08-2",
+      "expected": "segmentacao",
+      "label": "segmentacao",
+      "confidence": 0.973209956497617,
+      "probabilities": {
+        "comparacao": 0.013915299628017396,
+        "generica": 0.0003104282484839575,
+        "operacional": 0.00025032405647317,
+        "ranking": 0.003993172002064628,
+        "segmentacao": 0.973209956497617,
+        "tendencia": 0.004352743530367232,
+        "total": 0.003968076036976525
+      },
+      "accepted": true
+    },
+    {
+      "id": "segmentacao-m08-3",
+      "expected": "segmentacao",
+      "label": "segmentacao",
+      "confidence": 0.9819155149774413,
+      "probabilities": {
+        "comparacao": 0.012564055269002445,
+        "generica": 0.0009325791816203094,
+        "operacional": 0.0010787127546820219,
+        "ranking": 0.0011207315497758588,
+        "segmentacao": 0.9819155149774413,
+        "tendencia": 0.0014255972411407799,
+        "total": 0.000962809026337247
+      },
+      "accepted": true
+    },
+    {
+      "id": "segmentacao-m08-4",
+      "expected": "segmentacao",
+      "label": "segmentacao",
+      "confidence": 0.987094924020618,
+      "probabilities": {
+        "comparacao": 0.003252875175285967,
+        "generica": 0.0004088528540052488,
+        "operacional": 0.000313619989845081,
+        "ranking": 0.0025836172007097456,
+        "segmentacao": 0.987094924020618,
+        "tendencia": 0.002580020713159714,
+        "total": 0.0037660900463760798
+      },
+      "accepted": true
+    },
+    {
+      "id": "segmentacao-m08-5",
+      "expected": "segmentacao",
+      "label": "segmentacao",
+      "confidence": 0.8646014462318411,
+      "probabilities": {
+        "comparacao": 0.07263698026028183,
+        "generica": 0.004543445725014381,
+        "operacional": 0.0022623313221551023,
+        "ranking": 0.011435082316119784,
+        "segmentacao": 0.8646014462318411,
+        "tendencia": 0.014879765754475867,
+        "total": 0.02964094839011194
+      },
+      "accepted": true
+    },
+    {
+      "id": "segmentacao-m08-6",
+      "expected": "segmentacao",
+      "label": "segmentacao",
+      "confidence": 0.9851632121847103,
+      "probabilities": {
+        "comparacao": 0.0023504091263394605,
+        "generica": 0.001091662017713249,
+        "operacional": 0.000931695899259969,
+        "ranking": 0.0013206541637014687,
+        "segmentacao": 0.9851632121847103,
+        "tendencia": 0.008354368938700387,
+        "total": 0.0007879976695751993
+      },
+      "accepted": true
+    },
+    {
+      "id": "segmentacao-m08-7",
+      "expected": "segmentacao",
+      "label": "segmentacao",
+      "confidence": 0.9809140205419463,
+      "probabilities": {
+        "comparacao": 0.005118310696802213,
+        "generica": 0.0012097480090558325,
+        "operacional": 0.0007766462648142412,
+        "ranking": 0.0020419023081792143,
+        "segmentacao": 0.9809140205419463,
+        "tendencia": 0.0047920785201481806,
+        "total": 0.005147293659053918
+      },
+      "accepted": true
+    },
+    {
+      "id": "segmentacao-m08-8",
+      "expected": "segmentacao",
+      "label": "segmentacao",
+      "confidence": 0.973658332900899,
+      "probabilities": {
+        "comparacao": 0.014794624510840869,
+        "generica": 0.00040728443344642914,
+        "operacional": 0.0004037335739800808,
+        "ranking": 0.004258651832298356,
+        "segmentacao": 0.973658332900899,
+        "tendencia": 0.0021731253550719798,
+        "total": 0.0043042473934634074
+      },
+      "accepted": true
+    },
+    {
+      "id": "segmentacao-m09-1",
+      "expected": "segmentacao",
+      "label": "segmentacao",
+      "confidence": 0.9632546894550059,
+      "probabilities": {
+        "comparacao": 0.011395349476164832,
+        "generica": 0.005351758697729384,
+        "operacional": 0.00853972139986012,
+        "ranking": 0.005603660540014174,
+        "segmentacao": 0.9632546894550059,
+        "tendencia": 0.003613057053044559,
+        "total": 0.0022417633781808954
+      },
+      "accepted": true
+    },
+    {
+      "id": "segmentacao-m09-2",
+      "expected": "segmentacao",
+      "label": "segmentacao",
+      "confidence": 0.9907417603139742,
+      "probabilities": {
+        "comparacao": 0.0034269423980556636,
+        "generica": 0.0009211303317630764,
+        "operacional": 0.0020023450280675353,
+        "ranking": 0.0013770773834855452,
+        "segmentacao": 0.9907417603139742,
+        "tendencia": 0.000942660851722722,
+        "total": 0.0005880836929311221
+      },
+      "accepted": true
+    },
+    {
+      "id": "segmentacao-m09-3",
+      "expected": "segmentacao",
+      "label": "segmentacao",
+      "confidence": 0.9375876277415707,
+      "probabilities": {
+        "comparacao": 0.013906261701847292,
+        "generica": 0.0019217140744936414,
+        "operacional": 0.0037037509575254977,
+        "ranking": 0.022584457381610412,
+        "segmentacao": 0.9375876277415707,
+        "tendencia": 0.006538475293702198,
+        "total": 0.013757712849250182
+      },
+      "accepted": true
+    },
+    {
+      "id": "segmentacao-m09-4",
+      "expected": "segmentacao",
+      "label": "segmentacao",
+      "confidence": 0.9780268223750637,
+      "probabilities": {
+        "comparacao": 0.009506900288731076,
+        "generica": 0.0003532366100268158,
+        "operacional": 0.000609226854462584,
+        "ranking": 0.003892572767439182,
+        "segmentacao": 0.9780268223750637,
+        "tendencia": 0.003055210294181425,
+        "total": 0.0045560308100951585
+      },
+      "accepted": true
+    },
+    {
+      "id": "segmentacao-m09-5",
+      "expected": "segmentacao",
+      "label": "segmentacao",
+      "confidence": 0.9651081596592623,
+      "probabilities": {
+        "comparacao": 0.01091199404862705,
+        "generica": 0.005754466779219628,
+        "operacional": 0.007949038353320769,
+        "ranking": 0.0050223508648961,
+        "segmentacao": 0.9651081596592623,
+        "tendencia": 0.003629777098145677,
+        "total": 0.0016242131965283724
+      },
+      "accepted": true
+    },
+    {
+      "id": "segmentacao-m09-6",
+      "expected": "segmentacao",
+      "label": "segmentacao",
+      "confidence": 0.9406856757137673,
+      "probabilities": {
+        "comparacao": 0.0030907725915228592,
+        "generica": 0.007987778936188069,
+        "operacional": 0.015979231674807397,
+        "ranking": 0.014040098222303317,
+        "segmentacao": 0.9406856757137673,
+        "tendencia": 0.0037455133610538034,
+        "total": 0.01447092950035726
+      },
+      "accepted": true
+    },
+    {
+      "id": "segmentacao-m09-7",
+      "expected": "segmentacao",
+      "label": "segmentacao",
+      "confidence": 0.9099013706744848,
+      "probabilities": {
+        "comparacao": 0.029097584689437423,
+        "generica": 0.005665147596703892,
+        "operacional": 0.009779176318902322,
+        "ranking": 0.03532513738816597,
+        "segmentacao": 0.9099013706744848,
+        "tendencia": 0.0024312031630989188,
+        "total": 0.007800380169206558
+      },
+      "accepted": true
+    },
+    {
+      "id": "segmentacao-m09-8",
+      "expected": "segmentacao",
+      "label": "segmentacao",
+      "confidence": 0.9674827079496179,
+      "probabilities": {
+        "comparacao": 0.01295859183754593,
+        "generica": 0.0018286638131152007,
+        "operacional": 0.002784456479835471,
+        "ranking": 0.007613882592228468,
+        "segmentacao": 0.9674827079496179,
+        "tendencia": 0.0047301213699530486,
+        "total": 0.0026015759577039752
+      },
+      "accepted": true
+    },
+    {
+      "id": "segmentacao-m19-1",
+      "expected": "segmentacao",
+      "label": "segmentacao",
+      "confidence": 0.9981973425916943,
+      "probabilities": {
+        "comparacao": 0.0005190271761106748,
+        "generica": 0.00014321244460903962,
+        "operacional": 0.0003282847870138339,
+        "ranking": 0.0004272518553312327,
+        "segmentacao": 0.9981973425916943,
+        "tendencia": 0.00011626240753947128,
+        "total": 0.00026861873770151227
+      },
+      "accepted": true
+    },
+    {
+      "id": "segmentacao-m19-2",
+      "expected": "segmentacao",
+      "label": "segmentacao",
+      "confidence": 0.9977039011502155,
+      "probabilities": {
+        "comparacao": 0.0008121053367269295,
+        "generica": 0.0004383177426720295,
+        "operacional": 0.0002899516006663745,
+        "ranking": 0.00044000047292980926,
+        "segmentacao": 0.9977039011502155,
+        "tendencia": 0.0001348443822098224,
+        "total": 0.00018087931457964443
+      },
+      "accepted": true
+    },
+    {
+      "id": "segmentacao-m19-3",
+      "expected": "segmentacao",
+      "label": "segmentacao",
+      "confidence": 0.9987592235006998,
+      "probabilities": {
+        "comparacao": 0.0004775222796395446,
+        "generica": 0.000140322130061055,
+        "operacional": 0.0001731172258406029,
+        "ranking": 0.00022113510614922593,
+        "segmentacao": 0.9987592235006998,
+        "tendencia": 8.34684823745486e-05,
+        "total": 0.00014521127523525076
+      },
+      "accepted": true
+    },
+    {
+      "id": "segmentacao-m19-4",
+      "expected": "segmentacao",
+      "label": "segmentacao",
+      "confidence": 0.9983896191376824,
+      "probabilities": {
+        "comparacao": 0.00015918545328441055,
+        "generica": 8.29130403182226e-05,
+        "operacional": 5.574746428825582e-05,
+        "ranking": 0.00046109545830073755,
+        "segmentacao": 0.9983896191376824,
+        "tendencia": 0.00034915094650091107,
+        "total": 0.0005022884996250175
+      },
+      "accepted": true
+    },
+    {
+      "id": "segmentacao-m19-5",
+      "expected": "segmentacao",
+      "label": "segmentacao",
+      "confidence": 0.9857744400285621,
+      "probabilities": {
+        "comparacao": 0.00506690035455589,
+        "generica": 0.0002550962123043097,
+        "operacional": 0.00017278530063489912,
+        "ranking": 0.0045636555814902845,
+        "segmentacao": 0.9857744400285621,
+        "tendencia": 0.0008642990132076403,
+        "total": 0.00330282350924489
+      },
+      "accepted": true
+    },
+    {
+      "id": "segmentacao-m19-6",
+      "expected": "segmentacao",
+      "label": "segmentacao",
+      "confidence": 0.9868924056991235,
+      "probabilities": {
+        "comparacao": 0.0004917487161205883,
+        "generica": 0.0003173840771896296,
+        "operacional": 0.00023662176098404578,
+        "ranking": 0.00682395979478711,
+        "segmentacao": 0.9868924056991235,
+        "tendencia": 0.0017258489373857524,
+        "total": 0.0035120310144094447
+      },
+      "accepted": true
+    },
+    {
+      "id": "segmentacao-m19-7",
+      "expected": "segmentacao",
+      "label": "segmentacao",
+      "confidence": 0.9905216784586394,
+      "probabilities": {
+        "comparacao": 0.003159651902768229,
+        "generica": 0.0005738022309610434,
+        "operacional": 0.00024515809619664845,
+        "ranking": 0.0024751936880130013,
+        "segmentacao": 0.9905216784586394,
+        "tendencia": 0.0009223735331014874,
+        "total": 0.002102142090320225
+      },
+      "accepted": true
+    },
+    {
+      "id": "segmentacao-m19-8",
+      "expected": "segmentacao",
+      "label": "segmentacao",
+      "confidence": 0.9963609277077335,
+      "probabilities": {
+        "comparacao": 0.0012122520734492764,
+        "generica": 0.00019348831026515904,
+        "operacional": 0.0006994243106973664,
+        "ranking": 0.000995923830564494,
+        "segmentacao": 0.9963609277077335,
+        "tendencia": 0.00016887558357222895,
+        "total": 0.0003691081837177933
+      },
+      "accepted": true
+    },
+    {
+      "id": "operacional-m20-1",
+      "expected": "operacional",
+      "label": "operacional",
+      "confidence": 0.9743696094245502,
+      "probabilities": {
+        "comparacao": 0.013918451072003204,
+        "generica": 0.004040718628858732,
+        "operacional": 0.9743696094245502,
+        "ranking": 0.0011136827715099752,
+        "segmentacao": 0.003086791385451306,
+        "tendencia": 0.0006299880839182462,
+        "total": 0.0028407586337082878
+      },
+      "accepted": true
+    },
+    {
+      "id": "operacional-m20-2",
+      "expected": "operacional",
+      "label": "operacional",
+      "confidence": 0.9765858543311988,
+      "probabilities": {
+        "comparacao": 0.00934453088408932,
+        "generica": 0.004150972005329213,
+        "operacional": 0.9765858543311988,
+        "ranking": 0.0009909844035011167,
+        "segmentacao": 0.0025405796904302822,
+        "tendencia": 0.0011733127839338997,
+        "total": 0.005213765901517218
+      },
+      "accepted": true
+    },
+    {
+      "id": "operacional-m20-3",
+      "expected": "operacional",
+      "label": "operacional",
+      "confidence": 0.9790913040458871,
+      "probabilities": {
+        "comparacao": 0.008275153675256768,
+        "generica": 0.004300479748282859,
+        "operacional": 0.9790913040458871,
+        "ranking": 0.0007928451871069632,
+        "segmentacao": 0.002782874308708275,
+        "tendencia": 0.001507708527536305,
+        "total": 0.003249634507221821
+      },
+      "accepted": true
+    },
+    {
+      "id": "operacional-m20-4",
+      "expected": "operacional",
+      "label": "operacional",
+      "confidence": 0.9908473477185339,
+      "probabilities": {
+        "comparacao": 0.002932475093321064,
+        "generica": 0.001947217866692799,
+        "operacional": 0.9908473477185339,
+        "ranking": 0.00043482295428800974,
+        "segmentacao": 0.0015195505424390873,
+        "tendencia": 0.0005475873016039899,
+        "total": 0.0017709985231211941
+      },
+      "accepted": true
+    },
+    {
+      "id": "operacional-m20-5",
+      "expected": "operacional",
+      "label": "operacional",
+      "confidence": 0.9887572550059444,
+      "probabilities": {
+        "comparacao": 0.0017449196836731029,
+        "generica": 0.003711675832079831,
+        "operacional": 0.9887572550059444,
+        "ranking": 0.0005220709816575803,
+        "segmentacao": 0.00214376853907901,
+        "tendencia": 0.0013952823714379048,
+        "total": 0.0017250275861280778
+      },
+      "accepted": true
+    },
+    {
+      "id": "operacional-m20-6",
+      "expected": "operacional",
+      "label": "operacional",
+      "confidence": 0.9831285914638662,
+      "probabilities": {
+        "comparacao": 0.006350533449064828,
+        "generica": 0.0020354731895522553,
+        "operacional": 0.9831285914638662,
+        "ranking": 0.0004499836378295166,
+        "segmentacao": 0.0026579966745283053,
+        "tendencia": 0.0013599315892239745,
+        "total": 0.004017489995934775
+      },
+      "accepted": true
+    },
+    {
+      "id": "operacional-m20-7",
+      "expected": "operacional",
+      "label": "operacional",
+      "confidence": 0.9866209433333984,
+      "probabilities": {
+        "comparacao": 0.0052594877683726955,
+        "generica": 0.002287910992614419,
+        "operacional": 0.9866209433333984,
+        "ranking": 0.0005172331186905806,
+        "segmentacao": 0.0016259635390911374,
+        "tendencia": 0.0010100979252030983,
+        "total": 0.0026783633226295325
+      },
+      "accepted": true
+    },
+    {
+      "id": "operacional-m20-8",
+      "expected": "operacional",
+      "label": "operacional",
+      "confidence": 0.9861915076083,
+      "probabilities": {
+        "comparacao": 0.005759943206818163,
+        "generica": 0.0029536964820853586,
+        "operacional": 0.9861915076083,
+        "ranking": 0.0005049608608171496,
+        "segmentacao": 0.0014129420589459863,
+        "tendencia": 0.0005592593884241443,
+        "total": 0.0026176903946092058
+      },
+      "accepted": true
+    },
+    {
+      "id": "operacional-m21-1",
+      "expected": "operacional",
+      "label": "operacional",
+      "confidence": 0.8485784982619817,
+      "probabilities": {
+        "comparacao": 0.019788247396137253,
+        "generica": 0.018327774632817193,
+        "operacional": 0.8485784982619817,
+        "ranking": 0.005047427353627202,
+        "segmentacao": 0.010859340036793747,
+        "tendencia": 0.022597103987217603,
+        "total": 0.07480160833142531
+      },
+      "accepted": true
+    },
+    {
+      "id": "operacional-m21-2",
+      "expected": "operacional",
+      "label": "operacional",
+      "confidence": 0.8892800007861006,
+      "probabilities": {
+        "comparacao": 0.01049551953055458,
+        "generica": 0.009274448175081535,
+        "operacional": 0.8892800007861006,
+        "ranking": 0.0035774693732496567,
+        "segmentacao": 0.006466479483343469,
+        "tendencia": 0.020673663347098453,
+        "total": 0.060232419304571655
+      },
+      "accepted": true
+    },
+    {
+      "id": "operacional-m21-3",
+      "expected": "operacional",
+      "label": "operacional",
+      "confidence": 0.9046531370119554,
+      "probabilities": {
+        "comparacao": 0.0018519886862007463,
+        "generica": 0.007686639346172873,
+        "operacional": 0.9046531370119554,
+        "ranking": 0.001706853779821027,
+        "segmentacao": 0.004592049771014121,
+        "tendencia": 0.012274955414095122,
+        "total": 0.06723437599074061
+      },
+      "accepted": true
+    },
+    {
+      "id": "operacional-m21-4",
+      "expected": "operacional",
+      "label": "operacional",
+      "confidence": 0.770245704856426,
+      "probabilities": {
+        "comparacao": 0.0028252516721009465,
+        "generica": 0.01879124359460573,
+        "operacional": 0.770245704856426,
+        "ranking": 0.0033087008267038997,
+        "segmentacao": 0.013378536113797145,
+        "tendencia": 0.025377891229586978,
+        "total": 0.1660726717067794
+      },
+      "accepted": true
+    },
+    {
+      "id": "operacional-m21-5",
+      "expected": "operacional",
+      "label": "operacional",
+      "confidence": 0.8068184487122799,
+      "probabilities": {
+        "comparacao": 0.025436689576842322,
+        "generica": 0.01706444458912469,
+        "operacional": 0.8068184487122799,
+        "ranking": 0.0056073327173725125,
+        "segmentacao": 0.00897254344357851,
+        "tendencia": 0.01186716693040186,
+        "total": 0.12423337403040023
+      },
+      "accepted": true
+    },
+    {
+      "id": "operacional-m21-6",
+      "expected": "operacional",
+      "label": "operacional",
+      "confidence": 0.897927015383885,
+      "probabilities": {
+        "comparacao": 0.013789785505304837,
+        "generica": 0.012533564130894065,
+        "operacional": 0.897927015383885,
+        "ranking": 0.003157137608243846,
+        "segmentacao": 0.005313332903038302,
+        "tendencia": 0.0076791409126050975,
+        "total": 0.05960002355602892
+      },
+      "accepted": true
+    },
+    {
+      "id": "operacional-m21-7",
+      "expected": "operacional",
+      "label": "operacional",
+      "confidence": 0.8950354432670943,
+      "probabilities": {
+        "comparacao": 0.015017468110904259,
+        "generica": 0.012151298061076008,
+        "operacional": 0.8950354432670943,
+        "ranking": 0.003398455426804233,
+        "segmentacao": 0.007982498935764599,
+        "tendencia": 0.0073591580221034495,
+        "total": 0.05905567817625323
+      },
+      "accepted": true
+    },
+    {
+      "id": "operacional-m21-8",
+      "expected": "operacional",
+      "label": "operacional",
+      "confidence": 0.920409905564049,
+      "probabilities": {
+        "comparacao": 0.01164815625378611,
+        "generica": 0.006580689788756335,
+        "operacional": 0.920409905564049,
+        "ranking": 0.002801109481645867,
+        "segmentacao": 0.006133217425134463,
+        "tendencia": 0.005666819857747789,
+        "total": 0.046760101628880515
+      },
+      "accepted": true
+    },
+    {
+      "id": "operacional-m07-1",
+      "expected": "operacional",
+      "label": "comparacao",
+      "confidence": 0.539858922776857,
+      "probabilities": {
+        "comparacao": 0.539858922776857,
+        "generica": 0.004400330264841267,
+        "operacional": 0.037475746085394356,
+        "ranking": 0.10628515536380502,
+        "segmentacao": 0.08452881377113429,
+        "tendencia": 0.03048692489412822,
+        "total": 0.19696410684383986
+      },
+      "accepted": true
+    },
+    {
+      "id": "operacional-m07-2",
+      "expected": "operacional",
+      "label": "total",
+      "confidence": 0.25401813657325273,
+      "probabilities": {
+        "comparacao": 0.0679615603429797,
+        "generica": 0.06416118986386377,
+        "operacional": 0.12075407250983694,
+        "ranking": 0.22711492784395776,
+        "segmentacao": 0.2498038789015628,
+        "tendencia": 0.016186233964546257,
+        "total": 0.25401813657325273
+      },
+      "accepted": false
+    },
+    {
+      "id": "operacional-m07-3",
+      "expected": "operacional",
+      "label": "comparacao",
+      "confidence": 0.48040595565497995,
+      "probabilities": {
+        "comparacao": 0.48040595565497995,
+        "generica": 0.0072109659183962555,
+        "operacional": 0.05483353103472044,
+        "ranking": 0.20061360529230698,
+        "segmentacao": 0.06455788537335273,
+        "tendencia": 0.04197030350455183,
+        "total": 0.1504077532216918
+      },
+      "accepted": false
+    },
+    {
+      "id": "operacional-m07-4",
+      "expected": "operacional",
+      "label": "comparacao",
+      "confidence": 0.5152213505955734,
+      "probabilities": {
+        "comparacao": 0.5152213505955734,
+        "generica": 0.0057386773729139135,
+        "operacional": 0.07273871120328611,
+        "ranking": 0.191422921873787,
+        "segmentacao": 0.07513731152631083,
+        "tendencia": 0.015281359465074813,
+        "total": 0.124459667963054
+      },
+      "accepted": true
+    },
+    {
+      "id": "operacional-m07-5",
+      "expected": "operacional",
+      "label": "comparacao",
+      "confidence": 0.6150008468032436,
+      "probabilities": {
+        "comparacao": 0.6150008468032436,
+        "generica": 0.004425438280556169,
+        "operacional": 0.051915086644693575,
+        "ranking": 0.14047160895602748,
+        "segmentacao": 0.06098348470007063,
+        "tendencia": 0.025207917577970442,
+        "total": 0.10199561703743802
+      },
+      "accepted": true
+    },
+    {
+      "id": "operacional-m07-6",
+      "expected": "operacional",
+      "label": "comparacao",
+      "confidence": 0.6002445968683862,
+      "probabilities": {
+        "comparacao": 0.6002445968683862,
+        "generica": 0.007283566521769785,
+        "operacional": 0.024631264649085705,
+        "ranking": 0.14824253404455826,
+        "segmentacao": 0.04308043126599973,
+        "tendencia": 0.010028046457239032,
+        "total": 0.16648956019296135
+      },
+      "accepted": true
+    },
+    {
+      "id": "operacional-m07-7",
+      "expected": "operacional",
+      "label": "comparacao",
+      "confidence": 0.5236936822303108,
+      "probabilities": {
+        "comparacao": 0.5236936822303108,
+        "generica": 0.011129197507568156,
+        "operacional": 0.06458295669735954,
+        "ranking": 0.1828743842188914,
+        "segmentacao": 0.053775897999299396,
+        "tendencia": 0.019218606976684375,
+        "total": 0.1447252743698863
+      },
+      "accepted": true
+    },
+    {
+      "id": "operacional-m07-8",
+      "expected": "operacional",
+      "label": "total",
+      "confidence": 0.28070844297067604,
+      "probabilities": {
+        "comparacao": 0.12248259589290456,
+        "generica": 0.03998097761264215,
+        "operacional": 0.09751027476329181,
+        "ranking": 0.1693931964698966,
+        "segmentacao": 0.21920753313025576,
+        "tendencia": 0.07071697916033311,
+        "total": 0.28070844297067604
+      },
+      "accepted": false
+    },
+    {
+      "id": "operacional-m09-1",
+      "expected": "operacional",
+      "label": "comparacao",
+      "confidence": 0.45914756124225703,
+      "probabilities": {
+        "comparacao": 0.45914756124225703,
+        "generica": 0.07239822345924347,
+        "operacional": 0.1847857192652508,
+        "ranking": 0.05584130492424593,
+        "segmentacao": 0.12718046837502722,
+        "tendencia": 0.020547897411354026,
+        "total": 0.08009882532262154
+      },
+      "accepted": false
+    },
+    {
+      "id": "operacional-m09-2",
+      "expected": "operacional",
+      "label": "segmentacao",
+      "confidence": 0.3029925680796563,
+      "probabilities": {
+        "comparacao": 0.023161985892009615,
+        "generica": 0.184778733689668,
+        "operacional": 0.1726494119021922,
+        "ranking": 0.12526520594159887,
+        "segmentacao": 0.3029925680796563,
+        "tendencia": 0.012818084893645798,
+        "total": 0.17833400960122925
+      },
+      "accepted": false
+    },
+    {
+      "id": "operacional-m09-3",
+      "expected": "operacional",
+      "label": "segmentacao",
+      "confidence": 0.29480722000455634,
+      "probabilities": {
+        "comparacao": 0.11306606556591972,
+        "generica": 0.08200525123053067,
+        "operacional": 0.24568987582179314,
+        "ranking": 0.09693632073167172,
+        "segmentacao": 0.29480722000455634,
+        "tendencia": 0.06274056166030996,
+        "total": 0.10475470498521848
+      },
+      "accepted": false
+    },
+    {
+      "id": "operacional-m09-4",
+      "expected": "operacional",
+      "label": "comparacao",
+      "confidence": 0.6498844472236741,
+      "probabilities": {
+        "comparacao": 0.6498844472236741,
+        "generica": 0.06000591894941794,
+        "operacional": 0.06932036232383472,
+        "ranking": 0.04833376766199522,
+        "segmentacao": 0.08211508310461839,
+        "tendencia": 0.01178590004569146,
+        "total": 0.0785545206907681
+      },
+      "accepted": true
+    },
+    {
+      "id": "operacional-m09-5",
+      "expected": "operacional",
+      "label": "comparacao",
+      "confidence": 0.5218083732859712,
+      "probabilities": {
+        "comparacao": 0.5218083732859712,
+        "generica": 0.033122512314949525,
+        "operacional": 0.17212980310244158,
+        "ranking": 0.04892572865655401,
+        "segmentacao": 0.13126111221490194,
+        "tendencia": 0.05391641643265925,
+        "total": 0.03883605399252245
+      },
+      "accepted": true
+    },
+    {
+      "id": "operacional-m09-6",
+      "expected": "operacional",
+      "label": "segmentacao",
+      "confidence": 0.2682471211982689,
+      "probabilities": {
+        "comparacao": 0.054200410322329425,
+        "generica": 0.14417841484064897,
+        "operacional": 0.15907548903098617,
+        "ranking": 0.045003067550804736,
+        "segmentacao": 0.2682471211982689,
+        "tendencia": 0.07427898133428797,
+        "total": 0.2550165157226738
+      },
+      "accepted": false
+    },
+    {
+      "id": "operacional-m09-7",
+      "expected": "operacional",
+      "label": "comparacao",
+      "confidence": 0.5409199490300514,
+      "probabilities": {
+        "comparacao": 0.5409199490300514,
+        "generica": 0.05376456939940684,
+        "operacional": 0.1529945902455657,
+        "ranking": 0.04910539959165332,
+        "segmentacao": 0.10736469549620226,
+        "tendencia": 0.03471595787934787,
+        "total": 0.06113483835777272
+      },
+      "accepted": true
+    },
+    {
+      "id": "operacional-m09-8",
+      "expected": "operacional",
+      "label": "comparacao",
+      "confidence": 0.5556180376480775,
+      "probabilities": {
+        "comparacao": 0.5556180376480775,
+        "generica": 0.08017896907864554,
+        "operacional": 0.16936174189240694,
+        "ranking": 0.04396752229290472,
+        "segmentacao": 0.08021940471280374,
+        "tendencia": 0.013207100361268626,
+        "total": 0.05744722401389294
+      },
+      "accepted": true
+    },
+    {
+      "id": "generica-m13-1",
+      "expected": "generica",
+      "label": "generica",
+      "confidence": 0.6846253345593504,
+      "probabilities": {
+        "comparacao": 0.14297964540170655,
+        "generica": 0.6846253345593504,
+        "operacional": 0.02695281093703239,
+        "ranking": 0.0679837366426841,
+        "segmentacao": 0.013879358644512507,
+        "tendencia": 0.00514619185512748,
+        "total": 0.05843292195958655
+      },
+      "accepted": false
+    },
+    {
+      "id": "generica-m13-2",
+      "expected": "generica",
+      "label": "generica",
+      "confidence": 0.8744731920215937,
+      "probabilities": {
+        "comparacao": 0.012442342865441098,
+        "generica": 0.8744731920215937,
+        "operacional": 0.014300863041630637,
+        "ranking": 0.03644677690247969,
+        "segmentacao": 0.0070902673694821575,
+        "tendencia": 0.037434109832682354,
+        "total": 0.01781244796669027
+      },
+      "accepted": false
+    },
+    {
+      "id": "generica-m13-3",
+      "expected": "generica",
+      "label": "generica",
+      "confidence": 0.8595286364758301,
+      "probabilities": {
+        "comparacao": 0.05040214411084166,
+        "generica": 0.8595286364758301,
+        "operacional": 0.013603069878855598,
+        "ranking": 0.03700140231641357,
+        "segmentacao": 0.008399116708552758,
+        "tendencia": 0.005509786301530189,
+        "total": 0.025555844207976075
+      },
+      "accepted": false
+    },
+    {
+      "id": "generica-m13-4",
+      "expected": "generica",
+      "label": "generica",
+      "confidence": 0.8662381253575919,
+      "probabilities": {
+        "comparacao": 0.015380549130189682,
+        "generica": 0.8662381253575919,
+        "operacional": 0.013207305553014524,
+        "ranking": 0.0396914568317275,
+        "segmentacao": 0.006882393934424556,
+        "tendencia": 0.009263448735702746,
+        "total": 0.04933672045734903
+      },
+      "accepted": false
+    },
+    {
+      "id": "generica-m13-5",
+      "expected": "generica",
+      "label": "generica",
+      "confidence": 0.7940682829210887,
+      "probabilities": {
+        "comparacao": 0.07446018128522824,
+        "generica": 0.7940682829210887,
+        "operacional": 0.01531325777700005,
+        "ranking": 0.03605071090235825,
+        "segmentacao": 0.013081319431337274,
+        "tendencia": 0.013584477769648062,
+        "total": 0.05344176991333951
+      },
+      "accepted": false
+    },
+    {
+      "id": "generica-m13-6",
+      "expected": "generica",
+      "label": "generica",
+      "confidence": 0.8702611987777263,
+      "probabilities": {
+        "comparacao": 0.04449706605685526,
+        "generica": 0.8702611987777263,
+        "operacional": 0.008664196716469863,
+        "ranking": 0.03669206563138359,
+        "segmentacao": 0.007612141242115981,
+        "tendencia": 0.010680639235260494,
+        "total": 0.021592692340188437
+      },
+      "accepted": false
+    },
+    {
+      "id": "generica-m13-7",
+      "expected": "generica",
+      "label": "generica",
+      "confidence": 0.8065958439240687,
+      "probabilities": {
+        "comparacao": 0.07043381662012763,
+        "generica": 0.8065958439240687,
+        "operacional": 0.015255820522398659,
+        "ranking": 0.05567325450213672,
+        "segmentacao": 0.012407462442531391,
+        "tendencia": 0.007398927052644493,
+        "total": 0.03223487493609246
+      },
+      "accepted": false
+    },
+    {
+      "id": "generica-m13-8",
+      "expected": "generica",
+      "label": "generica",
+      "confidence": 0.7914551807326224,
+      "probabilities": {
+        "comparacao": 0.08592129837048045,
+        "generica": 0.7914551807326224,
+        "operacional": 0.02029780880620362,
+        "ranking": 0.04628516396247523,
+        "segmentacao": 0.01056922541931157,
+        "tendencia": 0.012102996411686287,
+        "total": 0.03336832629722034
+      },
+      "accepted": false
+    },
+    {
+      "id": "generica-m22-1",
+      "expected": "generica",
+      "label": "comparacao",
+      "confidence": 0.3817119903205076,
+      "probabilities": {
+        "comparacao": 0.3817119903205076,
+        "generica": 0.35279393804912335,
+        "operacional": 0.09068027425053064,
+        "ranking": 0.009516667408049953,
+        "segmentacao": 0.022348472369636826,
+        "tendencia": 0.01292307667371322,
+        "total": 0.13002558092843844
+      },
+      "accepted": false
+    },
+    {
+      "id": "generica-m22-2",
+      "expected": "generica",
+      "label": "generica",
+      "confidence": 0.4136184178880036,
+      "probabilities": {
+        "comparacao": 0.21165935396359906,
+        "generica": 0.4136184178880036,
+        "operacional": 0.08372041441654553,
+        "ranking": 0.007222340218571544,
+        "segmentacao": 0.018537834235807075,
+        "tendencia": 0.08763931467293543,
+        "total": 0.1776023246045377
+      },
+      "accepted": false
+    },
+    {
+      "id": "generica-m22-3",
+      "expected": "generica",
+      "label": "comparacao",
+      "confidence": 0.4172948409397156,
+      "probabilities": {
+        "comparacao": 0.4172948409397156,
+        "generica": 0.36164428734141807,
+        "operacional": 0.06556975420121312,
+        "ranking": 0.007536185209398381,
+        "segmentacao": 0.019075445334359908,
+        "tendencia": 0.00807303305078063,
+        "total": 0.12080645392311426
+      },
+      "accepted": false
+    },
+    {
+      "id": "generica-m22-4",
+      "expected": "generica",
+      "label": "generica",
+      "confidence": 0.41312563774010497,
+      "probabilities": {
+        "comparacao": 0.22036843919767604,
+        "generica": 0.41312563774010497,
+        "operacional": 0.053907347635760064,
+        "ranking": 0.008509630574367398,
+        "segmentacao": 0.020257221078747573,
+        "tendencia": 0.16666010429116518,
+        "total": 0.11717161948217877
+      },
+      "accepted": false
+    },
+    {
+      "id": "generica-m22-5",
+      "expected": "generica",
+      "label": "generica",
+      "confidence": 0.4644190556849688,
+      "probabilities": {
+        "comparacao": 0.2903771194304464,
+        "generica": 0.4644190556849688,
+        "operacional": 0.08023540397624078,
+        "ranking": 0.008899644574185794,
+        "segmentacao": 0.01726639937026897,
+        "tendencia": 0.013904384565505813,
+        "total": 0.12489799239838349
+      },
+      "accepted": false
+    },
+    {
+      "id": "generica-m22-6",
+      "expected": "generica",
+      "label": "comparacao",
+      "confidence": 0.3847884565687438,
+      "probabilities": {
+        "comparacao": 0.3847884565687438,
+        "generica": 0.35426078454956283,
+        "operacional": 0.07930624405674425,
+        "ranking": 0.007759359222000812,
+        "segmentacao": 0.020301071293816374,
+        "tendencia": 0.02610301847965783,
+        "total": 0.12748106582947413
+      },
+      "accepted": false
+    },
+    {
+      "id": "generica-m22-7",
+      "expected": "generica",
+      "label": "comparacao",
+      "confidence": 0.47987114888073445,
+      "probabilities": {
+        "comparacao": 0.47987114888073445,
+        "generica": 0.2824089286639669,
+        "operacional": 0.0685758189584352,
+        "ranking": 0.007426157898157042,
+        "segmentacao": 0.01759565858889924,
+        "tendencia": 0.021463908933242796,
+        "total": 0.12265837807656442
+      },
+      "accepted": false
+    },
+    {
+      "id": "generica-m22-8",
+      "expected": "generica",
+      "label": "generica",
+      "confidence": 0.4174936749012338,
+      "probabilities": {
+        "comparacao": 0.26740351288992087,
+        "generica": 0.4174936749012338,
+        "operacional": 0.052420007144257895,
+        "ranking": 0.0075141187961039425,
+        "segmentacao": 0.018995724834617877,
+        "tendencia": 0.11252156181231897,
+        "total": 0.12365139962154673
+      },
+      "accepted": false
+    },
+    {
+      "id": "generica-m09-1",
+      "expected": "generica",
+      "label": "generica",
+      "confidence": 0.9692687689026112,
+      "probabilities": {
+        "comparacao": 0.010086151000726889,
+        "generica": 0.9692687689026112,
+        "operacional": 0.001435630135434461,
+        "ranking": 0.007041817914428828,
+        "segmentacao": 0.005527582668477671,
+        "tendencia": 0.001107922504758723,
+        "total": 0.005532126873562183
+      },
+      "accepted": false
+    },
+    {
+      "id": "generica-m09-2",
+      "expected": "generica",
+      "label": "generica",
+      "confidence": 0.9408563440037583,
+      "probabilities": {
+        "comparacao": 0.022496930628075194,
+        "generica": 0.9408563440037583,
+        "operacional": 0.004794883236608175,
+        "ranking": 0.012073416765308202,
+        "segmentacao": 0.010916867186717232,
+        "tendencia": 0.0010086818639930102,
+        "total": 0.007852876315539853
+      },
+      "accepted": false
+    },
+    {
+      "id": "generica-m09-3",
+      "expected": "generica",
+      "label": "generica",
+      "confidence": 0.8526909649548573,
+      "probabilities": {
+        "comparacao": 0.002515680655224306,
+        "generica": 0.8526909649548573,
+        "operacional": 0.01538507404601751,
+        "ranking": 0.03697078791476308,
+        "segmentacao": 0.055592464943161515,
+        "tendencia": 0.002845209904258442,
+        "total": 0.033999817581717814
+      },
+      "accepted": false
+    },
+    {
+      "id": "generica-m09-4",
+      "expected": "generica",
+      "label": "generica",
+      "confidence": 0.9734051527870085,
+      "probabilities": {
+        "comparacao": 0.007722408264196002,
+        "generica": 0.9734051527870085,
+        "operacional": 0.002231856991999757,
+        "ranking": 0.005613909587803715,
+        "segmentacao": 0.006944576105153104,
+        "tendencia": 0.0008852294756015564,
+        "total": 0.003196866788237438
+      },
+      "accepted": false
+    },
+    {
+      "id": "generica-m09-5",
+      "expected": "generica",
+      "label": "generica",
+      "confidence": 0.9530498214059123,
+      "probabilities": {
+        "comparacao": 0.011119210652201566,
+        "generica": 0.9530498214059123,
+        "operacional": 0.002777447441867673,
+        "ranking": 0.0064019454855960825,
+        "segmentacao": 0.014112963730532052,
+        "tendencia": 0.004353215629156843,
+        "total": 0.00818539565473347
+      },
+      "accepted": false
+    },
+    {
+      "id": "generica-m09-6",
+      "expected": "generica",
+      "label": "generica",
+      "confidence": 0.9704519309847295,
+      "probabilities": {
+        "comparacao": 0.004950713551322457,
+        "generica": 0.9704519309847295,
+        "operacional": 0.004092895916056424,
+        "ranking": 0.00729600578878491,
+        "segmentacao": 0.008156002664763254,
+        "tendencia": 0.0016099590118264096,
+        "total": 0.00344249208251707
+      },
+      "accepted": false
+    },
+    {
+      "id": "generica-m09-7",
+      "expected": "generica",
+      "label": "generica",
+      "confidence": 0.9764259081092386,
+      "probabilities": {
+        "comparacao": 0.00641572092783908,
+        "generica": 0.9764259081092386,
+        "operacional": 0.0012143345639228375,
+        "ranking": 0.0054142453258775175,
+        "segmentacao": 0.006006966582326709,
+        "tendencia": 0.00202021868560814,
+        "total": 0.002502605805187043
+      },
+      "accepted": false
+    },
+    {
+      "id": "generica-m09-8",
+      "expected": "generica",
+      "label": "generica",
+      "confidence": 0.9641951533235164,
+      "probabilities": {
+        "comparacao": 0.008357421035717067,
+        "generica": 0.9641951533235164,
+        "operacional": 0.0034906583711348483,
+        "ranking": 0.005633431241800585,
+        "segmentacao": 0.006944024741550039,
+        "tendencia": 0.003319810202512285,
+        "total": 0.008059501083768803
+      },
+      "accepted": false
+    },
+    {
+      "id": "generica-m06-1",
+      "expected": "generica",
+      "label": "total",
+      "confidence": 0.27636850619893816,
+      "probabilities": {
+        "comparacao": 0.2179683088002755,
+        "generica": 0.1399930572594701,
+        "operacional": 0.14521009786961447,
+        "ranking": 0.01750077653487954,
+        "segmentacao": 0.15928155194943439,
+        "tendencia": 0.043677701387387816,
+        "total": 0.27636850619893816
+      },
+      "accepted": false
+    },
+    {
+      "id": "generica-m06-2",
+      "expected": "generica",
+      "label": "comparacao",
+      "confidence": 0.2984472291220516,
+      "probabilities": {
+        "comparacao": 0.2984472291220516,
+        "generica": 0.15200435997202516,
+        "operacional": 0.26237603464304154,
+        "ranking": 0.03102570158595764,
+        "segmentacao": 0.10709183709472868,
+        "tendencia": 0.036608503644127925,
+        "total": 0.11244633393806734
+      },
+      "accepted": false
+    },
+    {
+      "id": "generica-m06-3",
+      "expected": "generica",
+      "label": "comparacao",
+      "confidence": 0.41643700642232945,
+      "probabilities": {
+        "comparacao": 0.41643700642232945,
+        "generica": 0.17013127933589509,
+        "operacional": 0.16330894745557,
+        "ranking": 0.030732344716151716,
+        "segmentacao": 0.06532788803635703,
+        "tendencia": 0.0024209371360801404,
+        "total": 0.15164159689761653
+      },
+      "accepted": false
+    },
+    {
+      "id": "generica-m06-4",
+      "expected": "generica",
+      "label": "generica",
+      "confidence": 0.3198847822667053,
+      "probabilities": {
+        "comparacao": 0.22968667638182858,
+        "generica": 0.3198847822667053,
+        "operacional": 0.18958051821869443,
+        "ranking": 0.029079568325805598,
+        "segmentacao": 0.10283247262691962,
+        "tendencia": 0.0076203955995260645,
+        "total": 0.12131558658052041
+      },
+      "accepted": false
+    },
+    {
+      "id": "generica-m06-5",
+      "expected": "generica",
+      "label": "comparacao",
+      "confidence": 0.29646442634317444,
+      "probabilities": {
+        "comparacao": 0.29646442634317444,
+        "generica": 0.1630963595438413,
+        "operacional": 0.29032344356377054,
+        "ranking": 0.026116852031505964,
+        "segmentacao": 0.08923197735697957,
+        "tendencia": 0.003996193024579979,
+        "total": 0.1307707481361482
+      },
+      "accepted": false
+    },
+    {
+      "id": "generica-m06-6",
+      "expected": "generica",
+      "label": "total",
+      "confidence": 0.4122727834663847,
+      "probabilities": {
+        "comparacao": 0.008738460339138714,
+        "generica": 0.330630438298252,
+        "operacional": 0.09737208386044165,
+        "ranking": 0.013248639923421662,
+        "segmentacao": 0.1124891701667387,
+        "tendencia": 0.025248423945622683,
+        "total": 0.4122727834663847
+      },
+      "accepted": false
+    },
+    {
+      "id": "generica-m06-7",
+      "expected": "generica",
+      "label": "generica",
+      "confidence": 0.27417026026058566,
+      "probabilities": {
+        "comparacao": 0.20096817210836745,
+        "generica": 0.27417026026058566,
+        "operacional": 0.21194612286330392,
+        "ranking": 0.029998443661190487,
+        "segmentacao": 0.08118014968260803,
+        "tendencia": 0.009225932800398386,
+        "total": 0.19251091862354602
+      },
+      "accepted": false
+    },
+    {
+      "id": "generica-m06-8",
+      "expected": "generica",
+      "label": "total",
+      "confidence": 0.3148120123902087,
+      "probabilities": {
+        "comparacao": 0.24908441958796113,
+        "generica": 0.17901610433534296,
+        "operacional": 0.1890226112875344,
+        "ranking": 0.011230828834111627,
+        "segmentacao": 0.047062489779911294,
+        "tendencia": 0.00977153378492991,
+        "total": 0.3148120123902087
+      },
+      "accepted": false
+    }
+  ]
+}

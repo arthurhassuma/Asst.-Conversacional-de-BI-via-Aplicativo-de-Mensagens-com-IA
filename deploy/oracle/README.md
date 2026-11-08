@@ -177,6 +177,25 @@ Os comentários do schema são só documentação do banco: o agente lê o gloss
 quiser atualizá-los sem recriar a base, execute `db/migrations/2026-11-autopecas-comentarios.sql`
 com o usuário proprietário. Valem os mesmos avisos de ponto sem volta da seção anterior.
 
+## Ligar o classificador de intenções (treinamento v2)
+
+O classificador v2 vem ligado por padrão no código e no `.env.example`, mas o `configure.py`
+(preservado byte a byte) grava `INTENT_CLASSIFIER_ENABLED=false` no arquivo privado do servidor,
+e o valor do arquivo prevalece. Em um servidor já configurado, depois de enviar `app/` e `training/`
+e reconstruir a imagem com `--no-cache`:
+
+```bash
+cd ~/pac_privado
+sudo sed -i 's/^INTENT_CLASSIFIER_ENABLED=.*/INTENT_CLASSIFIER_ENABLED=true/' .local/hospedagem/private/application.env
+sudo grep -c '^INTENT_CLASSIFIER_ENABLED=true' .local/hospedagem/private/application.env   # deve imprimir 1
+C="sudo docker compose -p pac-bi-24h -f .local/hospedagem/compose.yaml"
+$C up -d --force-recreate backend
+```
+
+Esse arquivo contém segredos: não mostre seu conteúdo, só conte a linha com `grep -c`. Para confirmar
+o uso, mande uma pergunta ao bot e veja o log, que não contém o texto da pergunta:
+`$C logs backend --tail 20 | grep intencao`.
+
 ## Credenciais e limites
 
 Nenhum arquivo private/, .env, banco, log, chave SSH ou valor de credencial faz

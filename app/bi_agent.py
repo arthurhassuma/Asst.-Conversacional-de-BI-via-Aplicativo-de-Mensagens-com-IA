@@ -3,6 +3,7 @@
 import asyncio
 import copy
 import json
+import logging
 import re
 from datetime import date
 from pathlib import Path
@@ -28,6 +29,7 @@ from training.corpus import load_corpus
 
 # Pedido restrito a uma cidade exige SQL personalizado, nunca o total padrão.
 CITY_FILTER = r"\b(?:em|de|na)\s+(?:" + "|".join(map(re.escape, CITY_NAMES)) + r")\b"
+logger = logging.getLogger(__name__)
 FAILURE = "Não consegui concluir a consulta com segurança. Reformule a pergunta ou tente novamente."
 PERIOD_QUESTION = "Qual período deseja consultar? Informe as datas ou o mês e o ano."
 METRIC_QUESTION = (
@@ -218,10 +220,10 @@ class BIAgent:
                 path = (
                     Path(settings.intent_model_path)
                     if settings.intent_model_path
-                    else training_root / "intent-model-v1.json"
+                    else training_root / "intent-model-v2.json"
                 )
                 self.intent_model = load_classifier(path)
-                self.intent_examples = load_corpus(training_root / "questions-v1.json")
+                self.intent_examples = load_corpus(training_root / "questions-v2.json")
             except (OSError, ValueError, TypeError):
                 # O classificador é apoio opcional; sua falha nunca bloqueia o planejador.
                 self.intent_model = None
@@ -301,6 +303,13 @@ class BIAgent:
         if self.intent_model:
             prediction = self.intent_model.predict(intent_context(question, history))
             hint.update(prediction, model_sha256=self.intent_model.sha256)
+            # Só rótulo e confiança: o texto da pergunta nunca vai para o log.
+            logger.info(
+                "intencao rotulo=%s confianca=%.2f aceita=%s",
+                prediction["label"],
+                prediction["confidence"],
+                prediction["accepted"],
+            )
             if prediction["accepted"]:
                 examples = select_examples(self.intent_examples, prediction["label"])
                 hint["examples"] = [row["id"] for row in examples]

@@ -36,6 +36,13 @@ def create_app(settings=None, *, agent=None, sender=None):
     @asynccontextmanager
     async def lifespan(app):
         nonlocal sender, owned_bot
+        app_logger = logging.getLogger("app")
+        if not app_logger.handlers:
+            # Sem isto o INFO dos módulos do projeto não chega ao log do container.
+            handler = logging.StreamHandler()
+            handler.setFormatter(logging.Formatter("%(levelname)s:%(name)s:%(message)s"))
+            app_logger.addHandler(handler)
+            app_logger.setLevel(logging.INFO)
         # httpx INFO registra URLs que contêm o token do Telegram.
         for name in ("httpx", "httpcore", "telegram", "google.genai"):
             logging.getLogger(name).setLevel(logging.WARNING)
