@@ -386,3 +386,68 @@ async def test_sql_in_period_is_rejected_before_templates_or_database():
         "Faturamento em janeiro de 2025", []
     )
     assert "período" in text and not db.queries
+
+
+async def test_resolution_rate_total_is_a_rounded_percentage_not_a_raw_ratio():
+    class RateDatabase(Database):
+        def execute_sql(self, sql):
+            self.queries.append(sql)
+            return {
+                "columns": ["taxa", "registros"],
+                "rows": [["85.714285714285714286", 7]],
+                "truncated": False,
+            }
+
+    db = RateDatabase()
+    client = Client(
+        [
+            plan_response(
+                {
+                    **PLAN,
+                    "metric": "chamados",
+                    "measure": "taxa_resolucao",
+                    "operation": "total",
+                }
+            )
+        ]
+    )
+    text, _ = await BIAgent(Settings(_env_file=None), client, db).answer(
+        "Taxa de resolução das ocorrências em janeiro de 2025", []
+    )
+    assert "* 100 / NULLIF(SUM(chamados_abertos), 0)" in db.queries[0]
+    assert text.splitlines()[-1] == "Taxa de resolução: 85,71%"
+    assert "85,7142" not in text
+
+
+def test_a_merged_group_over_the_limit_falls_back_to_the_separate_answers():
+    from app.bi_agent import merge_groupable_answers
+    from app.managerial_rendering import render_managerial
+
+    period = {"start": "2025-03-01", "end": "2025-04-01", "evidence": "março de 2025"}
+    rows = [
+        [f"{i} — Cliente {i} Auto Peças Santa Cruz", "100.00", "200.00", "100.00", "100.00", "aumentou", 4]
+        for i in range(100)
+    ]
+    result = {
+        "columns": ["item", "base", "atual", "diferenca", "variacao_percentual", "direcao", "registros"],
+        "rows": rows,
+        "truncated": False,
+    }
+
+    def context(measure, unit):
+        return {
+            "source": "controlled_template",
+            "kind": "comparacao",
+            "group_by": "cliente",
+            "metric": "pedidos",
+            "measure": measure,
+            "unit": unit,
+            "period": period,
+            "comparison_period": period,
+        }
+
+    contexts = [context("valor", "BRL"), context("quantidade", "quantidade")]
+    answers = [render_managerial(result, c) for c in contexts]
+    evidences = [{"managerial_context": c, "selected": result} for c in contexts]
+    assert all(len(a) < 12000 for a in answers) and sum(map(len, answers)) > 12000
+    assert merge_groupable_answers(answers, evidences) == answers

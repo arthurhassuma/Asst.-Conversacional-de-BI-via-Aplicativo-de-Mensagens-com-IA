@@ -66,7 +66,8 @@ TOTALS = {
     ("chamados", "taxa_resolucao"): (
         "indicadores_operacionais",
         "competencia",
-        "SUM(chamados_resolvidos)::numeric / NULLIF(SUM(chamados_abertos), 0)",
+        # Em pontos percentuais, como o template gerencial: o texto mostra "85,71%".
+        "SUM(chamados_resolvidos)::numeric * 100 / NULLIF(SUM(chamados_abertos), 0)",
         "taxa",
         "TRUE",
     ),
