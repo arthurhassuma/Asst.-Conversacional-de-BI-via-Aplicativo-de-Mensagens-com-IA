@@ -700,3 +700,21 @@ foi encerrado antes do novo início. Main não recebeu merge.
   que health sozinho a comprova, nem se atribuem tokens/latência a esse teste.
 - Instruções de retomada atualizadas no rascunho do ambiente. Exigem publicação
   pelas configurações do ambiente para uso em retomadas futuras.
+
+## Reavaliação no perfil autopecas — desenvolvimento do conjunto A (3.0.0, 09/11/2026)
+
+Primeira rodada real da reavaliação definida em [avaliação](avaliacao.md#reavaliação-no-perfil-autopecas-protocolo-declarado-antes-da-rodada), executada antes de qualquer correção.
+
+**Configuração (do manifesto).** Código no commit `8635ce7` (`git_dirty: false`), conjunto 3.0.0 (SHA256 `4fca7b2e…`), modelo `gemini-3.5-flash-lite`, classificador de intenções ligado, intervalo de 60 s, perfil `autopecas` (seed 42, 100 clientes, jan/2025–out/2026). A verificação final da base confirmou que ela não mudou (`database_after.unchanged: true`).
+
+**Resultado.** Rodada completa (20 de 20 casos, sem parada): *execution accuracy* **14/16 (87,5%)**, esclarecimentos 3/3, pedido não suportado 1/1, latência média de agente e banco de 2.467 ms (sem Telegram). O critério declarado (pelo menos 12 de 16) foi atendido. Falhas: D04 e D08.
+
+| Caso | Classificação | O que ocorreu |
+|---|---|---|
+| D08 | Gabarito (formato de saída) | Resposta numericamente correta (R$ 194.143,65 na primeira posição, os cinco clientes iguais ao gabarito), mas o gabarito esperava as colunas `cliente`, `total` e o produto devolve `item`, `valor`, `posicao`. Reavaliado offline com o gabarito 3.1.0, o mesmo rastro passa. |
+| D04 | Interpretação (planejador) | Para "valor contratado dos contratos iniciados em 2025, excluindo os cancelados", o planejador gerou `analysis.kind = ranking`, `group_by = nenhum`, sem limite; o contrato recusou e o bot respondeu "Informe um ranking de um a cem itens…". O classificador rotulou a pergunta como `ranking` (confiança 0,76). |
+
+**Diagnóstico do D04 (6 chamadas extras, fora da rodada).** Com o classificador ligado, 3 de 3 repetições falharam do mesmo modo. Com ele desligado, 2 de 3 falharam e 1 respondeu certo (R$ 7.558.967,33, igual à referência). Com tão poucas repetições, isso **não permite concluir que o classificador causa o erro**: o planejador falha mesmo sem ele; fica apenas o indício de que o rótulo `ranking` não ajudou. Reforça que o ganho do classificador nas respostas continua não medido.
+
+**Tratamento.** Ver a Emenda 1 do protocolo: gabarito 3.1.0 para D08 e T08 e `normalize_unranked_plan` no agente. A rodada de desenvolvimento seguinte, com a 3.1.0 e o agente corrigido, é registrada abaixo quando executada.
+

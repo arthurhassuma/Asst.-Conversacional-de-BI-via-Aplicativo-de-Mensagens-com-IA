@@ -1,5 +1,5 @@
 {
-  "version": "3.0.0",
+  "version": "3.1.0",
   "seed": 42,
   "clients": 100,
   "cases": [
@@ -168,13 +168,14 @@
           "references": [
             {
               "metric": "faturamento",
-              "sql": "SELECT c.nome AS cliente, SUM(f.valor) AS total FROM clientes c JOIN contratos ct ON ct.cliente_id=c.id JOIN pedidos p ON p.contrato_id=ct.id JOIN faturamento f ON f.pedido_id=p.id WHERE f.emissao >= DATE '2025-01-01' AND f.emissao < DATE '2026-01-01' AND f.status <> 'cancelada' GROUP BY c.id,c.nome ORDER BY total DESC, c.nome ASC LIMIT 5",
+              "sql": "WITH r AS (SELECT c.id::text || ' — ' || c.nome AS item, SUM(f.valor) AS valor FROM faturamento f JOIN pedidos p ON p.id=f.pedido_id JOIN contratos ct ON ct.id=p.contrato_id JOIN clientes c ON c.id=ct.cliente_id WHERE f.status<>'cancelada' AND f.emissao >= DATE '2025-01-01' AND f.emissao < DATE '2026-01-01' GROUP BY c.id::text || ' — ' || c.nome) SELECT item, valor, ROW_NUMBER() OVER (ORDER BY valor DESC NULLS LAST, item) AS posicao FROM r ORDER BY valor DESC NULLS LAST, item LIMIT 5",
               "types": [
                 "text",
+                "number",
                 "number"
               ],
               "ordered": true,
-              "interpretation": "Somar apenas documentos, sem multiplicar receitas por indicadores operacionais."
+              "interpretation": "Ranking no formato de saída do produto: item = identificador e nome do cliente, valor e posição calculada; ordem decrescente de valor, desempate estável pelo item."
             }
           ]
         }
@@ -585,13 +586,14 @@
           "references": [
             {
               "metric": "pedidos",
-              "sql": "SELECT c.nome AS cliente, SUM(p.valor) AS total FROM clientes c JOIN contratos ct ON ct.cliente_id=c.id JOIN pedidos p ON p.contrato_id=ct.id WHERE p.data_pedido >= DATE '2025-01-01' AND p.data_pedido < DATE '2026-01-01' AND p.status <> 'cancelado' GROUP BY c.id,c.nome ORDER BY total DESC,c.nome ASC LIMIT 3",
+              "sql": "WITH r AS (SELECT c.id::text || ' — ' || c.nome AS item, SUM(p.valor) AS valor FROM clientes c JOIN contratos ct ON ct.cliente_id=c.id JOIN pedidos p ON p.contrato_id=ct.id WHERE p.status<>'cancelado' AND p.data_pedido >= DATE '2025-01-01' AND p.data_pedido < DATE '2026-01-01' GROUP BY c.id::text || ' — ' || c.nome) SELECT item, valor, ROW_NUMBER() OVER (ORDER BY valor DESC NULLS LAST, item) AS posicao FROM r ORDER BY valor DESC NULLS LAST, item LIMIT 3",
               "types": [
                 "text",
+                "number",
                 "number"
               ],
               "ordered": true,
-              "interpretation": "Ranking de pedidos, independente da existência de documento faturado."
+              "interpretation": "Ranking de pedidos no formato de saída do produto (item = identificador e nome, valor, posição), independente da existência de documento faturado."
             }
           ]
         }

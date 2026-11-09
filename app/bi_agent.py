@@ -13,7 +13,12 @@ from google import genai
 from google.genai import types
 from google.genai.errors import APIError
 
-from app.analysis_contract import UNSUPPORTED, validate_analysis, validate_period
+from app.analysis_contract import (
+    UNSUPPORTED,
+    normalize_unranked_plan,
+    validate_analysis,
+    validate_period,
+)
 from app.config import Settings
 from app.database_tools import DatabaseTools
 from app.domain import CITY_NAMES
@@ -338,7 +343,9 @@ class BIAgent:
             ),
         )
         raw_plan = parse_json(response)
-        monthly_plan = normalize_monthly_comparison_plan(raw_plan, messages)
+        monthly_plan = normalize_unranked_plan(
+            normalize_monthly_comparison_plan(raw_plan, messages), question
+        )
         plan = normalize_relative_plan(monthly_plan, messages, today)
         trace["date_anchor"] = today.isoformat()
         trace["relative_periods_resolved"] = plan != monthly_plan
