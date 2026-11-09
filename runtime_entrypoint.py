@@ -21,6 +21,7 @@ def configured():
         settings = settings.model_copy(update={
             "admin_database_url": SecretStr(""),
             "readonly_password": SecretStr(""),
+            "state_password": SecretStr(""),
         })
     for name, value in settings.__dict__.items():
         os.environ[name.upper()] = (
@@ -30,10 +31,14 @@ def configured():
 
 
 def main():
-    _, mode = configured()
+    settings, mode = configured()
     if mode == "backend":
+        workers = settings.backend_workers
+        if workers > 1 and not settings.state_database_url.get_secret_value():
+            # Fila, deduplicação e histórico em memória não são compartilhados entre processos.
+            raise SystemExit("BACKEND_WORKERS maior que 1 exige STATE_DATABASE_URL.")
         args = ["-m", "uvicorn", "app.main:app", "--host", "0.0.0.0", "--port",
-                os.getenv("PAC_PORT", "8000"), "--workers", "1"]
+                os.getenv("PAC_PORT", "8000"), "--workers", str(workers)]
     elif mode == "polling":
         url = os.getenv("PAC_BACKEND_URL", "http://backend:8000")
         for _ in range(60):

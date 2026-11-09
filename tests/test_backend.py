@@ -56,18 +56,18 @@ async def test_webhook_auth_dedup_and_user_isolation():
             headers = {"X-Telegram-Bot-Api-Secret-Token": "test-secret"}
             first = await client.post("/telegram/webhook", json=update(), headers=headers)
             assert first.status_code == 200
-            await app.state.queue.join()
+            await app.state.inbox.join()
             assert len(sender.sent) == 1
             await client.post("/telegram/webhook", json=update(), headers=headers)
-            await app.state.queue.join()
+            await app.state.inbox.join()
             assert len(sender.sent) == 1
             await client.post("/telegram/webhook", json=update(2, 43), headers=headers)
-            await app.state.queue.join()
+            await app.state.inbox.join()
             assert agent.histories == [[], []]
             await client.post(
                 "/telegram/webhook", json=update(3, 42, "E pedidos?"), headers=headers
             )
-            await app.state.queue.join()
+            await app.state.inbox.join()
             assert agent.histories[-1][0]["content"] == "Qual o faturamento?"
 
 
@@ -89,7 +89,7 @@ async def test_unauthorized_users_and_group_messages_cannot_call_agent():
             await client.post(
                 "/telegram/webhook", json=update(2, 42, chat_type="group"), headers=headers
             )
-            await app.state.queue.join()
+            await app.state.inbox.join()
             assert not agent.histories
             assert not sender.sent
 

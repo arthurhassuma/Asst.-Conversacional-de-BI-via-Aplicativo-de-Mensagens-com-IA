@@ -38,7 +38,7 @@
     {
       "arquivo": "runtime_entrypoint.py",
       "data": "2026-11-08",
-      "motivo": "O original forcava intent_classifier_enabled=False em todos os modos de aplicacao, o que ignorava INTENT_CLASSIFIER_ENABLED do arquivo privado. A linha foi removida para o classificador v2 poder ser ligado; o restante do arquivo e igual ao original.",
+      "motivo": "O original forcava intent_classifier_enabled=False em todos os modos de aplicacao, o que ignorava INTENT_CLASSIFIER_ENABLED do arquivo privado. A linha foi removida para o classificador v2 poder ser ligado; o restante do arquivo e igual ao original. Em 2026-11-09 foi acrescentado o suporte a BACKEND_WORKERS (recusado sem STATE_DATABASE_URL) e a remocao de STATE_PASSWORD fora do modo manage-db.",
       "sha256_original": "0040c55d230928bd67cb5361f5a370c5b1ec857714d12952f4a2479514e98a99"
     }
   ]

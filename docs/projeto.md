@@ -323,3 +323,19 @@ Compare períodos equivalentes: 2025 tem 12 meses, 2026 somente dez. Perguntas a
 ### Separação das evidências
 
 Os experimentos de 40 casos e suas taxas pertencem à base original de 2024/2025 e aos fontes congelados. Não são resultados desta nova base. A ampliação é uma versão posterior para exploração e apresentação. Uma nova avaliação semântica precisaria de novas perguntas reservadas, sem reutilizar a amostra anterior para ajustar o agente.
+
+## Estado durável da execução (09/11/2026)
+
+Acréscimo posterior ao desenho das Fases 0–3, que mantinha fila, deduplicação e sessões em memória (um único processo).
+
+**Problema.** O webhook respondia 200 ao Telegram assim que colocava o update numa fila em memória. Um reinício nesse intervalo perdia o update; a deduplicação também se perdia, permitindo respostas repetidas; e o histórico por processo impedia mais de um worker.
+
+**Solução (opcional, `STATE_DATABASE_URL`).** Schema `estado` no PostgreSQL (`db/estado.sql`), com duas tabelas e uma role própria, `app_estado`, sem acesso às tabelas de negócio:
+
+- `estado.updates`: caixa de entrada. O update é gravado antes do 200, com `INSERT ... ON CONFLICT DO NOTHING` (deduplicação durável). Os consumidores reservam com `FOR UPDATE SKIP LOCKED` (reserva de 180 s, até 3 tentativas) e marcam como concluído depois de enviar a resposta; o texto da pergunta é apagado ao concluir.
+- `estado.sessoes`: histórico por conversa (`jsonb`), com lock consultivo por chat/usuário (`pg_advisory_lock`) para serializar perguntas da mesma conversa entre processos, e expiração por TTL.
+
+**Garantias e limites.** Entrega *pelo menos uma vez*: uma queda depois de enviar a resposta e antes de concluir o update pode repeti-la. Sem a variável, o comportamento anterior (memória, um processo) é preservado. `BACKEND_WORKERS` maior que 1 só é aceito pelo container com estado durável. A implantação na VM exige criar o schema e a role no banco existente; veja o [guia da Oracle](../deploy/oracle/README.md).
+
+**Verificação.** 23 testes com PostgreSQL real (idempotência após reinício, update aceito antes da queda respondido depois, consumidores concorrentes, reserva expirada, limite de tentativas, backpressure, histórico entre reinícios e entre processos, permissões da role) e 4 testes do entrypoint. Mutações deliberadas (remover `SKIP LOCKED` ou o lock consultivo) fazem os testes falharem.
+

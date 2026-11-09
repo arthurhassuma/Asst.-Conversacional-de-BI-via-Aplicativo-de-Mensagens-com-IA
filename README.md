@@ -55,7 +55,11 @@ O lock foi verificado com Python 3.13. Para instalar pelas faixas de versões, u
 | TELEGRAM_ALLOWED_USER_IDS | IDs numéricos dos gestores, separados por vírgula; vazio bloqueia todos |
 | TELEGRAM_WEBHOOK_URL | URL pública HTTPS terminada em `/telegram/webhook`; dispensável no polling |
 | QUERY_TIMEOUT_MS / MAX_QUERY_ROWS | Padrões: 3000 ms e 100 linhas |
-| SESSION_TTL_SECONDS / MAX_SESSIONS / MAX_HISTORY_TURNS | Padrões: uma hora, 1000 sessões e oito turnos |
+| SESSION_TTL_SECONDS / MAX_SESSIONS / MAX_HISTORY_TURNS | Padrões: uma hora, 1000 sessões e oito turnos (`MAX_SESSIONS` vale só para o estado em memória) |
+| STATE_DATABASE_URL | Opcional. URL da role `app_estado`; ativa o [estado durável](#estado-durável-e-vários-workers). Vazio mantém fila e sessões em memória |
+| STATE_PASSWORD | Senha da role `app_estado`; usada somente por `bi-db init-state` |
+| INBOX_MAX_PENDING | Padrão 100: updates pendentes aceitos antes de responder 503 |
+| BACKEND_WORKERS | Padrão 1; valores maiores só são aceitos pelo container com `STATE_DATABASE_URL` |
 
 Mantenha as senhas consistentes com as duas URLs e aplique percent-encoding se houver caracteres especiais. Não publique `.env`, logs do banco ou `.local/`. Para gerar um segredo: `python -c "import secrets; print(secrets.token_urlsafe(32))"`.
 
@@ -77,6 +81,25 @@ bi-db coverage --profile autopecas
 ```
 
 `init` cria o schema e a role de leitura em uma transação e recusa schema/role existentes, para não alterar outro projeto. `seed` é transacional e recusa banco preenchido. Não há comando de reset destrutivo. `docker compose down` preserva o volume, e alterar `POSTGRES_PASSWORD` depois da criação do volume não muda a senha já armazenada.
+
+### Estado durável e vários workers
+
+Por padrão, a fila de updates, a deduplicação e o histórico das conversas ficam em memória e o backend roda em **um único processo**: reiniciar perde o que ainda não foi processado. Para evitar isso, o estado pode ficar no próprio PostgreSQL (schema `estado`, sem nenhum acesso da role de leitura):
+
+```powershell
+# STATE_PASSWORD no .env; usa ADMIN_DATABASE_URL e não altera as tabelas de negócio
+bi-db init-state
+# STATE_DATABASE_URL=postgresql://app_estado:<STATE_PASSWORD>@localhost:55432/<POSTGRES_DB>
+```
+
+Com `STATE_DATABASE_URL` definida:
+
+- o webhook grava o update no banco **antes** de responder 200 e deduplica por `update_id`; um update aceito sobrevive a reinícios e é processado quando o backend volta (o texto da pergunta só fica no banco até a conclusão);
+- os consumidores reservam updates com `FOR UPDATE SKIP LOCKED` (reserva de 180 s, até 3 tentativas), de modo que vários processos dividem a fila sem processar o mesmo update duas vezes;
+- o histórico das conversas é gravado no banco, com lock consultivo por conversa, e expira por `SESSION_TTL_SECONDS`;
+- a role `app_estado` só acessa as duas tabelas do schema `estado`; `readonly_agent` continua sem acesso a elas.
+
+A garantia é **pelo menos uma vez**: uma queda depois de enviar a resposta e antes de marcar o update como concluído pode repetir a resposta. Exatamente uma vez continua fora do alcance. `/health` informa `estado_duravel`.
 
 ### Perfis de dados
 
@@ -129,7 +152,7 @@ Exponha o backend por HTTPS (proxy ou túnel), configure `TELEGRAM_WEBHOOK_URL` 
 bi-telegram register-webhook
 ```
 
-O endpoint exige o cabeçalho `X-Telegram-Bot-Api-Secret-Token`; mantenha o segredo apenas no backend e no registro do Telegram, nunca na URL. A fila tem capacidade limitada, deduplicação em memória e quatro consumidores, com serialização por sessão. **Use um único worker/processo FastAPI.**
+O endpoint exige o cabeçalho `X-Telegram-Bot-Api-Secret-Token`; mantenha o segredo apenas no backend e no registro do Telegram, nunca na URL. A fila tem capacidade limitada, deduplicação em memória e quatro consumidores, com serialização por sessão. **Sem `STATE_DATABASE_URL`, use um único worker/processo FastAPI**; com estado durável, vários processos podem dividir a carga.
 
 ### Diagnóstico de conexões
 
@@ -173,6 +196,7 @@ Pastas de saída existentes são recusadas.
 - Erros SQL voltam ao modelo como `tool_result` para autocorreção limitada. Detalhes do PostgreSQL ficam no contexto interno, não na resposta ao gestor.
 - O modelo retorna somente uma referência ao resultado. O backend produz a introdução e os registros, sem prosa livre do modelo. Números e datas vêm das células; `Decimal` mantém todos os dígitos e o agente não arredonda (o SQL pode arredondar se o usuário pedir). Percentuais são exibidos com duas casas decimais, somente no texto.
 - Agregados únicos com alias `total` recebem uma frase natural conforme a métrica e a medida. O renderizador não deduz soma, moeda ou percentual pelo alias. NULL nunca vira zero e resultados parciais são identificados.
+- O estado durável usa uma role própria (`app_estado`), sem superusuário, dona de nada e com acesso apenas às tabelas do schema `estado`; ela não lê as tabelas de negócio.
 - Acesso administrativo fica nos comandos de setup; não existe tool administrativa. Os logs da aplicação omitem textos, SQL e credenciais.
 
 ## Testes e avaliação
@@ -182,7 +206,7 @@ python -m pytest -q
 python -m ruff check app scripts tests evaluation training
 ```
 
-A suíte tem 296 testes; os 28 que dependem de PostgreSQL são marcados como skipped sem `TEST_DATABASE_URL`. Para executá-la inteira contra a base sintética carregada, sem exibir a senha:
+A suíte tem 323 testes; os que dependem de PostgreSQL são marcados como skipped sem `TEST_DATABASE_URL` (negócio) e `TEST_STATE_ADMIN_URL` (estado durável: URL administrativa de um banco **de teste**, cujo schema `estado` e role `app_estado` são recriados). Para executá-la inteira contra a base sintética carregada, sem exibir a senha:
 
 ```powershell
 python -c "import os,pytest; from app.config import Settings; os.environ['TEST_DATABASE_URL']=Settings().database_url.get_secret_value(); raise SystemExit(pytest.main(['-q']))"
@@ -246,7 +270,7 @@ A hospedagem em produção usa Docker Compose (PostgreSQL 16, backend e um proce
 
 ## Limitações conhecidas
 
-- Fila, deduplicação e histórico de sessões ficam em memória. Reiniciar o processo pode perder updates já aceitos ou permitir o reprocessamento de updates antigos, e o sistema não garante entrega exatamente uma vez. Por isso só um worker é suportado; persistência durável e execução distribuída exigiriam evolução.
+- Sem `STATE_DATABASE_URL`, fila, deduplicação e histórico ficam em memória: reiniciar o processo pode perder updates já aceitos ou permitir o reprocessamento de updates antigos, e só um worker é suportado. Com o [estado durável](#estado-durável-e-vários-workers) isso é resolvido, mas a entrega continua **pelo menos uma vez** (uma queda entre enviar a resposta e concluir o update pode repeti-la), nunca exatamente uma vez.
 - A garantia de origem numérica não comprova a correção semântica do SQL: filtros ou joins errados continuam possíveis, e a taxa de acerto só vale para a amostra avaliada.
 - A interpretação das perguntas depende do Gemini e da cota do projeto configurado.
 - O aceite do gestor está registrado por declaração do responsável; não houve coleta qualitativa estruturada, medição de latência ponta a ponta no Telegram nem comparação com dashboards.

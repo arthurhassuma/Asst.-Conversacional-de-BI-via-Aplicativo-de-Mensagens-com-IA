@@ -1,12 +1,14 @@
-"""Backend FastAPI. Execute com um único worker: sessões/fila estão em memória."""
+"""Backend FastAPI.
+
+Sem STATE_DATABASE_URL, sessões e fila ficam em memória: use um único processo. Com ele, caixa de
+entrada e sessões são duráveis (PostgreSQL) e vários processos podem compartilhar a carga.
+"""
 
 import asyncio
 import hmac
 import json
 import logging
-from collections import OrderedDict
 from contextlib import asynccontextmanager
-from time import monotonic
 
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.exceptions import RequestValidationError
@@ -18,6 +20,7 @@ from app.bi_agent import BIAgent
 from app.config import Settings
 from app.messaging import TelegramService
 from app.sessions import SessionStore
+from app.state import DUPLICATE, FULL, MemoryInbox, PostgresInbox, PostgresSessionStore
 
 logger = logging.getLogger(__name__)
 
@@ -25,11 +28,17 @@ logger = logging.getLogger(__name__)
 def create_app(settings=None, *, agent=None, sender=None):
     settings = settings or Settings()
     agent = agent or BIAgent(settings)
-    sessions = SessionStore(
-        settings.max_sessions, settings.max_history_turns, settings.session_ttl_seconds
-    )
-    queue = asyncio.Queue(maxsize=100)
-    seen = OrderedDict()
+    state_dsn = settings.state_database_url.get_secret_value()
+    if state_dsn:
+        sessions = PostgresSessionStore(
+            state_dsn, settings.max_history_turns, settings.session_ttl_seconds
+        )
+        inbox = PostgresInbox(state_dsn, max_pending=settings.inbox_max_pending)
+    else:
+        sessions = SessionStore(
+            settings.max_sessions, settings.max_history_turns, settings.session_ttl_seconds
+        )
+        inbox = MemoryInbox(settings.inbox_max_pending)
     owned_bot = None
     workers = []
 
@@ -56,36 +65,45 @@ def create_app(settings=None, *, agent=None, sender=None):
                 ) from None
             sender = owned_bot
         service = TelegramService(settings, agent, sessions, sender)
+        await inbox.start()
         app.state.ready = sender is not None
+
+        async def settle(action, update_id):
+            try:
+                await action(update_id)
+            except Exception:
+                # A reserva expira e outro consumidor reprocessa; nunca derruba o consumidor.
+                logger.error("falha_estado_duravel")
 
         async def worker():
             while True:
-                payload = await queue.get()
+                update_id, payload = await inbox.next()
                 try:
                     await service.process(payload)
                 except Exception:
                     logger.error("falha_entrega_telegram")
-                    seen.pop(payload["update_id"], None)
-                finally:
-                    queue.task_done()
+                    await settle(inbox.retry, update_id)
+                else:
+                    await settle(inbox.done, update_id)
 
         workers.extend(asyncio.create_task(worker()) for _ in range(4))
         try:
             yield
         finally:
             try:
-                await asyncio.wait_for(queue.join(), timeout=10)
+                await asyncio.wait_for(inbox.join(), timeout=10)
             except TimeoutError:
                 logger.warning("encerramento_com_mensagens_pendentes")
             for task in workers:
                 task.cancel()
             await asyncio.gather(*workers, return_exceptions=True)
             await agent.close()
+            await inbox.close()
             if owned_bot:
                 await owned_bot.shutdown()
 
     app = FastAPI(title="Assistente de BI — PAC", lifespan=lifespan)
-    app.state.queue, app.state.sessions = queue, sessions
+    app.state.inbox, app.state.sessions = inbox, sessions
     app.state.ready = False
 
     @app.exception_handler(RequestValidationError)
@@ -106,6 +124,7 @@ def create_app(settings=None, *, agent=None, sender=None):
             "telegram_configurado": app.state.ready,
             "ia_configurada": bool(settings.gemini_api_key.get_secret_value()),
             "banco_configurado": bool(settings.database_url.get_secret_value()),
+            "estado_duravel": bool(state_dsn),
         }
 
     @app.post("/telegram/webhook")
@@ -132,18 +151,15 @@ def create_app(settings=None, *, agent=None, sender=None):
             Update.de_json(payload, None)
         except (ValueError, TypeError, KeyError, AttributeError):
             raise HTTPException(400, "Mensagem do Telegram inválida.") from None
-        now = monotonic()
-        for update_id, timestamp in list(seen.items()):
-            if now - timestamp > 86400:
-                del seen[update_id]
-        if payload["update_id"] in seen:
+        try:
+            outcome = await inbox.register(payload["update_id"], payload)
+        except Exception:
+            logger.error("falha_estado_duravel")
+            raise HTTPException(503, "O assistente está indisponível. Tente novamente.") from None
+        if outcome == DUPLICATE:
             return {"status": "já recebido"}
-        if queue.full():
+        if outcome == FULL:
             raise HTTPException(503, "O assistente está ocupado. Tente novamente.")
-        seen[payload["update_id"]] = now
-        if len(seen) > 10000:
-            seen.popitem(last=False)
-        queue.put_nowait(payload)
         return {"status": "recebido"}
 
     return app
