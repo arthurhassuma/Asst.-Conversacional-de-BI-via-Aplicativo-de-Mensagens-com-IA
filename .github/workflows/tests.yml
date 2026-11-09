@@ -37,6 +37,8 @@ jobs:
       DATABASE_URL: postgresql://readonly_agent:ci_only_reader_password@127.0.0.1:5432/bi_sintetico
       TEST_DATABASE_URL: postgresql://readonly_agent:ci_only_reader_password@127.0.0.1:5432/bi_sintetico
       READONLY_PASSWORD: ci_only_reader_password
+      # Banco descartável do CI: a fixture recria o schema `estado` e a role `app_estado`.
+      TEST_STATE_ADMIN_URL: postgresql://bi_owner:ci_only_admin_password@127.0.0.1:5432/bi_sintetico
       GEMINI_API_KEY: ""
       TELEGRAM_BOT_TOKEN: ""
     steps:

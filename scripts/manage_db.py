@@ -37,6 +37,26 @@ def initialize(conn, password: str):
     )
 
 
+def initialize_state(conn, password: str):
+    """Cria (ou atualiza, de forma idempotente) o schema `estado` e a role app_estado.
+
+    Não toca nas tabelas de negócio nem na role de leitura; pode rodar em base já populada.
+    """
+    if not password or password.startswith("troque_"):
+        raise ValueError("Configure uma STATE_PASSWORD própria antes de inicializar o estado.")
+    if not conn.execute("SELECT 1 FROM pg_roles WHERE rolname='app_estado'").fetchone():
+        conn.execute(
+            sql.SQL("CREATE ROLE app_estado LOGIN PASSWORD {}").format(sql.Literal(password))
+        )
+    conn.execute(
+        "ALTER ROLE app_estado NOSUPERUSER NOCREATEDB NOCREATEROLE NOREPLICATION NOBYPASSRLS"
+    )
+    conn.execute("ALTER ROLE app_estado SET search_path = pg_catalog")
+    conn.execute((ROOT / "db/estado.sql").read_text(encoding="utf-8"))
+    db = conn.execute("SELECT current_database()").fetchone()[0]
+    conn.execute(sql.SQL("GRANT CONNECT ON DATABASE {} TO app_estado").format(sql.Identifier(db)))
+
+
 def seed_database(
     conn,
     seed: int = 42,
@@ -113,7 +133,7 @@ def validate_data(conn):
 
 def main():
     parser = PortugueseArgumentParser(description="Administração da base sintética de BI")
-    parser.add_argument("command", choices=["init", "seed", "validate", "coverage"])
+    parser.add_argument("command", choices=["init", "init-state", "seed", "validate", "coverage"])
     parser.add_argument("--seed", type=int, default=42)
     parser.add_argument(
         "--clients",
@@ -139,6 +159,9 @@ def main():
             if args.command == "init":
                 initialize(conn, settings.readonly_password.get_secret_value())
                 result = {"status": "Schema e role somente leitura criados."}
+            elif args.command == "init-state":
+                initialize_state(conn, settings.state_password.get_secret_value())
+                result = {"status": "Estado durável (schema estado e role app_estado) pronto."}
             elif args.command == "seed":
                 clients = (
                     args.clients

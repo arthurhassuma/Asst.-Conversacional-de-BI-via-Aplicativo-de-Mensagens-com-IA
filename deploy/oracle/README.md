@@ -213,6 +213,67 @@ Esperado: `INFO:app.bi_agent:intencao rotulo=ranking confianca=0.99 aceita=True`
 aparecer **depois** de uma pergunta, o classificador não está em uso. Também dá para conferir se o
 processo viu a variável: `$C exec backend printenv INTENT_CLASSIFIER_ENABLED` deve imprimir `True`.
 
+## Ativar o estado durável (fila e sessões no PostgreSQL)
+
+Sem isso, o backend guarda fila, deduplicação e histórico em memória: reiniciar perde updates já
+aceitos, e só um processo é suportado. O estado durável acrescenta o schema `estado` ao banco
+**existente** (só cria tabelas novas e a role `app_estado`; não altera as tabelas de negócio nem
+apaga o volume). Descrição do funcionamento e das garantias: [README principal](../../README.md#estado-durável-e-vários-workers).
+
+Ordem obrigatória: o código novo exige o schema **somente se** `STATE_DATABASE_URL` estiver
+definida; por isso a variável só entra no passo final.
+
+```bash
+cd ~/pac_privado
+C="sudo docker compose -p pac-bi-24h -f .local/hospedagem/compose.yaml"
+
+# 1. Backup antes de qualquer alteração
+$C exec -T db pg_dump -U bi_owner -d bi_comparativo > ~/backup-estado-$(date +%Y%m%d).sql
+```
+
+```powershell
+# 2. No Windows local, na raiz do checkout: envie os arquivos alterados (scp, como em "Atualizar código")
+scp -i caminho\da\chave.pem app\config.py app\main.py app\state.py usuario@ip-da-vm:~/pac_privado/app/
+scp -i caminho\da\chave.pem scripts\manage_db.py usuario@ip-da-vm:~/pac_privado/scripts/
+scp -i caminho\da\chave.pem db\estado.sql usuario@ip-da-vm:~/pac_privado/db/
+scp -i caminho\da\chave.pem runtime_entrypoint.py usuario@ip-da-vm:~/pac_privado/
+```
+
+```bash
+# 3. Na VM: reconstrua a imagem e suba o código novo ainda SEM STATE_DATABASE_URL (modo em memória)
+sudo docker build --no-cache --build-arg SOURCE_COMMIT="$(cat SOURCE_COMMIT.txt)" -t pac-bi-runtime:local .
+$C up -d --force-recreate backend polling
+curl --fail http://127.0.0.1:8000/health     # estado_duravel deve ser false
+
+# 4. Crie a senha da role (sem exibi-la) e registre-a nos dois arquivos privados
+sudo sed -i -e '$a\' .local/hospedagem/private/setup.env .local/hospedagem/private/application.env   # garante quebra de linha final
+P="$(python3 -c 'import secrets; print(secrets.token_urlsafe(32))')"
+echo "STATE_PASSWORD=$P" | sudo tee -a .local/hospedagem/private/setup.env >/dev/null
+echo "STATE_DATABASE_URL=postgresql://app_estado:$P@db:5432/bi_comparativo" | sudo tee -a .local/hospedagem/private/application.env >/dev/null
+unset P
+
+# 5. Crie o schema e a role (idempotente; não altera as tabelas de negócio)
+$C --profile setup run --rm setup manage-db init-state
+
+# 6. Reinicie backend e polling já com a variável
+$C up -d --force-recreate backend polling
+curl --fail http://127.0.0.1:8000/health     # estado_duravel deve ser true
+```
+
+Confirme no Telegram com uma pergunta e `/limpar`. Para testar a durabilidade, envie uma pergunta e
+reinicie o backend (`$C restart backend`) logo em seguida: o histórico da conversa permanece e
+nenhuma mensagem aceita se perde. Esses arquivos contêm segredos: não imprima seu conteúdo.
+
+**Vários workers (opcional).** `BACKEND_WORKERS=2` no `application.env` sobe dois processos
+uvicorn; o container recusa valor maior que 1 sem `STATE_DATABASE_URL`. Para uma VM Always Free de
+poucos recursos, um worker com estado durável já elimina a perda no reinício; confira memória
+(`docker stats`) antes de aumentar.
+
+**Reverter.** Remova a linha `STATE_DATABASE_URL` (e `BACKEND_WORKERS`) do `application.env` e
+recrie `backend polling`: o backend volta ao modo em memória. As tabelas do schema `estado` ficam
+inertes; para removê-las, como proprietário, `DROP SCHEMA estado CASCADE; DROP ROLE app_estado;`
+(use `DROP OWNED BY app_estado` antes se necessário).
+
 ## Credenciais e limites
 
 Nenhum arquivo private/, .env, banco, log, chave SSH ou valor de credencial faz

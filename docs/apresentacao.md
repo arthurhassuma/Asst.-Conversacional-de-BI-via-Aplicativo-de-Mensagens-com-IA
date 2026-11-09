@@ -491,6 +491,7 @@ decisões de projeto, os testes, a avaliação e a validação são suas, e este
 - Os nomes das colunas do banco seguem o vocabulário de software; só o significado de negócio mudou.
 - O PDF e o Word do **relatório final** e os experimentos antigos estão no vocabulário de software.
 - O sistema depende de serviços externos (Gemini, Telegram) e de uma cota gratuita.
+- Fila, deduplicação e histórico ficam em memória por padrão (um processo, reiniciar perde o que não foi processado). O **estado durável** em PostgreSQL (`STATE_DATABASE_URL`) corrige isso e permite vários workers, mas a entrega é *pelo menos uma vez*, não exatamente uma vez.
 - A latência medida (1,649 s) **não inclui** o tempo do Telegram.
 
 ### 17. Comandos úteis (para rodar e mostrar)
@@ -528,7 +529,7 @@ Na VM da Oracle (produção): ver `deploy/oracle/README.md` (envio por `scp`, `d
 |---|---|
 | Commits | 79 (04/10 a 08/11/2026) |
 | Código do aplicativo (`app/`) | 21 arquivos, 3.265 linhas |
-| Testes | 29 arquivos, 296 testes (todos aprovados com PostgreSQL) |
+| Testes | 29 arquivos, 323 testes (todos aprovados com PostgreSQL) |
 | Tabelas do banco | 5 |
 | Dataset de autopeças | 100 clientes · 22 meses · ~733 contratos · ~7,7 mil pedidos · ~8,1 mil notas |
 | Escala | ~R$ 350–410 mil e 320–360 pedidos por mês · ticket médio ~R$ 1.100 |
