@@ -221,4 +221,4 @@ Condições Always Free e quotas precisam ser conferidas no provedor. Estes
 arquivos não habilitam cobrança, fallback pago ou mudança de modelo.
 
 O inventário está em [origem-recuperacao.json](origem-recuperacao.json) e a
-evidência em [registro da hospedagem](../../docs/hospedagem-oracle-2026-10-13.md).
+evidência em [registro da hospedagem](../../docs/deploy.md#hospedagem-oracle-entrega-histórica-e-recuperação-dos-arquivos).

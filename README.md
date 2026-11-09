@@ -1,24 +1,30 @@
 # Assistente Conversacional de BI — PAC Extensionista VIII
 
-Entrega final preparada em **11/10/2026**: [índice dos artefatos e fechamento do cronograma](docs/entrega-final.md), [relatório Word](docs/Relatorio-Final-PAC-VIII-Arthur-Hassuma.docx), [PDF](docs/Relatorio-Final-PAC-VIII-Arthur-Hassuma.pdf) e [roteiro de demonstração](docs/roteiro-demonstracao.md). O aceite do gestor está registrado conforme declaração do responsável, sem feedback documentado. A [reprodução Docker](docs/verificacao-entrega-final.md) aprovou 110 testes com PostgreSQL e 34 referências SQL. Submissão e aprovação institucional permanecem a cargo do responsável.
+Assistente em português do Brasil que permite a gestores consultar indicadores de negócio por mensagens no Telegram, sem escrever SQL. A pergunta passa por quatro camadas: **Telegram → FastAPI → Gemini → PostgreSQL 16**. Toda a base é **sintética**. O domínio de apresentação é uma revenda de autopeças de porte pequeno a médio (perfil `autopecas`).
 
-Repositório de continuidade: [arthurhassuma/pac_privado](https://github.com/arthurhassuma/pac_privado).
-Em 04/10/2026, a importação foi validada com **65 testes aprovados**, incluindo PostgreSQL real.
-Veja [publicação e verificação atual](docs/publicacao-github.md), [testes automáticos](https://github.com/arthurhassuma/pac_privado/actions) e [roteiro de entrega até dezembro](docs/roteiro-entrega-dezembro.md).
+## Visão geral
 
-Revisão de 10/10/2026: [comparação com a proposta aprovada](docs/comparacao-proposta.md) e [verificação da continuidade](docs/verificacao-2026-10-10.md). Foram aprovados 77 testes com PostgreSQL real e APIs externas simuladas. A conexão Gemini/Telegram em outro ambiente foi informada pelo usuário; não foi reproduzida com credenciais externas nesta revisão.
+O gestor escreve, por exemplo, `Qual o faturamento em janeiro de 2025?` ou `Compare os pedidos de agosto com o ano passado`. O assistente:
 
-MVP acadêmico em português do Brasil: **Telegram → FastAPI → Gemini → PostgreSQL 16**. Base B2B integralmente sintética. Os perfis originais eram inspirados em serviços de software; desde 07/11/2026 o domínio de apresentação é uma **revenda de autopeças** de porte pequeno a médio (perfil `autopecas`, veja abaixo). A continuidade autorizada até a entrega final inclui 40 casos de avaliação, experimentos reais com Gemini, aceite declarado do gestor e relatório final. As limitações medidas e as providências institucionais estão no índice da entrega.
+1. interpreta a pergunta e identifica métrica, medida e período;
+2. pede esclarecimento, **antes de qualquer SQL**, quando algo está ambíguo (`Qual o faturamento?` gera uma pergunta sobre o período);
+3. consulta o PostgreSQL por uma role somente leitura, com SQL validado por AST;
+4. responde em texto, com números e datas copiados das células retornadas pelo banco.
 
-O provedor foi alterado de Anthropic para Gemini por decisão do usuário para usar a cota gratuita. A proposta original permanece preservada. Veja a [justificativa e detalhes da migração](docs/migracao-gemini.md).
+Capacidades:
 
-O levantamento encontrou somente os dois documentos, agora em [docs/](docs/). Não havia esqueleto de código. Veja [levantamento inicial](docs/levantamento-inicial.md), [arquitetura](docs/arquitetura.md) e [dicionário](docs/dicionario-de-dados.md).
+- totais por métrica, medida e período, com até quatro combinações na mesma pergunta (`Qual o total de pedidos e o faturamento emitido em agosto de 2025?`);
+- comparações entre períodos, contribuição para variações, séries mensais, rankings, participação e desvio operacional;
+- continuidade de conversa (`E do mês de agosto?` mantém métricas e ano do turno anterior), com histórico por usuário e `/limpar`;
+- `hoje`, `ontem`, `anteontem` e datas de um único dia (`05/03/2025`, `dia 20 de janeiro de 2025`) resolvidos de forma determinística, fora do Gemini. `dia 20 de janeiro` sem ano exige `esse ano` ou `ano passado` no pedido; caso contrário o assistente pergunta o ano;
+- formato único de resposta: cabeçalho, período uma vez e uma linha por medida (`Valor: R$ …`, `Quantidade: 295 pedidos`); rankings numerados sem identificador interno; dia único como `05/11/2026`;
+- classificador local de intenções (TF-IDF + regressão logística) que sugere exemplos ao planejador (veja [Classificador de intenções](#classificador-de-intenções)).
 
-Em 02/11/2026, cinco correções foram implantadas e confirmadas em produção na VM Oracle (veja [implantação na Oracle](deploy/oracle/README.md)): (1) `relative_periods.py` passou a resolver `hoje`, `ontem`, `anteontem` e datas explícitas (`DD/MM/AAAA` ou `dia D de <mês>[ de AAAA]`) de forma determinística — antes, dia exato dependia só da interpretação livre do Gemini; (2) os perfis `--profile original-v2` e `--profile comparativo-v2` em `bi-db seed` corrigem padrões repetitivos dos geradores existentes (pedido sempre no dia 5 ou só entre os dias 2 e 18, descrição e valor repetidos entre meses/contratos), com cobertura real de dias do mês e pools de descrições/valores — os perfis `original` (seed 42) e `comparativo` ficam intocados, pois alimentam respectivamente a avaliação congelada de 40 casos e o hash publicado em `docs/base-comparativa.md` (veja `evaluation/cases-original-v2.json` para reavaliar sobre os dados corrigidos); (3) `requirements-lock.txt`/`pyproject.toml` tiveram `pglast` atualizado de `7.18` para `8.7`, já que a versão antiga saiu do PyPI e travava qualquer rebuild; (4) o planejador ganhou uma regra explícita para "compara com o ano passado" quando o período já estava fixado em turnos anteriores por outro caminho (ex.: resposta a esclarecimento) — antes podia comparar um ano inteiro contra um mês só; (5) `app/managerial_rendering.py`/`app/bi_agent.py` passaram a mesclar respostas de métricas com o mesmo cabeçalho (mesma métrica, período e tipo, "Ambos" pedindo valor e quantidade) num único bloco, em vez de repetir cabeçalho e período a cada medida. Suíte local: 210 testes aprovados, 28 skipped (sem PostgreSQL de teste), ruff limpo.
+Interfaces: bot do Telegram (polling ou webhook HTTPS) e CLI local (`bi-cli`).
 
-## Setup reproduzível
+## Instalação
 
-Requisitos: Python 3.11+ e Docker com Compose. Execute na raiz do projeto. Exemplos PowerShell; no Linux/macOS use `.venv/bin/activate`.
+Requisitos: Python 3.11+ e Docker com Compose. Comandos em PowerShell; no Linux/macOS use `.venv/bin/activate`.
 
 ```powershell
 python -m venv .venv
@@ -28,66 +34,125 @@ python -m pip install -e . --no-deps
 Copy-Item .env.example .env
 ```
 
-Se já existe `.env`, preserve-o e edite apenas as variáveis desejadas. Para instalar pelas faixas de versões, em vez do lock, use `python -m pip install -e ".[dev]"`. O lock foi verificado com Python 3.13 no Windows.
+O lock foi verificado com Python 3.13. Para instalar pelas faixas de versões, use `python -m pip install -e ".[dev]"`. Se já existe `.env`, preserve-o e edite apenas as variáveis desejadas.
 
-Edite `.env` localmente:
+### Configuração (`.env`)
 
 | Variável | Uso |
 |---|---|
 | POSTGRES_DB / POSTGRES_USER | Banco e proprietário administrativo do Compose |
-| POSTGRES_PASSWORD | Senha administrativa própria; substituir exemplo |
-| READONLY_PASSWORD | Senha própria e diferente para readonly_agent |
+| POSTGRES_PASSWORD | Senha administrativa própria; substituir o exemplo |
+| READONLY_PASSWORD | Senha própria e diferente para `readonly_agent` |
 | POSTGRES_PORT | Porta local, padrão 55432 |
 | ADMIN_DATABASE_URL | URL do proprietário; apenas setup/carga |
-| DATABASE_URL | URL **com usuário readonly_agent**; nunca usar administrador no agente |
-| GEMINI_API_KEY | Chave Gemini criada no Google AI Studio |
-| GEMINI_MODEL | Padrão gemini-3.5-flash-lite; pode ser alterado explicitamente |
+| DATABASE_URL | URL **com usuário `readonly_agent`**; nunca usar administrador no agente |
+| GEMINI_API_KEY | Chave criada no Google AI Studio |
+| GEMINI_MODEL | Padrão `gemini-3.5-flash-lite` |
+| INTENT_CLASSIFIER_ENABLED | Padrão `true`; `false` usa somente o planejador Gemini |
+| INTENT_MODEL_PATH | Vazio usa o modelo empacotado (`training/intent-model-v2.json`) |
 | TELEGRAM_BOT_TOKEN | Token obtido diretamente no @BotFather |
-| TELEGRAM_WEBHOOK_SECRET | Segredo aleatório, entre 16 e 256 caracteres A–Z, a–z, 0–9, `_` e `-` |
+| TELEGRAM_WEBHOOK_SECRET | Segredo aleatório, 16 a 256 caracteres A–Z, a–z, 0–9, `_` e `-` |
 | TELEGRAM_ALLOWED_USER_IDS | IDs numéricos dos gestores, separados por vírgula; vazio bloqueia todos |
-| TELEGRAM_WEBHOOK_URL | URL pública HTTPS completa, terminada em /telegram/webhook; dispensável no polling |
+| TELEGRAM_WEBHOOK_URL | URL pública HTTPS terminada em `/telegram/webhook`; dispensável no polling |
 | QUERY_TIMEOUT_MS / MAX_QUERY_ROWS | Padrões: 3000 ms e 100 linhas |
-| SESSION_TTL_SECONDS / MAX_HISTORY_TURNS | Padrões: uma hora e oito turnos |
+| SESSION_TTL_SECONDS / MAX_SESSIONS / MAX_HISTORY_TURNS | Padrões: uma hora, 1000 sessões e oito turnos |
 
-Mantenha as senhas consistentes com as duas URLs. Se houver caracteres especiais, aplique percent-encoding na URL. Não publique `.env`, logs do banco ou `.local/`. Um segredo pode ser gerado com `python -c "import secrets; print(secrets.token_urlsafe(32))"`.
+Mantenha as senhas consistentes com as duas URLs e aplique percent-encoding se houver caracteres especiais. Não publique `.env`, logs do banco ou `.local/`. Para gerar um segredo: `python -c "import secrets; print(secrets.token_urlsafe(32))"`.
+
+### Chave Gemini e cota gratuita
+
+1. Crie uma chave em [Google AI Studio — API Keys](https://aistudio.google.com/apikey) e confirme que o projeto está no **Free Tier**.
+2. Salve-a apenas no `.env` (`GEMINI_API_KEY=...`) e reinicie o backend/polling.
+
+O modelo padrão tem entrada e saída gratuitas no Free Tier segundo a [tabela oficial](https://ai.google.dev/gemini-api/docs/pricing#gemini-3.5-flash-lite); limites variam por projeto. Uma pergunta normalmente faz várias chamadas (planejamento, schema, SQL e resposta), e a cota pode terminar durante a conversa: o assistente informa o limite em português, sem trocar para modelo pago. **Usar o modelo com chave de projeto pago pode gerar cobrança**; o código não controla o plano do Google. No Free Tier o Google pode usar o conteúdo para melhorar seus produtos, por isso use somente a base sintética. Erros de chave/permissão, cota, modelo indisponível e serviço indisponível têm mensagens distintas.
+
+## Banco de dados
 
 ```powershell
 docker compose up -d --wait
-bi-db init
-bi-db seed --seed 42 --clients 30
-bi-db validate
-```
-
-`init` cria o schema e a role de leitura em uma transação. Recusa schema/role existentes para não alterar outro projeto. `seed` é transacional e recusa banco preenchido. Não existe comando automático de reset destrutivo. `docker compose down` preserva o volume. Mudanças em POSTGRES_PASSWORD após a primeira criação do volume não alteram a senha já armazenada no PostgreSQL.
-
-Use `bi-db seed --profile original-v2 --seed 42 --clients 30` para uma base com os mesmos 30 clientes e contratos 2024/2025 do perfil original, mas com pedidos distribuídos em qualquer dia do mês (não só dia 5), descrições variadas por pedido/contrato e valores com flutuação mensal em vez de repetidos. `bi-db seed --profile original-v2 ...` audita automaticamente a variedade (dias, descrições e valores distintos) antes de aceitar a carga; o perfil `original` continua inalterado porque alimenta a avaliação congelada de 40 casos.
-
-Da mesma forma, `bi-db seed --profile comparativo-v2 --clients 100 --seed 42 --start-month 2025-01 --end-month 2026-10` preserva os 100 clientes, 22 meses e todas as regras de cobertura mensal/status do perfil `comparativo`, mas espalha os pedidos pelo mês inteiro (em vez de só dias 2 a 18) e varia as descrições de pedidos e contratos. O perfil `comparativo` original também fica intocado, porque `docs/base-comparativa.md` publica um hash SHA256 do conteúdo gerado por ele.
-
-### Perfil `autopecas` e formato das respostas (07/11/2026)
-
-Para a apresentação use a base de revenda de autopeças. São 100 clientes sintéticos com perfil de nicho (oficinas, auto elétricas, funilarias, autocenters, frotas, retíficas e lojas, sem o prefixo "Empresa Fictícia"), 22 meses e escala de empresa pequena-média: em média R$ 350–410 mil e 320–360 pedidos por mês, com ticket médio perto de R$ 1.100.
-
-```powershell
 bi-db init
 bi-db seed --profile autopecas --clients 100 --seed 42 --start-month 2025-01 --end-month 2026-10
 bi-db validate
 bi-db coverage --profile autopecas
 ```
 
-O schema não mudou; só o significado de negócio, descrito em [dicionário de dados](docs/dicionario-de-dados.md): pedidos são pedidos de venda, contratos são contratos de fornecimento, horas são horas de atendimento e chamados são ocorrências de pós-venda (garantias, trocas e devoluções). O planejador aceita as duas formas ("chamados" e "ocorrências"). Os perfis anteriores continuam disponíveis para reproduzir a avaliação congelada. Para trocar a base da VM Oracle, veja [Trocar o banco pelo perfil autopecas](deploy/oracle/README.md). O deploy de 07/11/2026 está registrado em [docs/deploy-oracle-autopecas-2026-11-07.md](docs/deploy-oracle-autopecas-2026-11-07.md).
+`init` cria o schema e a role de leitura em uma transação e recusa schema/role existentes, para não alterar outro projeto. `seed` é transacional e recusa banco preenchido. Não há comando de reset destrutivo. `docker compose down` preserva o volume, e alterar `POSTGRES_PASSWORD` depois da criação do volume não muda a senha já armazenada.
 
-As respostas passaram a ter um único formato: cabeçalho, período uma vez e uma linha por medida (`Valor: R$ …`, `Quantidade: 295 pedidos`); rankings são listas numeradas sem o identificador interno do cliente; dia único aparece como `05/11/2026`. O texto é montado em `app/managerial_rendering.py` e `app/rendering.py` apenas a partir das células do SQL.
+### Perfis de dados
 
-## CLI local
+O schema é o mesmo em todos os perfis (cinco tabelas); muda apenas o conteúdo gerado, sempre de forma determinística por `--seed`.
 
-### Treinamento local e perguntas gerenciais
+| Perfil | Conteúdo | Uso |
+|---|---|---|
+| `autopecas` | 100 clientes de nicho (oficinas, auto elétricas, funilarias, autocenters, frotas, retíficas, lojas), 22 meses, em média R$ 350–410 mil e 320–360 pedidos por mês, ticket médio perto de R$ 1.100 | Apresentação e produção |
+| `original` | 30 clientes, contratos e pedidos de 2024/2025 | Avaliação congelada de 40 casos |
+| `original-v2` | Mesmos clientes e contratos, com pedidos em qualquer dia do mês, descrições variadas e valores com flutuação | Reavaliação sobre dados mais variados |
+| `comparativo` | 100 clientes, 22 meses (jan/2025–out/2026): 681 contratos, 5.100 pedidos, 5.809 notas e 1.700 indicadores | Comparações entre períodos; hash SHA256 publicado em [`docs/projeto.md`](docs/projeto.md#base-sintética-para-comparações-de-bi) |
+| `comparativo-v2` | Mesma cobertura do `comparativo`, com pedidos espalhados pelo mês e descrições variadas | Variante com dados mais realistas |
 
-A evolução de 12/10/2026 adiciona comparações entre períodos, contribuição para variações, séries mensais, rankings, participação e desvio operacional, com texto PT-BR, emojis moderados e valores exatos do SQL. Consulte o [guia gerencial](docs/perguntas-gerenciais.md), o [treinamento de intenções](docs/treinamento-intencoes.md) e o [protocolo novo](docs/protocolo-avaliacao-gerencial.md).
+Os perfis `original` e `comparativo` não são alterados, porque alimentam a avaliação congelada e o hash publicado. As cargas `-v2` auditam a variedade (dias, descrições e valores distintos) antes de aceitar os dados. Para `comparativo`/`comparativo-v2` use `--clients 100 --start-month 2025-01 --end-month 2026-10`; para `original`/`original-v2`, `--clients 30`.
 
-O modelo local TF-IDF + regressão logística (versão 2, de 08/11/2026) foi treinado com 1.112 perguntas sintéticas em vocabulário de autopeças e avaliado em 224 perguntas de teste escritas de formas que o treino nunca viu: **acurácia de 87,9% e, nas sugestões aceitas, cobertura de 80,8% e precisão de 95,0%**, atingindo o critério declarado antes do teste. Ele está **ligado por padrão** (`INTENT_CLASSIFIER_ENABLED=true`): quando confiante, acrescenta até dois exemplos de treino ao prompt do planejador, sem autoridade sobre datas, SQL ou números, e registra no log `intencao rotulo=... confianca=... aceita=...` sem o texto da pergunta. **Isso não é fine-tuning do Gemini**, e **o ganho nas respostas não foi medido**: o teste de classificação não é acurácia de SQL. Método, limites e a classe mais frágil (operacional, F1 de 0,67) estão em [treinamento v2](docs/treinamento-intencoes-v2.md); a [versão 1](docs/treinamento-intencoes.md) fica como histórico. O assistente funciona pelo planejador Gemini mesmo com o classificador desativado. Num servidor já configurado, o arquivo privado de configuração pode ter `INTENT_CLASSIFIER_ENABLED=false` e precisa ser ajustado (veja o [guia da Oracle](deploy/oracle/README.md)).
+No perfil `autopecas`, pedidos são pedidos de venda, contratos são contratos de fornecimento, horas são horas de atendimento e chamados são ocorrências de pós-venda (garantias, trocas e devoluções); o planejador aceita "chamados" e "ocorrências". Veja o [dicionário de dados](docs/projeto.md#dicionário-de-dados), as [consultas SQL de comparação](docs/dados/consultas-base-comparativa.sql) e o [resumo mensal](docs/dados/base-comparativa-resumo.json).
 
-Para reproduzir o treino/testes de aprendizagem com Python 3.12/3.13:
+## Uso
+
+### CLI local
+
+```powershell
+bi-cli
+```
+
+Experimente `Qual o faturamento em janeiro de 2025?`. Comandos: `/limpar` e `/sair`. Sem `GEMINI_API_KEY`, o CLI informa em português que a IA não está configurada.
+
+As respostas mostram o período e distinguem ausência de registros de campos não preenchidos. `Total de pedidos` significa quantidade; para dinheiro, peça `valor dos pedidos`. Totais simples usam consultas padronizadas; filtros adicionais e análises detalhadas usam o executor SQL restrito.
+
+### Telegram com polling (sem HTTPS público)
+
+Configure a chave Gemini, o token, o segredo e os IDs autorizados. Obtenha seu ID pela própria Bot API (`getUpdates`, com webhook e polling parados), sem compartilhar o token nem usar terceiros, e converse em chat privado com o bot.
+
+```powershell
+# Terminal 1
+python -m uvicorn app.main:app --host 127.0.0.1 --port 8000 --workers 1
+# Terminal 2, com o mesmo .env e ambiente virtual
+bi-telegram polling
+```
+
+O polling usa python-telegram-bot e encaminha cada update ao webhook FastAPI local, de modo que as perguntas passam pelas mesmas quatro camadas. O offset só avança depois que o backend aceita o update. O comando remove o webhook remoto do bot sem descartar updates; **não execute polling e webhook ao mesmo tempo**.
+
+Comandos no Telegram: `/start`, `/help` e `/limpar`. Mensagens de grupos e de usuários fora da allowlist são ignoradas. `http://127.0.0.1:8000/health` confirma processo e configuração, não a conectividade com Gemini ou banco.
+
+### Telegram com webhook público
+
+Exponha o backend por HTTPS (proxy ou túnel), configure `TELEGRAM_WEBHOOK_URL` e registre:
+
+```powershell
+bi-telegram register-webhook
+```
+
+O endpoint exige o cabeçalho `X-Telegram-Bot-Api-Secret-Token`; mantenha o segredo apenas no backend e no registro do Telegram, nunca na URL. A fila tem capacidade limitada, deduplicação em memória e quatro consumidores, com serialização por sessão. **Use um único worker/processo FastAPI.**
+
+### Diagnóstico de conexões
+
+```powershell
+# Apenas configuração; não faz chamadas de rede
+python -m scripts.check_connections
+# Verifica PostgreSQL, resposta do Gemini e autenticação do Telegram
+python -m scripts.check_connections --testar-conexoes
+```
+
+`configurado` significa somente presença/formato; `confirmado`, que a conexão respondeu. `pendente` ou `falhou` produz código de saída diferente de zero e orientação em português. O comando não exibe credenciais, não envia mensagens, não consome updates e não altera o webhook. A opção de teste consome uma chamada da cota Gemini.
+
+## Classificador de intenções
+
+Um modelo local TF-IDF + regressão logística (versão 2) foi treinado com 1.112 perguntas sintéticas em vocabulário de autopeças e avaliado em 224 perguntas de teste escritas de formas que o treino nunca viu: **acurácia de 87,9% e, nas sugestões aceitas, cobertura de 80,8% e precisão de 95,0%**, atingindo o critério declarado antes do teste.
+
+- Está **ligado por padrão** (`INTENT_CLASSIFIER_ENABLED=true`). Quando confiante, acrescenta até dois exemplos de treino ao prompt do planejador, sem autoridade sobre datas, SQL ou números, e registra `intencao rotulo=... confianca=... aceita=...` no log, sem o texto da pergunta.
+- Baixa confiança, artefato ausente/inválido ou intenção genérica mantêm o caminho geral. O assistente funciona pelo planejador Gemini mesmo com o classificador desativado.
+- O runtime usa inferência em JSON, sem scikit-learn, e não treina com conversas dos usuários.
+- **Não é fine-tuning do Gemini**, e **o ganho nas respostas não foi medido**: acurácia de classificação não é acurácia de SQL. A classe mais frágil é a operacional (F1 de 0,67).
+- Num servidor já configurado, o arquivo privado de configuração pode ter `INTENT_CLASSIFIER_ENABLED=false` e precisa ser ajustado (veja o [guia da Oracle](deploy/oracle/README.md)).
+
+Método, limites e resultados: [treinamento v2](docs/avaliacao.md#treinamento-supervisionado-de-intenções--versão-2-revenda-de-autopeças). A [versão 1](docs/avaliacao.md#treinamento-supervisionado-de-intenções--versão-1) fica como histórico. Para reproduzir o treino (Python 3.12/3.13):
 
 ```powershell
 python -m pip install -r requirements-training-lock.txt
@@ -98,127 +163,52 @@ python -m scripts.train_intents train --corpus training/questions-v2.json --c-gr
 python -m scripts.train_intents test --corpus training/questions-v2.json --model .local/intent-training-nova/model.json --output .local/intent-test-novo
 ```
 
-Pastas existentes são recusadas. O bot usa inferência JSON sem sklearn no runtime e não treina com conversas. Baixa confiança, artefato ausente/inválido ou intenção genérica mantêm o caminho geral. `INTENT_MODEL_PATH` vazio usa o artefato empacotado (`training/intent-model-v2.json`), com hashes registrados nas avaliações.
+Pastas de saída existentes são recusadas.
 
-O conjunto gerencial tem 35 cenários separados dos 40 casos originais. `scripts.evaluate --dataset` seleciona explicitamente a nova avaliação; sem esse argumento o conjunto original continua sendo o padrão. Não executar o reservado para ajustar prompts. Rodadas reais precisam do ambiente conectado e respeitam a quota existente; simulações não comprovam interpretação Gemini ou entrega Telegram.
+## Segurança e garantia dos números
 
-### Base ampliada para comparativos
+- A AST do PostgreSQL aplica allowlist de SELECT, nós, funções, tabelas e tipos. DML/DDL, SELECT INTO, locks, funções arbitrárias e schemas externos são bloqueados.
+- `readonly_agent` não é superusuário, não pertence a outras roles e recebe SELECT somente nas cinco tabelas. A aplicação verifica a role e recusa grants de escrita. Transações são read-only; timeout e limite de linhas valem para toda consulta de negócio, e os metadados também têm timeout e limite fixo.
+- O planejamento sem tools exige métrica, medida e período com evidência literal do pedido ou do histórico antes de permitir SQL.
+- Erros SQL voltam ao modelo como `tool_result` para autocorreção limitada. Detalhes do PostgreSQL ficam no contexto interno, não na resposta ao gestor.
+- O modelo retorna somente uma referência ao resultado. O backend produz a introdução e os registros, sem prosa livre do modelo. Números e datas vêm das células; `Decimal` mantém todos os dígitos e o agente não arredonda (o SQL pode arredondar se o usuário pedir). Percentuais são exibidos com duas casas decimais, somente no texto.
+- Agregados únicos com alias `total` recebem uma frase natural conforme a métrica e a medida. O renderizador não deduz soma, moeda ou percentual pelo alias. NULL nunca vira zero e resultados parciais são identificados.
+- Acesso administrativo fica nos comandos de setup; não existe tool administrativa. Os logs da aplicação omitem textos, SQL e credenciais.
 
-O [perfil comparativo](docs/base-comparativa.md) cobre **janeiro de 2025 a outubro de 2026 (22 meses)**, com 100 clientes, 681 contratos, 5.100 pedidos, 5.809 notas e 1.700 indicadores. Todos os meses incluem os status previstos no schema. Outubro inteiro é um cenário sintético, inclusive datas posteriores a 11/10/2026.
-
-Prepare um banco separado seguindo o documento. A carga usa `bi-db seed --profile comparativo --clients 100 --start-month 2025-01 --end-month 2026-10 --env-file .env.comparativo`; `bi-db coverage --env-file .env.comparativo` audita a cobertura mensal. O perfil padrão continua preservando os dados dos experimentos anteriores. Há [consultas SQL de comparação](docs/consultas-base-comparativa.sql) e [resumo mensal](docs/base-comparativa-resumo.json).
-
-```powershell
-bi-cli
-```
-
-Experimente `Qual o faturamento em janeiro de 2025?`. `Qual o faturamento?` deve gerar esclarecimento antes de SQL. Comandos `/limpar` e `/sair`. Sem GEMINI_API_KEY, o CLI informa em português que a IA não está configurada.
-
-É possível consultar até quatro combinações de métricas, medidas e períodos na mesma
-pergunta, por exemplo: `Qual o total de pedidos e o faturamento emitido em agosto de 2025?`.
-`Total de pedidos` significa quantidade; para dinheiro, peça `valor dos pedidos`.
-`E do mês de agosto?` mantém as métricas e o ano do período anterior. Quando falta uma
-medida, o esclarecimento indica a métrica pendente e mantém o restante do pedido.
-As respostas mostram o período e distinguem ausência de registros de campos não
-preenchidos. O perfil original tem pedidos e faturamento emitido em 2024/2025: em
-09/10/2026, `mês passado` corresponde a setembro de 2026 e não encontra registros.
-Totais simples usam consultas padronizadas; filtros adicionais e análises detalhadas
-continuam usando o executor SQL restrito. Veja os [testes reais de outubro](docs/verificacao.md).
-
-`hoje`, `ontem`, `anteontem` e datas de um único dia (`05/03/2025` ou `dia 20 de
-janeiro de 2025`) também são resolvidos de forma determinística, fora do Gemini.
-`dia 20 de janeiro` sem ano só resolve com `esse ano`/`ano passado` explícito no
-pedido; caso contrário o assistente pede o ano, como já ocorre para meses.
-
-## Chave Gemini e cota gratuita
-
-1. Acesse [Google AI Studio — API Keys](https://aistudio.google.com/apikey) com sua conta Google.
-2. Crie uma chave/projeto e confira que o projeto está no **Free Tier**. Para este teste, não ative faturamento pago.
-3. Salve a chave apenas no `.env`, na linha `GEMINI_API_KEY=...`, e mantenha `GEMINI_MODEL=gemini-3.5-flash-lite`.
-4. Preserve as configurações do banco, segredo e token do Telegram. Reinicie o backend/polling após editar `.env`.
-
-O modelo padrão tem entrada/saída gratuitas no Free Tier segundo a [tabela oficial](https://ai.google.dev/gemini-api/docs/pricing#gemini-3.5-flash-lite). A disponibilidade e os limites variam por projeto. Uma pergunta normalmente faz várias chamadas (planejamento, schema, SQL e resposta); a cota pode terminar durante uma conversa. O assistente informa o limite em português, sem mudar automaticamente para um modelo pago. **Usar esse modelo com chave de projeto pago pode gerar cobrança**; o código não controla o plano do Google.
-
-No Free Tier o Google pode usar o conteúdo para melhorar seus produtos: utilize somente esta base sintética. Erros de chave/permissão, cota, modelo indisponível e serviço indisponível têm mensagens distintas. Os nomes antigos ANTHROPIC_API_KEY e ANTHROPIC_MODEL não são utilizados.
-
-## Backend e Telegram local, sem HTTPS público
-
-Configure a chave Gemini, token, segredo e IDs autorizados. Obtenha seu ID pela própria Bot API (`getUpdates`, com webhook/polling parados), sem compartilhar o token ou usar terceiros. Converse em chat privado com o bot.
-
-Terminal principal:
-
-```powershell
-python -m uvicorn app.main:app --host 127.0.0.1 --port 8000 --workers 1
-```
-
-Outro terminal, com o mesmo `.env` e ambiente virtual:
-
-```powershell
-bi-telegram polling
-```
-
-O polling usa python-telegram-bot e encaminha cada update ao webhook FastAPI local. As perguntas passam pelas mesmas quatro camadas. O offset avança somente após aceitação do backend. Esse comando remove o webhook remoto do bot, sem descartar updates; não execute polling e webhook remoto simultaneamente.
-
-Saúde de processo/configuração: `http://127.0.0.1:8000/health`. Esse endpoint não confirma conectividade Gemini/banco. `/start`, `/help` e `/limpar` funcionam no Telegram. Mensagens de grupos e usuários fora da allowlist são ignoradas.
-
-### Diagnóstico no ambiente conectado
-
-Execute na raiz do checkout que contém o `.env` usado pelo bot:
-
-```powershell
-# Apenas configuração; não faz chamadas de rede
-python -m scripts.check_connections
-# Verifica PostgreSQL, resposta do Gemini e autenticação Telegram
-python -m scripts.check_connections --testar-conexoes
-```
-
-`configurado` significa somente presença/formato; `confirmado` significa que a conexão indicada respondeu. `pendente` ou `falhou` produz código de saída diferente de zero e orientação em português. O comando não exibe credenciais, não envia mensagens, não consome updates e não altera o webhook. A opção de teste consome uma chamada da cota Gemini e respeita o projeto configurado; não verifica nem muda seu plano de cobrança. Ainda é necessário realizar o teste funcional abaixo para comprovar SQL e entrega das respostas.
-
-## Webhook público
-
-Disponibilize o backend por HTTPS com proxy/túnel de sua escolha e configure TELEGRAM_WEBHOOK_URL. Mantenha o segredo apenas no backend e no registro do Telegram; não o coloque na URL.
-
-```powershell
-bi-telegram register-webhook
-```
-
-O endpoint exige `X-Telegram-Bot-Api-Secret-Token`. A fila tem capacidade limitada, deduplicação em memória e quatro consumidores, com serialização por sessão. **Use apenas um worker/processo FastAPI.** Fila, deduplicação e histórico são voláteis: reiniciar pode perder updates já aceitos ou permitir reprocessamento de updates antigos. O MVP não garante entrega exatamente uma vez. Persistência durável e execução distribuída exigem evolução posterior.
-
-## Segurança e números
-
-- A AST PostgreSQL tem allowlist de SELECT, nós, funções, tabelas e tipos. DML/DDL, SELECT INTO, locks, funções arbitrárias e schemas externos são bloqueados.
-- readonly_agent não é superusuário, não pertence a outras roles e recebe SELECT somente nas cinco tabelas. A aplicação verifica a role e recusa grants de escrita. Transações são read-only; timeout e limite externo de linhas são aplicados a toda consulta de negócio. Metadados também têm timeout e limite fixo.
-- Planejamento sem tools exige métrica, medida e período com evidência literal do pedido/histórico antes de permitir SQL. Reconhecer a intenção continua dependendo do modelo; interpretação semântica exige a avaliação futura.
-- Erros SQL voltam ao modelo como tool_result para autocorreção limitada. Detalhes do PostgreSQL ficam no contexto interno, não na resposta ao gestor.
-- O modelo retorna somente referência ao resultado. O backend produz a introdução e os registros, sem incorporar prosa livre do modelo. Números e datas vêm das células; Decimal mantém todos os dígitos. O agente não arredonda na resposta. SQL pode arredondar se o usuário pedir.
-- Agregados únicos com alias `total` recebem uma frase natural conforme a métrica e a medida, por exemplo faturamento ou quantidade de clientes. O valor é copiado integralmente da célula; o renderizador não deduz soma, moeda ou percentual pelo alias. Detalhamentos, NULL e resultados parciais mantêm o formato de registros e seus avisos.
-- Essa garantia de origem numérica **não comprova a correção semântica do SQL**: escolher filtros ou joins errados continua possível e deverá ser medido na Fase 4. Resultados parciais são identificados; NULL não é convertido em zero.
-- Acesso administrativo fica nos comandos de setup; não há tool administrativa. Logs da aplicação omitem textos, SQL e credenciais. O PostgreSQL pode registrar SQL com erro; os logs locais estão em `.local/` ignorado.
-
-## Testes de engenharia
+## Testes e avaliação
 
 ```powershell
 python -m pytest -q
 python -m ruff check app scripts tests evaluation training
 ```
 
-Sem TEST_DATABASE_URL, testes que precisam do PostgreSQL são marcados como skipped. Para rodar a suíte inteira contra a base sintética já carregada, sem exibir a senha:
+A suíte tem 296 testes; os 28 que dependem de PostgreSQL são marcados como skipped sem `TEST_DATABASE_URL`. Para executá-la inteira contra a base sintética carregada, sem exibir a senha:
 
 ```powershell
 python -c "import os,pytest; from app.config import Settings; os.environ['TEST_DATABASE_URL']=Settings().database_url.get_secret_value(); raise SystemExit(pytest.main(['-q']))"
 ```
 
-Use somente a base sintética deste projeto. A suíte verifica negação de DML/DDL, timeout real, limite de linhas, precisão decimal, autocorreção, ambiguidade, sessões, webhook e o fluxo completo com PostgreSQL real e APIs Gemini/Telegram simuladas na rede. Também verifica o protocolo nativo do SDK Gemini, preservação de assinaturas, chamadas paralelas e erros de cota/permissão. Isso não substitui o teste manual real.
+Use somente a base sintética do projeto. A suíte verifica negação de DML/DDL, timeout real, limite de linhas, precisão decimal, autocorreção, ambiguidade, sessões, webhook, o protocolo nativo do SDK Gemini (assinaturas, chamadas paralelas, erros de cota/permissão), o classificador e o fluxo completo com PostgreSQL real e APIs Gemini/Telegram simuladas. Simulações não comprovam a interpretação do Gemini nem a entrega pelo Telegram.
 
-## Teste manual real — registro de evidência
+### Avaliação com o Gemini
 
-O usuário informou conexão Gemini/Telegram em outro ambiente. Nesta revisão não foram usadas credenciais externas, e o GitHub não contém a configuração do processo em execução. Nenhum teste simulado comprova acesso à API externa. No ambiente já conectado, conclua e registre o roteiro:
+`evaluation/` contém 40 casos originais, SQL de referência e um executor reproduzível. A terceira rodada de desenvolvimento e o teste reservado concluíram 20/20 casos cada, na versão `59c9eb8`, sem falhas semânticas. A versão, a base, o modelo e o conjunto foram congelados antes da avaliação reservada, que aprovou 16/16 respostas e 4/4 esclarecimentos. A latência média de 1,649 s mede agente e banco, sem o transporte do Telegram, e as taxas valem para esta amostra. Evidências e limitações: [experimentos](docs/experimentos.md) e [verificações](docs/verificacoes.md). O conjunto gerencial, com 35 cenários separados dos 40 originais, usa `--dataset evaluation/managerial-cases-v1.json`.
+
+```bash
+python -m scripts.evaluate validate
+python -m scripts.evaluate run --live --split development --interval 60 --limit 20
+```
+
+Os resultados ficam em `.local/evaluation/`. Rode o conjunto reservado (`--split test`) somente depois de congelar os ajustes de desenvolvimento, e nunca para ajustar prompts. A avaliação não envia mensagens nem reinicia o Telegram. Rodadas reais exigem o ambiente conectado e consomem a cota do Gemini.
+
+Para reavaliar os mesmos 40 casos sobre uma base `original-v2`, use `--dataset evaluation/cases-original-v2.json`. O SQL de referência é idêntico ao do conjunto original (calculado ao vivo contra o banco carregado); só a versão declarada no arquivo muda, para não misturar evidências entre perfis.
+
+### Teste manual de ponta a ponta
 
 1. Execute setup, validação, backend e polling (ou webhook HTTPS).
-2. Em chat privado, envie `/start` e `Qual o faturamento?`; confirme a pergunta sobre período.
-3. Responda `janeiro de 2025`; confira o resultado com a consulta abaixo usando o login de leitura.
-4. Envie `/limpar`; confirme que o histórico não influencia a próxima pergunta.
-5. Registre data, modelo, versão do código, SQL de referência e valor recebido em `docs/verificacao.md`, sem tokens nem dados pessoais.
+2. Em chat privado, envie `/start` e `Qual o faturamento?`; confirme a pergunta sobre o período.
+3. Responda `janeiro de 2025` e confira o resultado com a consulta abaixo, usando o login de leitura.
+4. Envie `/limpar` e confirme que o histórico não influencia a próxima pergunta.
 
 ```sql
 SELECT SUM(valor) AS total
@@ -228,42 +218,40 @@ WHERE emissao >= DATE '2025-01-01'
   AND status <> 'cancelada';
 ```
 
-## Ambiente local desta entrega
+## Implantação
 
-Docker não estava instalado. A carga e os testes usaram PostgreSQL **16.14** já disponível em `C:/Program Files/PostgreSQL/16/bin`, em cluster isolado `.local/pgdata`, porta **55439**. O serviço preexistente não foi alterado. `.env` local contém senhas aleatórias desse cluster e credenciais externas vazias; esse arquivo não integra a distribuição.
+A hospedagem em produção usa Docker Compose (PostgreSQL 16, backend e um processo de polling) em uma VM Oracle. Dockerfile, `runtime_entrypoint.py`, `deploy/oracle/compose.yaml` e o configurador de segredos estão no repositório. O [guia de implantação e atualização](deploy/oracle/README.md) cobre instalação, troca do banco pelo perfil `autopecas` e atualização do código; o histórico das implantações está em [`docs/deploy.md`](docs/deploy.md).
 
-Para iniciar/parar esse cluster existente no Windows, a partir da raiz (sem recriá-lo):
+## Estrutura do repositório
 
-```powershell
-& 'C:/Program Files/PostgreSQL/16/bin/pg_ctl.exe' -D "$PWD/.local/pgdata" -l "$PWD/.local/postgres.log" -o '-p 55439 -h 127.0.0.1' -w start
-# Ao terminar:
-& 'C:/Program Files/PostgreSQL/16/bin/pg_ctl.exe' -D "$PWD/.local/pgdata" -m fast -w stop
-```
+| Caminho | Conteúdo |
+|---|---|
+| `app/` | Agente, política SQL, tools, renderização, sessões, FastAPI, Telegram e CLI |
+| `db/` | Schema e grants |
+| `scripts/` | Administração do banco, geradores de dados, avaliação, treino e diagnóstico |
+| `training/` | Corpus, protocolo e modelos do classificador de intenções |
+| `evaluation/` | Casos, SQL de referência, executor e pontuação |
+| `tests/` | Testes de engenharia |
+| `deploy/oracle/` | Compose e configurador da hospedagem |
+| `docs/` | Documentação consolidada (índice em [`docs/README.md`](docs/README.md)) |
 
-Para usar Compose, prepare um `.env` coerente com o novo volume e use outra porta ou pare o cluster nativo. O Compose não foi executado nesta máquina Windows sem Docker. Posteriormente, a reprodução em ambiente Linux com Docker foi concluída em 11/10/2026; veja docs/verificacao-entrega-final.md.
+## Documentação
 
-## Estrutura e continuidade
+- [Projeto](docs/projeto.md): escopo, arquitetura, plano, dicionário de dados e base comparativa.
+- [Avaliação](docs/avaliacao.md): protocolos, treinamento de intenções, aceite do gestor e comparação com a proposta.
+- [Experimentos](docs/experimentos.md) e [verificações](docs/verificacoes.md): resultados e evidências.
+- [Deploy](docs/deploy.md): publicação e implantações.
+- [Apresentação](docs/apresentacao.md): guia de estudo e roteiros de demonstração.
+- Relatório final: [Word](docs/entregaveis/Relatorio-Final-PAC-VIII-Arthur-Hassuma.docx), [PDF](docs/entregaveis/Relatorio-Final-PAC-VIII-Arthur-Hassuma.pdf) e [fonte textual](docs/relatorio-final-pac-viii.md).
 
-`app/`: agente, política SQL, tools, renderizador, sessões, FastAPI, Telegram e CLI. `db/`: schema e grants. `scripts/`: administração e Faker. `tests/`: testes de engenharia. `docs/`: anexos, desenho, dicionário e verificação. `deploy/oracle/`: Dockerfile/Compose/configurador da hospedagem em produção, com o [guia de implantação e atualização](deploy/oracle/README.md).
+## Limitações conhecidas
 
-A continuidade inclui o conjunto de avaliação e as rodadas com Gemini descritas abaixo. A conexão real Gemini/Telegram foi validada no ambiente em nuvem. O relatório final e o aceite declarado do gestor estão disponíveis em docs/; não houve coleta qualitativa estruturada. Consulte os relatórios datados em `docs/` para distinguir implementação de resultados medidos.
+- Fila, deduplicação e histórico de sessões ficam em memória. Reiniciar o processo pode perder updates já aceitos ou permitir o reprocessamento de updates antigos, e o sistema não garante entrega exatamente uma vez. Por isso só um worker é suportado; persistência durável e execução distribuída exigiriam evolução.
+- A garantia de origem numérica não comprova a correção semântica do SQL: filtros ou joins errados continuam possíveis, e a taxa de acerto só vale para a amostra avaliada.
+- A interpretação das perguntas depende do Gemini e da cota do projeto configurado.
+- O aceite do gestor está registrado por declaração do responsável; não houve coleta qualitativa estruturada, medição de latência ponta a ponta no Telegram nem comparação com dashboards.
+- Todos os dados são sintéticos; o assistente não foi avaliado com dados reais.
 
-Referências técnicas consultadas: [SDK Gemini](https://googleapis.github.io/python-genai/), [preços Gemini](https://ai.google.dev/gemini-api/docs/pricing), [webhook python-telegram-bot](https://docs.python-telegram-bot.org/en/stable/examples.customwebhookbot.html), [timeouts PostgreSQL 16](https://www.postgresql.org/docs/16/runtime-config-client.html).
+## Referências técnicas
 
-## Avaliação S7–S11
-
-Conjunto de 40 casos, SQL de referência e executor reproduzível em `evaluation/`. Consulte [o protocolo](docs/protocolo-avaliacao.md) antes de executar.
-
-A [terceira rodada de desenvolvimento](docs/experimentos/2026-10-11-desenvolvimento-rodada3.md) e o [teste reservado](docs/experimentos/2026-10-11-teste-reservado.md) concluíram 20/20 casos cada na versão `59c9eb8`, sem falhas semânticas. A versão, base, modelo e conjunto foram congelados antes da avaliação reservada, que aprovou 16/16 respostas e 4/4 esclarecimentos. A média de 1,649 s mede agente e banco, sem transporte Telegram; as taxas medem o sistema híbrido nesta amostra. Consulte a [verificação atual](docs/verificacao-2026-10-11.md) para as evidências e limitações.
-
-```bash
-python -m scripts.evaluate validate
-python -m scripts.evaluate run --live --split development --interval 60 --limit 20
-```
-
-Resultados ficam em `.local/evaluation/`. Teste reservado somente após congelar ajustes de desenvolvimento. A avaliação não envia mensagens nem reinicia o Telegram.
-
-Para reavaliar os mesmos 40 casos sobre uma base carregada com `--profile original-v2`,
-use `python -m scripts.evaluate run --live --dataset evaluation/cases-original-v2.json ...`.
-O SQL de referência é idêntico ao conjunto original (calculado ao vivo contra o banco
-carregado); só a versão declarada no arquivo muda, para não misturar evidências entre perfis.
+[SDK Gemini](https://googleapis.github.io/python-genai/), [preços Gemini](https://ai.google.dev/gemini-api/docs/pricing), [webhook python-telegram-bot](https://docs.python-telegram-bot.org/en/stable/examples.customwebhookbot.html) e [timeouts PostgreSQL 16](https://www.postgresql.org/docs/16/runtime-config-client.html).

@@ -107,13 +107,13 @@ Na versão congelada, 110 testes de engenharia passaram com PostgreSQL real, sem
 
 O GitHub Actions da consolidação 13ff665 foi aprovado. Os commits posteriores aos fontes congelados incorporaram evidências e documentação. O repositório possui Compose com PostgreSQL 16, instruções de setup, CLI, protocolo, dicionário de dados e exemplos de demonstração. A configuração secreta e os processos originais do bot foram preservados durante os experimentos.
 
-A reprodução final em Linux, com Python 3.12.14, utilizou Docker Compose em projeto, volume e porta exclusivos. Init, seed 42 com 30 clientes, consistência, 110 testes com PostgreSQL real, lint, 34 referências SQL e pip check passaram. A base recém-gerada coincidiu com os hashes congelados; os recursos descartáveis foram removidos. Não houve chamada Gemini ou Telegram. Essa rodada utilizou dependências existentes, sem comprovar uma instalação limpa do lock; os detalhes estão em docs/verificacao-entrega-final.md.
+A reprodução final em Linux, com Python 3.12.14, utilizou Docker Compose em projeto, volume e porta exclusivos. Init, seed 42 com 30 clientes, consistência, 110 testes com PostgreSQL real, lint, 34 referências SQL e pip check passaram. A base recém-gerada coincidiu com os hashes congelados; os recursos descartáveis foram removidos. Não houve chamada Gemini ou Telegram. Essa rodada utilizou dependências existentes, sem comprovar uma instalação limpa do lock; os detalhes estão em docs/verificacoes.md.
 
 ## 5 AVALIAÇÃO DO PROJETO PELO PÚBLICO BENEFICIADO
 
 A validação com o gestor foi considerada realizada em 11/10/2026, com aceite, conforme informação do responsável pelo projeto. O registro disponível contém somente essa confirmação. Não foram fornecidos questionário, ata, identificação do participante, assinatura ou síntese de feedback, e não se atribuem ao gestor comentários ou notas de satisfação.
 
-O aceite é uma evidência declaratória de aceitação do protótipo e é apresentado separadamente da avaliação experimental. Não confirma a meta de tempo, a comparação com dashboards, a correção de todos os indicadores possíveis ou a implantação produtiva. O registro completo de sua origem e alcance está em docs/validacao-gestor.md.
+O aceite é uma evidência declaratória de aceitação do protótipo e é apresentado separadamente da avaliação experimental. Não confirma a meta de tempo, a comparação com dashboards, a correção de todos os indicadores possíveis ou a implantação produtiva. O registro completo de sua origem e alcance está em docs/avaliacao.md.
 
 O histórico de avaliação por pares descrito no relatório PAC VII permanece como contexto da proposta. Nesta etapa, as contribuições sobre ambiguidades e confiabilidade se refletem no mecanismo de esclarecimento, na autocorreção SQL limitada e na renderização de valores provenientes do banco. Não houve nova coleta de feedback por pares atribuída a este desenvolvimento.
 
@@ -139,15 +139,15 @@ YU, Tao et al. Spider: A Large-Scale Human-Labeled Dataset for Complex and Cross
 
 HASSUMA, Arthur Vinicius de Almeida. Assistente Conversacional de BI via Aplicativo de Mensagens. Proposta acadêmica PAC Extensionista VII, 2026. Documento de referência preservado em docs/.
 
-HASSUMA, Arthur Vinicius de Almeida. Relatório Final PAC Extensionista VII. Jaraguá do Sul, 28 jun. 2026. Documento de referência preservado em docs/Relatorio-Final-PAC-Arthur-Hassuma.docx.
+HASSUMA, Arthur Vinicius de Almeida. Relatório Final PAC Extensionista VII. Jaraguá do Sul, 28 jun. 2026. Documento de referência preservado em docs/entregaveis/Relatorio-Final-PAC-Arthur-Hassuma.docx.
 
-HASSUMA, Arthur Vinicius de Almeida. Protocolo de avaliação e relatórios de desenvolvimento e teste reservado. Repositório pac_privado, 2026. Versão dos fontes avaliada: 59c9eb8. Documentos em docs/protocolo-avaliacao.md e docs/experimentos/.
+HASSUMA, Arthur Vinicius de Almeida. Protocolo de avaliação e relatórios de desenvolvimento e teste reservado. Repositório pac_privado, 2026. Versão dos fontes avaliada: 59c9eb8. Documentos em docs/avaliacao.md e docs/experimentos/.
 
 ## 8 APÊNDICES
 
-O Apêndice A corresponde ao schema e ao dicionário de dados, em db/schema.sql e docs/dicionario-de-dados.md. O Apêndice B corresponde ao conjunto versionado de 40 casos e suas consultas de referência, em evaluation/cases.json. O Apêndice C reúne o protocolo e os relatórios sanitizados das rodadas, em docs/protocolo-avaliacao.md e docs/experimentos/.
+O Apêndice A corresponde ao schema e ao dicionário de dados, em db/schema.sql e docs/projeto.md. O Apêndice B corresponde ao conjunto versionado de 40 casos e suas consultas de referência, em evaluation/cases.json. O Apêndice C reúne o protocolo e os relatórios sanitizados das rodadas, em docs/avaliacao.md e docs/experimentos/.
 
-O Apêndice D é o registro declaratório do aceite do gestor, em docs/validacao-gestor.md. O Apêndice E é o roteiro de demonstração e reprodução, em docs/roteiro-demonstracao.md. Esses documentos integram o pacote da entrega; os artefatos brutos, credenciais, ambiente virtual, logs e banco local não o integram.
+O Apêndice D é o registro declaratório do aceite do gestor, em docs/avaliacao.md. O Apêndice E é o roteiro de demonstração e reprodução, em docs/apresentacao.md. Esses documentos integram o pacote da entrega; os artefatos brutos, credenciais, ambiente virtual, logs e banco local não o integram.
 
 ## 9 ANEXOS
 
