@@ -51,8 +51,8 @@ O teste reservado atingiu 16/16 respostas e 4/4 esclarecimentos. A média de **1
 
 O ZIP de entrega reúne os arquivos versionados desta branch, incluindo `.env.example`, código, conjunto de avaliação e documentação. Seu `manifesto-entrega.json` registra o commit documental, o commit dos fontes congelados e SHA256 de cada arquivo. A geração verifica os hashes e a integridade do ZIP.
 
-O pacote exclui `.git/`, `.local/`, ambientes virtuais, `.env`, credenciais, logs e bancos locais. Os dados sintéticos são reproduzidos pelo seeder; artefatos brutos das chamadas ficam no ambiente de origem e não são distribuídos. O pacote é uma entrega privada: não altera visibilidade do repositório nem concede licença.
+O pacote exclui `.git/`, `.local/`, ambientes virtuais, `.env`, credenciais, logs e bancos locais. Os dados sintéticos são reproduzidos pelo seeder; artefatos brutos das chamadas ficam no ambiente de origem e não são distribuídos. O pacote não altera a visibilidade do repositório. O código é distribuído sob a licença MIT (arquivo `LICENSE`).
 
 ### Providências do responsável
 
-Conferir as normas institucionais, preencher eventuais assinaturas e submeter os artefatos. A aprovação docente não é presumida. A publicação pública sob MIT prevista na proposta permanece pendente de decisão explícita sobre visibilidade e licença. Medir latência Telegram ponta a ponta, comparar com dashboards e coletar feedback estruturado são trabalhos adicionais, não resultados inventados nesta entrega.
+Conferir as normas institucionais, preencher eventuais assinaturas e submeter os artefatos. A aprovação docente não é presumida. A licença MIT prevista na proposta foi adicionada ao repositório (`LICENSE`); a decisão de tornar o repositório público continua do responsável. Medir latência Telegram ponta a ponta, comparar com dashboards e coletar feedback estruturado são trabalhos adicionais, não resultados inventados nesta entrega.
