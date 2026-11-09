@@ -53,7 +53,7 @@ def test_autopecas_dataset_adapts_the_original_inside_the_profile_data_range():
 
     dataset = load_dataset(Path("evaluation/cases-autopecas.json"))
     original = load_dataset(Path("evaluation/cases.json"))
-    assert (dataset.version, dataset.seed, dataset.clients) == ("3.0.0", 42, 100)
+    assert (dataset.version, dataset.seed, dataset.clients) == ("3.1.0", 42, 100)
     assert [c.id for c in dataset.cases] == [c.id for c in original.cases]
     for split in ("development", "test"):
         cases = [c for c in dataset.cases if c.split == split]

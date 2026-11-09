@@ -1,5 +1,6 @@
 """Contratos gerenciais: sem inferir período, filtros ou unidade monetária."""
 
+import copy
 import re
 from datetime import date
 
@@ -141,6 +142,34 @@ def validate_period(period: dict, messages: list[dict], *, today=None) -> dict:
             "Informe os períodos da análise, com mês e ano ou datas explícitas."
         ) from None
     return dict(period)
+
+
+RANKING_REQUEST = re.compile(
+    r"\b(ranking|top|maiores|melhores|menores|piores|lista|listar|listagem)\b", re.IGNORECASE
+)
+
+
+def normalize_unranked_plan(plan: dict, question: str) -> dict:
+    """Ranking sem agrupamento nem limite não tem o que ordenar: é um total com filtro.
+
+    O prompt já manda usar analysis=null nesse caso; o modelo às vezes ainda marca "ranking" em
+    pedidos como "contratos iniciados em 2025, excluindo os cancelados". Só reinterpreta quando o
+    gestor não pediu ranking, top, maiores, menores ou lista; caso contrário o esclarecimento
+    sobre o tamanho do ranking continua valendo.
+    """
+    result = copy.deepcopy(plan)
+    if RANKING_REQUEST.search(question):
+        return result
+    for query in result.get("queries") or []:
+        analysis = query.get("analysis") if isinstance(query, dict) else None
+        if (
+            isinstance(analysis, dict)
+            and analysis.get("kind") == "ranking"
+            and analysis.get("group_by") == "nenhum"
+            and analysis.get("limit") is None
+        ):
+            query["analysis"] = None
+    return result
 
 
 def validate_analysis(plan: dict, messages: list[dict], *, today=None) -> dict | None:

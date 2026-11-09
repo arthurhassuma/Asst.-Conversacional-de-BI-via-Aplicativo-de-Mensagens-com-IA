@@ -165,3 +165,62 @@ async def test_open_calls_are_a_measure_not_a_status_filter():
         "Mostre chamados abertos, resolvidos, saldo e taxa em agosto de 2025.", []
     )
     assert len(db.queries) == 1 and "80,00%" in text
+
+
+def ungrouped_ranking_plan():
+    # Plano real observado na reavaliação do perfil autopecas (caso D04): o planejador marcou
+    # "ranking" sem agrupamento nem limite para um total com filtro de status.
+    return {
+        "metric": "contratos",
+        "measure": "valor",
+        "operation": "analysis",
+        "period": {"start": "2025-01-01", "end": "2026-01-01", "evidence": "2025"},
+        "comparison_period": None,
+        "analysis": {
+            "kind": "ranking",
+            "group_by": "nenhum",
+            "detail": "padrao",
+            "limit": None,
+            "custom_filters": True,
+        },
+    }
+
+
+@pytest.mark.parametrize("enabled", [True, False])
+async def test_ranking_without_group_or_limit_is_a_filtered_total_when_no_ranking_was_asked(enabled):
+    from tests.test_agent import call, response
+
+    sql = (
+        "SELECT SUM(valor_contratado) AS total FROM contratos "
+        "WHERE inicio >= DATE '2025-01-01' AND inicio < DATE '2026-01-01' AND status <> 'cancelado'"
+    )
+    client = Client(
+        [
+            plan_response(ungrouped_ranking_plan()),
+            response(tools=[call("get_schema", {})]),
+            response(tools=[call("execute_sql", {"sql": sql})]),
+            response({"kind": "answer", "result_id": "q1"}),
+        ]
+    )
+    db, trace = Database(), {}
+    settings = Settings(_env_file=None, intent_classifier_enabled=enabled)
+    await BIAgent(settings, client, db).answer(
+        "Qual o valor contratado dos contratos iniciados em 2025, excluindo os cancelados?",
+        [],
+        trace=trace,
+    )
+    assert trace["status"] == "answer"
+    assert db.queries == [sql]
+    assert trace["queries"][0]["plan"]["analysis"] is None
+
+
+async def test_explicit_ranking_request_without_limit_still_asks_for_the_size():
+    db, trace = Database(), {}
+    agent = BIAgent(
+        Settings(_env_file=None, intent_classifier_enabled=False),
+        Client([plan_response(ungrouped_ranking_plan())]),
+        db,
+    )
+    text, _ = await agent.answer("Faça um ranking de contratos em 2025", [], trace=trace)
+    assert trace["status"] == "clarification_limit" and not db.queries
+    assert "ranking" in text
