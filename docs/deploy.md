@@ -318,6 +318,44 @@ escolhe métrica, período, SQL nem números. Sem confirmação visual: a saída
 Para desligar sem rebuild: trocar `true` por `false` no arquivo privado e recriar o backend (agora tem
 efeito, depois da correção do entrypoint).
 
+### Rodada 6: estado durável (09/11/2026)
+
+Objetivo: eliminar a perda de updates aceitos e a repetição de respostas após reinício, e permitir
+mais de um worker. O código está no commit `7298341` (PR desta rodada); a descrição técnica está em
+[projeto.md](projeto.md#estado-durável-da-execução-09112026).
+
+**Execução (conferida por capturas de tela do responsável, por volta das 18:14 de 09/11/2026):**
+
+1. Envio por `scp` de `app/config.py`, `app/main.py`, `app/state.py`, `scripts/manage_db.py`,
+   `db/estado.sql` e `runtime_entrypoint.py`, e reconstrução da imagem com `--no-cache`.
+2. `STATE_PASSWORD` gravada em `setup.env` e `STATE_DATABASE_URL` em `application.env`, uma linha em
+   cada arquivo (contagem com `grep -c`, sem exibir os valores).
+3. `manage-db init-state`: `{"status": "Estado durável (schema estado e role app_estado) pronto."}`.
+4. Recriação de `backend` e `polling`: containers saudáveis e `/health` com `"estado_duravel":true`.
+
+**Verificação na VM (observada):**
+
+- Conversa real no Telegram: esclarecimento de período, `setembro de 2026` (R$ 458.603,80),
+  `/limpar`, pedidos com esclarecimento de medida e continuação (`e de setembro`: R$ 468.323,95 e
+  385 pedidos).
+- `SELECT status, count(*) FROM estado.updates GROUP BY 1`: 7 linhas `concluido` e nenhuma
+  `pendente` ou `processando`, uma por mensagem enviada.
+- `docker compose restart backend` com o log mostrando encerramento e início limpos; um update
+  recebido logo depois foi processado normalmente.
+- Após o reinício, a pergunta de continuação `e de outubro` foi respondida pelo bot (relato do
+  responsável, sem captura de tela), compatível com o histórico da conversa ter sobrevivido ao
+  reinício.
+
+**Não verificado nesta rodada:** mais de um worker (`BACKEND_WORKERS` ficou em 1); a perda real de um
+update durante uma queda não foi provocada na VM (coberta apenas pelos testes com PostgreSQL local);
+o backup do passo 1 do guia deve ser conferido com `ls ~/backup-estado-*.sql`, e esta documentação
+não o verificou. A entrega continua *pelo menos uma vez*: uma queda entre enviar a resposta e concluir
+o update pode repetir a resposta.
+
+**Reversão:** remover a linha `STATE_DATABASE_URL` de `application.env` e recriar `backend polling`
+volta ao modo em memória; as tabelas do schema `estado` ficam inertes. Para o código anterior,
+`git show bc9dab7:<arquivo>` e reconstruir com `--no-cache`.
+
 ### Antes e depois (mesmas perguntas do teste de 05/11)
 
 | Item | Antes | Depois |
@@ -361,3 +399,4 @@ efeito, depois da correção do entrypoint).
   para o estado anterior à rodada 4; `git show 778b45d:<arquivo>` para o anterior à rodada 5),
   reconstruir com `--no-cache` e recriar backend/polling.
 - Guardar os backups até a apresentação.
+- Para a rodada 6 (estado durável) valem as instruções de reversão da própria seção.
