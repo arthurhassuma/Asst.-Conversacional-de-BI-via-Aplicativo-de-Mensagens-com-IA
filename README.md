@@ -252,6 +252,10 @@ A hospedagem em produção usa Docker Compose (PostgreSQL 16, backend e um proce
 - O aceite do gestor está registrado por declaração do responsável; não houve coleta qualitativa estruturada, medição de latência ponta a ponta no Telegram nem comparação com dashboards.
 - Todos os dados são sintéticos; o assistente não foi avaliado com dados reais.
 
+## Licença
+
+Distribuído sob a licença MIT; veja [LICENSE](LICENSE). Os dados do projeto são sintéticos.
+
 ## Referências técnicas
 
 [SDK Gemini](https://googleapis.github.io/python-genai/), [preços Gemini](https://ai.google.dev/gemini-api/docs/pricing), [webhook python-telegram-bot](https://docs.python-telegram-bot.org/en/stable/examples.customwebhookbot.html) e [timeouts PostgreSQL 16](https://www.postgresql.org/docs/16/runtime-config-client.html).
