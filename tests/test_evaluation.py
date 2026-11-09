@@ -48,6 +48,36 @@ def test_dataset_is_complete_stratified_and_contains_only_valid_reference_select
         }
 
 
+def test_autopecas_dataset_adapts_the_original_inside_the_profile_data_range():
+    import re
+
+    dataset = load_dataset(Path("evaluation/cases-autopecas.json"))
+    original = load_dataset(Path("evaluation/cases.json"))
+    assert (dataset.version, dataset.seed, dataset.clients) == ("3.0.0", 42, 100)
+    assert [c.id for c in dataset.cases] == [c.id for c in original.cases]
+    for split in ("development", "test"):
+        cases = [c for c in dataset.cases if c.split == split]
+        outcomes = [c.turns[-1].expected for c in cases]
+        assert len(cases) == 20
+        assert outcomes.count("answer") == 16
+        assert sum(o.startswith("clarification") for o in outcomes) == 3
+        assert outcomes.count("unsupported_request") == 1
+    # Só D17 e T20 mudam de categoria: os demais casos mantêm o desenho do conjunto original.
+    changed = {c.id for c, o in zip(dataset.cases, original.cases, strict=True) if c.category != o.category}
+    assert changed == {"D17", "T20"}
+    # As datas de referência ficam na faixa carregada (jan/2025 a out/2026). Exceções: cadastro de
+    # clientes (desde 2022) e os casos de ausência/zero, que usam anos propositalmente vazios.
+    for case in dataset.cases:
+        if case.category in {"sem_dados", "zero_explicito"}:
+            continue
+        for turn in case.turns:
+            for ref in turn.references:
+                if "cadastrado_em" in ref.sql:
+                    continue
+                years = {int(y) for y in re.findall(r"DATE '(\d{4})-", ref.sql)}
+                assert years <= {2025, 2026}, (case.id, years)
+
+
 def test_score_rejects_truncation_extra_metrics_and_wrong_selected_result():
     turn = load_dataset(Path("evaluation/cases.json")).cases[0].turns[0]
     result = {"columns": ["total"], "rows": [["100.00"]], "truncated": False}

@@ -216,7 +216,7 @@ Use somente a base sintética do projeto. A suíte verifica negação de DML/DDL
 
 ### Avaliação com o Gemini
 
-`evaluation/` contém 40 casos originais, SQL de referência e um executor reproduzível. A terceira rodada de desenvolvimento e o teste reservado concluíram 20/20 casos cada, na versão `59c9eb8`, sem falhas semânticas. A versão, a base, o modelo e o conjunto foram congelados antes da avaliação reservada, que aprovou 16/16 respostas e 4/4 esclarecimentos. A latência média de 1,649 s mede agente e banco, sem o transporte do Telegram, e as taxas valem para esta amostra. Evidências e limitações: [experimentos](docs/experimentos.md) e [verificações](docs/verificacoes.md). O conjunto gerencial, com 35 cenários separados dos 40 originais, usa `--dataset evaluation/managerial-cases-v1.json`.
+`evaluation/` contém 40 casos originais, SQL de referência e um executor reproduzível. Em outubro de 2026, na base original (30 clientes, domínio de software), a terceira rodada de desenvolvimento e o teste reservado concluíram 20/20 casos cada, na versão `59c9eb8`, sem falhas semânticas. Essa medição **não foi repetida** com o perfil `autopecas`; o protocolo da reavaliação está em [avaliação](docs/avaliacao.md#reavaliação-no-perfil-autopecas-protocolo-declarado-antes-da-rodada). A versão, a base, o modelo e o conjunto foram congelados antes da avaliação reservada, que aprovou 16/16 respostas e 4/4 esclarecimentos. A latência média de 1,649 s mede agente e banco, sem o transporte do Telegram, e as taxas valem para esta amostra. Evidências e limitações: [experimentos](docs/experimentos.md) e [verificações](docs/verificacoes.md). O conjunto gerencial, com 35 cenários separados dos 40 originais, usa `--dataset evaluation/managerial-cases-v1.json`.
 
 ```bash
 python -m scripts.evaluate validate
@@ -225,7 +225,7 @@ python -m scripts.evaluate run --live --split development --interval 60 --limit 
 
 Os resultados ficam em `.local/evaluation/`. Rode o conjunto reservado (`--split test`) somente depois de congelar os ajustes de desenvolvimento, e nunca para ajustar prompts. A avaliação não envia mensagens nem reinicia o Telegram. Rodadas reais exigem o ambiente conectado e consomem a cota do Gemini.
 
-Para reavaliar os mesmos 40 casos sobre uma base `original-v2`, use `--dataset evaluation/cases-original-v2.json`. O SQL de referência é idêntico ao do conjunto original (calculado ao vivo contra o banco carregado); só a versão declarada no arquivo muda, para não misturar evidências entre perfis.
+Para o perfil `autopecas`, use `--dataset evaluation/cases-autopecas.json` (versão 3.0.0: mesmos 40 casos adaptados às datas e ao vocabulário da revenda, com dois pedidos não suportados). Para reavaliar os mesmos 40 casos sobre uma base `original-v2`, use `--dataset evaluation/cases-original-v2.json`. O SQL de referência é idêntico ao do conjunto original (calculado ao vivo contra o banco carregado); só a versão declarada no arquivo muda, para não misturar evidências entre perfis.
 
 ### Teste manual de ponta a ponta
 

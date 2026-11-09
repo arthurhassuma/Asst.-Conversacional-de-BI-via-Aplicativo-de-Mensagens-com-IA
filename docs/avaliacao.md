@@ -463,3 +463,38 @@ O pedido desta sessão reorganizou o trabalho em Fases 0–3 até S9 e excluiu e
 O usuário informa que Gemini e Telegram já conectam em outro ambiente. O repositório GitHub contém o código, mas não expõe seu `.env` nem comprova qual processo está rodando. Nesta máquina, a cópia original tem credenciais externas vazias, e o clone novo não possui `.env`. Isso não invalida a conexão informada; limita o que foi possível verificar independentemente aqui.
 
 No ambiente em execução, aplicar as mudanças e registrar o teste funcional de `/start`, pergunta ambígua, continuação com período, conferência contra SQL de referência e `/limpar`. Um diagnóstico de conexão positivo não substitui esse roteiro. Depois, em sessão própria, preparar as 30–50 perguntas com referências, medir execution accuracy e latência, iterar os prompts, validar qualitativamente e redigir os resultados. Registrar a mudança de provedor, versão efetivamente usada e divergência de publicação/licença.
+
+## Reavaliação no perfil autopecas (protocolo declarado antes da rodada)
+
+As medições com o Gemini de outubro de 2026 (20/20 no desenvolvimento e no teste reservado) usaram a base original, de serviços de software. Depois delas mudaram o domínio (revenda de autopeças), o formato das respostas, o vocabulário, o classificador de intenções (v2, ligado) e vários trechos do agente. Este protocolo define uma nova medição sobre o sistema atual, com os critérios fixados **antes** de qualquer rodada.
+
+**Base.** Perfil `autopecas`, seed 42, 100 clientes, janeiro/2025 a outubro/2026 (`bi-db seed --profile autopecas --clients 100 --seed 42 --start-month 2025-01 --end-month 2026-10`). O manifesto registra o fingerprint das tabelas antes e depois, e a rodada é invalidada se a base mudar.
+
+**Conjunto A: `evaluation/cases-autopecas.json` (versão 3.0.0, SHA256 `c72f995ef0943eb2d2c1ab8b6df02714be6a1a18bd1d80f50df05ef04cbeab6e`).** Adaptação dos 40 casos originais: mesmos IDs, categorias e divisão (D01–D20 desenvolvimento, T01–T20 teste reservado). Mudam só as datas (deslocadas para a faixa carregada), o vocabulário da revenda (pedidos de venda, ocorrências de pós-venda), o filtro de UF (Paraná, mais seletivo que Santa Catarina, que tem 66 dos 100 clientes) e dois casos que repetiam esclarecimentos: D17 e T20 passam a ser pedidos não suportados (lucro e margem, sem dados de custo). Cada partição fica com 16 respostas, 3 esclarecimentos e 1 pedido não suportado. As referências SQL são executadas ao vivo na base carregada (34 consultas validadas em modo offline, sem chamar o Gemini). Por derivar do conjunto original, **não é independente dele**: as perguntas seguem os mesmos modelos já conhecidos.
+
+**Conjunto B: `evaluation/managerial-cases-v1.json`, partição reservada T21–T30.** Dez cenários gerenciais (oito respostas, um esclarecimento, um pedido não suportado) cuja execução real nunca foi feita: os registros anteriores cobrem só o desenvolvimento (24/25 em 12/10/2026). Os casos foram escritos antes das mudanças de novembro e não foram usados para ajustar prompts ou código.
+
+**Configuração.** Modelo `gemini-3.5-flash-lite`, classificador de intenções ligado (como em produção), `--interval 60`, sem fallback de provedor ou modelo e sem repetição automática de chamadas.
+
+**Critérios (fixados antes da rodada).**
+
+- Conjunto A, por partição: a meta é *execution accuracy* estritamente maior que 70% sobre os 16 casos de resposta, isto é, pelo menos 12 de 16, como no protocolo original. Esclarecimentos (3) e pedidos não suportados (1) são reportados à parte, com contagens absolutas; seus denominadores são pequenos demais para taxa.
+- Conjunto B reservado: pelo menos 6 de 8 casos de resposta corretos (acima de 70%); o esclarecimento e o pedido não suportado são reportados à parte.
+- Rodada interrompida (cota, erro do provedor) não recebe taxa oficial e não é completada com resultados inventados.
+
+**Ordem.**
+
+1. Rodar o desenvolvimento do conjunto A e classificar as falhas (interpretação, filtro/período, join/agregação, política SQL, resposta, infraestrutura ou cota).
+2. Corrigir só com base no desenvolvimento, com regressões, e repetir o desenvolvimento preservando a rodada anterior.
+3. Congelar o código e executar **uma vez** o teste reservado do conjunto A e o reservado do conjunto B. Se as falhas do reservado orientarem correções, declarar a contaminação e não apresentá-lo como independente.
+
+```powershell
+python -m scripts.evaluate validate --dataset evaluation/cases-autopecas.json --env-file .local/avaliacao.env
+python -m scripts.evaluate run --live --dataset evaluation/cases-autopecas.json --split development --interval 60 --limit 20 --env-file .local/avaliacao.env
+# Depois de analisar o desenvolvimento e congelar os ajustes:
+python -m scripts.evaluate run --live --dataset evaluation/cases-autopecas.json --split test --interval 60 --limit 20 --env-file .local/avaliacao.env
+python -m scripts.evaluate run --live --dataset evaluation/managerial-cases-v1.json --split test --interval 60 --limit 10 --env-file .local/avaliacao.env
+```
+
+**Limites.** Amostras pequenas e sintéticas: não sustentam generalização. Os gabaritos foram revisados tecnicamente, sem revisão de especialista externo. A latência mede agente e banco, sem o transporte do Telegram. Os resultados serão registrados em [experimentos](experimentos.md).
+
