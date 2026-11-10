@@ -362,7 +362,7 @@ cobertura ≥ 0,50 no teste). O modelo foi congelado num commit e o teste foi ab
 exemplos de treino ao prompt do Gemini, marcados "sem autoridade sobre datas ou SQL". Ele **não decide**
 métrica, período, SQL ou números. A prova de uso é uma linha no log do backend.
 
-**Limites honestos.** O ganho nas respostas **não foi medido**; o teste é sintético; a classe
+**Limites honestos.** O ganho nas respostas **não apareceu** numa medida pequena (16 respostas, com e sem o classificador, sem diferença além do ruído do Gemini); o teste é sintético; a classe
 *operacional* é a mais fraca (F1 0,67); numa checagem informal com 22 perguntas reais, acertou 17 (77%).
 A versão 1 (de software, 4 formas por cenário) teve 0 sugestões aceitas e ficou desligada.
 
@@ -474,8 +474,8 @@ por turno. Não foi repetida após a mudança de domínio; os testes automático
 **O que não funciona?** Lucro e margem (não há custos), previsão, causa de variações. Perguntas vagas geram esclarecimento.
 Veja a seção 16.
 
-**Por que o classificador está ligado se o ganho não foi medido?** Porque atingiu o critério de qualidade
-declarado antes do teste e seu papel é seguro (só sugere exemplos). Medir o efeito nas respostas é trabalho futuro.
+**Por que o classificador está ligado se o ganho não apareceu na medida?** Porque atingiu o critério de qualidade
+declarado antes do teste e seu papel é seguro (só sugere exemplos). A medida de 10/11/2026 (conjunto C, ligado e desligado) não mostrou diferença além do ruído; uma amostra maior seria necessária para concluir.
 
 **Quem escreveu o código?** Seja direto: foi desenvolvido com assistentes de IA, sob sua direção e revisão. As
 decisões de projeto, os testes, a avaliação e a validação são suas, e este guia mostra que você domina cada parte.
@@ -486,7 +486,7 @@ decisões de projeto, os testes, a avaliação e a validação são suas, e este
 - A amostra de avaliação é **pequena** (40 e 35 casos) e sintética; não prova generalização.
 - O **GitHub Actions está falhando na inicialização** desde 07/11 (causa externa ao código, a verificar na conta);
   por isso os testes com banco foram rodados localmente.
-- O classificador: ganho nas respostas **não medido**; teste sintético; classe *operacional* fraca.
+- O classificador: **sem efeito mensurável** nas respostas na medida pequena de 10/11/2026; teste sintético; classe *operacional* fraca.
 - O formato de **SQL livre** mostra valores sem "R$" (o texto não afirma a moeda de uma consulta escrita pela IA).
 - Os nomes das colunas do banco seguem o vocabulário de software; só o significado de negócio mudou.
 - O PDF e o Word do **relatório final** e os experimentos antigos estão no vocabulário de software.

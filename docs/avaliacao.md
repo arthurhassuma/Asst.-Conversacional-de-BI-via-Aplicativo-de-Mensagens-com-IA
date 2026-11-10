@@ -277,7 +277,7 @@ Cada pergunta registra no log do backend uma linha como
 - Permite: um classificador supervisionado foi treinado, avaliado em teste reservado segundo um
   protocolo declarado antes e está em uso no bot.
 - **Não permite afirmar** que ele melhora as respostas. Não houve comparação do bot com e sem o
-  classificador; o ganho nas respostas do Gemini **não foi medido**.
+  classificador; o ganho nas respostas do Gemini **não apareceu** na medida de 10/11/2026 no conjunto C (ver [experimentos](experimentos.md#medida-do-classificador-de-intenções-no-conjunto-c-10112026)).
 - Não mede a correção do SQL nem o desempenho do Gemini.
 - O teste é sintético e foi escrito pela mesma equipe do treino, com moldes de estilo parecido. Perguntas
   de gestores reais podem ser mais difíceis; a checagem informal (77% de acerto) sugere isso.

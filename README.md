@@ -172,7 +172,7 @@ Um modelo local TF-IDF + regressão logística (versão 2) foi treinado com 1.11
 - Está **ligado por padrão** (`INTENT_CLASSIFIER_ENABLED=true`). Quando confiante, acrescenta até dois exemplos de treino ao prompt do planejador, sem autoridade sobre datas, SQL ou números, e registra `intencao rotulo=... confianca=... aceita=...` no log, sem o texto da pergunta.
 - Baixa confiança, artefato ausente/inválido ou intenção genérica mantêm o caminho geral. O assistente funciona pelo planejador Gemini mesmo com o classificador desativado.
 - O runtime usa inferência em JSON, sem scikit-learn, e não treina com conversas dos usuários.
-- **Não é fine-tuning do Gemini**, e **o ganho nas respostas não foi medido**: acurácia de classificação não é acurácia de SQL. A classe mais frágil é a operacional (F1 de 0,67).
+- **Não é fine-tuning do Gemini**, e **não há efeito mensurável nas respostas**: acurácia de classificação não é acurácia de SQL, e uma medida com o classificador ligado e desligado no conjunto C (16 respostas) não mostrou diferença além da variação do próprio Gemini ([experimentos](docs/experimentos.md#medida-do-classificador-de-intenções-no-conjunto-c-10112026)), o que não prova que ele não ajude. A classe mais frágil é a operacional (F1 de 0,67).
 - Num servidor já configurado, o arquivo privado de configuração pode ter `INTENT_CLASSIFIER_ENABLED=false` e precisa ser ajustado (veja o [guia da Oracle](deploy/oracle/README.md)).
 
 Método, limites e resultados: [treinamento v2](docs/avaliacao.md#treinamento-supervisionado-de-intenções--versão-2-revenda-de-autopeças). A [versão 1](docs/avaliacao.md#treinamento-supervisionado-de-intenções--versão-1) fica como histórico. Para reproduzir o treino (Python 3.12/3.13):
