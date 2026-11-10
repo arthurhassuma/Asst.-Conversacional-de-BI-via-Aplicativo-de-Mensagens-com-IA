@@ -1,0 +1,425 @@
+{
+  "version": "1.0.0",
+  "seed": 42,
+  "clients": 100,
+  "cases": [
+    {
+      "id": "T41",
+      "split": "test",
+      "category": "agregacao",
+      "turns": [
+        {
+          "question": "Qual o faturamento emitido no segundo trimestre de 2026?",
+          "expected": "answer",
+          "references": [
+            {
+              "metric": "faturamento",
+              "sql": "SELECT SUM(valor) AS total FROM faturamento WHERE emissao >= DATE '2026-04-01' AND emissao < DATE '2026-07-01' AND status <> 'cancelada'",
+              "types": [
+                "number"
+              ],
+              "ordered": false,
+              "interpretation": "Abril a junho."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "T42",
+      "split": "test",
+      "category": "datas_pagamento",
+      "turns": [
+        {
+          "question": "Quanto foi recebido em março de 2026?",
+          "expected": "answer",
+          "references": [
+            {
+              "metric": "recebimentos",
+              "sql": "SELECT SUM(valor) AS total FROM faturamento WHERE pagamento >= DATE '2026-03-01' AND pagamento < DATE '2026-04-01' AND status = 'paga'",
+              "types": [
+                "number"
+              ],
+              "ordered": false,
+              "interpretation": "Por data de pagamento."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "T43",
+      "split": "test",
+      "category": "agregacao",
+      "turns": [
+        {
+          "question": "Qual a soma dos valores dos pedidos não cancelados em julho de 2026?",
+          "expected": "answer",
+          "references": [
+            {
+              "metric": "pedidos",
+              "sql": "SELECT SUM(valor) AS total FROM pedidos WHERE data_pedido >= DATE '2026-07-01' AND data_pedido < DATE '2026-08-01' AND status <> 'cancelado'",
+              "types": [
+                "number"
+              ],
+              "ordered": false,
+              "interpretation": "Soma de pedidos não cancelados."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "T44",
+      "split": "test",
+      "category": "filtro",
+      "turns": [
+        {
+          "question": "Quantos contratos de sustentação foram iniciados em 2026, excluindo os cancelados?",
+          "expected": "answer",
+          "references": [
+            {
+              "metric": "contratos",
+              "sql": "SELECT COUNT(*) AS total FROM contratos WHERE inicio >= DATE '2026-01-01' AND inicio < DATE '2027-01-01' AND modalidade='sustentacao' AND status <> 'cancelado'",
+              "types": [
+                "number"
+              ],
+              "ordered": false,
+              "interpretation": "Filtro de modalidade e de status explícitos."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "T45",
+      "split": "test",
+      "category": "agrupamento",
+      "turns": [
+        {
+          "question": "Quantos contratos foram iniciados em 2025 em cada modalidade? Mostre a modalidade e a quantidade, ordenadas pela modalidade.",
+          "expected": "answer",
+          "references": [
+            {
+              "metric": "contratos",
+              "sql": "SELECT modalidade AS nome, COUNT(*) AS quantidade FROM contratos WHERE inicio >= DATE '2025-01-01' AND inicio < DATE '2026-01-01' GROUP BY modalidade ORDER BY modalidade",
+              "types": [
+                "text",
+                "number"
+              ],
+              "ordered": true,
+              "interpretation": "Contagem por modalidade, sem filtro de status não pedido."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "T46",
+      "split": "test",
+      "category": "operacional",
+      "turns": [
+        {
+          "question": "Qual a soma das horas realizadas no segundo semestre de 2025?",
+          "expected": "answer",
+          "references": [
+            {
+              "metric": "horas",
+              "sql": "SELECT SUM(horas_realizadas) AS total FROM indicadores_operacionais WHERE competencia >= DATE '2025-07-01' AND competencia < DATE '2026-01-01'",
+              "types": [
+                "number"
+              ],
+              "ordered": false,
+              "interpretation": "Julho a dezembro de 2025."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "T47",
+      "split": "test",
+      "category": "operacional",
+      "turns": [
+        {
+          "question": "Quantas ocorrências foram abertas em setembro de 2025?",
+          "expected": "answer",
+          "references": [
+            {
+              "metric": "chamados",
+              "sql": "SELECT SUM(chamados_abertos) AS total FROM indicadores_operacionais WHERE competencia >= DATE '2025-09-01' AND competencia < DATE '2025-10-01'",
+              "types": [
+                "number"
+              ],
+              "ordered": false,
+              "interpretation": "Ocorrências abertas no mês."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "T48",
+      "split": "test",
+      "category": "ranking_join",
+      "turns": [
+        {
+          "question": "Quais os quatro clientes com maior valor de pedidos não cancelados em 2026? Mostre nome e valor, decrescente pelo valor e crescente pelo nome em caso de empate.",
+          "expected": "answer",
+          "references": [
+            {
+              "metric": "pedidos",
+              "sql": "WITH r AS (SELECT c.id::text || ' — ' || c.nome AS item, SUM(p.valor) AS valor FROM clientes c JOIN contratos ct ON ct.cliente_id=c.id JOIN pedidos p ON p.contrato_id=ct.id WHERE p.status<>'cancelado' AND p.data_pedido >= DATE '2026-01-01' AND p.data_pedido < DATE '2027-01-01' GROUP BY c.id::text || ' — ' || c.nome) SELECT item, valor, ROW_NUMBER() OVER (ORDER BY valor DESC NULLS LAST, item) AS posicao FROM r ORDER BY valor DESC NULLS LAST, item LIMIT 4",
+              "types": [
+                "text",
+                "number",
+                "number"
+              ],
+              "ordered": true,
+              "interpretation": "Ranking no formato canônico do produto (item, valor, posicao)."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "T49",
+      "split": "test",
+      "category": "serie_mensal",
+      "turns": [
+        {
+          "question": "Mostre o faturamento emitido por mês no primeiro semestre de 2026. Retorne a data do primeiro dia de cada mês e seu valor, em ordem cronológica.",
+          "expected": "answer",
+          "references": [
+            {
+              "metric": "faturamento",
+              "sql": "SELECT date_trunc('month', emissao)::date AS mes, SUM(valor) AS total FROM faturamento WHERE emissao >= DATE '2026-01-01' AND emissao < DATE '2026-07-01' AND status <> 'cancelada' GROUP BY 1 ORDER BY 1",
+              "types": [
+                "date",
+                "number"
+              ],
+              "ordered": true,
+              "interpretation": "Série por emissão, sem meses artificiais."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "T50",
+      "split": "test",
+      "category": "media",
+      "turns": [
+        {
+          "question": "Qual o valor médio dos recebimentos pagos em 2025, sem arredondar?",
+          "expected": "answer",
+          "references": [
+            {
+              "metric": "recebimentos",
+              "sql": "SELECT AVG(valor) AS total FROM faturamento WHERE pagamento >= DATE '2025-01-01' AND pagamento < DATE '2026-01-01' AND status = 'paga'",
+              "types": [
+                "number"
+              ],
+              "ordered": false,
+              "interpretation": "Média sem arredondamento, por data de pagamento."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "T51",
+      "split": "test",
+      "category": "vigencia",
+      "turns": [
+        {
+          "question": "Quantos contratos não cancelados estiveram vigentes em algum dia de março de 2026?",
+          "expected": "answer",
+          "references": [
+            {
+              "metric": "contratos",
+              "sql": "SELECT COUNT(*) AS total FROM contratos WHERE inicio < DATE '2026-04-01' AND fim >= DATE '2026-03-01' AND status <> 'cancelado'",
+              "types": [
+                "number"
+              ],
+              "ordered": false,
+              "interpretation": "Vigência por sobreposição com o mês."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "T52",
+      "split": "test",
+      "category": "filtro_join",
+      "turns": [
+        {
+          "question": "Qual o total de pedidos não cancelados em 2026 para clientes de São Paulo?",
+          "expected": "answer",
+          "references": [
+            {
+              "metric": "pedidos",
+              "sql": "SELECT SUM(p.valor) AS total FROM pedidos p JOIN contratos ct ON ct.id=p.contrato_id JOIN clientes c ON c.id=ct.cliente_id WHERE p.data_pedido >= DATE '2026-01-01' AND p.data_pedido < DATE '2027-01-01' AND p.status <> 'cancelado' AND c.uf='SP'",
+              "types": [
+                "number"
+              ],
+              "ordered": false,
+              "interpretation": "Filtro por UF do cliente."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "T53",
+      "split": "test",
+      "category": "sem_dados",
+      "turns": [
+        {
+          "question": "Qual a soma dos pedidos em fevereiro de 2033? Se não houver pedidos, informe ausência em vez de zero.",
+          "expected": "answer",
+          "references": [
+            {
+              "metric": "pedidos",
+              "sql": "SELECT SUM(valor) AS total FROM pedidos WHERE data_pedido >= DATE '2033-02-01' AND data_pedido < DATE '2033-03-01' AND status <> 'cancelado'",
+              "types": [
+                "number"
+              ],
+              "ordered": false,
+              "interpretation": "Ausência de pedidos gera SUM NULL."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "T54",
+      "split": "test",
+      "category": "zero_explicito",
+      "turns": [
+        {
+          "question": "Quantos clientes foram cadastrados em março de 2033?",
+          "expected": "answer",
+          "references": [
+            {
+              "metric": "clientes",
+              "sql": "SELECT COUNT(*) AS total FROM clientes WHERE cadastrado_em >= DATE '2033-03-01' AND cadastrado_em < DATE '2033-04-01'",
+              "types": [
+                "number"
+              ],
+              "ordered": false,
+              "interpretation": "Contagem sem registros é zero explícito."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "T55",
+      "split": "test",
+      "category": "multimetrica",
+      "turns": [
+        {
+          "question": "Qual o total recebido e o faturamento emitido em abril de 2026?",
+          "expected": "answer",
+          "references": [
+            {
+              "metric": "recebimentos",
+              "sql": "SELECT SUM(valor) AS total FROM faturamento WHERE pagamento >= DATE '2026-04-01' AND pagamento < DATE '2026-05-01' AND status = 'paga'",
+              "types": [
+                "number"
+              ],
+              "ordered": false,
+              "interpretation": "Recebido em abril."
+            },
+            {
+              "metric": "faturamento",
+              "sql": "SELECT SUM(valor) AS total FROM faturamento WHERE emissao >= DATE '2026-04-01' AND emissao < DATE '2026-05-01' AND status <> 'cancelada'",
+              "types": [
+                "number"
+              ],
+              "ordered": false,
+              "interpretation": "Emitido em abril."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "T56",
+      "split": "test",
+      "category": "conversa",
+      "turns": [
+        {
+          "question": "Quero consultar os pedidos em abril de 2026.",
+          "expected": "clarification_measure",
+          "references": []
+        },
+        {
+          "question": "O valor",
+          "expected": "answer",
+          "references": [
+            {
+              "metric": "pedidos",
+              "sql": "SELECT SUM(valor) AS total FROM pedidos WHERE data_pedido >= DATE '2026-04-01' AND data_pedido < DATE '2026-05-01' AND status <> 'cancelado'",
+              "types": [
+                "number"
+              ],
+              "ordered": false,
+              "interpretation": "Preservar abril de 2026 e pedidos após esclarecer a medida."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "T57",
+      "split": "test",
+      "category": "ambiguidade",
+      "turns": [
+        {
+          "question": "Quanto foi faturado?",
+          "expected": "clarification_period",
+          "references": []
+        }
+      ]
+    },
+    {
+      "id": "T58",
+      "split": "test",
+      "category": "ambiguidade",
+      "turns": [
+        {
+          "question": "Como foram as vendas em junho de 2026?",
+          "expected": "clarification_metric",
+          "references": []
+        }
+      ]
+    },
+    {
+      "id": "T59",
+      "split": "test",
+      "category": "ambiguidade",
+      "turns": [
+        {
+          "question": "Quero consultar os contratos em 2026.",
+          "expected": "clarification_measure",
+          "references": []
+        }
+      ]
+    },
+    {
+      "id": "T60",
+      "split": "test",
+      "category": "nao_suportado",
+      "turns": [
+        {
+          "question": "Qual a previsão de faturamento para 2027?",
+          "expected": "unsupported_request",
+          "references": []
+        }
+      ]
+    }
+  ]
+}
