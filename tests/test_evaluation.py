@@ -78,6 +78,35 @@ def test_autopecas_dataset_adapts_the_original_inside_the_profile_data_range():
                 assert years <= {2025, 2026}, (case.id, years)
 
 
+def test_autopecas_second_reserved_partition_mirrors_the_categories_inside_the_data_range():
+    import re
+
+    dataset = load_dataset(Path("evaluation/cases-autopecas-reservado-2.json"))
+    original = load_dataset(Path("evaluation/cases-autopecas.json"))
+    assert (dataset.version, dataset.seed, dataset.clients) == ("1.0.0", 42, 100)
+    assert [c.id for c in dataset.cases] == [f"T{n}" for n in range(41, 61)]
+    assert {c.split for c in dataset.cases} == {"test"}
+    outcomes = [c.turns[-1].expected for c in dataset.cases]
+    assert outcomes.count("answer") == 16
+    assert sum(o.startswith("clarification") for o in outcomes) == 3
+    assert outcomes.count("unsupported_request") == 1
+    # Mesmas categorias do reservado original do conjunto A, em instâncias novas.
+    reserved = [c for c in original.cases if c.split == "test"]
+    assert sorted(c.category for c in dataset.cases) == sorted(c.category for c in reserved)
+    # Nenhuma pergunta repete as do conjunto A.
+    seen = {t.question for c in original.cases for t in c.turns}
+    assert not seen & {t.question for c in dataset.cases for t in c.turns}
+    for case in dataset.cases:
+        if case.category in {"sem_dados", "zero_explicito"}:
+            continue
+        for turn in case.turns:
+            for ref in turn.references:
+                if "cadastrado_em" in ref.sql:
+                    continue
+                years = {int(y) for y in re.findall(r"DATE '(\d{4})-", ref.sql)}
+                assert years <= {2025, 2026, 2027}, (case.id, years)
+
+
 def test_score_rejects_truncation_extra_metrics_and_wrong_selected_result():
     turn = load_dataset(Path("evaluation/cases.json")).cases[0].turns[0]
     result = {"columns": ["total"], "rows": [["100.00"]], "truncated": False}
