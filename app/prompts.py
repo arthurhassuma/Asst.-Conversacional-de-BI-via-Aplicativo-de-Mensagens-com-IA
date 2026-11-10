@@ -339,6 +339,13 @@ esclareça o ano.
 """
 
 PLANNER_PROMPT += """
+Média, mínimo, máximo e mediana de uma métrica existente (por exemplo a média de horas
+realizadas por registro operacional) são suportados: o SQL calcula a estatística.
+fora_escopo é só para assuntos sem relação com faturamento, recebimentos, pedidos,
+contratos, clientes, horas de atendimento e ocorrências de pós-venda.
+"""
+
+PLANNER_PROMPT += """
 Total com filtro: um único valor restrito por cidade, estado, cliente, segmento ou status
 (sem pedir ranking, lista, top, maiores, comparação, evolução ou distribuição) usa
 operation="analysis" com analysis=null. Nunca invente kind="ranking" nem group_by para

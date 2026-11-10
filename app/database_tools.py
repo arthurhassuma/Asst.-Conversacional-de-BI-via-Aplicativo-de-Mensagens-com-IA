@@ -8,11 +8,15 @@ from decimal import Decimal
 from time import monotonic
 
 import psycopg
+from psycopg import sql as pgsql
 
 from app.config import Settings
 from app.sql_policy import TABLES, UnsafeQuery, validate_select
 
 logger = logging.getLogger(__name__)
+
+CATEGORICAL_COLUMNS = {"modalidade", "status", "segmento", "uf"}
+MAX_CATEGORICAL_VALUES = 30
 
 
 def scalar(value):
@@ -65,6 +69,27 @@ class DatabaseTools:
                 raise ValueError("A role de leitura possui permissões de escrita indevidas.")
             yield conn
 
+    @staticmethod
+    def _categorical_values(conn, columns) -> dict:
+        """Valores distintos das colunas de categoria, para o modelo filtrar com a grafia do dado.
+
+        Só colunas de texto com nome de categoria e poucos valores distintos; nomes, descrições e
+        outros textos livres não entram.
+        """
+        valores = {}
+        for table, column, dtype, _ in columns:
+            if column not in CATEGORICAL_COLUMNS or dtype not in ("character varying", "character"):
+                continue
+            found = conn.execute(
+                pgsql.SQL(
+                    "SELECT DISTINCT {col} FROM {table} WHERE {col} IS NOT NULL ORDER BY 1 LIMIT %s"
+                ).format(col=pgsql.Identifier(column), table=pgsql.Identifier(table)),
+                (MAX_CATEGORICAL_VALUES + 1,),
+            ).fetchall()
+            if 0 < len(found) <= MAX_CATEGORICAL_VALUES:
+                valores[f"{table}.{column}"] = [str(row[0]).strip() for row in found]
+        return valores
+
     def get_schema(self) -> dict:
         try:
             with self.connection() as conn:
@@ -74,6 +99,7 @@ class DatabaseTools:
                     AND table_name = ANY(%s) ORDER BY table_name, ordinal_position LIMIT 100""",
                     (sorted(TABLES),),
                 ).fetchall()
+                valores = self._categorical_values(conn, rows)
             tables = {table: [] for table in sorted(TABLES)}
             for table, column, dtype, nullable in rows:
                 tables[table].append(
@@ -81,13 +107,16 @@ class DatabaseTools:
                 )
             return {
                 "tables": tables,
+                "valores": valores,
                 "relationships": [
                     "contratos.cliente_id -> clientes.id",
                     "pedidos.contrato_id -> contratos.id",
                     "faturamento.pedido_id -> pedidos.id",
                     "indicadores_operacionais.contrato_id -> contratos.id",
                 ],
-                "definitions": "Faturamento: soma valor por emissao, exceto cancelada. "
+                "definitions": "Em colunas de categoria, filtre pelos valores exatos listados em "
+                "valores, com a mesma grafia e acentuação do dado, mesmo que a pergunta use outra. "
+                "Faturamento: soma valor por emissao, exceto cancelada. "
                 "Recebimentos: soma valor por pagamento, somente paga. "
                 "Pedidos: soma valor por data_pedido, exceto cancelado. "
                 "Contratos: valor_contratado; não somar após joins multiplicadores. "
