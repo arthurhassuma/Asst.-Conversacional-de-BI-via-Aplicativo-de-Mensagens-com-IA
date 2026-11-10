@@ -121,6 +121,40 @@ def test_generic_value_label_does_not_call_average_a_total():
     assert "12,345" in text
 
 
+def test_category_columns_have_fixed_labels_instead_of_the_generic_one():
+    # Reavaliação no perfil autopecas: "clientes por UF" saía como "Campo: SC · Quantidade: 18".
+    text = render_answer(
+        {"kind": "answer", "result_id": "q1"},
+        {
+            "q1": {
+                "columns": ["uf", "quantidade", "registros"],
+                "rows": [["SC", 18, 18], ["PR", 3, 3]],
+                "truncated": False,
+            }
+        },
+        "clientes",
+        {"start": "2023-01-01", "end": "2024-01-01"},
+        "quantidade",
+    )
+    assert "UF: SC · Quantidade: 18" in text and "UF: PR · Quantidade: 3" in text
+    assert "Campo:" not in text
+
+
+@pytest.mark.parametrize(
+    ("column", "label"),
+    [("modalidade", "Modalidade"), ("segmento", "Segmento"), ("cidade", "Cidade")],
+)
+def test_other_category_columns_are_labeled(column, label):
+    text = render_answer(
+        {"kind": "answer", "result_id": "q1"},
+        {"q1": {"columns": [column, "total"], "rows": [["x", "10.00"]], "truncated": False}},
+        "contratos",
+        {"start": "2025-01-01", "end": "2026-01-01"},
+        "valor",
+    )
+    assert f"{label}: x" in text and "Campo:" not in text
+
+
 @pytest.mark.parametrize(
     ("total", "count", "absent"), [(None, 0, True), (None, 2, False), ("0", 2, False)]
 )
