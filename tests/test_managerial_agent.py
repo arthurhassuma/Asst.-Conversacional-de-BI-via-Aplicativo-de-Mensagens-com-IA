@@ -187,7 +187,9 @@ def ungrouped_ranking_plan():
 
 
 @pytest.mark.parametrize("enabled", [True, False])
-async def test_ranking_without_group_or_limit_is_a_filtered_total_when_no_ranking_was_asked(enabled):
+async def test_ranking_without_group_or_limit_is_a_filtered_total_when_no_ranking_was_asked(
+    enabled,
+):
     from tests.test_agent import call, response
 
     sql = (
@@ -212,6 +214,63 @@ async def test_ranking_without_group_or_limit_is_a_filtered_total_when_no_rankin
     assert trace["status"] == "answer"
     assert db.queries == [sql]
     assert trace["queries"][0]["plan"]["analysis"] is None
+
+
+def grouped_ranking_plan_without_limit(group_by):
+    # Plano real observado no reservado do perfil autopecas (caso T05): "clientes por UF" saiu como
+    # ranking por cidade sem limite, porque o contrato não tem agrupamento por UF.
+    plan = ungrouped_ranking_plan()
+    plan.update(metric="clientes", measure="quantidade")
+    plan["period"] = {"start": "2023-01-01", "end": "2024-01-01", "evidence": "2023"}
+    plan["analysis"]["group_by"] = group_by
+    return plan
+
+
+@pytest.mark.parametrize("enabled", [True, False])
+async def test_grouped_ranking_without_limit_runs_custom_sql_when_no_ranking_was_asked(enabled):
+    from tests.test_agent import call, response
+
+    sql = (
+        "SELECT uf, COUNT(*) AS quantidade, COUNT(*) AS registros FROM clientes "
+        "WHERE cadastrado_em >= DATE '2023-01-01' AND cadastrado_em < DATE '2024-01-01' "
+        "GROUP BY uf ORDER BY uf"
+    )
+    client = Client(
+        [
+            plan_response(grouped_ranking_plan_without_limit("cidade")),
+            response(tools=[call("get_schema", {})]),
+            response(tools=[call("execute_sql", {"sql": sql})]),
+            response({"kind": "answer", "result_id": "q1"}),
+        ]
+    )
+    db, trace = Database(), {}
+    settings = Settings(_env_file=None, intent_classifier_enabled=enabled)
+    await BIAgent(settings, client, db).answer(
+        "Quantos clientes foram cadastrados em 2023 em cada UF? Mostre UF e quantidade, "
+        "ordenados pela UF.",
+        [],
+        trace=trace,
+    )
+    assert trace["status"] == "answer"
+    assert db.queries == [sql]
+    assert trace["queries"][0]["plan"]["analysis"] is None
+
+
+@pytest.mark.parametrize(
+    "question",
+    ["Quais os principais clientes de 2023?", "Os clientes que mais compraram em 2023"],
+)
+async def test_grouped_ranking_without_limit_still_asks_for_the_size_when_ranking_is_implied(
+    question,
+):
+    db, trace = Database(), {}
+    agent = BIAgent(
+        Settings(_env_file=None, intent_classifier_enabled=False),
+        Client([plan_response(grouped_ranking_plan_without_limit("cliente"))]),
+        db,
+    )
+    await agent.answer(question, [], trace=trace)
+    assert trace["status"] == "clarification_limit" and not db.queries
 
 
 async def test_explicit_ranking_request_without_limit_still_asks_for_the_size():

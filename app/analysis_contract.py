@@ -145,17 +145,21 @@ def validate_period(period: dict, messages: list[dict], *, today=None) -> dict:
 
 
 RANKING_REQUEST = re.compile(
-    r"\b(ranking|top|maiores|melhores|menores|piores|lista|listar|listagem)\b", re.IGNORECASE
+    r"\b(ranking|top|maiores|melhores|menores|piores|lista|listar|listagem|"
+    r"principais|principal|mais|menos|primeiros|ultimos|últimos)\b",
+    re.IGNORECASE,
 )
 
 
 def normalize_unranked_plan(plan: dict, question: str) -> dict:
-    """Ranking sem agrupamento nem limite não tem o que ordenar: é um total com filtro.
+    """Ranking sem limite que o gestor não pediu é uma consulta comum, não um ranking.
 
-    O prompt já manda usar analysis=null nesse caso; o modelo às vezes ainda marca "ranking" em
-    pedidos como "contratos iniciados em 2025, excluindo os cancelados". Só reinterpreta quando o
-    gestor não pediu ranking, top, maiores, menores ou lista; caso contrário o esclarecimento
-    sobre o tamanho do ranking continua valendo.
+    Dois casos reais: "contratos iniciados em 2025, excluindo os cancelados" (total com filtro,
+    marcado como ranking sem agrupamento) e "clientes cadastrados em cada UF" (o contrato não tem
+    agrupamento por UF e o modelo escolheu cidade). Em ambos o prompt manda usar analysis=null e
+    deixar o SQL personalizado agrupar e ordenar como foi pedido. Só reinterpreta quando a
+    pergunta não pede ranking, top, maiores, menores, lista nem algo equivalente ("principais",
+    "mais"); nesses casos o esclarecimento sobre o tamanho do ranking continua valendo.
     """
     result = copy.deepcopy(plan)
     if RANKING_REQUEST.search(question):
@@ -165,7 +169,6 @@ def normalize_unranked_plan(plan: dict, question: str) -> dict:
         if (
             isinstance(analysis, dict)
             and analysis.get("kind") == "ranking"
-            and analysis.get("group_by") == "nenhum"
             and analysis.get("limit") is None
         ):
             query["analysis"] = None

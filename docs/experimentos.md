@@ -766,3 +766,18 @@ Uma única rodada, logo depois da anterior, no mesmo commit `0cbe39d` e sem corr
 
 **Leitura conjunta.** Os dois reservados atenderam ao critério declarado, mas no limite exato (18/24 no total, uma rodada cada). O desenvolvimento de 16/16 não se repetiu nos reservados, o que dá a dimensão do ajuste feito sobre ele. T08, T26 e T28 acertam o número e erram só a forma; T04, T05 e T10 são falhas reais do agente e ficam como limitações conhecidas, sem correção. Corrigi-las exigiria declarar estes reservados contaminados e preparar um novo conjunto independente. O ganho do classificador de intenções continua não medido.
 
+## Correção das falhas do reservado do conjunto A (09/11/2026)
+
+Feita depois de registrar os reservados, por decisão do responsável. **Contamina o reservado do conjunto A** (ver a Emenda 2 do [protocolo](avaliacao.md)); nada foi corrigido a partir das falhas T08, T18, T26 e T28, que não são falhas de interpretação.
+
+**Causas e correções.**
+
+| Caso | Causa (evidência) | Correção |
+|---|---|---|
+| T05 | Falha estável (4 de 4 execuções): o contrato de análise não tem agrupamento por UF, o planejador escolheu `cidade` com `kind = ranking` e sem limite, e o contrato pediu o tamanho de um ranking. | `normalize_unranked_plan` passa a tratar qualquer ranking sem limite como consulta comum quando a pergunta não pede ranking, top, maiores, menores, lista, "principais", "mais" etc. Testes de regressão nos dois sentidos. |
+| T04 | Intermitente: o modelo copiou a grafia da pergunta (`sustentação`) e o dado guarda `sustentacao`. O `get_schema` só citava o valor numa frase. | `get_schema` devolve `valores`, os valores distintos reais das colunas `modalidade`, `status`, `segmento` e `uf`, com a instrução de usar a grafia exata do dado. Teste de integração. |
+| T10 | Variação do planejador (1 recusa em 4 execuções): a mesma pergunta ora era respondida, ora marcada `fora_escopo`. | Regra curta no prompt do planejador: média, mínimo, máximo e mediana de métricas existentes são suportados, e `fora_escopo` é só para assunto sem relação com os dados. Sem teste automatizado (depende do modelo). |
+
+**Verificação (chamadas reais, fora dos conjuntos, mesmas perguntas).** Depois das correções: T05 2/2 agrupando por `uf`; T10 8/8 com o valor de referência (11,8971…); T04 6/6 respondidas sem acento. Uma primeira versão do prompt do T10, mais longa e com exemplo em JSON, deu T10 10/10, mas fez o T04 pedir esclarecimento indevido ("valor ou quantidade?") em 3 de 6 execuções, contra 0 de 6 com o prompt anterior; foi descartada em favor da versão curta.
+
+**Limites desta verificação.** Repetições da mesma pergunta que originou a correção não são medida independente; as amostras são pequenas (2 a 8 execuções) e o Gemini não é determinístico. A mudança no `get_schema` e no prompt afeta todas as perguntas, e não foi medida num conjunto novo. Os 280 testes automatizados passam (um teste de integração, `test_percent_operator_and_like_patterns`, depende dos dados do banco sintético e falha no banco local `autopecas`, com ou sem estas mudanças).

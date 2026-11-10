@@ -512,5 +512,7 @@ A taxa da 3.0.0 (14/16) continua sendo a medida oficial daquela rodada. A rodada
 
 Nenhum resultado reservado orientou correção, então os dois seguem independentes. O desenvolvimento (16/16) não é independente, porque o agente e o gabarito foram ajustados a partir dele. Detalhes e classificação das sete falhas em [experimentos](experimentos.md#reavaliação-no-perfil-autopecas--teste-reservado-do-conjunto-a-310-09112026).
 
+**Emenda 2 (após os reservados, 09/11/2026): contaminação declarada.** Por decisão do responsável, as falhas T04, T05 e T10 do reservado do conjunto A foram corrigidas (ver [experimentos](experimentos.md#correção-das-falhas-do-reservado-do-conjunto-a-09112026)). Como as correções nasceram dessas falhas, o reservado do conjunto A (T01–T20) **deixa de ser independente** para a versão corrigida do agente; os 12/16 continuam sendo a medida oficial da versão `0cbe39d`. O reservado gerencial (T21–T30) não orientou nenhuma correção, e seus 6/8 também valem só para a versão `0cbe39d`. Uma conclusão independente sobre a versão corrigida exige uma partição nova de casos, escrita sem consultar os resultados anteriores, e não existe ainda.
+
 **Limites.** Amostras pequenas e sintéticas: não sustentam generalização. Os gabaritos foram revisados tecnicamente, sem revisão de especialista externo. A latência mede agente e banco, sem o transporte do Telegram. Os resultados serão registrados em [experimentos](experimentos.md).
 
