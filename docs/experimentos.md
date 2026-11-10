@@ -716,5 +716,22 @@ Primeira rodada real da reavaliação definida em [avaliação](avaliacao.md#rea
 
 **Diagnóstico do D04 (6 chamadas extras, fora da rodada).** Com o classificador ligado, 3 de 3 repetições falharam do mesmo modo. Com ele desligado, 2 de 3 falharam e 1 respondeu certo (R$ 7.558.967,33, igual à referência). Com tão poucas repetições, isso **não permite concluir que o classificador causa o erro**: o planejador falha mesmo sem ele; fica apenas o indício de que o rótulo `ranking` não ajudou. Reforça que o ganho do classificador nas respostas continua não medido.
 
-**Tratamento.** Ver a Emenda 1 do protocolo: gabarito 3.1.0 para D08 e T08 e `normalize_unranked_plan` no agente. A rodada de desenvolvimento seguinte, com a 3.1.0 e o agente corrigido, é registrada abaixo quando executada.
+**Tratamento.** Ver a Emenda 1 do protocolo: gabarito 3.1.0 para D08 e T08 e `normalize_unranked_plan` no agente. A rodada de desenvolvimento seguinte, com a 3.1.0 e o agente corrigido, está registrada abaixo.
+
+## Reavaliação no perfil autopecas — desenvolvimento do conjunto A (3.1.0, 09/11/2026)
+
+Segunda rodada de desenvolvimento, depois das correções da Emenda 1.
+
+**Configuração (do manifesto).** Código no commit `14287a3` (`git_dirty: false`), conjunto 3.1.0 (SHA256 `e4c8b430…`), modelo `gemini-3.5-flash-lite`, classificador de intenções ligado, intervalo de 60 s, mesma base da rodada 1 (`database_after.unchanged: true`).
+
+**Resultado.** Rodada completa (20 de 20 casos): *execution accuracy* **16/16 (100%)**, esclarecimentos 3/3, pedido não suportado 1/1, latência média de agente e banco de 2.934 ms (rodada 1: 2.467 ms), nenhuma falha. D04 respondeu R$ 7.558.967,33, igual à referência; D08 passou com o gabarito 3.1.0.
+
+| | Rodada 1 (3.0.0) | Rodada 2 (3.1.0) |
+|---|---|---|
+| Execution accuracy | 14/16 | 16/16 |
+| Esclarecimentos | 3/3 | 3/3 |
+| Não suportado | 1/1 | 1/1 |
+| Falhas | D04, D08 | nenhuma |
+
+**Como ler.** Este resultado **não é uma estimativa independente**: o agente e o gabarito foram corrigidos a partir das falhas deste mesmo conjunto de desenvolvimento. Cada caso rodou uma vez e o Gemini não é determinístico (o D04 variou nas repetições do diagnóstico). Mostra apenas que as falhas encontradas foram resolvidas. A medida sem viés vem dos testes reservados, que seguem intocados nesta data e serão rodados uma única vez com o código congelado em `14287a3`.
 
