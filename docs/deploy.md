@@ -390,6 +390,28 @@ geral (a medida de generalização é o conjunto C: 13/16).
 **Reversão:** o banco não foi tocado. Para o código anterior, reenviar os quatro arquivos de
 `git show 527bd7b:<arquivo>` (a versão da rodada 6) e reconstruir com `--no-cache`.
 
+### Rodada 8: rótulos fixos para colunas de categoria (10/11/2026)
+
+Objetivo: trocar o rótulo genérico "Campo" por UF, Modalidade, Segmento e Cidade nas respostas
+agrupadas. Código no commit `61c4871` (main); só `app/rendering.py` mudou desde a rodada 7. Sem
+mudança de banco, dependências ou variáveis.
+
+**Execução (conferida por capturas de tela do responsável, madrugada de 10/11/2026):** `scp` de
+`app/rendering.py`; `SOURCE_COMMIT.txt` com o hash curto `61c4871`; `docker build --no-cache`
+(235 s); `up -d --force-recreate backend polling`.
+
+**Verificação na VM (observada):** `db`, `backend` saudáveis e `polling` iniciado; `/health` com
+`"estado_duravel":true`. No Telegram, "Quantos clientes foram cadastrados em 2023 em cada UF?"
+respondeu "UF: SC · Quantidade: 18", PR 3, RS 2 e SP 2, com o rótulo novo e os mesmos números da
+rodada 7.
+
+**Não verificado:** o rótulo da imagem não foi consultado com `docker image inspect`; como o
+`SOURCE_COMMIT.txt` recebeu o hash curto, o rótulo `org.opencontainers.image.revision` deve ser
+`61c4871`, não o hash completo da rodada 7.
+
+**Reversão:** reenviar `app/rendering.py` de `git show 7a3202b:app/rendering.py` e reconstruir com
+`--no-cache`.
+
 ### Antes e depois (mesmas perguntas do teste de 05/11)
 
 | Item | Antes | Depois |
