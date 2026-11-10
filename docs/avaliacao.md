@@ -501,7 +501,16 @@ python -m scripts.evaluate run --live --dataset evaluation/managerial-cases-v1.j
 - **Gabarito (D08, T08).** As referências dos dois rankings usavam o formato antigo (`cliente`, `total`), mas o produto responde rankings no formato canônico (`item` = identificador e nome, `valor`, `posicao`), o mesmo dos casos gerenciais. A versão 3.1.0 só troca a forma dessas duas referências; perguntas, períodos e filtros não mudam. O resultado numérico do D08 já estava correto, e o rastro salvo da rodada, reavaliado offline com o gabarito 3.1.0, passa.
 - **Planejador (D04).** O Gemini marcou "ranking" sem agrupamento nem limite num total com filtro (`excluindo os cancelados`), e o agente respondeu com um esclarecimento indevido. O agente passa a tratar esse plano como total com filtro quando o gestor não pediu ranking, top, maiores, menores ou lista (`normalize_unranked_plan`), com teste de regressão.
 
-A taxa da 3.0.0 (14/16) continua sendo a medida oficial daquela rodada. A rodada de desenvolvimento seguinte usa a 3.1.0 e o agente corrigido.
+A taxa da 3.0.0 (14/16) continua sendo a medida oficial daquela rodada. A rodada de desenvolvimento seguinte usou a 3.1.0 e o agente corrigido (16/16).
+
+**Resultado dos reservados (09/11/2026, código congelado, uma rodada cada, sem correção posterior).**
+
+| Conjunto | Respostas | Esclarecimentos | Não suportado | Critério |
+|---|---|---|---|---|
+| A, reservado (T01–T20) | 12/16 (75%) | 2/3 | 1/1 | ≥ 12/16: atendido no limite |
+| B, reservado (T21–T30) | 6/8 (75%) | 1/1 | 1/1 | ≥ 6/8: atendido no limite |
+
+Nenhum resultado reservado orientou correção, então os dois seguem independentes. O desenvolvimento (16/16) não é independente, porque o agente e o gabarito foram ajustados a partir dele. Detalhes e classificação das sete falhas em [experimentos](experimentos.md#reavaliação-no-perfil-autopecas--teste-reservado-do-conjunto-a-310-09112026).
 
 **Limites.** Amostras pequenas e sintéticas: não sustentam generalização. Os gabaritos foram revisados tecnicamente, sem revisão de especialista externo. A latência mede agente e banco, sem o transporte do Telegram. Os resultados serão registrados em [experimentos](experimentos.md).
 

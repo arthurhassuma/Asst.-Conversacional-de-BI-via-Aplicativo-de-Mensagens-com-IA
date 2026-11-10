@@ -735,3 +735,34 @@ Segunda rodada de desenvolvimento, depois das correções da Emenda 1.
 
 **Como ler.** Este resultado **não é uma estimativa independente**: o agente e o gabarito foram corrigidos a partir das falhas deste mesmo conjunto de desenvolvimento. Cada caso rodou uma vez e o Gemini não é determinístico (o D04 variou nas repetições do diagnóstico). Mostra apenas que as falhas encontradas foram resolvidas. A medida sem viés vem dos testes reservados, que seguem intocados nesta data e serão rodados uma única vez com o código congelado em `14287a3`.
 
+## Reavaliação no perfil autopecas — teste reservado do conjunto A (3.1.0, 09/11/2026)
+
+Uma única rodada, executada depois do congelamento e sem nenhuma correção posterior.
+
+**Configuração (do manifesto).** Commit `0cbe39d` (`git_dirty: false`; difere do `14287a3` apenas por este registro em `docs/`, sem mudança no agente), conjunto 3.1.0 (SHA256 `e4c8b430…`), partição `test`, modelo `gemini-3.5-flash-lite`, classificador ligado, intervalo de 60 s, base inalterada ao final.
+
+**Resultado.** Rodada completa (20 de 20): *execution accuracy* **12/16 (75%)**, esclarecimentos 2/3, pedido não suportado 1/1, latência média de agente e banco de 2.551 ms. O critério (pelo menos 12 de 16) foi atendido no limite. Falhas: T04, T05, T08, T10 e T18.
+
+| Caso | Natureza | O que ocorreu |
+|---|---|---|
+| T04 | Agente (valor do filtro) | O planejador filtrou `modalidade = 'sustentação'` (com acento); no dado o valor é `sustentacao`. Resultado 0, esperado 87. |
+| T05 | Agente (agrupamento) | "Clientes cadastrados em cada UF" virou ranking por `cidade` sem limite; o bot pediu o tamanho de um ranking. Mesma família do D04. |
+| T08 | Formato de saída | Os três clientes e os valores estão corretos, mas o agente devolveu `cliente, valor, registros` e o gabarito exige `item, valor, posicao`. |
+| T10 | Agente (escopo) | "Média de horas realizadas por registro operacional" foi tratada como fora do escopo. |
+| T18 | Status | Esperava esclarecimento de métrica; o status foi `unsupported_request`, com texto de ajuda praticamente igual. |
+
+Pelo protocolo, as cinco contam como falha; T08 e T18 não foram reclassificadas.
+
+## Reavaliação no perfil autopecas — teste reservado do conjunto B (managerial-v1, T21–T30, 09/11/2026)
+
+Uma única rodada, logo depois da anterior, no mesmo commit `0cbe39d` e sem correção posterior. Conjunto `managerial-v1` (SHA256 `cdb71fa8…`), base inalterada.
+
+**Resultado.** 10 de 10 casos: *execution accuracy* **6/8 (75%)**, esclarecimento 1/1, pedido não suportado 1/1, latência média de 2.379 ms. O critério (pelo menos 6 de 8) foi atendido no limite. Falhas: T26 e T28.
+
+| Caso | O que ocorreu |
+|---|---|
+| T26 | Participação por segmento. O agente montou duas consultas para a métrica `pedidos` (total e distribuição). A distribuição é idêntica ao gabarito, mas o corretor exige uma consulta por métrica e o gabarito esperava uma. |
+| T28 | Faturamento emitido, recebido e diferença. O agente fez duas consultas; R$ 346.184,72, R$ 303.361,91 e R$ 42.822,81 estão corretos, mas o gabarito esperava uma consulta só. |
+
+**Leitura conjunta.** Os dois reservados atenderam ao critério declarado, mas no limite exato (18/24 no total, uma rodada cada). O desenvolvimento de 16/16 não se repetiu nos reservados, o que dá a dimensão do ajuste feito sobre ele. T08, T26 e T28 acertam o número e erram só a forma; T04, T05 e T10 são falhas reais do agente e ficam como limitações conhecidas, sem correção. Corrigi-las exigiria declarar estes reservados contaminados e preparar um novo conjunto independente. O ganho do classificador de intenções continua não medido.
+
