@@ -356,6 +356,40 @@ o update pode repetir a resposta.
 volta ao modo em memória; as tabelas do schema `estado` ficam inertes. Para o código anterior,
 `git show bc9dab7:<arquivo>` e reconstruir com `--no-cache`.
 
+### Rodada 7: agente corrigido após a reavaliação (10/11/2026)
+
+Objetivo: colocar na VM as correções de interpretação feitas depois dos testes reservados (T04, T05 e
+T10; ver [experimentos](experimentos.md#correção-das-falhas-do-reservado-do-conjunto-a-09112026)). O
+código está no commit `7a3202b` (main). Só quatro arquivos de execução mudaram desde a rodada 6:
+`app/analysis_contract.py`, `app/bi_agent.py`, `app/database_tools.py` e `app/prompts.py`. Sem
+mudança de banco, de dependências nem de variáveis de ambiente.
+
+**Execução (conferida por capturas de tela do responsável, 10/11/2026):**
+
+1. `scp` dos quatro arquivos para `~/pac_privado/app/`.
+2. `SOURCE_COMMIT.txt` com o hash completo, `docker build --no-cache` (212 s) e
+   `up -d --force-recreate backend polling`.
+
+**Verificação na VM (observada):**
+
+- Rótulo da imagem `org.opencontainers.image.revision` = `7a3202bfd03f9cc64567f5facc3dc274aca8fd1f`.
+- `/health` com `"estado_duravel":true`; `backend` saudável, `polling` iniciado, `db` com dois dias de
+  uptime (não foi recriado); log sem erros.
+- Telegram, pergunta "Quantos clientes foram cadastrados em 2023 em cada UF?": respondeu a contagem
+  por UF (SC 18, PR 3, RS 2, SP 2) em vez de pedir o tamanho de um ranking. A coluna aparece
+  rotulada "Campo", rótulo genérico do renderizador.
+- Telegram, pergunta "Qual a média de horas realizadas por registro operacional em dezembro de
+  2025?": 11,8971428571428571, igual ao gabarito local do mesmo perfil e da mesma seed.
+- `/limpar` apagou o histórico.
+
+**Não verificado:** o filtro de modalidade com acento (T04) não foi perguntado na VM; o `get_schema`
+com os valores de categoria só foi exercitado indiretamente, por essas respostas. As perguntas
+testadas na VM são as mesmas que originaram as correções, então confirmam o deploy, não uma melhora
+geral (a medida de generalização é o conjunto C: 13/16).
+
+**Reversão:** o banco não foi tocado. Para o código anterior, reenviar os quatro arquivos de
+`git show 527bd7b:<arquivo>` (a versão da rodada 6) e reconstruir com `--no-cache`.
+
 ### Antes e depois (mesmas perguntas do teste de 05/11)
 
 | Item | Antes | Depois |
