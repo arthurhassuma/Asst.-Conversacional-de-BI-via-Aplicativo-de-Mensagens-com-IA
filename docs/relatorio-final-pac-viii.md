@@ -152,3 +152,27 @@ O Apêndice D é o registro declaratório do aceite do gestor, em docs/avaliacao
 ## 9 ANEXOS
 
 A proposta aprovada e o relatório PAC VII permanecem inalterados no diretório docs/ para referência histórica. Este relatório PAC VIII registra a implementação e a avaliação posteriores; não altera retrospectivamente o conteúdo ou as decisões documentadas na fase de proposta.
+
+## 10 ADENDO DE 10 DE NOVEMBRO DE 2026
+
+Este adendo atualiza o relatório entregue em 11 de outubro de 2026. As seções 1 a 9 descrevem a versão congelada de outubro e permanecem inalteradas como registro histórico; onde divergirem deste adendo, prevalece o adendo. As taxas de 16/16 de outubro pertencem à base original de serviços de software e não foram repetidas sobre o sistema atual.
+
+### 10.1 O que mudou no sistema
+
+Depois de outubro, o domínio da base passou a uma revenda de autopeças (perfil autopecas: 100 clientes, seed 42, de janeiro de 2025 a outubro de 2026), com respostas, vocabulário e rankings ajustados. Foi adicionado um classificador de intenções (TF-IDF com regressão logística), ligado por padrão. A fila de updates, a deduplicação e as sessões passaram a ficar em um schema do PostgreSQL, o que supera a descrição da seção 4.3 (histórico e fila em memória, processo único); a entrega continua pelo menos uma vez, não exatamente uma vez. O sistema opera em uma VM Oracle com Docker, em oito rodadas de implantação registradas em docs/deploy.md. O arquivo de licença MIT foi adicionado ao repositório; esta entrega não altera a visibilidade do repositório.
+
+### 10.2 Reavaliação com o Gemini real no perfil autopecas
+
+Um novo protocolo foi declarado antes das rodadas (docs/avaliacao.md), com o mesmo critério da proposta: execution accuracy acima de 70%, isto é, pelo menos 12 de 16 respostas. Com o modelo gemini-3.5-flash-lite e o classificador ligado, uma execução por conjunto, os resultados foram: desenvolvimento do conjunto A, 14/16 na primeira rodada e 16/16 depois de duas correções no agente e no gabarito, resultado que não é independente; teste reservado do conjunto A, 12/16 respostas, 2/3 esclarecimentos e 1/1 pedido não suportado; teste reservado gerencial, 6/8 respostas, 1/1 esclarecimento e 1/1 pedido não suportado. Os dois reservados atenderam ao critério no limite exato. Três falhas do conjunto A eram de interpretação (T04, T05 e T10), duas eram de forma ou de status (T08 e T18), e as duas do conjunto gerencial (T26 e T28) tinham o número correto com a consulta dividida de modo diferente do gabarito.
+
+### 10.3 Correções e nova medida
+
+As três falhas de interpretação (filtro com grafia diferente da do dado, agrupamento por UF tratado como ranking e média de horas recusada como fora do escopo) foram corrigidas por decisão do responsável. Como as correções nasceram desse reservado, ele foi declarado contaminado e uma partição nova de vinte casos (conjunto C) foi escrita depois, com o critério fixado antes da rodada. Nela, a versão corrigida obteve 13/16 respostas, 3/3 esclarecimentos e 1/1 pedido não suportado, atendendo ao critério. As falhas foram um ranking com formato diferente do gabarito e duas perguntas ambíguas que geraram esclarecimento de medida. Com vinte casos, 12/16 e 13/16 não se distinguem com segurança, e este adendo não afirma melhora.
+
+### 10.4 Classificador de intenções
+
+O conjunto C foi executado com o classificador ligado (13/16 e 14/16 em duas rodadas) e desligado (13/16 nos 16 casos de resposta, em rodada interrompida por indisponibilidade do provedor antes dos dois últimos casos). A diferença não superou a variação entre execuções idênticas; o resultado é, portanto, sem efeito mensurável nesta amostra, o que não prova que o classificador não ajude.
+
+### 10.5 Limitações atualizadas
+
+Permanecem as amostras pequenas e sintéticas, a ausência de revisão especializada dos gabaritos, o aceite declaratório do gestor e a falta de medição ponta a ponta no Telegram. Acrescentam-se: o não determinismo do Gemini e a dependência de disponibilidade e cota do provedor (rodadas foram interrompidas por erro 503); o formato de ranking, que pode divergir do gabarito mesmo com os valores corretos; a execução automática do CI do GitHub, bloqueada por cobrança da conta; e os 52 testes de banco, entre 337, que só rodam com um PostgreSQL de teste configurado. Detalhes e evidências estão em docs/experimentos.md, docs/avaliacao.md e docs/deploy.md.
