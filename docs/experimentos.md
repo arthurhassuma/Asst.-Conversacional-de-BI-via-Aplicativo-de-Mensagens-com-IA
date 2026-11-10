@@ -781,3 +781,27 @@ Feita depois de registrar os reservados, por decisão do responsável. **Contami
 **Verificação (chamadas reais, fora dos conjuntos, mesmas perguntas).** Depois das correções: T05 2/2 agrupando por `uf`; T10 8/8 com o valor de referência (11,8971…); T04 6/6 respondidas sem acento. Uma primeira versão do prompt do T10, mais longa e com exemplo em JSON, deu T10 10/10, mas fez o T04 pedir esclarecimento indevido ("valor ou quantidade?") em 3 de 6 execuções, contra 0 de 6 com o prompt anterior; foi descartada em favor da versão curta.
 
 **Limites desta verificação.** Repetições da mesma pergunta que originou a correção não são medida independente; as amostras são pequenas (2 a 8 execuções) e o Gemini não é determinístico. A mudança no `get_schema` e no prompt afeta todas as perguntas, e não foi medida num conjunto novo. Os 280 testes automatizados passam (um teste de integração, `test_percent_operator_and_like_patterns`, depende dos dados do banco sintético e falha no banco local `autopecas`, com ou sem estas mudanças).
+
+## Reavaliação no perfil autopecas — conjunto C, partição reservada nova (1.0.0, 09/11/2026)
+
+Medida da versão **corrigida** do agente, em casos escritos depois das correções. Uma única execução, sem nenhuma alteração posterior.
+
+**Configuração (do manifesto).** Commit `f4ab7e6` (`git_dirty: false`), conjunto `cases-autopecas-reservado-2.json` 1.0.0 (SHA256 `45d5b120…`), partição `test` (T41–T60), modelo `gemini-3.5-flash-lite`, classificador ligado, intervalo de 60 s, base inalterada ao final.
+
+**Resultado.** 20 de 20 casos: *execution accuracy* **13/16 (81%)**, esclarecimentos 3/3, pedido não suportado 1/1, latência média de agente e banco de 2.813 ms. O critério declarado (pelo menos 12 de 16) foi atendido. Falhas: T48, T52 e T53.
+
+| Caso | Natureza | O que ocorreu |
+|---|---|---|
+| T48 | Formato de saída | Os quatro clientes e os valores estão corretos, mas o agente devolveu `cliente, total, registros` e o gabarito exige o formato canônico `item, valor, posicao`. Mesma falha de forma do T08. |
+| T52 | Pergunta ambígua | "Qual o **total de pedidos** não cancelados em 2026 para clientes de São Paulo?" gerou "valor ou quantidade?". "Total de pedidos" admite as duas leituras e o gabarito assumiu valor. |
+| T53 | Pergunta ambígua | "Qual a **soma dos pedidos** em fevereiro de 2033?" gerou o mesmo esclarecimento. |
+
+Pelo protocolo as três contam como falha; T52 e T53 não foram reclassificadas, embora a redação seja do autor dos casos e o esclarecimento seja defensável.
+
+**Leitura.**
+- Nenhuma falha tem número errado. As categorias das três correções (T44 filtro por modalidade com acento, T45 agrupamento por modalidade, T50 média) passaram, o que indica que as correções generalizam além das perguntas que as originaram.
+- Os 20 casos não distinguem 13/16 de 12/16 (o reservado da versão antiga, no conjunto A) com segurança; não se deve afirmar melhora.
+- Quem escreveu os casos conhecia as falhas anteriores, o que favorece a versão corrigida em T44, T45 e T50.
+- Os esclarecimentos de T52 e T53 lembram os que apareceram numa versão descartada do prompt. Esta rodada não permite dizer se a regra atual do prompt ou o `get_schema` aumentou esse tipo de esclarecimento, porque a redação dos dois casos já é ambígua.
+- Pendências: o formato do ranking (T08 e T48) acerta o número e erra só a forma, e depende de o gabarito exigir o formato canônico; o ganho do classificador de intenções continua não medido.
+
