@@ -40,10 +40,15 @@ def test_schema_and_exact_decimals(settings):
 def test_schema_lists_the_stored_spelling_of_categorical_values(settings):
     # Reservado do perfil autopecas (T04): a pergunta dizia "sustentação" e o dado guarda
     # "sustentacao"; sem ver a grafia real, o modelo copiou a da pergunta e contou zero contratos.
-    valores = DatabaseTools(settings).get_schema()["valores"]
-    assert valores["contratos.modalidade"] == ["projeto", "sustentacao"]
-    assert valores["contratos.status"] == ["ativo", "cancelado", "concluido"]
-    assert valores["pedidos.status"] == ["aprovado", "cancelado", "entregue"]
+    # Os valores esperados vêm do próprio banco, porque cada perfil guarda um subconjunto diferente.
+    db = DatabaseTools(settings)
+    valores = db.get_schema()["valores"]
+    for key in ("contratos.modalidade", "contratos.status", "pedidos.status", "faturamento.status"):
+        table, column = key.split(".")
+        stored = db.execute_sql(f"SELECT DISTINCT {column} FROM {table} ORDER BY 1")["rows"]
+        assert valores[key] == [row[0] for row in stored], key
+    assert set(valores["contratos.modalidade"]) <= {"projeto", "sustentacao"}
+    assert valores["contratos.modalidade"], "o perfil precisa ter ao menos uma modalidade"
     assert "clientes.nome" not in valores and "contratos.descricao" not in valores
 
 

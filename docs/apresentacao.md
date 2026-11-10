@@ -484,7 +484,7 @@ decisões de projeto, os testes, a avaliação e a validação são suas, e este
 
 ### 16. Limitações e honestidade (não esconda; mostre que você conhece)
 
-- Os resultados da avaliação real com o Gemini são de **outubro** (domínio de software); depois não foram repetidos.
+- Os resultados de **outubro** (domínio de software) e os de **novembro** (autopeças: 12/16, 6/8 e 13/16) não são comparáveis: base, casos, classificador e código mudaram. Nenhum dos dois indica que o sistema melhorou ou piorou.
 - A amostra de avaliação é **pequena** (40 e 35 casos) e sintética; não prova generalização.
 - O **GitHub Actions está falhando na inicialização** desde 07/11 (causa externa ao código, a verificar na conta);
   por isso os testes com banco foram rodados localmente.

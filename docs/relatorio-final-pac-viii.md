@@ -155,7 +155,7 @@ A proposta aprovada e o relatório PAC VII permanecem inalterados no diretório 
 
 ## 10 ADENDO DE 10 DE NOVEMBRO DE 2026
 
-Este adendo atualiza o relatório entregue em 11 de outubro de 2026. As seções 1 a 9 descrevem a versão congelada de outubro e permanecem inalteradas como registro histórico; onde divergirem deste adendo, prevalece o adendo. As taxas de 16/16 de outubro pertencem à base original de serviços de software e não foram repetidas sobre o sistema atual.
+Este adendo atualiza o relatório entregue em 11 de outubro de 2026. As seções 1 a 9 descrevem a versão congelada de outubro e permanecem inalteradas como registro histórico; onde divergirem deste adendo, prevalece o adendo. As taxas de 16/16 de outubro pertencem à base original de serviços de software e não foram repetidas sobre o sistema atual. Por isso não são comparáveis com os resultados deste adendo: a base, o domínio, os casos, o classificador e o código são outros, e nenhuma das duas medidas permite afirmar que o sistema melhorou ou piorou.
 
 ### 10.1 O que mudou no sistema
 
