@@ -19,7 +19,7 @@
 
 _Origem: `docs/README.md` (consolidado em 2026-11-09)._
 
-Preparada em **11/10/2026**, conforme ampliação de escopo autorizada pelo responsável. Este índice reúne os artefatos até S16; a submissão à instituição e a aprovação docente são atos posteriores.
+Preparada em **11/10/2026**, conforme ampliação de escopo autorizada pelo responsável, e **atualizada em 10/11/2026** com o [adendo do relatório](relatorio-final-pac-viii.md#10-adendo-de-10-de-novembro-de-2026) (mudanças posteriores, reavaliação com autopeças e limitações), a apresentação revisada e o registro das implantações. Este índice reúne os artefatos até S16; a submissão à instituição e a aprovação docente são atos posteriores. As seções 1 a 9 do relatório são o retrato de outubro; onde divergem do adendo, vale o adendo.
 
 ### Artefatos
 
@@ -41,11 +41,11 @@ Preparada em **11/10/2026**, conforme ampliação de escopo autorizada pelo resp
 | S12–S14 | Relatório final com metodologia, resultados, limitações e referências |
 | S14–S16 | Revisão dos artefatos, reprodução Docker, roteiro e pacote de entrega preparados; submissão institucional ainda a cargo do responsável |
 
-Os fontes permanecem congelados em `59c9eb8fa0b73444e770effd3e3e80724049164b`. A reprodução Docker aprovou **110 testes**, sem skips, e **34 referências SQL**, com base idêntica à dos experimentos. Não foram feitas novas chamadas ao modelo na preparação final.
+Em outubro, os fontes ficaram congelados em `59c9eb8fa0b73444e770effd3e3e80724049164b`; a reprodução Docker daquela versão aprovou **110 testes**, sem skips, e **34 referências SQL**, com base idêntica à dos experimentos. Depois disso o código mudou (domínio de autopeças, estado durável, classificador, correções da reavaliação). A versão de entrega atualizada é a da tag `v1.0.0`, com **285 testes passando** e 52 que exigem um PostgreSQL de teste; a reprodução Docker completa não foi refeita para ela.
 
-O PDF foi exportado pelo Microsoft Word e suas 14 páginas foram revisadas visualmente. Conteúdo, resultados, data, geometria, imagens e conteúdo XML auxiliar do DOCX foram conferidos; o relatório PAC VII original manteve seu SHA256. O DOCX recebeu posteriormente ajustes cosméticos na fonte do sumário e nos rodapés. A reexportação desses ajustes foi interrompida; o PDF mantém a versão de formatação já revisada, com o mesmo conteúdo. O bloqueio automático do encerramento de processos Word foi respeitado.
+Em 10/11/2026 o DOCX recebeu o adendo (seção 10, com sumário atualizado) e o PDF foi reexportado pelo Microsoft Word, com 16 páginas. Nesta atualização foram conferidas visualmente as páginas do adendo, a página de aceite e a formatação dos subtítulos; as páginas 1 a 14 não foram reinspecionadas além do sumário. A apresentação (PPTX e PDF) passou de 20 para 21 slides, com um slide novo da reavaliação e números atualizados nos slides 13, 19, 20 e 21; o slide 14 e o gráfico do slide 13 seguem como retrato de outubro. O relatório PAC VII original não foi alterado.
 
-O teste reservado atingiu 16/16 respostas e 4/4 esclarecimentos. A média de **1,649 s** cobre agente e banco; não mede transporte Telegram. Os resultados são do sistema híbrido nesta amostra pequena, sem comprovação de generalização ampla ou comparação com dashboards.
+O teste reservado de outubro, na base original, atingiu 16/16 respostas e 4/4 esclarecimentos, com média de **1,649 s** para agente e banco. **Esses números não se repetiram na reavaliação com autopeças** (novembro): 12/16 e 6/8 nos reservados da versão antiga, e 13/16 num conjunto novo para a versão corrigida, todos no limite do critério ([experimentos](experimentos.md#reavaliação-no-perfil-autopecas--conjunto-c-partição-reservada-nova-100-09112026)). A latência não mede o transporte Telegram, e os resultados valem para amostras pequenas, sem comprovação de generalização ampla ou comparação com dashboards.
 
 ### Pacote e rastreabilidade
 

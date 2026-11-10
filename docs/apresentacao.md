@@ -372,7 +372,9 @@ Detalhes: `docs/avaliacao.md` e `docs/avaliacao.md`.
 
 #### 12.1 Testes automáticos (`tests/`, 29 arquivos, 3.646 linhas)
 **296 testes aprovados com PostgreSQL real e 0 pulados** (rodados em 08/11/2026 contra um PostgreSQL
-embutido, reproduzindo os passos do CI). Sem banco, 268 rodam e 28 são pulados.
+embutido, reproduzindo os passos do CI). Sem banco, 268 rodam e 28 são pulados. Em 10/11/2026, com
+os testes novos da reavaliação e do estado durável, a suíte tem 337 testes: 285 passam sem banco de
+teste e 52 o exigem (não foram rodados com o banco de teste completo nesta data).
 
 | Grupo | Arquivos de teste | O que garantem |
 |---|---|---|
@@ -521,7 +523,7 @@ python -m scripts.evaluate validate --dataset evaluation/managerial-cases-v1.jso
 ```
 
 Na VM da Oracle (produção): ver `deploy/oracle/README.md` (envio por `scp`, `docker build --no-cache`,
-`docker compose ... up -d`) e `docs/deploy.md` (o registro das cinco rodadas).
+`docker compose ... up -d`) e `docs/deploy.md` (o registro das oito rodadas).
 
 ### 18. Cola de números
 
