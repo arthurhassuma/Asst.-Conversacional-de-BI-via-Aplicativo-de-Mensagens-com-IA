@@ -277,7 +277,7 @@ Cada pergunta registra no log do backend uma linha como
 - Permite: um classificador supervisionado foi treinado, avaliado em teste reservado segundo um
   protocolo declarado antes e está em uso no bot.
 - **Não permite afirmar** que ele melhora as respostas. Não houve comparação do bot com e sem o
-  classificador; o ganho nas respostas do Gemini **não foi medido**.
+  classificador; o ganho nas respostas do Gemini **não apareceu** na medida de 10/11/2026 no conjunto C (ver [experimentos](experimentos.md#medida-do-classificador-de-intenções-no-conjunto-c-10112026)).
 - Não mede a correção do SQL nem o desempenho do Gemini.
 - O teste é sintético e foi escrito pela mesma equipe do treino, com moldes de estilo parecido. Perguntas
   de gestores reais podem ser mais difíceis; a checagem informal (77% de acerto) sugere isso.
@@ -521,6 +521,13 @@ Nenhum resultado reservado orientou correção, então os dois seguem independen
 - **Limite declarado.** Por espelhar as categorias do conjunto A, o conjunto C inclui instâncias de filtro por modalidade (T44), agrupamento (T45) e média (T50), categorias das falhas corrigidas. Elas medem se a correção generaliza, não se o agente é bom em geral; o resultado por categoria deve ser lido assim. Os 20 casos não dão intervalo de confiança estreito: 12 de 16 e 16 de 16 não se distinguem com segurança.
 
 **Resultado do conjunto C (09/11/2026, commit `f4ab7e6`, uma execução).** *Execution accuracy* **13/16 (81%)**, esclarecimentos 3/3, pedido não suportado 1/1; critério (≥ 12/16) atendido. Falhas T48 (formato do ranking), T52 e T53 (esclarecimento de medida para "total de pedidos" e "soma dos pedidos", redação ambígua dos casos). Nenhuma correção foi feita depois da rodada, então o conjunto C segue sem contaminação. Detalhes em [experimentos](experimentos.md#reavaliação-no-perfil-autopecas--conjunto-c-partição-reservada-nova-100-09112026).
+
+**Medida do classificador de intenções (declarada em 10/11/2026, antes das rodadas).** Pergunta: o classificador de intenções, ligado por padrão, muda a taxa de acerto do agente? Até aqui só se sabia que ele não é o único responsável por erros (D04) e que ajuda a sugerir exemplos; o efeito nas respostas nunca foi medido.
+
+- **Conjunto e versão.** Conjunto C (T41–T60, SHA256 `45d5b120…`), partição `test`, com o agente do commit em que este protocolo está, que só difere do `f4ab7e6` por um rótulo de renderização (colunas UF, modalidade, segmento e cidade) que não entra na pontuação. O conjunto C já foi rodado uma vez com o classificador ligado (13/16).
+- **Rodadas.** Três ao todo, mesmo intervalo (60 s), modelo e base: (1) ligado, a rodada já feita; (2) **desligado** (`INTENT_CLASSIFIER_ENABLED=false`); (3) **ligado de novo**, só para estimar a variação do próprio Gemini entre execuções idênticas.
+- **Regra de leitura (fixada antes).** Com 16 respostas e um modelo não determinístico, a diferença entre desligado e ligado só será descrita como indício de efeito se for de pelo menos 3 casos **e** maior que a diferença entre as duas rodadas com o classificador ligado. Caso contrário, o resultado é "sem efeito mensurável nesta amostra", sem afirmar que o classificador não faz diferença. Será reportada também a tabela caso a caso.
+- **Sem ajustes.** Nenhuma correção de código ou de conjunto será feita a partir dessas rodadas; elas não contaminam o conjunto C porque nada é alterado depois.
 
 **Limites.** Amostras pequenas e sintéticas: não sustentam generalização. Os gabaritos foram revisados tecnicamente, sem revisão de especialista externo. A latência mede agente e banco, sem o transporte do Telegram. Os resultados serão registrados em [experimentos](experimentos.md).
 

@@ -803,5 +803,35 @@ Pelo protocolo as três contam como falha; T52 e T53 não foram reclassificadas,
 - Os 20 casos não distinguem 13/16 de 12/16 (o reservado da versão antiga, no conjunto A) com segurança; não se deve afirmar melhora.
 - Quem escreveu os casos conhecia as falhas anteriores, o que favorece a versão corrigida em T44, T45 e T50.
 - Os esclarecimentos de T52 e T53 lembram os que apareceram numa versão descartada do prompt. Esta rodada não permite dizer se a regra atual do prompt ou o `get_schema` aumentou esse tipo de esclarecimento, porque a redação dos dois casos já é ambígua.
-- Pendências: o formato do ranking (T08 e T48) acerta o número e erra só a forma, e depende de o gabarito exigir o formato canônico; o ganho do classificador de intenções continua não medido.
+- Pendências: o formato do ranking (T08 e T48) acerta o número e erra só a forma, e depende de o gabarito exigir o formato canônico; o ganho do classificador de intenções foi medido depois, sem efeito mensurável (ver a seção seguinte).
+
+## Medida do classificador de intenções no conjunto C (10/11/2026)
+
+Segue o protocolo declarado antes das rodadas em [avaliação](avaliacao.md). Conjunto C (T41–T60, SHA256 `45d5b120…`), mesmo intervalo (60 s), modelo e base; agente do commit `f4ab7e6` na rodada 1 e do `ce44f07` nas demais (diferem só por um rótulo de renderização, fora da pontuação). Base inalterada ao final de todas.
+
+**Rodadas válidas.**
+
+| Rodada | Classificador | Execução | Respostas corretas |
+|---|---|---|---|
+| 1 (`f4ab7e6`) | ligado | completa, 20/20 | 13/16 |
+| 2 (`ce44f07`) | **desligado** | **interrompida** por `provider_error_503` no T58 (18/20; T59 e T60 não rodaram) | 13/16 nos 16 casos de resposta, que rodaram todos; sem taxa oficial |
+| 3 (`ce44f07`) | ligado (repetição) | completa, 20/20 | 14/16 |
+
+**Tentativas interrompidas, registradas por completude.** Antes das rodadas 2 e 3, duas tentativas pararam por `provider_error_503` do Gemini (desligado: 8 casos; ligado: 4 casos) e a rodada 2 acima também parou. Nenhum resultado das interrompidas entra nas contas; os casos afetados pelo 503 (T48 na primeira tentativa desligada, T44 na ligada, T58 na rodada 2) não foram contados como falha do agente. Depois de uma chamada de teste ao Gemini, as rodadas foram refeitas do zero.
+
+**Caso a caso (só os que variaram ou falharam).**
+
+| Caso | Rodada 1 (ligado) | Rodada 2 (desligado) | Rodada 3 (ligado) |
+|---|---|---|---|
+| T48 (formato do ranking) | falha | falha | falha |
+| T52 ("total de pedidos") | falha | falha | falha |
+| T53 ("soma dos pedidos") | falha | falha | **correto** |
+| T58 | correto | 503 | correto |
+| T59, T60 | corretos | não rodaram | corretos |
+
+**Leitura pela regra fixada antes.** Diferença entre desligado e ligado nas respostas: 0 caso contra a rodada 1 e 1 caso (T53) contra a rodada 3. Diferença entre as duas rodadas com o classificador ligado: 1 caso (o mesmo T53). A regra exigia pelo menos 3 casos e mais que a variação entre as rodadas ligadas; nenhuma condição foi atendida. Conclusão: **sem efeito mensurável nesta amostra**. Isso não prova que o classificador não ajude: 16 respostas e uma ou duas execuções por configuração só detectariam um efeito grande. O T53 mudou de resultado entre duas execuções idênticas, o que mostra a variação do próprio Gemini.
+
+**Latência.** A média de agente e banco foi 2.813 ms (rodada 1), 5.564 ms (rodada 2, parcial) e 4.303 ms (rodada 3). A diferença não é atribuível ao classificador: as rodadas 2 e 3 coincidiram com instabilidade do provedor (503), e a rodada 1 foi feita antes.
+
+**Sem ajustes.** Nenhum código ou conjunto foi alterado por causa dessas rodadas; o conjunto C segue sem contaminação.
 
