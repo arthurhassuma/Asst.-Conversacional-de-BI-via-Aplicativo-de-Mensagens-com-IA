@@ -835,3 +835,13 @@ Segue o protocolo declarado antes das rodadas em [avaliação](avaliacao.md). Co
 
 **Sem ajustes.** Nenhum código ou conjunto foi alterado por causa dessas rodadas; o conjunto C segue sem contaminação.
 
+
+## Regressão da minimização de dados no conjunto C (12/11/2026)
+
+**Motivo.** O commit `3cf989c` passou a não enviar ao Gemini as linhas devolvidas pelo banco no caminho de SQL livre (`SEND_ROWS_TO_MODEL=false`) e acrescentou duas linhas ao prompt do executor. Esta rodada verifica se isso alterou o acerto. Não é uma medida nova de generalização: o conjunto C já havia sido executado em 09/11 e 10/11.
+
+**Condições.** Commit `3cf989cff22e` (árvore limpa), conjunto C 1.0.0 (`45d5b1204532`), partição de teste T41–T60, base `autopecas` (100 clientes, seed 42), classificador de intenções ligado, `--interval 60`, uma execução. A base não mudou (`database_after.unchanged: true`). Evidências em `.local/evaluation/20261112T224935Z-c2650f99`.
+
+**Resultado.** 20 de 20 casos: *execution accuracy* **13/16 (81%)**, esclarecimentos 3/3, pedido não suportado 1/1, latência média de agente e banco de 2.727 ms. O critério (pelo menos 12 de 16) foi atendido. As falhas são as mesmas de 09/11, pelos mesmos motivos: T48 (formato do ranking), T52 e T53 (esclarecimento por "total/soma de pedidos" ambíguo).
+
+**Limites.** Uma execução, sem repetição. Os conjuntos A e B não foram reexecutados com esta versão; os números deles continuam sendo os de 09/11, medidos com o comportamento anterior. Nenhum prompt ou código foi ajustado por causa desta rodada.

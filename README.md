@@ -286,7 +286,7 @@ A hospedagem em produção usa Docker Compose (PostgreSQL 16, backend e um proce
 - A interpretação das perguntas depende do Gemini e da cota do projeto configurado. Na reavaliação de 09/11/2026 os reservados acertaram 12/16 (autopecas) e 6/8 (gerencial). As três falhas de interpretação do conjunto A (T04, T05 e T10) foram corrigidas depois, o que **contamina** esse reservado. A versão corrigida foi medida numa partição nova de 20 casos (conjunto C, escrita depois das correções): **13/16** respostas corretas, 3/3 esclarecimentos e 1/1 pedido não suportado, em uma execução; as falhas foram um ranking com formato diferente do gabarito e dois esclarecimentos de medida para perguntas ambíguas ([experimentos](docs/experimentos.md#reavaliação-no-perfil-autopecas--conjunto-c-partição-reservada-nova-100-09112026)). Com 20 casos, esse resultado não permite afirmar melhora em relação aos 12/16 anteriores.
 - O aceite do gestor está registrado por declaração do responsável; não houve coleta qualitativa estruturada, medição de latência ponta a ponta no Telegram nem comparação com dashboards.
 - Todos os dados são sintéticos; o assistente não foi avaliado com dados reais.
-- A minimização de linhas (`SEND_ROWS_TO_MODEL=false`) foi incluída depois da reavaliação de 09/11/2026; os números de acerto desse relatório foram medidos com o comportamento anterior e precisam ser refeitos para esta versão.
+- A minimização de linhas (`SEND_ROWS_TO_MODEL=false`) foi incluída depois da reavaliação de 09/11/2026. Reexecutado em 12/11/2026, o conjunto C manteve 13/16 com as mesmas falhas; os conjuntos A e B não foram reexecutados e seus números são os medidos com o comportamento anterior (ver `docs/experimentos.md`).
 
 ## Licença
 
