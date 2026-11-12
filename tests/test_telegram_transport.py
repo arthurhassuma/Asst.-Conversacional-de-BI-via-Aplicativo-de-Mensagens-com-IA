@@ -41,7 +41,6 @@ def make_update(update_id):
 
 
 async def run_batch(statuses, ids=(1, 2, 3)):
-    """Encaminha um lote; `statuses` mapeia update_id -> status HTTP do backend."""
     import json
 
     from app.telegram_bot import forward_updates
@@ -67,8 +66,8 @@ async def run_batch(statuses, ids=(1, 2, 3)):
 async def test_an_update_the_backend_permanently_rejects_is_skipped_not_retried_forever(status):
     received, offsets, error = await run_batch({2: status})
     assert error is None
-    assert received == [1, 2, 3]  # o update seguinte ainda é entregue
-    assert offsets == [2, 3, 4]  # o offset passa do update recusado
+    assert received == [1, 2, 3]
+    assert offsets == [2, 3, 4]
 
 
 @pytest.mark.parametrize("status", [401, 403, 429, 500, 503])
@@ -76,4 +75,4 @@ async def test_temporary_or_configuration_errors_keep_the_update_for_a_retry(sta
     received, offsets, error = await run_batch({2: status})
     assert error == status
     assert received == [1, 2]
-    assert offsets == [2]  # o update 2 não avançou o offset: será reenviado
+    assert offsets == [2]

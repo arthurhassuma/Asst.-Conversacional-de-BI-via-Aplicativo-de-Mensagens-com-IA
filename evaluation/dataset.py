@@ -1,5 +1,3 @@
-"""Contrato do conjunto congelado e validação das consultas de referência."""
-
 from pathlib import Path
 from typing import Literal
 

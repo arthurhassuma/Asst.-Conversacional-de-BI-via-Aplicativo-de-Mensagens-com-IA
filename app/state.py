@@ -1,13 +1,3 @@
-"""Estado de execução do backend: caixa de entrada de updates e sessões de conversa.
-
-Duas implementações com o mesmo contrato:
-
-* em memória (padrão, um único processo): `MemoryInbox` e `sessions.SessionStore`;
-* durável em PostgreSQL (`STATE_DATABASE_URL`): `PostgresInbox` e `PostgresSessionStore`.
-  Sobrevive a reinícios e permite vários processos, com entrega "pelo menos uma vez" e
-  deduplicação por `update_id`.
-"""
-
 import asyncio
 import logging
 from collections import OrderedDict, deque
@@ -26,8 +16,6 @@ BUSY_MESSAGE = "Sua pergunta anterior ainda está sendo processada. Tente novame
 
 
 class MemoryInbox:
-    """Fila e deduplicação em memória; reiniciar o processo perde os dois."""
-
     def __init__(self, max_pending=100, seen_ttl=86400, seen_max=10000):
         self.queue = asyncio.Queue(maxsize=max_pending)
         self.seen = OrderedDict()
@@ -61,7 +49,7 @@ class MemoryInbox:
         self.queue.task_done()
 
     async def retry(self, update_id):
-        self.seen.pop(update_id, None)  # permite que o Telegram reenvie o update
+        self.seen.pop(update_id, None)
         self.queue.task_done()
 
     async def join(self):
@@ -69,12 +57,6 @@ class MemoryInbox:
 
 
 class _Db:
-    """Conexão síncrona compartilhada, serializada e recriada quando cai.
-
-    O psycopg assíncrono não funciona com o loop padrão do Windows; `to_thread` mantém o mesmo
-    código em qualquer sistema.
-    """
-
     def __init__(self, dsn):
         self.dsn, self._conn, self._lock = dsn, None, asyncio.Lock()
 
@@ -108,8 +90,6 @@ class _Db:
 
 
 class PostgresInbox:
-    """Caixa de entrada durável: o update é gravado antes de o webhook responder 200."""
-
     def __init__(
         self,
         dsn,
@@ -208,7 +188,6 @@ class PostgresInbox:
         self._wake.set()
 
     async def purge(self):
-        """Encerra updates que esgotaram as tentativas e apaga registros antigos."""
         self._last_purge = monotonic()
         await self.db.execute(
             """UPDATE estado.updates SET status = 'falhou', payload = NULL, concluido_em = now()
@@ -232,8 +211,6 @@ class PostgresInbox:
 
 
 class PostgresSessionStore:
-    """Sessões em PostgreSQL com lock consultivo por conversa, válido entre processos."""
-
     def __init__(self, dsn, max_turns=8, ttl=3600, lock_timeout=60.0):
         self.dsn, self.max_turns, self.ttl, self.lock_timeout = dsn, max_turns, ttl, lock_timeout
         self._last_purge = 0.0
@@ -291,4 +268,4 @@ class PostgresSessionStore:
             except psycopg.Error:
                 logger.error("falha_estado_duravel")
             finally:
-                await asyncio.to_thread(conn.close)  # libera o lock consultivo
+                await asyncio.to_thread(conn.close)

@@ -1,5 +1,3 @@
-"""Executar no servidor novo: entrada oculta, arquivos privados, sem segredos no terminal."""
-
 import getpass
 import os
 import re

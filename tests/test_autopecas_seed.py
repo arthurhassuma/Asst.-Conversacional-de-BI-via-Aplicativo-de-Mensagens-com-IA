@@ -77,7 +77,6 @@ def test_monthly_coverage_with_realistic_statuses(data):
         data, "2025-01", "2026-10", required=REQUIRED_STATUSES, profile=PROFILE
     )
     assert report["perfil"] == PROFILE and report["meses"] == 22
-    # Pedido aprovado (ainda não entregue) só existe nos dias finais do cenário.
     approved = [o for o in data["pedidos"] if o["status"] == "aprovado"]
     assert approved and all(o["data_pedido"] >= date(2026, 10, 27) for o in approved)
 
@@ -129,7 +128,6 @@ def test_too_few_clients_for_the_monthly_registrations_is_rejected():
 
 
 def test_after_sales_resolution_rate_is_realistic(data):
-    # Regressão: o arredondamento para baixo deixava a taxa de resolução perto de 10%.
     rows = data["indicadores_operacionais"]
     opened = sum(r["chamados_abertos"] for r in rows)
     resolved = sum(r["chamados_resolvidos"] for r in rows)

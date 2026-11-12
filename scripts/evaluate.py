@@ -1,5 +1,3 @@
-"""Validação offline e avaliação real opt-in; nunca imprime credenciais."""
-
 import argparse
 import asyncio
 from pathlib import Path
@@ -57,7 +55,6 @@ async def execute(args):
     if args.interval < 0 or args.limit < 1:
         raise ValueError("Intervalo deve ser não negativo e limite deve ser positivo.")
     cases = [c for c in dataset.cases if c.split == args.split]
-    # Mantém o denominador completo; limite é um teto de chamadas, não troca de amostra.
     output = create_output(root)
     evidence = manifest(root, path, dataset, settings, database, args.split)
     evidence.update(interval_seconds=args.interval, case_limit=args.limit)
@@ -73,7 +70,9 @@ async def execute(args):
 
 
 def main():
-    parser = argparse.ArgumentParser(description=__doc__)
+    parser = argparse.ArgumentParser(
+        description="Validação offline e avaliação real opt-in; nunca imprime credenciais."
+    )
     parser.add_argument("command", choices=["validate", "run"])
     parser.add_argument("--env-file", default=".env")
     parser.add_argument(

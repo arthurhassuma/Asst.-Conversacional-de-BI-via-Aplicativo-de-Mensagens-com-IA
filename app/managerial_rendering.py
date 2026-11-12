@@ -1,11 +1,3 @@
-"""Texto gerencial controlado: cálculos e direção exclusivamente das células SQL.
-
-Três formas de apresentação, todas com um único cabeçalho e sem rótulos repetidos:
-- total: uma linha ``Rótulo: valor`` por medida;
-- lista (ranking, evolução, distribuição): uma linha por item;
-- bloco (comparações e análises com várias colunas): item e marcadores.
-"""
-
 import calendar
 import re
 from datetime import date, timedelta
@@ -45,7 +37,6 @@ MEASURE_LABELS = {
     "chamados_resolvidos": "Ocorrências resolvidas",
     "taxa_resolucao": "Taxa de resolução",
 }
-# Colunas de uma consulta total/lista que carregam a medida pedida.
 MEASURE_COLUMNS = {"total", "valor", "quantidade", "horas", "taxa"}
 LINE_COLUMNS = {"item", "valor", "registros", "participacao", "posicao"}
 DIRECTIONS = {
@@ -83,7 +74,6 @@ def _cell(column, value, context):
 
 
 def _amount(column, value, context, *, noun=True):
-    """Valor de uma linha isolada; contagens ganham o substantivo ("6 pedidos")."""
     text = _cell(column, value, context)
     nouns = COUNT_NOUNS.get(context["metric"])
     if noun and value is not None and nouns and context["unit"] == "quantidade":
@@ -122,7 +112,6 @@ def header_lines(context: dict) -> tuple[list[str], bool]:
 
 
 def grouping_key(context: dict):
-    """Identifica contextos com cabeçalho idêntico, variando só a medida."""
     return (
         context.get("metric"),
         context.get("kind"),
@@ -145,7 +134,6 @@ def measure_subtitle(context: dict) -> str:
 
 
 def display_item(item, context, monthly: bool) -> str:
-    """Nome do item sem o identificador interno que o SQL usa para desempatar."""
     if monthly:
         if not re.fullmatch(r"(?:[1-9]|1[0-2])", str(item)):
             raise InvalidAnswer("Mês gerencial inválido.")
@@ -179,7 +167,6 @@ def _total_lines(record, context):
             continue
         if column not in LABELS:
             raise InvalidAnswer("Campo gerencial não reconhecido.")
-        # "Ocorrências abertas: 20" já nomeia o item; só "Quantidade" pede o substantivo.
         noun = context.get("measure") in (None, "quantidade")
         lines.append(f"{_label(column, context)}: {_amount(column, value, context, noun=noun)}")
     return lines
@@ -197,7 +184,6 @@ def _block_lines(record, context, monthly):
 
 
 def _render_parts(result: dict, context: dict) -> tuple[list[str], list[str], bool]:
-    """Cabeçalho, corpo e se o resultado está vazio (para fundir medidas)."""
     if (
         context.get("source") != "controlled_template"
         or context.get("metric") not in METRICS
@@ -296,8 +282,6 @@ def render_managerial(result: dict, context: dict) -> str:
 
 
 def render_managerial_group(items: list[tuple[dict, dict]]) -> str:
-    """Mescla resultados com cabeçalho idêntico (mesma métrica, período e tipo),
-    variando só a medida, num único bloco em vez de repetir o cabeçalho."""
     if len(items) == 1:
         return render_managerial(*items[0])
     lines: list[str] = []
@@ -306,7 +290,6 @@ def render_managerial_group(items: list[tuple[dict, dict]]) -> str:
         if not lines:
             lines.extend(header)
         if context["kind"] == "total":
-            # Totais já trazem o rótulo da medida em cada linha.
             lines.extend([f"{measure_subtitle(context)}: sem registros"] if empty else body)
         else:
             lines.extend(["", f"▸ {measure_subtitle(context)}", *body])

@@ -1,5 +1,3 @@
-"""Erros de argumentos também seguem o idioma do produto."""
-
 from argparse import ArgumentParser
 
 

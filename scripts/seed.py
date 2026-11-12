@@ -1,5 +1,3 @@
-"""Geração determinística: centavos inteiros, datas fixas e Faker com seed local."""
-
 import calendar
 from datetime import date, timedelta
 from decimal import Decimal
@@ -35,10 +33,6 @@ SEGMENTS = ("Indústria", "Tecnologia", "Logística", "Serviços", "Varejo", "Ed
 
 
 def generate_data_v2(seed: int = 42, clients: int = 30) -> dict[str, list[dict]]:
-    """Mesma estrutura relacional do perfil original, com cobertura diária real e
-    sem repetir descrição, valor ou cidade/segmento de forma constante entre registros.
-    Perfil novo e opcional: não substitui o perfil original já usado pela avaliação congelada.
-    """
     if not 1 <= clients <= 1000:
         raise ValueError("A quantidade de clientes deve estar entre um e mil.")
     fake = Faker("pt_BR")
@@ -123,14 +117,11 @@ def generate_data_v2(seed: int = 42, clients: int = 30) -> dict[str, list[dict]]
                     )
                 )
             if contract["valor_contratado"] <= 0:
-                # Todos os pedidos do ano foram cancelados; preserva o CHECK > 0 do contrato.
                 contract["valor_contratado"] = base
     return data
 
 
 def day_coverage_report(data: dict) -> dict:
-    """Confere que pedidos não ficam presos a um único dia do mês, nem a uma
-    descrição ou valor fixos repetidos — evidência direta da correção do perfil v2."""
     orders = data["pedidos"]
     days = {row["data_pedido"].day for row in orders}
     descriptions = {row["descricao"] for row in orders}
@@ -192,7 +183,6 @@ def generate_data(
                 cadastrado_em=date(2023, 1, 1) + timedelta(days=rng.randrange(300)),
             )
         )
-        # Mantém UF coerente com a cidade sintética.
         if data["clientes"][-1]["cidade"] == "Curitiba":
             data["clientes"][-1]["uf"] = "PR"
         for _ in range(rng.randint(1, 3)):

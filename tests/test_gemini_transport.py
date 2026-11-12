@@ -1,5 +1,3 @@
-"""Exercita o SDK oficial na fronteira HTTP, sem gastar cota ou enviar dados."""
-
 import base64
 import json
 

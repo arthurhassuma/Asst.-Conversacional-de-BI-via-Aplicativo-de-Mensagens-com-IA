@@ -1,5 +1,3 @@
-"""SQL gerencial compilado de registros fixos; números calculados no PostgreSQL."""
-
 import calendar
 from datetime import date, timedelta
 
@@ -72,7 +70,6 @@ def _aggregate(plan, relation, group):
 
 
 def _aligned_months(plan):
-    """Somente intervalos de um ano calendário com os mesmos cortes mês/dia."""
     try:
         periods = [
             (date.fromisoformat(p["start"]), date.fromisoformat(p["end"]) - timedelta(days=1))
@@ -112,7 +109,7 @@ def managerial_query(plan: dict) -> dict | None:
         return None
     monthly = kind == "comparacao" and group == "mes"
     if monthly and (not _aligned_months(plan) or detail not in {"padrao", "quedas"}):
-        return None  # Outros alinhamentos temporais continuam no executor de SQL.
+        return None
     if detail == "quedas" and not monthly:
         return None
     if kind == "ranking" and (
@@ -125,7 +122,7 @@ def managerial_query(plan: dict) -> dict | None:
         return None
     rate = plan["measure"] == "taxa_resolucao"
     if rate and (kind == "segmentacao" or detail == "contribuicao"):
-        return None  # Taxas não são aditivas: preservar numeradores/denominadores no SQL livre.
+        return None
     unit = (
         "BRL"
         if plan["measure"] == "valor"
@@ -197,7 +194,6 @@ def managerial_query(plan: dict) -> dict | None:
               registros {contribution}
             FROM comparado ORDER BY {order}"""
     elif kind == "operacional" and detail == "horas" and plan["metric"] == "horas":
-        # Para horas, uma relação fixa própria conserva ambas as medidas do mesmo registro.
         planned_plan = {**plan, "measure": "horas_previstas"}
         performed_plan = {**plan, "measure": "horas_realizadas"}
         planned = _rows(planned_plan, plan["period"], group)

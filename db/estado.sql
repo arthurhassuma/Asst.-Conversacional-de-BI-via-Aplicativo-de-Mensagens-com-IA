@@ -1,12 +1,7 @@
--- Estado de execução do backend (caixa de entrada de updates e sessões de conversa).
--- Fica em schema próprio, sem nenhum grant para readonly_agent; a role app_estado é criada por
--- scripts/manage_db.py (init-state) e só enxerga estas duas tabelas. Idempotente.
 CREATE SCHEMA IF NOT EXISTS estado;
 
 CREATE TABLE IF NOT EXISTS estado.updates (
     update_id bigint PRIMARY KEY,
-    -- Texto do usuário só existe enquanto o update está pendente: vira NULL ao concluir/falhar,
-    -- mantendo apenas o identificador para deduplicação.
     payload jsonb,
     status varchar(12) NOT NULL DEFAULT 'pendente'
         CHECK (status IN ('pendente', 'processando', 'concluido', 'falhou')),

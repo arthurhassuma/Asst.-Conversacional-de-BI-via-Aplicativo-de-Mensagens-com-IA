@@ -97,8 +97,6 @@ def test_partial_scalar_still_has_warning_instead_of_claiming_total():
     [("horas", "horas_realizadas", "3.125"), ("faturamento", "valor", "12.345678")],
 )
 def test_alias_total_does_not_prove_sum_or_currency(metric, measure, value):
-    # AVG(horas_realizadas) AS total e variação percentual AS total são
-    # resultados possíveis: o alias não certifica a operação nem a unidade.
     text = render_answer(
         {"kind": "answer", "result_id": "q1"},
         {"q1": {"columns": ["total"], "rows": [[value]], "truncated": False}},
@@ -122,7 +120,6 @@ def test_generic_value_label_does_not_call_average_a_total():
 
 
 def test_category_columns_have_fixed_labels_instead_of_the_generic_one():
-    # Reavaliação no perfil autopecas: "clientes por UF" saía como "Campo: SC · Quantidade: 18".
     text = render_answer(
         {"kind": "answer", "result_id": "q1"},
         {

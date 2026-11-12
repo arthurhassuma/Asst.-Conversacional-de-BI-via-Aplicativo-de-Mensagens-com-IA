@@ -58,9 +58,7 @@ def test_cte_in_subquery_does_not_authorize_outer_table():
 @pytest.mark.parametrize(
     "sql",
     [
-        # O corpo do CTE não enxerga o próprio nome: cai em pg_catalog.pg_roles.
         "WITH pg_roles AS (SELECT * FROM pg_roles) SELECT * FROM pg_roles",
-        # Nem os irmãos seguintes: "pg_settings" ainda não existe quando x é resolvido.
         "WITH x AS (SELECT * FROM pg_settings), pg_settings AS (SELECT 1) SELECT * FROM x",
         "WITH a AS (SELECT * FROM b), b AS (SELECT id FROM clientes) SELECT * FROM a",
     ],

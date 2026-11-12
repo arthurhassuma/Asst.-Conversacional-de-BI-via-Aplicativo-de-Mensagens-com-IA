@@ -62,11 +62,8 @@ def test_autopecas_dataset_adapts_the_original_inside_the_profile_data_range():
         assert outcomes.count("answer") == 16
         assert sum(o.startswith("clarification") for o in outcomes) == 3
         assert outcomes.count("unsupported_request") == 1
-    # Só D17 e T20 mudam de categoria: os demais casos mantêm o desenho do conjunto original.
     changed = {c.id for c, o in zip(dataset.cases, original.cases, strict=True) if c.category != o.category}
     assert changed == {"D17", "T20"}
-    # As datas de referência ficam na faixa carregada (jan/2025 a out/2026). Exceções: cadastro de
-    # clientes (desde 2022) e os casos de ausência/zero, que usam anos propositalmente vazios.
     for case in dataset.cases:
         if case.category in {"sem_dados", "zero_explicito"}:
             continue
@@ -90,10 +87,8 @@ def test_autopecas_second_reserved_partition_mirrors_the_categories_inside_the_d
     assert outcomes.count("answer") == 16
     assert sum(o.startswith("clarification") for o in outcomes) == 3
     assert outcomes.count("unsupported_request") == 1
-    # Mesmas categorias do reservado original do conjunto A, em instâncias novas.
     reserved = [c for c in original.cases if c.split == "test"]
     assert sorted(c.category for c in dataset.cases) == sorted(c.category for c in reserved)
-    # Nenhuma pergunta repete as do conjunto A.
     seen = {t.question for c in original.cases for t in c.turns}
     assert not seen & {t.question for c in dataset.cases for t in c.turns}
     for case in dataset.cases:

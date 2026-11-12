@@ -105,8 +105,6 @@ def test_comparative_minimum_clients_and_unknown_profile_are_rejected():
 
 
 def test_comparative_v1_still_matches_frozen_day_window_and_descriptions():
-    """Trava de regressão: comparativo (v1) alimenta docs/projeto.md com
-    hash publicado; não pode mudar, mesmo ao corrigir a variedade no v2."""
     data = comparative()
     assert {row["data_pedido"].day for row in data["pedidos"]} <= set(range(2, 19))
     assert {row["descricao"] for row in data["pedidos"]} == {

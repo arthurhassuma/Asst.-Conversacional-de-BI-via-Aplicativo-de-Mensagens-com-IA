@@ -1,14 +1,3 @@
-"""Gera o corpus sintético v2 de intenções, no domínio de revenda de autopeças.
-
-Cada classe tem 24 formas de perguntar ("moldes"). Os moldes são sorteados, por classe,
-para treino (16), validação (4) e teste (4) e **nunca se repetem entre partições**: a
-validação e o teste medem perguntas escritas de um jeito que o modelo não viu, não só
-outro mês ou outra métrica no mesmo molde. Dentro de cada molde, métricas e períodos
-variam. Tudo é determinístico e sintético; nenhuma mensagem de gestor foi usada.
-
-Uso: python -m training.build_corpus_v2 (grava training/questions-v2.json).
-"""
-
 import json
 from pathlib import Path
 from random import Random
@@ -18,7 +7,6 @@ from training.corpus import normalize, validate_corpus
 SEED = 42
 ROOT = Path(__file__).resolve().parent
 
-# (forma sem artigo, forma com artigo)
 METRICS = [
     ("faturamento emitido", "o faturamento emitido"),
     ("faturamento", "o faturamento"),
@@ -51,9 +39,6 @@ RANGES = [
 GROUPS = [("cliente", "clientes"), ("contrato", "contratos")]
 SEGMENTS = [("segmento", "segmentos"), ("cidade", "cidades"), ("tipo de cliente", "tipos de cliente")]
 
-# Cada molde usa: {m} métrica sem artigo, {a} com artigo, {p} período ("em ..."),
-# {p1}/{p2} meses para comparar, {r} intervalo mensal, {n} tamanho do ranking,
-# {g}/{gs} cliente(s)/contrato(s), {s}/{ss} segmento(s)/cidade(s).
 FRAMES = {
     "total": [
         "Qual o total de {m} {p}?",
@@ -238,8 +223,7 @@ FRAMES = {
         "Me dá uma opinião sobre as vendas {p}.",
     ],
 }
-# Moldes de cada classe por partição: 16 treino, 4 validação, 4 teste.
-SPLIT_SIZES = (("train", 16, 10), ("validation", 4, 8), ("test", 4, 8))  # (partição, moldes, perguntas)
+SPLIT_SIZES = (("train", 16, 10), ("validation", 4, 8), ("test", 4, 8))
 
 
 def fill(label: str, frame: str, rng: Random) -> str:

@@ -1,5 +1,3 @@
--- Atualiza apenas os comentários do schema para o vocabulário de autopeças.
--- Seguro em base existente: não altera dados, tabelas ou colunas. Execute com o proprietário.
 BEGIN;
 COMMENT ON TABLE clientes IS 'Clientes B2B da revenda de autopeças (oficinas, auto elétricas, funilarias, autocenters, frotas, retíficas e lojas). Dados sintéticos, sem identificação fiscal ou contato real.';
 COMMENT ON TABLE contratos IS 'Contratos de fornecimento. Modalidade sustentacao = reposição recorrente de peças; projeto = fornecimento pontual por demanda. Valor contratado não equivale a receita faturada.';

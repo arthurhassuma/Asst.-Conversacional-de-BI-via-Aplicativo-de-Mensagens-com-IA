@@ -1,5 +1,3 @@
-"""CLI local com as mesmas regras e histórico do agente Telegram."""
-
 import asyncio
 from collections import deque
 

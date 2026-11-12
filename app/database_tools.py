@@ -1,5 +1,3 @@
-"""Conexões descartáveis, role de leitura e consultas limitadas no servidor."""
-
 import json
 import logging
 from contextlib import contextmanager
@@ -21,7 +19,7 @@ MAX_CATEGORICAL_VALUES = 30
 
 def scalar(value):
     if isinstance(value, Decimal):
-        return format(value, "f")  # Preserva dígitos e escala, inclusive zero; nunca float.
+        return format(value, "f")
     if isinstance(value, (date, datetime)):
         return value.isoformat()
     if isinstance(value, timedelta):
@@ -58,7 +56,6 @@ class DatabaseTools:
                 raise ValueError(
                     "A conexão deve usar exclusivamente a role readonly_agent restrita."
                 )
-            # Também recusa grants de escrita introduzidos acidentalmente depois do setup.
             bad = conn.execute("""SELECT EXISTS (SELECT 1 FROM pg_class c
                 JOIN pg_namespace n ON n.oid=c.relnamespace
                 WHERE n.nspname='public' AND c.relkind IN ('r','p','v','m','f')
@@ -71,11 +68,6 @@ class DatabaseTools:
 
     @staticmethod
     def _categorical_values(conn, columns) -> dict:
-        """Valores distintos das colunas de categoria, para o modelo filtrar com a grafia do dado.
-
-        Só colunas de texto com nome de categoria e poucos valores distintos; nomes, descrições e
-        outros textos livres não entram.
-        """
         valores = {}
         for table, column, dtype, _ in columns:
             if column not in CATEGORICAL_COLUMNS or dtype not in ("character varying", "character"):
@@ -139,10 +131,7 @@ class DatabaseTools:
         try:
             query = validate_select(sql)
             with self.connection() as conn:
-                # LIMIT fora da consulta também limita SELECTs sem LIMIT ou com LIMIT maior.
                 with conn.cursor() as cur:
-                    # O único valor interpolado além da AST normalizada é um inteiro
-                    # validado. Sem bind parameters, '%' do SQL não vira placeholder.
                     cur.execute(
                         f"SELECT * FROM ({query}) AS resultado LIMIT {self.settings.max_query_rows + 1}"
                     )
@@ -168,7 +157,6 @@ class DatabaseTools:
                 "sqlstate": "57014",
             }
         except psycopg.Error as exc:
-            # Diagnóstico do servidor é dado interno para autocorreção, nunca resposta ao gestor.
             detail = (exc.diag.message_primary or "")[:500]
             return {
                 "error": "O banco recusou a consulta. Corrija o SQL e tente novamente.",

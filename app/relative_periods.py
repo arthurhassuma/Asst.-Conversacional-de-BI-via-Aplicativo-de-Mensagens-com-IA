@@ -1,5 +1,3 @@
-"""Resolve calendário apenas quando há evidência relativa literal do usuário."""
-
 import calendar
 import copy
 import re
@@ -51,11 +49,6 @@ DAY_WORDS = re.compile(r"\b(?:anteontem|ontem|hoje)\b")
 
 
 def is_single_day_expression(evidence):
-    """Só uma expressão de dia, sem outro limite, mês ou palavra de intervalo.
-
-    "ontem até hoje", "de janeiro até hoje" e "01/02/2026 a 15/02/2026" são intervalos:
-    reduzi-los a um dia devolveria um total errado sem avisar o gestor.
-    """
     text = plain(evidence)
     expressions = (
         len(DAY_WORDS.findall(text))
@@ -65,12 +58,10 @@ def is_single_day_expression(evidence):
     if expressions != 1 or RANGE_WORDS.search(text):
         return False
     named = NAMED_DAY.search(text)
-    # O mês de "dia 20 de janeiro" pertence à própria expressão; qualquer outro, não.
     return len(month_numbers(text)) <= (1 if named else 0)
 
 
 def exact_day(evidence, today):
-    """Resolve hoje/ontem/anteontem e datas de um único dia, explícitas ou nomeadas."""
     if not is_single_day_expression(evidence):
         return None
     text = plain(evidence)
@@ -134,13 +125,11 @@ def relative_info(period, messages, today):
         return None
     months = month_numbers(evidence) or month_numbers(source)
     if len(months) > 1:
-        # Intervalos explícitos com vários meses permanecem a cargo do plano validado.
         return None
     return {"offset": 0 if current else -1, "month": next(iter(months), None)}
 
 
 def single_month(period):
-    """Mês de um período que cobre exatamente um mês de calendário, senão None."""
     try:
         start, end = date.fromisoformat(period["start"]), date.fromisoformat(period["end"])
     except (KeyError, TypeError, ValueError):
@@ -189,8 +178,6 @@ def normalize_relative_plan(plan, messages, today=None):
         analysis = query.get("analysis") or {}
         comparison = isinstance(analysis, dict) and analysis.get("kind") == "comparacao"
         if comparison and not exact:
-            # "Compara com o ano passado" depois de fixar um mês: o mês está no outro
-            # período do plano ("agosto de 2026"), não na evidência relativa.
             for field, other in (("period", "comparison_period"), ("comparison_period", "period")):
                 info = infos[field]
                 month = single_month(query.get(other) or {})
@@ -206,8 +193,6 @@ def normalize_relative_plan(plan, messages, today=None):
         for field, info in infos.items():
             if info:
                 query[field] = resolved_period(query[field], info, today, annual_comparison=annual)
-        # Comparações naturais usam o ano anterior como base. Uma base explicitamente
-        # indicada pelo gestor permanece na ordem que ele pediu.
         explicit_base = any(
             m.get("role") == "user"
             and isinstance(m.get("content"), str)

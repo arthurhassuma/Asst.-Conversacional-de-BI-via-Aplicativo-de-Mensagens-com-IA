@@ -80,7 +80,6 @@ async def test_unsupported_requests_explain_limit_without_sql(reason, word):
 
 
 def test_filtered_total_without_ranking_needs_no_analysis_block():
-    # "Faturamento em Joinville em setembro de 2026": um número só, SQL personalizado.
     from app.bi_agent import clarify
     from app.prompts import PLANNER_PROMPT
 

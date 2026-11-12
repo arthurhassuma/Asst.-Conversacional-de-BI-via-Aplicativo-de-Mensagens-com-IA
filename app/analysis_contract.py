@@ -1,5 +1,3 @@
-"""Contratos gerenciais: sem inferir período, filtros ou unidade monetária."""
-
 import copy
 import re
 from datetime import date
@@ -121,8 +119,6 @@ def validate_period(period: dict, messages: list[dict], *, today=None) -> dict:
             if "exact" not in info and info["offset"] == -1 and info["month"] is None:
                 allowed.add((expected["start"], comparable_previous_end(anchor).isoformat()))
             if "exact" not in info and info["month"] is None:
-                # Mês fixado antes na conversa ("agosto de 2026") e reaproveitado no
-                # ano relativo: aceito só se o próprio gestor nomeou esse mês.
                 carried = single_month(period)
                 named = set().union(
                     *(
@@ -152,15 +148,6 @@ RANKING_REQUEST = re.compile(
 
 
 def normalize_unranked_plan(plan: dict, question: str) -> dict:
-    """Ranking sem limite que o gestor não pediu é uma consulta comum, não um ranking.
-
-    Dois casos reais: "contratos iniciados em 2025, excluindo os cancelados" (total com filtro,
-    marcado como ranking sem agrupamento) e "clientes cadastrados em cada UF" (o contrato não tem
-    agrupamento por UF e o modelo escolheu cidade). Em ambos o prompt manda usar analysis=null e
-    deixar o SQL personalizado agrupar e ordenar como foi pedido. Só reinterpreta quando a
-    pergunta não pede ranking, top, maiores, menores, lista nem algo equivalente ("principais",
-    "mais"); nesses casos o esclarecimento sobre o tamanho do ranking continua valendo.
-    """
     result = copy.deepcopy(plan)
     if RANKING_REQUEST.search(question):
         return result

@@ -1,5 +1,3 @@
-"""Corpus, modelo congelado e uso do classificador de intenções v2 (revenda de autopeças)."""
-
 import hashlib
 import json
 import logging
@@ -17,7 +15,6 @@ from training.fit import evaluate_model
 CORPUS = Path("training/questions-v2.json")
 MODEL = Path("training/intent-model-v2.json")
 PROTOCOL = Path("training/protocol-v2.json")
-# Sem período o agente pede esclarecimento depois do planejador, sem consultar o banco.
 NO_PERIOD = {**PLAN, "period": None}
 
 
@@ -31,8 +28,6 @@ def test_corpus_v2_is_balanced_domain_specific_and_phrasings_never_cross_partiti
     for word in ("sprint", "software", "sustentação de aplic", "desenvolvimento de sistema"):
         assert word not in text
     assert "pedidos de venda" in text and "pós-venda" in text
-    # Cada molde (group_id) pertence a uma única partição, e os de validação e teste são
-    # moldes que o treino nunca viu.
     partitions = {}
     for row in rows:
         partitions.setdefault(row["group_id"], set()).add(row["split"])

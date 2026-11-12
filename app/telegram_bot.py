@@ -1,5 +1,3 @@
-"""Polling encaminha ao FastAPI; register-webhook configura a entrega HTTPS."""
-
 import asyncio
 import logging
 import re
@@ -11,13 +9,10 @@ from telegram.error import TelegramError
 from app.cli_support import PortugueseArgumentParser
 from app.config import Settings
 
-# O backend recusou o conteúdo do update; reenviá-lo nunca terá outro resultado. Já 401/403
-# (segredo errado) e 5xx são problemas de configuração ou temporários: seguem em nova tentativa.
 PERMANENT_REJECTIONS = frozenset({400, 413, 422})
 
 
 async def forward_update(client, update, backend_url, secret):
-    """Encaminha ao backend; devolve o status se ele recusou o update de forma permanente."""
     result = await client.post(
         backend_url + "/telegram/webhook",
         json=update.to_dict(),
@@ -30,12 +25,6 @@ async def forward_update(client, update, backend_url, secret):
 
 
 async def forward_updates(client, updates, backend_url, secret):
-    """Encaminha o lote em ordem e devolve o próximo offset a cada update tratado.
-
-    Falha temporária propaga sem avançar o offset daquele update; os anteriores já foram
-    entregues. Recusa permanente é registrada e o update é descartado, senão um único
-    update ruim travaria o bot para todos os gestores.
-    """
     for update in updates:
         rejected = await forward_update(client, update, backend_url, secret)
         if rejected:
@@ -67,7 +56,6 @@ async def run(command, backend_url):
             )
             print("Webhook registrado. Mantenha o backend em execução.")
             return
-        # Valide o backend antes de desativar o webhook remoto.
         async with httpx.AsyncClient(timeout=15) as client:
             health = await client.get(backend_url + "/health")
             health.raise_for_status()

@@ -1,5 +1,3 @@
-"""Conserva a intenção literal de encontrar quedas na comparação mês a mês."""
-
 import copy
 import re
 
@@ -11,8 +9,6 @@ def monthly_decline_request(messages):
     if not users or not isinstance(users[-1].get("content"), str):
         return False
     text = users[-1]["content"]
-    # Uma resposta ao esclarecimento mantém a pergunta pendente, não uma pergunta
-    # antiga já respondida. Não usa conteúdo do assistente como evidência temporal.
     if plain(text).strip().rstrip(".!?") == "comparar periodos":
         if (
             len(users) < 2
@@ -56,5 +52,4 @@ def normalize_monthly_comparison_plan(plan, messages):
             continue
         query["operation"] = "analysis"
         analysis.update(kind="comparacao", group_by="mes", detail="quedas")
-        # Datas, evidências, medidas e filtros continuam exigindo a validação normal.
     return result

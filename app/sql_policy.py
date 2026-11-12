@@ -1,5 +1,3 @@
-"""Allowlist sobre a AST real de PostgreSQL; falha fechada para sintaxe desconhecida."""
-
 from pglast import Error, parse_sql
 from pglast.stream import RawStream
 
@@ -106,12 +104,6 @@ def walk(value):
 
 
 def validate_relations(value, visible_ctes=frozenset()):
-    """CTE autoriza referências só dentro do seu escopo lexical, nunca em irmãos.
-
-    Num WITH não recursivo, o corpo de cada CTE enxerga apenas os CTEs anteriores e os do
-    escopo externo: o próprio nome e os seguintes caem na relação real do search_path
-    (pg_catalog primeiro). Só a consulta principal enxerga todos eles.
-    """
     if isinstance(value, dict):
         if value.get("@") == "SelectStmt":
             scope = visible_ctes

@@ -1,5 +1,3 @@
-"""Setup explícito com credencial administrativa; nunca chamado por tools do agente."""
-
 import json
 from pathlib import Path
 
@@ -38,10 +36,6 @@ def initialize(conn, password: str):
 
 
 def initialize_state(conn, password: str):
-    """Cria (ou atualiza, de forma idempotente) o schema `estado` e a role app_estado.
-
-    Não toca nas tabelas de negócio nem na role de leitura; pode rodar em base já populada.
-    """
     if not password or password.startswith("troque_"):
         raise ValueError("Configure uma STATE_PASSWORD própria antes de inicializar o estado.")
     if not conn.execute("SELECT 1 FROM pg_roles WHERE rolname='app_estado'").fetchone():
@@ -92,7 +86,6 @@ def seed_database(
 
 
 def database_coverage(conn, start: str = "2025-01", end: str = "2026-10", profile: str = ""):
-    """Auditoria administrativa da base comparativa, sem usar a API de IA."""
     from psycopg.rows import dict_row
 
     conn.execute("SET LOCAL statement_timeout = '8000ms'")
@@ -185,7 +178,6 @@ def main():
                 result = validate_data(conn)
         print(json.dumps(result, ensure_ascii=False))
     except (psycopg.Error, ValueError) as exc:
-        # Mensagens psycopg podem conter dados de conexão; não exibir DSN/segredos.
         message = (
             str(exc)
             if isinstance(exc, ValueError)

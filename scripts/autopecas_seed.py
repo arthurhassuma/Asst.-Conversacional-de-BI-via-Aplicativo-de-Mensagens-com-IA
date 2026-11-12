@@ -1,20 +1,3 @@
-"""Perfil ``autopecas``: revenda sintética de porte pequeno a médio.
-
-A empresa vende peças a oficinas, auto elétricas, funilarias, autocenters, frotas,
-retíficas e lojas menores no Sul/Sudeste. O schema é o mesmo dos demais perfis:
-
-- ``contratos`` são contratos de fornecimento: ``sustentacao`` é a reposição
-  recorrente (um por cliente) e ``projeto`` é o fornecimento pontual por demanda;
-- ``pedidos`` são pedidos de venda de peças, em reais e centavos inteiros;
-- ``faturamento`` são notas fiscais, com prazo de pagamento por segmento;
-- ``indicadores_operacionais`` guardam horas de atendimento (balcão e televendas)
-  e ocorrências de pós-venda (garantias, trocas e devoluções), nas colunas
-  ``horas_*`` e ``chamados_*``.
-
-Tudo é determinístico para a mesma semente. Fatores de sazonalidade, tickets e
-taxas são hipóteses declaradas de cenário, não estimativas de uma empresa real.
-"""
-
 import calendar
 from collections import Counter
 from datetime import date, timedelta
@@ -27,8 +10,8 @@ from app.domain import CITIES
 from scripts.comparative_seed import TABLE_DATES, month_end, month_range
 
 PROFILE = "autopecas-v1"
-INITIAL_PORTFOLIO = 70  # clientes já cadastrados antes do primeiro mês do cenário
-MONTHLY_SUPPLY_CLIENTS = 12  # carteira que pede fornecimento pontual todo mês
+INITIAL_PORTFOLIO = 70
+MONTHLY_SUPPLY_CLIENTS = 12
 CITY_WEIGHTS = (22, 14, 10, 9, 6, 10, 8, 4, 10, 7)
 SEASONALITY = (92, 95, 100, 102, 100, 98, 103, 104, 102, 106, 108, 96)
 ANNUAL_GROWTH = Decimal("0.04")
@@ -38,8 +21,6 @@ LOCAIS = (
     "Três Rios", "Vila Nova", "Floresta", "São Marcos", "Bom Jesus", "Serra Azul",
 )  # fmt: skip
 
-# ticket: mediana do pedido em reais; orders: pedidos por mês (mín., máx.) antes do porte
-# do cliente; terms: prazos de pagamento em dias.
 SEGMENTS = {
     "Oficina mecânica": {
         "weight": 34,
@@ -178,8 +159,6 @@ SEGMENTS = {
         "projects": ("Componentes para retífica completa",),
     },
 }
-# Status exigidos em todo mês. "aprovado" (pedido ainda não entregue) só aparece nos
-# últimos dias do cenário; contratos não têm exigência de status por mês.
 REQUIRED_STATUSES = {
     "contratos": set(),
     "pedidos": {"entregue", "cancelado"},
@@ -306,10 +285,6 @@ def generate_autopecas_data(seed: int, clients: int, start: str, end: str) -> di
                 planned = (2 if project else 4) + 2 * count + rng.randint(0, 4)
                 performed_pct = rng.randint(78, 128)
                 rate = rng.randint(70, 98)
-                # Cada ocorrência é sorteada à parte, num gerador próprio: com poucas por mês,
-                # opened * rate // 100 zerava quase todas as resolvidas (taxa perto de 10%).
-                # Manter a ordem dos sorteios acima e usar outro gerador aqui preserva todo
-                # o resto da base, que já está implantada.
                 resolver = Random(f"{seed}-{contract['id']}-{month:%Y%m}")
                 resolved = sum(resolver.random() * 100 < rate for _ in range(opened))
                 data["indicadores_operacionais"].append(
@@ -323,7 +298,6 @@ def generate_autopecas_data(seed: int, clients: int, start: str, end: str) -> di
                         chamados_resolvidos=resolved,
                     )
                 )
-        # O valor contratado é o previsto: sempre cobre o que foi pedido.
         contract["valor_contratado"] = _cents_to_decimal(max(total_cents, 1) * 105 // 100)
 
     for client_id in range(1, clients + 1):
@@ -367,7 +341,6 @@ def generate_autopecas_data(seed: int, clients: int, start: str, end: str) -> di
         )
         data["contratos"].append(recurring)
         add_activity(recurring, eligible, segment, size)
-        # Fornecimentos pontuais: um grupo fixo pede todo mês; os demais, de vez em quando.
         project_months = (
             months if client_id <= MONTHLY_SUPPLY_CLIENTS else eligible[1 + client_id % 4 :: 4]
         )
@@ -389,7 +362,6 @@ def generate_autopecas_data(seed: int, clients: int, start: str, end: str) -> di
 
 
 def sales_summary(data: dict) -> dict:
-    """Totais por ano e médias mensais, para conferir a escala do cenário."""
     sold: dict[int, Decimal] = {}
     count: Counter = Counter()
     for order in data["pedidos"]:

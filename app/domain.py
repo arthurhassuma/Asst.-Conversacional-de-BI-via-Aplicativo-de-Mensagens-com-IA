@@ -1,6 +1,3 @@
-"""Vocabulário do negócio compartilhado entre o agente e a geração de dados."""
-
-# Praças atendidas pela revenda: (cidade, UF). A ordem não tem significado.
 CITIES = (
     ("Joinville", "SC"),
     ("Blumenau", "SC"),

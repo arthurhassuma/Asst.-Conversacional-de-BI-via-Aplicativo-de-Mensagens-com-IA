@@ -168,8 +168,6 @@ async def test_open_calls_are_a_measure_not_a_status_filter():
 
 
 def ungrouped_ranking_plan():
-    # Plano real observado na reavaliação do perfil autopecas (caso D04): o planejador marcou
-    # "ranking" sem agrupamento nem limite para um total com filtro de status.
     return {
         "metric": "contratos",
         "measure": "valor",
@@ -217,8 +215,6 @@ async def test_ranking_without_group_or_limit_is_a_filtered_total_when_no_rankin
 
 
 def grouped_ranking_plan_without_limit(group_by):
-    # Plano real observado no reservado do perfil autopecas (caso T05): "clientes por UF" saiu como
-    # ranking por cidade sem limite, porque o contrato não tem agrupamento por UF.
     plan = ungrouped_ranking_plan()
     plan.update(metric="clientes", measure="quantidade")
     plan["period"] = {"start": "2023-01-01", "end": "2024-01-01", "evidence": "2023"}

@@ -1,5 +1,3 @@
-"""Experimentos sequenciais: referências SQL, checkpoints e evidência reproduzível."""
-
 import asyncio
 import hashlib
 import importlib.metadata
@@ -40,7 +38,6 @@ def validate_references(dataset, database):
 
 
 def database_fingerprint(database):
-    """Somente leitura, timeout da conexão e limite explícito por tabela."""
     tables = {}
     with database.connection() as connection:
         for table in sorted(TABLES):
@@ -75,8 +72,6 @@ def score_turn(turn, trace, references):
         if not selected or selected.get("truncated") or "error" in selected:
             return False
         rows = selected["rows"]
-        # O prompt e o renderer reservam registros como metadado de ausência.
-        # Outras colunas extras continuam reprovando; contagens precisam ser inteiras.
         if "registros" in selected["columns"]:
             if selected["columns"].count("registros") != 1:
                 return False
@@ -84,7 +79,6 @@ def score_turn(turn, trace, references):
             if any(type(row[index]) is not int or row[index] < 0 for row in rows):
                 return False
             rows = [row[:index] + row[index + 1 :] for row in rows]
-            # O renderer oculta todos os valores quando afirma ausência de registros.
             if len(rows) == 1 and selected["rows"][0][index] == 0:
                 if any(v is not None and str(v) not in {"0", "0.00"} for v in rows[0]):
                     return False

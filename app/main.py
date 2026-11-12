@@ -1,9 +1,3 @@
-"""Backend FastAPI.
-
-Sem STATE_DATABASE_URL, sessões e fila ficam em memória: use um único processo. Com ele, caixa de
-entrada e sessões são duráveis (PostgreSQL) e vários processos podem compartilhar a carga.
-"""
-
 import asyncio
 import hmac
 import json
@@ -47,12 +41,10 @@ def create_app(settings=None, *, agent=None, sender=None):
         nonlocal sender, owned_bot
         app_logger = logging.getLogger("app")
         if not app_logger.handlers:
-            # Sem isto o INFO dos módulos do projeto não chega ao log do container.
             handler = logging.StreamHandler()
             handler.setFormatter(logging.Formatter("%(levelname)s:%(name)s:%(message)s"))
             app_logger.addHandler(handler)
             app_logger.setLevel(logging.INFO)
-        # httpx INFO registra URLs que contêm o token do Telegram.
         for name in ("httpx", "httpcore", "telegram", "google.genai"):
             logging.getLogger(name).setLevel(logging.WARNING)
         if sender is None and settings.telegram_bot_token.get_secret_value():
@@ -72,7 +64,6 @@ def create_app(settings=None, *, agent=None, sender=None):
             try:
                 await action(update_id)
             except Exception:
-                # A reserva expira e outro consumidor reprocessa; nunca derruba o consumidor.
                 logger.error("falha_estado_duravel")
 
         async def worker():

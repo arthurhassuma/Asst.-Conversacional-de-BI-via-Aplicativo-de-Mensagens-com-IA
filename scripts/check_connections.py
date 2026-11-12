@@ -1,5 +1,3 @@
-"""Diagnóstico opt-in das conexões, sem alterar webhook ou enviar mensagens."""
-
 import asyncio
 import json
 import logging
@@ -56,8 +54,6 @@ async def check_gemini(settings):
 
 
 async def check_telegram(settings):
-    # A inicialização do SDK chama getMe. Não chamar getUpdates, sendMessage,
-    # setWebhook ou deleteWebhook: diagnóstico não interfere no bot em uso.
     async with Bot(settings.telegram_bot_token.get_secret_value()):
         return "Token autenticado com getMe. Recebimento e entrega de mensagens exigem teste funcional."
 
@@ -110,7 +106,6 @@ async def diagnose(settings: Settings, *, test_connections=False):
                 detail = api_error_message(exc.code) if name == "gemini" else failure
                 report[name] = {"status": "falhou", "detalhe": detail}
             except Exception:
-                # URLs do Telegram e exceções de SDK podem conter segredos.
                 report[name] = {"status": "falhou", "detalhe": failure}
     report["acesso_telegram"] = {
         "status": "configurado" if users_valid and secret_valid else "pendente",

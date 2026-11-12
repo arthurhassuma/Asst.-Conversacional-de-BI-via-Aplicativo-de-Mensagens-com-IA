@@ -1,5 +1,3 @@
-"""CLI de treino local, sem chamadas externas e sem utilizar dados de sessões."""
-
 import json
 from pathlib import Path
 
@@ -10,7 +8,9 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 def main():
-    parser = PortugueseArgumentParser(description=__doc__)
+    parser = PortugueseArgumentParser(
+        description="CLI de treino local, sem chamadas externas e sem utilizar dados de sessões."
+    )
     parser.add_argument("command", choices=["validate", "train", "test"])
     parser.add_argument("--corpus", type=Path, default=ROOT / "training/questions-v1.json")
     parser.add_argument("--seed", type=int, default=42)

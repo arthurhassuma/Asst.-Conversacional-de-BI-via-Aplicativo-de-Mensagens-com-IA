@@ -1,9 +1,3 @@
-"""Estado durável (caixa de entrada e sessões) com PostgreSQL real.
-
-Exige TEST_STATE_ADMIN_URL: URL administrativa de um banco de TESTE. O schema `estado` e a role
-`app_estado` desse banco são recriados pela fixture.
-"""
-
 import asyncio
 import os
 from datetime import datetime, timezone
@@ -36,7 +30,6 @@ def state_url(admin_url):
     with psycopg.connect(admin_url, autocommit=True) as conn:
         conn.execute("DROP SCHEMA IF EXISTS estado CASCADE")
         if conn.execute("SELECT 1 FROM pg_roles WHERE rolname='app_estado'").fetchone():
-            # A role é do cluster e pode ter privilégios em outros bancos: só alinha a senha.
             conn.execute(f"ALTER ROLE app_estado PASSWORD '{STATE_PASSWORD}'")
         initialize_state(conn, STATE_PASSWORD)
     parts = psycopg.conninfo.conninfo_to_dict(admin_url)
@@ -63,15 +56,13 @@ def inbox(state_url, **kw):
     return PostgresInbox(state_url, poll_interval=0.05, **kw)
 
 
-# --- caixa de entrada ---------------------------------------------------------------------
-
 
 async def test_register_is_idempotent_across_restarts(state_url, clean):
     first = inbox(state_url)
     assert await first.register(1, {"update_id": 1}) == "received"
     assert await first.register(1, {"update_id": 1}) == "duplicate"
     await first.close()
-    restarted = inbox(state_url)  # processo novo: nada em memória
+    restarted = inbox(state_url)
     assert await restarted.register(1, {"update_id": 1}) == "duplicate"
     assert await restarted.register(2, {"update_id": 2}) == "received"
     await restarted.close()
@@ -80,7 +71,7 @@ async def test_register_is_idempotent_across_restarts(state_url, clean):
 async def test_accepted_update_survives_restart_and_is_claimed_once(state_url, clean):
     before = inbox(state_url)
     await before.register(7, {"update_id": 7, "x": "y"})
-    await before.close()  # "queda" antes de processar
+    await before.close()
     after = inbox(state_url)
     assert await after.claim() == (7, {"update_id": 7, "x": "y"})
     assert await after.claim() is None
@@ -99,7 +90,7 @@ async def test_concurrent_consumers_never_claim_the_same_update(state_url, clean
         return mine
 
     claimed = [i for part in await asyncio.gather(*[drain(b) for b in boxes]) for i in part]
-    assert sorted(claimed) == list(range(1, 41))  # todos, e cada um exatamente uma vez
+    assert sorted(claimed) == list(range(1, 41))
     for box in boxes:
         await box.close()
 
@@ -108,7 +99,7 @@ async def test_claim_skips_rows_locked_by_another_consumer(state_url, clean):
     box = inbox(state_url)
     await box.register(1, {"update_id": 1})
     await box.register(2, {"update_id": 2})
-    with psycopg.connect(clean) as other:  # outro consumidor segura a linha 1 numa transação
+    with psycopg.connect(clean) as other:
         other.execute("SELECT 1 FROM estado.updates WHERE update_id = 1 FOR UPDATE")
         assert await asyncio.wait_for(box.claim(), 3) == (2, {"update_id": 2})
     await box.close()
@@ -128,10 +119,10 @@ async def test_done_keeps_dedup_but_drops_payload(state_url, clean):
 async def test_stale_lease_is_reclaimed_after_worker_crash(state_url, clean):
     crashed = inbox(state_url)
     await crashed.register(5, {"update_id": 5})
-    assert await crashed.claim() is not None  # processando, sem concluir
+    assert await crashed.claim() is not None
     await crashed.close()
     survivor = inbox(state_url)
-    assert await survivor.claim() is None  # lease ainda vigente
+    assert await survivor.claim() is None
     sql(clean, "UPDATE estado.updates SET reservado_ate = now() - interval '1 second'")
     assert await survivor.claim() == (5, {"update_id": 5})
     await survivor.close()
@@ -156,7 +147,7 @@ async def test_backpressure_when_too_many_pending(state_url, clean):
     assert await box.register(2, {"update_id": 2}) == "received"
     assert await box.register(3, {"update_id": 3}) == "full"
     await box.claim()
-    await box.done(1)  # libera espaço
+    await box.done(1)
     assert await box.register(3, {"update_id": 3}) == "received"
     await box.close()
 
@@ -183,8 +174,6 @@ async def test_next_waits_for_new_update(state_url, clean):
     await box.close()
 
 
-# --- sessões -------------------------------------------------------------------------------
-
 
 def turn(text):
     return [{"role": "user", "content": text}, {"role": "assistant", "content": "ok"}]
@@ -198,7 +187,7 @@ async def test_history_survives_restart_and_respects_limit(state_url, clean):
     restarted = PostgresSessionStore(state_url, max_turns=2, ttl=3600)
     async with restarted.acquire((10, 42)) as session:
         assert [m["content"] for m in session.history() if m["role"] == "user"] == ["b", "c"]
-    async with restarted.acquire((10, 43)) as session:  # outro usuário: isolado
+    async with restarted.acquire((10, 43)) as session:
         assert session.history() == []
 
 
@@ -233,10 +222,10 @@ async def test_two_processes_serialize_the_same_conversation(state_url, clean):
     async with proc_a.acquire((1, 1)) as session:
         task = asyncio.create_task(second())
         await asyncio.sleep(0.2)
-        assert order == []  # b espera o lock de a
+        assert order == []
         session.turns.append(turn("de a"))
     await asyncio.wait_for(task, 3)
-    assert order == [("b", 1)]  # b enxerga o que a gravou
+    assert order == [("b", 1)]
 
 
 async def test_lock_wait_timeout_becomes_busy_error(state_url, clean):
@@ -247,8 +236,6 @@ async def test_lock_wait_timeout_becomes_busy_error(state_url, clean):
             async with waiter.acquire((1, 1)):
                 pytest.fail("Não deveria obter o lock.")
 
-
-# --- permissões da role de estado -----------------------------------------------------------
 
 
 def test_state_role_is_restricted_to_state_tables(admin_url, state_url, clean):
@@ -275,12 +262,10 @@ def test_state_role_is_restricted_to_state_tables(admin_url, state_url, clean):
 
 def test_initialize_state_is_idempotent_and_requires_a_real_password(admin_url, state_url):
     with psycopg.connect(admin_url, autocommit=True) as conn:
-        initialize_state(conn, STATE_PASSWORD)  # segunda execução não falha
+        initialize_state(conn, STATE_PASSWORD)
         with pytest.raises(ValueError):
             initialize_state(conn, "troque_a_senha_de_estado")
 
-
-# --- backend com estado durável -------------------------------------------------------------
 
 
 class Agent:
@@ -344,7 +329,7 @@ async def test_duplicate_after_restart_is_not_answered_twice(state_url, clean):
         await app.state.inbox.join()
     assert len(sender.sent) == 1
 
-    app2 = make_app(state_url, agent, sender)  # reinício do processo
+    app2 = make_app(state_url, agent, sender)
     async with app2.router.lifespan_context(app2):
         assert (await post(app2, update(1))).json() == {"status": "já recebido"}
         await app2.state.inbox.join()
@@ -353,7 +338,7 @@ async def test_duplicate_after_restart_is_not_answered_twice(state_url, clean):
 
 async def test_update_accepted_before_a_crash_is_answered_after_restart(state_url, clean):
     crashed = inbox(state_url)
-    await crashed.register(1, update(1))  # aceito (200 enviado) e o processo caiu
+    await crashed.register(1, update(1))
     await crashed.close()
 
     agent, sender = Agent(), Sender()
@@ -385,8 +370,6 @@ async def test_two_backend_processes_share_the_inbox_without_double_answer(state
         await asyncio.wait_for(app_a.state.inbox.join(), 10)
         await asyncio.wait_for(app_b.state.inbox.join(), 10)
     assert len(sender.sent) == 6
-    # O lock por conversa serializa os dois processos: cada pergunta enxerga exatamente os
-    # turnos gravados pelas anteriores, sem perder nem repetir nenhum.
     assert sorted(len(h) for h in agent.histories) == [0, 2, 4, 6, 8, 10]
 
 

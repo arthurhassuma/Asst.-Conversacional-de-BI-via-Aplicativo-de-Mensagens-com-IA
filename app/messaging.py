@@ -1,5 +1,3 @@
-"""Regras de mensageria compartilhadas pelo webhook e pelo polling local."""
-
 import asyncio
 import logging
 
@@ -14,7 +12,6 @@ logger = logging.getLogger(__name__)
 
 
 def clarification_keyboard(text):
-    """Opções controladas enviam texto normal e mantêm o contexto/autorização do chat."""
     if "Qual métrica deseja consultar:" in text or "Informe a métrica e o período." in text:
         return ReplyKeyboardMarkup(
             [
@@ -26,7 +23,6 @@ def clarification_keyboard(text):
             one_time_keyboard=True,
             input_field_placeholder="Escolha a métrica",
         )
-    # O prefixo vem de METRICS: é o mesmo texto que o agente usa ao pedir a medida.
     choices = {
         "pedidos": [["Valor", "Quantidade", "Ambos"]],
         "contratos": [["Valor", "Quantidade", "Ambos"]],
@@ -48,7 +44,6 @@ def clarification_keyboard(text):
 
 
 def message_chunks(text: str):
-    # Margem para limite UTF-16 do Telegram; separa linhas, preservando cada célula.
     chunks, current = [], ""
     for line in text.splitlines():
         if len(line.encode("utf-16-le")) // 2 > 3500:
@@ -130,5 +125,4 @@ class TelegramService:
             await self.send(msg.chat_id, str(exc))
         except Exception:
             logger.error("falha_processamento_mensagem")
-            # Não revelar traceback, perguntas, respostas ou token nos logs.
             await self.send(msg.chat_id, FAILURE)

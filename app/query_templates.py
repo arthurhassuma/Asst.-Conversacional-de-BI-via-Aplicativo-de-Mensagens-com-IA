@@ -1,8 +1,5 @@
-"""Totais simples definidos pelo plano, sem SQL livre gerado pelo modelo."""
-
 from datetime import date
 
-# Identificadores e expressões são fixos; só entram datas ISO validadas.
 TOTALS = {
     ("faturamento", "valor"): (
         "faturamento",
@@ -66,7 +63,6 @@ TOTALS = {
     ("chamados", "taxa_resolucao"): (
         "indicadores_operacionais",
         "competencia",
-        # Em pontos percentuais, como o template gerencial: o texto mostra "85,71%".
         "SUM(chamados_resolvidos)::numeric * 100 / NULLIF(SUM(chamados_abertos), 0)",
         "taxa",
         "TRUE",

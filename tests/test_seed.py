@@ -30,8 +30,6 @@ def test_seed_is_reproducible_and_relations_are_consistent():
 
 
 def test_original_profile_still_matches_frozen_single_day_and_description():
-    """Trava de regressão: o perfil original não pode mudar, pois alimenta a
-    avaliação congelada de 40 casos com SQL de referência já publicados."""
     data = generate_data(seed=42, clients=5, profile="original")
     assert {row["data_pedido"].day for row in data["pedidos"]} == {5}
     assert {row["descricao"] for row in data["pedidos"]} == {"Entrega mensal de serviço"}

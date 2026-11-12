@@ -1,5 +1,3 @@
-"""Treino e seleção em validação; teste reservado é uma operação separada."""
-
 import hashlib
 import importlib.metadata
 import json
@@ -27,7 +25,6 @@ def metrics(actual, predicted, *, accepted=None):
         "matrix_labels": list(LABELS),
         "confusion_matrix": confusion_matrix(actual, predicted, labels=list(LABELS)).tolist(),
         "coverage": sum(accepted) / len(actual) if accepted is not None else None,
-        # Das sugestões aceitas, quantas acertaram a classe: o que decide se vale usar.
         "accepted_precision": (
             sum(a == p for a, p, ok in zip(actual, predicted, accepted, strict=True) if ok)
             / sum(accepted)
@@ -42,7 +39,6 @@ DEFAULT_THRESHOLDS = (0.50, 0.60, 0.70)
 
 
 def threshold_report(model, vx, vy, labels, threshold):
-    """Desempenho na validação quando só se aceita sugestão com confiança >= limiar."""
     probability = model.predict_proba(vx)
     accepted = [
         (labels[row.argmax()] != "generica" and row.max() >= threshold) for row in probability
@@ -61,12 +57,6 @@ def fit_model(
     thresholds: tuple[float, ...] = DEFAULT_THRESHOLDS,
     joint: bool = False,
 ) -> tuple[dict, dict]:
-    """Treina na partição de treino e escolhe hiperparâmetros só pela validação.
-
-    Por padrão escolhe C pelo macro-F1 puro e depois o limiar (protocolo v1). Com
-    ``joint`` escolhe C e limiar juntos pelo macro-F1 com abstenção, que já pune
-    cobertura baixa; é o que importa quando as sugestões só são usadas acima do limiar.
-    """
     validate_corpus(records)
     train = [r for r in records if r["split"] == "train"]
     validation = [r for r in records if r["split"] == "validation"]

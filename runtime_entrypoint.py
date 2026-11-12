@@ -1,5 +1,3 @@
-"""Carrega configuração privada montada; nunca grava credenciais na imagem."""
-
 import os
 import sys
 import time
@@ -35,7 +33,6 @@ def main():
     if mode == "backend":
         workers = settings.backend_workers
         if workers > 1 and not settings.state_database_url.get_secret_value():
-            # Fila, deduplicação e histórico em memória não são compartilhados entre processos.
             raise SystemExit("BACKEND_WORKERS maior que 1 exige STATE_DATABASE_URL.")
         args = ["-m", "uvicorn", "app.main:app", "--host", "0.0.0.0", "--port",
                 os.getenv("PAC_PORT", "8000"), "--workers", str(workers)]

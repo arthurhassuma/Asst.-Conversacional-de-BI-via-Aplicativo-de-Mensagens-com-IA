@@ -1,5 +1,3 @@
-"""A resposta não incorpora prosa nem números livres produzidos pelo modelo."""
-
 import re
 from datetime import date, timedelta
 from decimal import ROUND_HALF_UP, Decimal, localcontext
@@ -14,8 +12,6 @@ METRICS = {
     "chamados": "ocorrências de pós-venda",
 }
 
-# Rótulos fixos por coluna canônica: cabeçalhos livres poderiam esconder números
-# gerados pelo modelo. Usados pelo renderizador de SQL livre e pelo gerencial.
 COLUMN_LABELS = {
     "total": "Total",
     "nome": "Nome",
@@ -50,7 +46,6 @@ COLUMN_LABELS = {
 }
 PERCENT_COLUMNS = {"variacao_percentual", "participacao"}
 
-# Singular e plural da contagem de cada métrica ("6 pedidos", "1 pedido").
 COUNT_NOUNS = {
     "pedidos": ("pedido", "pedidos"),
     "contratos": ("contrato", "contratos"),
@@ -64,7 +59,6 @@ class InvalidAnswer(ValueError):
 
 
 def percent_text(value) -> str:
-    """Arredonda apenas a apresentação; preserva a célula original da consulta."""
     if value is None:
         return "não informado"
     if isinstance(value, bool) or not re.fullmatch(r"-?\d+(?:\.\d+)?", str(value)):
@@ -95,7 +89,6 @@ def cell_text(value) -> str:
 
 
 def period_text(period: dict) -> str:
-    """Período legível; o fim da consulta é exclusivo, o texto é inclusivo."""
     start = date.fromisoformat(period["start"])
     end = date.fromisoformat(period["end"]) - timedelta(days=1)
     if start == end:
@@ -132,8 +125,6 @@ def render_answer(
         "chamados_resolvidos": "ocorrências resolvidas",
         "taxa_resolucao": "taxa de resolução",
     }
-    # SUM sem linhas produz uma linha NULL. Só afirmar ausência quando a
-    # consulta traz a contagem de registros; NULL sozinho pode ser dado ausente.
     columns, rows = result["columns"], result["rows"]
     no_records = (
         len(rows) == 1
@@ -143,8 +134,6 @@ def render_answer(
     )
     if not rows or no_records:
         return "\n".join(lines + ["Não encontrei registros para esses filtros."])
-    # Frases controladas para um único agregado. O modelo não escreve nem arredonda
-    # o valor; detalhes, NULLs e resultados parciais continuam no formato de registros.
     subjects = {
         ("faturamento", "valor"): "faturamento emitido",
         ("recebimentos", "valor"): "recebimentos",
@@ -168,8 +157,6 @@ def render_answer(
     ):
         value = result["rows"][0][0]
         if re.fullmatch(r"-?\d+(?:\.\d+)?", str(value)):
-            # O alias total também pode vir de AVG ou de uma variação. Não inferir
-            # soma, moeda ou porcentagem somente pelo alias ou pelo plano do LLM.
             text = f"📊 Resultado para {subject}: {cell_text(value)}."
             if period:
                 text += f"\nPeríodo: {period_text(period)}"
@@ -177,8 +164,6 @@ def render_answer(
     labels = COLUMN_LABELS
     visible = [column for column in columns if column != "registros"]
     if len(rows) == 1 and len(visible) == 1 and not result.get("truncated"):
-        # Uma única célula: uma linha rotulada pela medida pedida, sem marcador nem
-        # linha "Medida" repetindo o mesmo dado. O alias não prova moeda: sem "R$".
         column = visible[0]
         value = rows[0][columns.index(column)]
         label = labels.get(column, "Campo")
@@ -209,7 +194,6 @@ def render_answer(
     if result.get("truncated"):
         lines.append("ℹ️ Resultado parcial: o limite de linhas foi atingido. Refine os filtros.")
     text = "\n".join(lines)
-    # Não corte um número no meio para caber no Telegram.
     if len(text) > 12000:
         raise InvalidAnswer("Resultado extenso. Solicite um resumo ou refine os filtros.")
     return text

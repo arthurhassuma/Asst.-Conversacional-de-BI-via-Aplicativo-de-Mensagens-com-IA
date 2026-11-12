@@ -1,5 +1,3 @@
-"""Comparação independente de aliases, sem arredondamento ou tolerância oculta."""
-
 from collections import Counter
 from datetime import date, datetime
 from decimal import Decimal, InvalidOperation

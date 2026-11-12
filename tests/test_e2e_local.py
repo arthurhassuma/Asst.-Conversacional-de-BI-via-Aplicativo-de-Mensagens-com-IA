@@ -1,5 +1,3 @@
-"""Integração de engenharia, não avaliação acadêmica nem prova de Telegram real."""
-
 import json
 import os
 from urllib.parse import parse_qs

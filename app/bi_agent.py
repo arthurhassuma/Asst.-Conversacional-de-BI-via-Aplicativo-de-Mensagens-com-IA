@@ -1,5 +1,3 @@
-"""Planejamento sem SQL, loop de tools e saída final com proveniência das células."""
-
 import asyncio
 import copy
 import json
@@ -32,7 +30,6 @@ from app.relative_periods import current_date, normalize_relative_plan
 from app.rendering import METRICS, InvalidAnswer, render_answer
 from training.corpus import load_corpus
 
-# Pedido restrito a uma cidade exige SQL personalizado, nunca o total padrão.
 CITY_FILTER = r"\b(?:em|de|na)\s+(?:" + "|".join(map(re.escape, CITY_NAMES)) + r")\b"
 logger = logging.getLogger(__name__)
 FAILURE = "Não consegui concluir a consulta com segurança. Reformule a pergunta ou tente novamente."
@@ -62,7 +59,6 @@ def parse_json(response):
 
 
 def gemini_contents(messages):
-    """Preserva partes e thought_signature originais nos turnos de function calling."""
     contents = []
     for message in messages:
         value = message["content"]
@@ -93,7 +89,6 @@ def api_error_message(code):
 
 
 def provider_error_category(error):
-    """Classificação indicativa: retorna apenas rótulos fixos, nunca texto do provedor."""
     message = getattr(error, "message", "")
     text = message.casefold() if isinstance(message, str) else ""
     if any(marker in text for marker in ("thought_signature", "thought signature")):
@@ -106,8 +101,6 @@ def provider_error_category(error):
 
 
 def merge_groupable_answers(answers: list[str], evidences: list[dict]) -> list[str]:
-    """Funde respostas consecutivas com cabeçalho idêntico (mesma métrica, período e
-    tipo), variando só a medida, para não repetir o cabeçalho a cada medida pedida."""
     merged, index = [], 0
     while index < len(answers):
         context, result = (
@@ -136,8 +129,6 @@ def merge_groupable_answers(answers: list[str], evidences: list[dict]) -> list[s
         try:
             merged.append(render_managerial_group(group) if len(group) > 1 else answers[index])
         except InvalidAnswer:
-            # O grupo junto passa do limite, mas cada resposta já foi montada sozinha:
-            # entregue-as separadas em vez de falhar a pergunta inteira.
             merged.extend(answers[index:end])
         index = end
     return merged
@@ -190,7 +181,6 @@ def clarify_query(plan: dict, messages: list, *, today=None) -> str | None:
         if date.fromisoformat(period["start"]) >= date.fromisoformat(period["end"]):
             return PERIOD_QUESTION
         evidence = period["evidence"]
-        # Só aceita evidência literal de mensagem do gestor, não de tool ou modelo.
         if (
             not isinstance(evidence, str)
             or not evidence.strip()
@@ -230,7 +220,6 @@ class BIAgent:
                 self.intent_model = load_classifier(path)
                 self.intent_examples = load_corpus(training_root / "questions-v2.json")
             except (OSError, ValueError, TypeError):
-                # O classificador é apoio opcional; sua falha nunca bloqueia o planejador.
                 self.intent_model = None
 
     async def close(self):
@@ -243,7 +232,6 @@ class BIAgent:
     async def answer(
         self, question: str, history: list, *, trace: dict | None = None
     ) -> tuple[str, list]:
-        # Evidência opcional pertence à chamada, nunca ao estado compartilhado do bot.
         trace = trace if trace is not None else {}
         trace.clear()
         trace.update(status="error", queries=[], requests=[])
@@ -276,7 +264,6 @@ class BIAgent:
             trace.update(status="transport_error")
             return FAILURE, turn + [{"role": "assistant", "content": FAILURE}]
         except (ValueError, TypeError, KeyError):
-            # Nenhuma exceção externa, credencial ou SQL chega ao Telegram.
             return FAILURE, turn + [{"role": "assistant", "content": FAILURE}]
 
     async def _generate(self, trace, **kwargs):
@@ -296,8 +283,6 @@ class BIAgent:
 
     async def _answer(self, question, history, turn, trace):
         messages = copy.deepcopy(history + turn)
-        # O planejador não declara tools: não envie blocos tool_use/tool_result
-        # históricos à API sem as respectivas definições. Mantém pedido e resposta.
         planning_messages = [m for m in messages if isinstance(m["content"], str)]
         hint = {
             "enabled": self.settings.intent_classifier_enabled,
@@ -308,7 +293,6 @@ class BIAgent:
         if self.intent_model:
             prediction = self.intent_model.predict(intent_context(question, history))
             hint.update(prediction, model_sha256=self.intent_model.sha256)
-            # Só rótulo e confiança: o texto da pergunta nunca vai para o log.
             logger.info(
                 "intencao rotulo=%s confianca=%.2f aceita=%s",
                 prediction["label"],
@@ -373,7 +357,6 @@ class BIAgent:
             return text, turn + [{"role": "assistant", "content": text}]
         answers = []
         for query in plan["queries"]:
-            # Barreira conservadora contra omissão de filtros explícitos em templates.
             if (
                 re.search(
                     r"\b(somente|apenas|só|pag[oa]s?|cancelad[oa]s?|entregues?|ativos?|média|médio|mediana|percentil)\b|"
@@ -398,8 +381,6 @@ class BIAgent:
                 query["operation"] = "analysis"
                 if isinstance(query.get("analysis"), dict):
                     query["analysis"]["custom_filters"] = True
-            # Cada métrica tem resultados próprios: q1 de pedidos não pode ser
-            # reutilizado como faturamento. Mantém só o contexto textual entre consultas.
             evidence = {"plan": copy.deepcopy(query), "attempts": []}
             trace["queries"].append(evidence)
             answers.append(
@@ -408,8 +389,6 @@ class BIAgent:
         answers = merge_groupable_answers(answers, trace["queries"])
         text = "\n\n".join(answers)
         trace["status"] = "answer"
-        # Guarda só o pedido real e a resposta visível. Tools/assinaturas permanecem
-        # no loop que as originou, sem contaminar esclarecimentos ou outras métricas.
         return text, turn + [{"role": "assistant", "content": text}]
 
     async def _query(self, plan, messages, trace, evidence):
@@ -566,5 +545,4 @@ class BIAgent:
                         "Se ainda não consultou, use as tools.",
                     }
                 )
-        # Uma pergunta composta só é concluída quando todas as métricas são válidas.
         raise ValueError("Não foi possível concluir uma das consultas planejadas.")

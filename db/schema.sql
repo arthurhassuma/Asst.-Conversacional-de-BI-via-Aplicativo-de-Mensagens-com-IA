@@ -1,5 +1,3 @@
--- Dados inteiramente sintéticos. Execute com o proprietário administrativo.
--- Domínio: revenda de autopeças. Nomes de tabelas e colunas são mantidos por compatibilidade.
 CREATE TABLE clientes (
     id integer PRIMARY KEY,
     nome varchar(160) NOT NULL,

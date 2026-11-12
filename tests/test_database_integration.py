@@ -38,9 +38,6 @@ def test_schema_and_exact_decimals(settings):
 
 
 def test_schema_lists_the_stored_spelling_of_categorical_values(settings):
-    # Reservado do perfil autopecas (T04): a pergunta dizia "sustentação" e o dado guarda
-    # "sustentacao"; sem ver a grafia real, o modelo copiou a da pergunta e contou zero contratos.
-    # Os valores esperados vêm do próprio banco, porque cada perfil guarda um subconjunto diferente.
     db = DatabaseTools(settings)
     valores = db.get_schema()["valores"]
     for key in ("contratos.modalidade", "contratos.status", "pedidos.status", "faturamento.status"):
@@ -140,7 +137,6 @@ def test_simple_total_business_rules_against_independent_rows(settings, metric, 
             if metric == "horas":
                 expected = sum(row[1] for row in selected)
             else:
-                # O total devolve pontos percentuais (85,71), não a razão (0,8571).
                 expected = (
                     Decimal(sum(row[3] for row in selected)) * 100 / sum(row[2] for row in selected)
                 )

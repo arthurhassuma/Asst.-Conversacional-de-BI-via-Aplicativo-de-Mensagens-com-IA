@@ -167,8 +167,6 @@ PLANNER_SCHEMA = {
     "additionalProperties": False,
 }
 
-# Extensões opcionais preservam o contrato dos planos existentes.
-
 PERIOD_SCHEMA = deepcopy(PLANNER_SCHEMA["properties"]["queries"]["items"]["properties"]["period"])
 PLANNER_SCHEMA["properties"]["queries"]["minItems"] = 0
 PLANNER_SCHEMA["properties"]["unsupported_reason"] = {

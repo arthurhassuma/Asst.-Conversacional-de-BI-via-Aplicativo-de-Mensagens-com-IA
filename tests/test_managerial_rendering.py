@@ -153,7 +153,7 @@ def test_ranking_is_compact_numbered_and_hides_internal_ids():
     assert "1. Auto Mecânica Santa Cruz — 9 pedidos" in lines
     assert "2. Funilaria Carvalho — 1 pedido" in lines
     assert "12 —" not in text and "Posição" not in text
-    assert "" not in lines[3:-1]  # sem linhas em branco entre os itens
+    assert "" not in lines[3:-1]
 
 
 def test_contract_ranking_keeps_contract_number_after_the_name():

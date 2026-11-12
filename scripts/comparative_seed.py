@@ -1,9 +1,3 @@
-"""Cenário sintético para comparação mensal, separado da base experimental original.
-
-Valores em centavos inteiros. A cobertura mínima é determinística, não depende
-de sorteios. Status representam a fotografia no último dia do cenário.
-"""
-
 import calendar
 import re
 from collections import Counter
@@ -96,7 +90,6 @@ def generate_comparative_data(
         ("Porto Alegre", "RS"),
     ]
     segments = ["Indústria", "Tecnologia", "Logística", "Serviços"]
-    # Fatores declarados de cenário, não estimativas de desempenho de uma empresa.
     seasonality = [90, 94, 100, 103, 98, 106, 101, 110, 108, 114, 120, 92]
 
     def add_activity(contract, active_months, base_cents, project=False):
@@ -105,7 +98,6 @@ def generate_comparative_data(
             index = months.index(month)
             factor = seasonality[month.month - 1] * (100 + 12 * (month.year - months[0].year))
             total_cents = base_cents * factor * rng.randint(92, 108) // 1_000_000
-            # Entregas de tamanhos diferentes ao longo do mês, sem perder centavos.
             parts = [total_cents * 40 // 100, total_cents * 35 // 100]
             parts.append(total_cents - sum(parts))
             for slot, amount in enumerate(parts):
@@ -133,7 +125,6 @@ def generate_comparative_data(
                     )
                 )
                 if status != "cancelado":
-                    # Parte da carteira tem faturamento parcelado para exercitar joins.
                     amounts = [amount] if order_id % 4 else [amount // 2, amount - amount // 2]
                     for part, invoice_amount in enumerate(amounts):
                         invoice_id = len(data["faturamento"]) + 1
@@ -210,7 +201,6 @@ def generate_comparative_data(
         )
         data["contratos"].append(contract)
         add_activity(contract, eligible, rng.randint(800_000, 4_000_000))
-        # A carteira inicial garante novos projetos e todos os status em cada mês.
         project_months = months if client_id <= 12 else eligible[::3]
         for month in project_months:
             project_status = ["ativo", "concluido", "cancelado"][(client_id + month.month) % 3]
@@ -242,7 +232,6 @@ def coverage_report(
     required: dict[str, set[str]] | None = None,
     profile: str = "comparativo-v1",
 ) -> dict:
-    """Confere presença mensal e os status exigidos em cada mês antes de publicar os totais."""
     required = STATUSES if required is None else required
     months = month_range(start, end)
     monthly = []
@@ -271,7 +260,6 @@ def coverage_report(
         indicators = groups["indicadores_operacionais"]
 
         def total(rows, field):
-            # O schema usa escala 2; normaliza a representação sem alterar o valor.
             return format(sum((r[field] for r in rows), Decimal("0")), ".2f")
 
         monthly.append(

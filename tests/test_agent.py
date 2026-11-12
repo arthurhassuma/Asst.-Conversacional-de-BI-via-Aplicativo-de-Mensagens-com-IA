@@ -329,6 +329,25 @@ async def test_simple_totals_need_only_one_model_call_and_no_generated_sql():
     assert "COUNT(*) AS registros" in db.queries[1]
 
 
+async def test_order_value_total_uses_template_sum_and_excludes_cancelled():
+    db = Database()
+    client = Client(
+        [
+            plan_response(
+                {**PLAN, "metric": "pedidos", "measure": "valor", "operation": "total"},
+            )
+        ]
+    )
+    await BIAgent(Settings(_env_file=None), client, db).answer(
+        "Valor total dos pedidos em janeiro de 2025", []
+    )
+    assert len(client.calls) == 1 and len(db.queries) == 1
+    assert "FROM pedidos" in db.queries[0]
+    assert "SUM(valor) AS total" in db.queries[0]
+    assert "data_pedido >= DATE '2025-01-01'" in db.queries[0]
+    assert "status <> 'cancelado'" in db.queries[0]
+
+
 async def test_same_metric_and_period_measures_are_merged_without_repeating_header():
     db = Database()
     client = Client(
@@ -344,7 +363,6 @@ async def test_same_metric_and_period_measures_are_merged_without_repeating_head
     )
     assert text.count("Período:") == 1
     assert text.count("Resumo de pedidos de venda") == 1
-    # Cada medida aparece uma única vez, como linha rotulada (sem subtítulo repetido).
     assert text.count("Valor:") == 1 and text.count("Quantidade:") == 1
     assert "▸" not in text and "• Total" not in text
 

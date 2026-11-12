@@ -1,5 +1,3 @@
-"""Sessões locais com turnos completos, TTL e exclusão mútua por gestor/chat."""
-
 import asyncio
 from collections import OrderedDict, deque
 from contextlib import asynccontextmanager
@@ -42,7 +40,6 @@ class SessionStore:
                 del self.items[evict]
             self.items[key] = Session(deque(maxlen=self.max_turns), now)
         session = self.items[key]
-        # Conta também os que aguardam lock, para impedir remoção durante uma fila.
         session.borrowers += 1
         try:
             async with session.lock:

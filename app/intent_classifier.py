@@ -1,5 +1,3 @@
-"""Inferência TF-IDF/logística do artefato aprendido; não consulta banco ou IA."""
-
 import hashlib
 import json
 import math

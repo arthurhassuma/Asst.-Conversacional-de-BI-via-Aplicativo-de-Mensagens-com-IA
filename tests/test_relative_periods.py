@@ -228,7 +228,7 @@ def test_numeric_date_range_is_accepted_but_a_vague_range_asks_for_the_period():
     validate_period(period, numeric, today=TODAY)
     vague = [{"role": "user", "content": "faturamento de janeiro até hoje"}]
     period = total_plan("2026-01-01", "2026-10-13", "de janeiro até hoje")["queries"][0]["period"]
-    with pytest.raises(ValueError):  # vira pergunta de esclarecimento, nunca um dia só
+    with pytest.raises(ValueError):
         validate_period(period, vague, today=TODAY)
 
 
@@ -271,4 +271,4 @@ def test_compare_with_last_year_still_means_the_whole_year_when_no_month_is_invo
     )
     result = normalize_relative_plan(plan, messages, TODAY)["queries"][0]
     assert result["period"]["start"] == "2025-01-01"
-    assert result["period"]["end"] == "2025-10-13"  # mesmo corte do ano atual
+    assert result["period"]["end"] == "2025-10-13"

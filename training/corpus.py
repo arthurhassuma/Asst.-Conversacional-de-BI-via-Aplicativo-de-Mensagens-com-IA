@@ -1,5 +1,3 @@
-"""Corpus com separação por cenário, nunca por paráfrase individual."""
-
 import json
 import re
 import unicodedata

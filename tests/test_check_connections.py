@@ -1,5 +1,3 @@
-"""Diagnóstico operacional: configuração não deve ser confundida com acesso real."""
-
 import json
 
 import httpx
@@ -52,7 +50,6 @@ async def test_invalid_and_missing_configuration_never_calls_providers(monkeypat
 
     for name in ("check_database", "check_gemini", "check_telegram"):
         monkeypatch.setattr(diagnostic, name, forbidden)
-    # _env_file=None desativa apenas dotenv, não as variáveis do processo/CI.
     monkeypatch.setenv("DATABASE_URL", "postgresql://configuracao-ambiente/bi")
     report = await diagnostic.diagnose(
         Settings(
