@@ -113,7 +113,8 @@ async def test_webhook_to_postgres_to_telegram_with_simulated_external_apis():
         "\nPeríodo: 01/01/2023 a 31/12/2023"
     ]
     tool_result = model_requests[-1]["contents"][-1]["parts"][0]["functionResponse"]
-    assert tool_result["response"]["rows"] == [[expected]]
+    assert tool_result["response"]["row_count"] == 1
+    assert "rows" not in tool_result["response"]
 
 
 @pytest.mark.integration

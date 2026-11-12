@@ -348,6 +348,85 @@ async def test_order_value_total_uses_template_sum_and_excludes_cancelled():
     assert "status <> 'cancelado'" in db.queries[0]
 
 
+class SensitiveDatabase(Database):
+    def execute_sql(self, sql):
+        self.queries.append(sql)
+        if "inexistente" in sql:
+            return {
+                "error": "O banco recusou a consulta.",
+                "sqlstate": "22P02",
+                "database_detail": 'invalid input syntax for type numeric: "Oficina Segredo"',
+            }
+        return {
+            "columns": ["cliente", "total", "registros"],
+            "rows": [["Oficina Segredo", "98765.43", 7]],
+            "truncated": False,
+        }
+
+
+def free_sql_script(sql="SELECT cliente, sum(valor) FROM faturamento GROUP BY 1"):
+    return [
+        plan_response(PLAN),
+        response(tools=[call("get_schema", {})]),
+        response(tools=[call("execute_sql", {"sql": sql})]),
+        response({"kind": "answer", "result_id": "q1"}),
+    ]
+
+
+def sent_to_model(client):
+    contents = [c["contents"] for c in client.calls]
+    return json.dumps(contents, default=lambda o: o.model_dump(), ensure_ascii=False)
+
+
+async def test_free_sql_rows_are_not_sent_to_the_model_by_default():
+    client = Client(free_sql_script())
+    text, _ = await BIAgent(Settings(_env_file=None), client, SensitiveDatabase()).answer(
+        "Faturamento por cliente em janeiro de 2025", []
+    )
+    sent = sent_to_model(client)
+    assert "Oficina Segredo" not in sent and "98765.43" not in sent
+    assert '"row_count": 1' in sent or '"row_count":1' in sent
+    assert "98.765,43" in text
+
+
+async def test_free_sql_rows_reach_the_model_only_when_explicitly_enabled():
+    client = Client(free_sql_script())
+    settings = Settings(_env_file=None, send_rows_to_model=True)
+    await BIAgent(settings, client, SensitiveDatabase()).answer(
+        "Faturamento por cliente em janeiro de 2025", []
+    )
+    assert "Oficina Segredo" in sent_to_model(client)
+
+
+async def test_data_exception_details_are_withheld_but_schema_errors_are_kept():
+    for sqlstate, detail, visible in (
+        ("22P02", 'invalid input syntax for type numeric: "Oficina Segredo"', False),
+        ("42703", "column inexistente does not exist", True),
+    ):
+
+        class Failing(Database):
+            def execute_sql(self, sql, sqlstate=sqlstate, detail=detail):
+                self.queries.append(sql)
+                return {"error": "O banco recusou.", "sqlstate": sqlstate, "database_detail": detail}
+
+        client = Client(
+            [
+                plan_response(PLAN),
+                response(tools=[call("get_schema", {})]),
+                response(tools=[call("execute_sql", {"sql": "SELECT 1"})]),
+                response({"kind": "answer", "result_id": "q9"}),
+            ]
+        )
+        agent = BIAgent(Settings(_env_file=None), client, Failing())
+        try:
+            await agent.answer("Faturamento em janeiro de 2025", [])
+        except RuntimeError:
+            pass
+        sent = sent_to_model(client)
+        assert ("column inexistente" in sent) is visible
+        assert ("Oficina Segredo" in sent) is False
+
+
 async def test_same_metric_and_period_measures_are_merged_without_repeating_header():
     db = Database()
     client = Client(

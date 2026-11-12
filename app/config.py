@@ -27,6 +27,7 @@ class Settings(BaseSettings):
     max_history_turns: int = Field(8, ge=1, le=20)
     max_tool_rounds: int = Field(6, ge=1, le=10)
     max_sql_errors: int = Field(3, ge=1, le=5)
+    send_rows_to_model: bool = False
 
     @property
     def allowed_users(self) -> set[int]:

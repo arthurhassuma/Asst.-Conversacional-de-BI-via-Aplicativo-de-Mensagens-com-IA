@@ -136,8 +136,10 @@ esclarecimentos e recusas; duas ou mais (planejador + ciclo de SQL) para filtros
 previa Claude (Anthropic) ou GPT-4o; a troca para Gemini foi decisão do responsável, para usar a cota gratuita.
 
 **O que vai para o Gemini:** a pergunta, o histórico da conversa (incluindo respostas anteriores do bot),
-o glossário do schema e, **no caminho de SQL livre**, as linhas devolvidas pelo banco. Com dados sintéticos
-isso não importa; com dados reais seria o ponto a avaliar (LGPD).
+o glossário do schema. **As linhas devolvidas pelo banco não vão ao Gemini** (padrão `SEND_ROWS_TO_MODEL=false`): no
+caminho de SQL livre o modelo recebe só colunas, número de linhas e se houve truncamento, e o backend lê as células e
+monta a resposta. Erros do banco só levam o detalhe quando são de esquema (SQLSTATE 42xxx), porque o de dados pode
+citar valores. Ver [Privacidade e LGPD](../README.md#privacidade-e-lgpd).
 
 ### 5. O caminho completo de uma pergunta (exemplo real)
 
@@ -462,8 +464,9 @@ nosso código, não pelo Gemini.
 **E se a IA gerar um SQL perigoso?** Duas barreiras: o filtro lê o SQL como árvore e só aceita um `SELECT` nas
 5 tabelas com funções permitidas; e o usuário do banco é somente leitura, e o sistema recusa conectar se ele tiver permissão de escrita.
 
-**Os dados são reais? E a LGPD?** São 100% sintéticos, sem CNPJ, telefone ou e-mail. Com dados reais, o
-texto agregado e linhas de SQL livre chegariam ao provedor da IA, o que exigiria avaliar contrato e anonimização.
+**Os dados são reais? E a LGPD?** São 100% sintéticos, sem CNPJ, telefone ou e-mail. O sistema já nasce com minimização: as linhas do banco não
+são enviadas ao provedor da IA. Restam a pergunta e o histórico da conversa (inclui respostas anteriores), por isso,
+com dados reais, ainda seriam necessários contrato com o provedor, base legal e RIPD. Ver [Privacidade e LGPD](../README.md#privacidade-e-lgpd).
 
 **Por que SQL por modelo fixo e não deixar a IA escrever tudo?** Previsibilidade, custo e segurança. A IA só escreve SQL para filtros livres.
 

@@ -55,6 +55,7 @@ O lock foi verificado com Python 3.13. Para instalar pelas faixas de versões, u
 | TELEGRAM_ALLOWED_USER_IDS | IDs numéricos dos gestores, separados por vírgula; vazio bloqueia todos |
 | TELEGRAM_WEBHOOK_URL | URL pública HTTPS terminada em `/telegram/webhook`; dispensável no polling |
 | QUERY_TIMEOUT_MS / MAX_QUERY_ROWS | Padrões: 3000 ms e 100 linhas |
+| SEND_ROWS_TO_MODEL | Padrão `false`: as linhas do banco não vão ao Gemini; use `true` só em teste (ver [Privacidade e LGPD](#privacidade-e-lgpd)) |
 | SESSION_TTL_SECONDS / MAX_SESSIONS / MAX_HISTORY_TURNS | Padrões: uma hora, 1000 sessões e oito turnos (`MAX_SESSIONS` vale só para o estado em memória) |
 | STATE_DATABASE_URL | Opcional. URL da role `app_estado`; ativa o [estado durável](#estado-durável-e-vários-workers). Vazio mantém fila e sessões em memória |
 | STATE_PASSWORD | Senha da role `app_estado`; usada somente por `bi-db init-state` |
@@ -199,6 +200,15 @@ Pastas de saída existentes são recusadas.
 - O estado durável usa uma role própria (`app_estado`), sem superusuário, dona de nada e com acesso apenas às tabelas do schema `estado`; ela não lê as tabelas de negócio.
 - Acesso administrativo fica nos comandos de setup; não existe tool administrativa. Os logs da aplicação omitem textos, SQL e credenciais.
 
+## Privacidade e LGPD
+
+O assistente foi desenhado com minimização de dados desde o início, mesmo com base sintética:
+
+- **O que vai ao Gemini:** a pergunta, o histórico recente da conversa (inclui respostas anteriores do bot) e o glossário do schema.
+- **O que não vai:** as linhas devolvidas pelo banco. No caminho de SQL livre o modelo recebe apenas `columns`, `row_count` e `truncated`; as células são lidas pelo backend, que monta o texto. Totais e análises com modelo fixo nunca enviam linhas. Controle: `SEND_ROWS_TO_MODEL` (padrão `false`).
+- **Erros do banco:** o detalhe só é repassado a erros de esquema (SQLSTATE `42xxx`); erros de dado (classe `22`) podem citar valores e são omitidos.
+- **Limite que permanece:** se o gestor digitar um dado pessoal na pergunta, ele chega ao provedor. Com dados reais seriam necessários contrato (DPA) e plano sem treinamento com o conteúdo, base legal, RIPD e definição de retenção; isso é decisão organizacional, não de código.
+
 ## Testes e avaliação
 
 ```powershell
@@ -276,6 +286,7 @@ A hospedagem em produção usa Docker Compose (PostgreSQL 16, backend e um proce
 - A interpretação das perguntas depende do Gemini e da cota do projeto configurado. Na reavaliação de 09/11/2026 os reservados acertaram 12/16 (autopecas) e 6/8 (gerencial). As três falhas de interpretação do conjunto A (T04, T05 e T10) foram corrigidas depois, o que **contamina** esse reservado. A versão corrigida foi medida numa partição nova de 20 casos (conjunto C, escrita depois das correções): **13/16** respostas corretas, 3/3 esclarecimentos e 1/1 pedido não suportado, em uma execução; as falhas foram um ranking com formato diferente do gabarito e dois esclarecimentos de medida para perguntas ambíguas ([experimentos](docs/experimentos.md#reavaliação-no-perfil-autopecas--conjunto-c-partição-reservada-nova-100-09112026)). Com 20 casos, esse resultado não permite afirmar melhora em relação aos 12/16 anteriores.
 - O aceite do gestor está registrado por declaração do responsável; não houve coleta qualitativa estruturada, medição de latência ponta a ponta no Telegram nem comparação com dashboards.
 - Todos os dados são sintéticos; o assistente não foi avaliado com dados reais.
+- A minimização de linhas (`SEND_ROWS_TO_MODEL=false`) foi incluída depois da reavaliação de 09/11/2026; os números de acerto desse relatório foram medidos com o comportamento anterior e precisam ser refeitos para esta versão.
 
 ## Licença
 

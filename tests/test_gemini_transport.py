@@ -72,7 +72,9 @@ async def test_native_tools_preserve_signatures_parallel_results_and_exact_numbe
     results = requests[-1]["contents"][-1]["parts"]
     assert [r["functionResponse"]["id"] for r in results] == ["sql-bad", "sql-good"]
     assert results[0]["functionResponse"]["response"]["sqlstate"] == "42703"
-    assert results[1]["functionResponse"]["response"]["rows"] == [["1234.56"]]
+    good = results[1]["functionResponse"]["response"]
+    assert good["row_count"] == 1 and good["result_id"] == "q1" and "rows" not in good
+    assert "1234.56" not in json.dumps(requests[-1]["contents"])
     assert history[-1]["content"] == text
 
 
