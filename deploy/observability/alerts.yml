@@ -1,0 +1,57 @@
+groups:
+  - name: pac-assistente-bi
+    rules:
+      - alert: BackendForaDoAr
+        expr: up{job="pac-backend"} == 0
+        for: 2m
+        labels:
+          severity: critical
+        annotations:
+          summary: "O backend não responde ao /metrics há 2 minutos."
+          action: "Ver docker compose ps e logs do backend na VM."
+
+      - alert: TaxaDeFalhaAlta
+        expr: >-
+          sum(increase(bi_questions_total{status=~"error|provider_error|transport_error"}[15m]))
+          / clamp_min(sum(increase(bi_questions_total[15m])), 1) > 0.2
+          and sum(increase(bi_questions_total[15m])) >= 5
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Mais de 20% das perguntas dos últimos 15 minutos terminaram em falha."
+          action: "Ver o desfecho por status e os logs do backend."
+
+      - alert: CotaOuLimiteDoGemini
+        expr: increase(bi_provider_errors_total{code="429"}[15m]) > 0
+        labels:
+          severity: warning
+        annotations:
+          summary: "O Gemini devolveu 429 (cota ou limite de taxa)."
+          action: "Conferir a cota do projeto no Google AI Studio."
+
+      - alert: RespostasLentas
+        expr: >-
+          histogram_quantile(0.95, sum by (le) (rate(bi_question_duration_seconds_bucket[10m]))) > 20
+        for: 10m
+        labels:
+          severity: warning
+        annotations:
+          summary: "O p95 de duração das respostas passou de 20 s."
+          action: "Ver latência do Gemini e do banco (bi_sql_duration_seconds)."
+
+      - alert: FilaCheia
+        expr: increase(bi_updates_total{result="fila_cheia"}[10m]) > 0
+        labels:
+          severity: warning
+        annotations:
+          summary: "O webhook recusou updates porque a fila está cheia."
+          action: "Aumentar INBOX_MAX_PENDING ou investigar o que atrasa o processamento."
+
+      - alert: ConsultasSQLComTimeout
+        expr: increase(bi_sql_executions_total{outcome="timeout"}[15m]) > 3
+        labels:
+          severity: warning
+        annotations:
+          summary: "Várias consultas SQL estouraram o tempo limite."
+          action: "Verificar carga do banco e SQLs livres gerados."

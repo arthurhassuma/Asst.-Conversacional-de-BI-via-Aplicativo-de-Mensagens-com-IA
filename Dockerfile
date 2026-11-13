@@ -15,5 +15,6 @@ COPY training ./training
 RUN python -m pip check
 COPY runtime_entrypoint.py ./runtime_entrypoint.py
 RUN chmod -R a+rX /opt/pac
+ENV PAC_REVISION=$SOURCE_COMMIT
 ENV PYTHONPATH=/opt/pac
 ENTRYPOINT ["python", "/opt/pac/runtime_entrypoint.py"]

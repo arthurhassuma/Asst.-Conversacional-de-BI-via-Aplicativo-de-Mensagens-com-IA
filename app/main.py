@@ -6,10 +6,11 @@ from contextlib import asynccontextmanager
 
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.exceptions import RequestValidationError
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, Response
 from starlette.exceptions import HTTPException as StarletteHTTPException
 from telegram import Bot, Update
 
+from app import metrics
 from app.bi_agent import BIAgent
 from app.config import Settings
 from app.messaging import TelegramService
@@ -118,18 +119,30 @@ def create_app(settings=None, *, agent=None, sender=None):
             "estado_duravel": bool(state_dsn),
         }
 
+    @app.get("/metrics")
+    async def metrics_endpoint(request: Request):
+        token = settings.metrics_token.get_secret_value()
+        if token:
+            received = request.headers.get("Authorization", "")
+            if not hmac.compare_digest(received.encode(), f"Bearer {token}".encode()):
+                raise HTTPException(403, "Acesso não autorizado.")
+        return Response(metrics.render(), media_type=metrics.CONTENT_TYPE)
+
     @app.post("/telegram/webhook")
     async def webhook(request: Request):
         expected = settings.telegram_webhook_secret.get_secret_value()
         received = request.headers.get("X-Telegram-Bot-Api-Secret-Token", "")
         if not expected or not hmac.compare_digest(received.encode(), expected.encode()):
+            metrics.UPDATES.inc("recusado_autenticacao")
             raise HTTPException(403, "Acesso não autorizado.")
         if not app.state.ready:
+            metrics.UPDATES.inc("bot_nao_configurado")
             raise HTTPException(503, "O bot ainda não está configurado.")
         body = bytearray()
         async for chunk in request.stream():
             body.extend(chunk)
             if len(body) > 65536:
+                metrics.UPDATES.inc("corpo_grande")
                 raise HTTPException(413, "Mensagem acima do tamanho permitido.")
         try:
             payload = json.loads(body)
@@ -141,16 +154,21 @@ def create_app(settings=None, *, agent=None, sender=None):
                 raise ValueError()
             Update.de_json(payload, None)
         except (ValueError, TypeError, KeyError, AttributeError):
+            metrics.UPDATES.inc("invalido")
             raise HTTPException(400, "Mensagem do Telegram inválida.") from None
         try:
             outcome = await inbox.register(payload["update_id"], payload)
         except Exception:
             logger.error("falha_estado_duravel")
+            metrics.UPDATES.inc("falha_estado")
             raise HTTPException(503, "O assistente está indisponível. Tente novamente.") from None
         if outcome == DUPLICATE:
+            metrics.UPDATES.inc("duplicado")
             return {"status": "já recebido"}
         if outcome == FULL:
+            metrics.UPDATES.inc("fila_cheia")
             raise HTTPException(503, "O assistente está ocupado. Tente novamente.")
+        metrics.UPDATES.inc("aceito")
         return {"status": "recebido"}
 
     return app

@@ -11,6 +11,7 @@
 - [proposta.md](proposta.md): texto da proposta original (anterior à implementação).
 - [reproducao.md](reproducao.md): guia passo a passo para reproduzir testes, base, referências e avaliação.
 - [deploy.md](deploy.md): publicação no GitHub e implantação na Oracle.
+- [observabilidade.md](observabilidade.md): logs, métricas `/metrics`, alertas e limites.
 - [cd.md](cd.md): entrega contínua (pipeline, promoção para produção e atualização da VM sem SSH).
 - [apresentacao.md](apresentacao.md): guia de estudo, roteiro de demonstração e de entrega.
 - [relatorio-final-pac-viii.md](relatorio-final-pac-viii.md): fonte textual do relatório final.

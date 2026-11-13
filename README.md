@@ -218,7 +218,7 @@ python -m pytest -q
 python -m ruff check app scripts tests evaluation training
 ```
 
-A suíte tem 349 testes (297 passam sem banco de teste e 52 dependem dele); os que dependem de PostgreSQL são marcados como skipped sem `TEST_DATABASE_URL` (negócio) e `TEST_STATE_ADMIN_URL` (estado durável: URL administrativa de um banco **de teste**, cujo schema `estado` e role `app_estado` são recriados). Para executá-la inteira contra a base sintética carregada, sem exibir a senha:
+A suíte tem 359 testes (307 passam sem banco de teste e 52 dependem dele); os que dependem de PostgreSQL são marcados como skipped sem `TEST_DATABASE_URL` (negócio) e `TEST_STATE_ADMIN_URL` (estado durável: URL administrativa de um banco **de teste**, cujo schema `estado` e role `app_estado` são recriados). Para executá-la inteira contra a base sintética carregada, sem exibir a senha:
 
 ```powershell
 python -c "import os,pytest; from app.config import Settings; os.environ['TEST_DATABASE_URL']=Settings().database_url.get_secret_value(); raise SystemExit(pytest.main(['-q']))"
@@ -277,6 +277,7 @@ A hospedagem em produção usa Docker Compose (PostgreSQL 16, backend e um proce
 - [Avaliação](docs/avaliacao.md): protocolos, treinamento de intenções, aceite do gestor e comparação com a proposta.
 - [Experimentos](docs/experimentos.md) e [verificações](docs/verificacoes.md): resultados e evidências.
 - [Deploy](docs/deploy.md): publicação e implantações.
+- [Observabilidade](docs/observabilidade.md): métricas Prometheus, alertas e limites.
 - [Entrega contínua](docs/cd.md): pipeline de release no GHCR, promoção para produção e atualização da VM sem SSH.
 - [Reprodução](docs/reproducao.md): passo a passo para refazer testes, base, referências e avaliação, com os resultados esperados.
 - [Apresentação](docs/apresentacao.md): guia de estudo e roteiros de demonstração.

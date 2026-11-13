@@ -28,6 +28,7 @@ class Settings(BaseSettings):
     max_tool_rounds: int = Field(6, ge=1, le=10)
     max_sql_errors: int = Field(3, ge=1, le=5)
     send_rows_to_model: bool = False
+    metrics_token: SecretStr = SecretStr("")
 
     @property
     def allowed_users(self) -> set[int]:

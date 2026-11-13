@@ -1,0 +1,25 @@
+services:
+  prometheus:
+    image: prom/prometheus:v3.5.0
+    restart: unless-stopped
+    command:
+      - --config.file=/etc/prometheus/prometheus.yml
+      - --storage.tsdb.path=/prometheus
+      - --storage.tsdb.retention.time=15d
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - ./alerts.yml:/etc/prometheus/alerts.yml:ro
+      - promdata:/prometheus
+    ports:
+      - '127.0.0.1:9090:9090'
+    mem_limit: 192m
+    cap_drop: [ALL]
+    security_opt: ['no-new-privileges:true']
+    logging:
+      options: {max-size: '10m', max-file: '3'}
+volumes:
+  promdata:
+networks:
+  default:
+    name: pac-bi-24h_default
+    external: true

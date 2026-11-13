@@ -5,12 +5,14 @@ import logging
 import re
 from datetime import date
 from pathlib import Path
+from time import monotonic
 
 import httpx
 from google import genai
 from google.genai import types
 from google.genai.errors import APIError
 
+from app import metrics
 from app.analysis_contract import (
     UNSUPPORTED,
     normalize_unranked_plan,
@@ -251,10 +253,18 @@ class BIAgent:
         self, question: str, history: list, *, trace: dict | None = None
     ) -> tuple[str, list]:
         trace = trace if trace is not None else {}
+        started = monotonic()
+        try:
+            return await self._respond(question, history, trace)
+        finally:
+            metrics.record_question(trace, monotonic() - started)
+
+    async def _respond(self, question: str, history: list, trace: dict) -> tuple[str, list]:
         trace.clear()
         trace.update(status="error", queries=[], requests=[])
         if not question.strip() or len(question) > 4000:
             text = "Envie uma pergunta de negócio mais curta e não vazia."
+            trace["status"] = "invalid_question"
             return text, []
         turn = [{"role": "user", "content": question}]
         if self.client is None:

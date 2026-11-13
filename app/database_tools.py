@@ -8,6 +8,7 @@ from time import monotonic
 import psycopg
 from psycopg import sql as pgsql
 
+from app import metrics
 from app.config import Settings
 from app.sql_policy import TABLES, UnsafeQuery, validate_select
 
@@ -127,6 +128,21 @@ class DatabaseTools:
             }
 
     def execute_sql(self, sql: str) -> dict:
+        started = monotonic()
+        result = self._execute_sql(sql)
+        if "error" not in result:
+            outcome = "ok"
+        elif result.get("sqlstate") == "57014":
+            outcome = "timeout"
+        elif result.get("sqlstate"):
+            outcome = "db_error"
+        else:
+            outcome = "recusado"
+        metrics.SQL_EXECUTIONS.inc(outcome)
+        metrics.SQL_SECONDS.observe(outcome, value=monotonic() - started)
+        return result
+
+    def _execute_sql(self, sql: str) -> dict:
         started = monotonic()
         try:
             query = validate_select(sql)
