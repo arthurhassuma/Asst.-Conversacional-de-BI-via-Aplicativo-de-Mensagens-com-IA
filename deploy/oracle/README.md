@@ -283,3 +283,7 @@ arquivos não habilitam cobrança, fallback pago ou mudança de modelo.
 
 O inventário está em [origem-recuperacao.json](origem-recuperacao.json) e a
 evidência em [registro da hospedagem](../../docs/deploy.md#hospedagem-oracle-entrega-histórica-e-recuperação-dos-arquivos).
+
+## Entrega contínua
+
+A atualização da VM por `scp` descrita acima é o procedimento manual de recuperação. O fluxo normal é o pipeline `Release` (GitHub Actions), que publica a imagem no GHCR, e o `pac-update.timer` na VM, que a busca e volta à versão anterior se o `/health` falhar. Veja `docs/cd.md`.

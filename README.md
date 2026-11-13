@@ -277,6 +277,7 @@ A hospedagem em produção usa Docker Compose (PostgreSQL 16, backend e um proce
 - [Avaliação](docs/avaliacao.md): protocolos, treinamento de intenções, aceite do gestor e comparação com a proposta.
 - [Experimentos](docs/experimentos.md) e [verificações](docs/verificacoes.md): resultados e evidências.
 - [Deploy](docs/deploy.md): publicação e implantações.
+- [Entrega contínua](docs/cd.md): pipeline de release no GHCR, promoção para produção e atualização da VM sem SSH.
 - [Reprodução](docs/reproducao.md): passo a passo para refazer testes, base, referências e avaliação, com os resultados esperados.
 - [Apresentação](docs/apresentacao.md): guia de estudo e roteiros de demonstração.
 - Relatório final: [Word](docs/entregaveis/Relatorio-Final-PAC-VIII-Arthur-Hassuma.docx), [PDF](docs/entregaveis/Relatorio-Final-PAC-VIII-Arthur-Hassuma.pdf) e [fonte textual](docs/relatorio-final-pac-viii.md).

@@ -1,0 +1,11 @@
+[Unit]
+Description=Atualiza o assistente de BI para a imagem promovida no GHCR
+Wants=network-online.target docker.service
+After=network-online.target docker.service
+
+[Service]
+Type=oneshot
+# Ajuste o caminho para o compose.yaml da VM (usuário e pasta de instalação).
+Environment=PAC_COMPOSE_FILE=/home/ubuntu/pac_privado/.local/hospedagem/compose.yaml
+ExecStart=/usr/local/bin/pac-update
+TimeoutStartSec=600
