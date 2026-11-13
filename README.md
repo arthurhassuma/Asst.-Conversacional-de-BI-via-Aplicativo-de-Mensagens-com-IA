@@ -2,6 +2,8 @@
 
 Assistente em português do Brasil que permite a gestores consultar indicadores de negócio por mensagens no Telegram, sem escrever SQL. A pergunta passa por quatro camadas: **Telegram → FastAPI → Gemini → PostgreSQL 16**. Toda a base é **sintética**. O domínio de apresentação é uma revenda de autopeças de porte pequeno a médio (perfil `autopecas`).
 
+> **Transparência sobre o desenvolvimento.** Este projeto foi desenvolvido por Arthur Hassuma com o apoio de assistentes de IA (Codex e Claude Code) na escrita e revisão de código e documentação. O problema, as decisões de projeto, a base sintética, as perguntas de avaliação e a verificação dos resultados são de responsabilidade do autor.
+
 ## Visão geral
 
 O gestor escreve, por exemplo, `Qual o faturamento em janeiro de 2025?` ou `Compare os pedidos de agosto com o ano passado`. O assistente:

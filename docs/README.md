@@ -8,13 +8,13 @@
 - [avaliacao.md](avaliacao.md): protocolos, treinamento de intenções (v1/v2), aceite do gestor e comparação com a proposta.
 - [experimentos.md](experimentos.md): rodadas de desenvolvimento, teste reservado e correções.
 - [verificacoes.md](verificacoes.md): registros de verificação por etapa.
+- [proposta.md](proposta.md): texto da proposta original (anterior à implementação).
 - [reproducao.md](reproducao.md): guia passo a passo para reproduzir testes, base, referências e avaliação.
 - [deploy.md](deploy.md): publicação no GitHub e implantação na Oracle.
 - [apresentacao.md](apresentacao.md): guia de estudo, roteiro de demonstração e de entrega.
 - [relatorio-final-pac-viii.md](relatorio-final-pac-viii.md): fonte textual do relatório final.
 - `entregaveis/`: relatórios (DOCX/PDF), proposta e apresentação (PPTX/PDF).
 - `dados/`: resultados em JSON, consultas SQL e corpora de treinamento.
-- `superpowers/`: planos e especificações de processo.
 
 ## Entrega final — PAC Extensionista VIII
 
