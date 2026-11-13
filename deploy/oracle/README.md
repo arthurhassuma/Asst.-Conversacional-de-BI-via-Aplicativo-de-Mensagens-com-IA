@@ -1,7 +1,7 @@
 # Hospedagem do agente na Oracle
 
 Arquivos recuperados do pacote usado em 13/10/2026, cuja aplicação tem origem no
-commit `a971546f25adbf996bfc1279637042125b6a4882`. O Dockerfile, entrypoint,
+commit `cff0f819b81387ffe2342b61fb6c1fb376e499e7`. O Dockerfile, entrypoint,
 dockerignore, Compose e configurador foram preservados byte a byte. Apenas a
 organização de Compose/configurador passa de `.local/hospedagem/` para
 `deploy/oracle/` no repositório. Os caminhos relativos `./private` continuam

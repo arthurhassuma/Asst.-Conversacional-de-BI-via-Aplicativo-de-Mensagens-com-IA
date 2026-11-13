@@ -84,7 +84,7 @@ A primeira rodada de desenvolvimento foi interrompida em D08 por HTTP 400, após
 
 Uma melhoria de diagnóstico passou a registrar categorias fixas de erros da API, sem conservar mensagens brutas. Não houve correção baseada em causa presumida. A terceira rodada, com intervalo de 60 segundos entre turnos, concluiu o desenvolvimento. O sucesso com o intervalo maior não permite determinar se o limite anterior era diário ou por minuto.
 
-Após analisar desenvolvimento sem falhas semânticas, foram congelados os fontes 59c9eb8fa0b73444e770effd3e3e80724049164b, o conjunto 1.0.0, o modelo, os limites e a base. Uma única avaliação reservada foi executada, sem alteração de prompt ou gabarito. Os relatórios e JSON sanitizados permanecem em docs/experimentos; os artefatos brutos são locais e ignorados pelo Git.
+Após analisar desenvolvimento sem falhas semânticas, foram congelados os fontes 04a642bfb740bc9625437c2e47ec828cfdd73cf3, o conjunto 1.0.0, o modelo, os limites e a base. Uma única avaliação reservada foi executada, sem alteração de prompt ou gabarito. Os relatórios e JSON sanitizados permanecem em docs/experimentos; os artefatos brutos são locais e ignorados pelo Git.
 
 | Indicador | Desenvolvimento completo | Teste reservado |
 |---|---:|---:|
@@ -105,7 +105,7 @@ A meta de acurácia foi atingida nesta amostra reservada. A amostra é pequena, 
 
 Na versão congelada, 110 testes de engenharia passaram com PostgreSQL real, sem skips, acompanhados de lint e validação das 34 referências. Esses testes verificam restrições SQL, precisão numérica, tratamento de erros, sessões, autenticação, protocolo do SDK e integração com APIs externas simuladas. Não equivalem a 110 perguntas reais ao Gemini.
 
-O GitHub Actions da consolidação 13ff665 foi aprovado. Os commits posteriores aos fontes congelados incorporaram evidências e documentação. O repositório possui Compose com PostgreSQL 16, instruções de setup, CLI, protocolo, dicionário de dados e exemplos de demonstração. A configuração secreta e os processos originais do bot foram preservados durante os experimentos.
+O GitHub Actions da consolidação f5b0a95 foi aprovado. Os commits posteriores aos fontes congelados incorporaram evidências e documentação. O repositório possui Compose com PostgreSQL 16, instruções de setup, CLI, protocolo, dicionário de dados e exemplos de demonstração. A configuração secreta e os processos originais do bot foram preservados durante os experimentos.
 
 A reprodução final em Linux, com Python 3.12.14, utilizou Docker Compose em projeto, volume e porta exclusivos. Init, seed 42 com 30 clientes, consistência, 110 testes com PostgreSQL real, lint, 34 referências SQL e pip check passaram. A base recém-gerada coincidiu com os hashes congelados; os recursos descartáveis foram removidos. Não houve chamada Gemini ou Telegram. Essa rodada utilizou dependências existentes, sem comprovar uma instalação limpa do lock; os detalhes estão em docs/verificacoes.md.
 
@@ -141,7 +141,7 @@ HASSUMA, Arthur Vinicius de Almeida. Assistente Conversacional de BI via Aplicat
 
 HASSUMA, Arthur Vinicius de Almeida. Relatório Final PAC Extensionista VII. Jaraguá do Sul, 28 jun. 2026. Documento de referência preservado em docs/entregaveis/Relatorio-Final-PAC-Arthur-Hassuma.docx.
 
-HASSUMA, Arthur Vinicius de Almeida. Protocolo de avaliação e relatórios de desenvolvimento e teste reservado. Repositório pac_privado, 2026. Versão dos fontes avaliada: 59c9eb8. Documentos em docs/avaliacao.md e docs/experimentos/.
+HASSUMA, Arthur Vinicius de Almeida. Protocolo de avaliação e relatórios de desenvolvimento e teste reservado. Repositório pac_privado, 2026. Versão dos fontes avaliada: 04a642b. Documentos em docs/avaliacao.md e docs/experimentos/.
 
 ## 8 APÊNDICES
 

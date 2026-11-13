@@ -24,7 +24,7 @@ prompts, conjunto, gabaritos, modelo, plano de cobrança ou processos do bot.
 
 ### Identificação e execução
 
-- Commit executado: `8b11f2d9767caa3329b893e069930163c1830dd0`, sem alterações locais durante a rodada.
+- Commit executado: `fc64b0b8fa3e1d5468b7bb08380452b43d5619a5`, sem alterações locais durante a rodada.
 - Branch de evidências: `codex/experimento-desenvolvimento`; o commit de publicação
   do relatório é posterior à execução e não substitui o commit executado acima.
 - Worktree isolado: `/workspace/pac_privado-desenvolvimento`.
@@ -182,7 +182,7 @@ Rodada interrompida, com 9 casos aprovados entre 10 registrados de 20 planejados
 ### Identidade e preservação
 
 - Rodada: `20261011T153617Z-0a9bf9d9`; artefatos locais ignorados: `/workspace/pac_privado-desenvolvimento/.local/evaluation/20261011T153617Z-0a9bf9d9`.
-- Fontes executados: `8b11f2d9767caa3329b893e069930163c1830dd0`. Checkout/manifesto: `b5b691d9528e38141f66e4a9da56e856db6c302b`, contendo apenas relatórios adicionais; os hashes de todos os fontes/conjunto coincidem com a versão original. Estado modificado no manifesto: `False`.
+- Fontes executados: `fc64b0b8fa3e1d5468b7bb08380452b43d5619a5`. Checkout/manifesto: `b5b691d9528e38141f66e4a9da56e856db6c302b`, contendo apenas relatórios adicionais; os hashes de todos os fontes/conjunto coincidem com a versão original. Estado modificado no manifesto: `False`.
 - Conjunto versão 1.0.0, SHA256 `6a42eeb54169b15751eec3ff2e7657f52cdab96dc674dbaa7be16bc5c620bc2c`.
 - Fontes SHA256 agregado `ef99187e3b872919ff4600c2cc9c0a9d74b12c890e715efa22111b3f3fcacd20`.
 - Base SHA256 agregado `d4f6623f1de2d8050ca3901b231ff00e05f1627bb09ecf8f7a7f0db86578cf6d`. Hashes agregados usam SHA256 de `evaluation.runner.dump` (UTF-8, chaves ordenadas, indentação 2).
@@ -290,7 +290,7 @@ Rodada completa, com 20 casos aprovados entre 20 registrados de 20 planejados. M
 ### Identidade e preservação
 
 - Rodada: `20261011T161317Z-1c15b47d`; artefatos locais ignorados: `/workspace/pac_privado-desenvolvimento-rodada3/.local/evaluation/20261011T161317Z-1c15b47d`.
-- Fontes executados: `59c9eb8fa0b73444e770effd3e3e80724049164b`. Checkout/manifesto: `59c9eb8fa0b73444e770effd3e3e80724049164b`, checkout isolado limpo na versão indicada. Conjunto, base e modelo coincidem com as rodadas anteriores; a mudança de fontes limita-se à melhoria diagnóstica autorizada, sem alterar prompts/gabaritos. Estado modificado no manifesto: `False`.
+- Fontes executados: `04a642bfb740bc9625437c2e47ec828cfdd73cf3`. Checkout/manifesto: `04a642bfb740bc9625437c2e47ec828cfdd73cf3`, checkout isolado limpo na versão indicada. Conjunto, base e modelo coincidem com as rodadas anteriores; a mudança de fontes limita-se à melhoria diagnóstica autorizada, sem alterar prompts/gabaritos. Estado modificado no manifesto: `False`.
 - Conjunto versão 1.0.0, SHA256 `6a42eeb54169b15751eec3ff2e7657f52cdab96dc674dbaa7be16bc5c620bc2c`.
 - Fontes SHA256 agregado `d46a1a6fbb6c79507704cc03ff8aa6fe5db48c1788fb588e7f1d2442d7b0d860`.
 - Base SHA256 agregado `d4f6623f1de2d8050ca3901b231ff00e05f1627bb09ecf8f7a7f0db86578cf6d`. Hashes agregados usam SHA256 de `evaluation.runner.dump` (UTF-8, chaves ordenadas, indentação 2).
@@ -354,7 +354,7 @@ A única reprodução autorizada **passou**. O HTTP 400 da rodada original não 
 
 ### Escopo e identidade
 
-- Fontes executados: `8b11f2d9767caa3329b893e069930163c1830dd0`. Todos os hashes de fontes, conjunto e referências foram conferidos contra o manifesto original antes da reprodução; HEAD contém somente documentação adicional.
+- Fontes executados: `fc64b0b8fa3e1d5468b7bb08380452b43d5619a5`. Todos os hashes de fontes, conjunto e referências foram conferidos contra o manifesto original antes da reprodução; HEAD contém somente documentação adicional.
 - Conjunto SHA256: `6a42eeb54169b15751eec3ff2e7657f52cdab96dc674dbaa7be16bc5c620bc2c`. Somente D08 foi executado, com histórico vazio conforme o caso original; nenhum caso reservado ou rodada completa foi executado.
 - Modelo configurado e resolvido: `gemini-3.5-flash-lite`, sem troca de modelo ou alteração de cobrança.
 - SDK `google-genai` 1.75.0, API `v1beta`, timeout 30 s e `HttpRetryOptions(attempts=1)`.
@@ -410,7 +410,7 @@ Rodada completa, com 20 casos aprovados entre 20 registrados de 20 planejados. M
 ### Identidade e preservação
 
 - Rodada: `20261011T163747Z-5fe3b066`; artefatos locais ignorados: `/workspace/pac_privado-desenvolvimento-rodada3/.local/evaluation/20261011T163747Z-5fe3b066`.
-- Fontes executados: `59c9eb8fa0b73444e770effd3e3e80724049164b`. Checkout/manifesto: `59c9eb8fa0b73444e770effd3e3e80724049164b`, checkout isolado limpo na versão indicada. Conjunto, base e modelo coincidem com as rodadas anteriores; fontes e limites são exatamente os congelados após desenvolvimento, sem alterar prompts/gabaritos. Estado modificado no manifesto: `False`.
+- Fontes executados: `04a642bfb740bc9625437c2e47ec828cfdd73cf3`. Checkout/manifesto: `04a642bfb740bc9625437c2e47ec828cfdd73cf3`, checkout isolado limpo na versão indicada. Conjunto, base e modelo coincidem com as rodadas anteriores; fontes e limites são exatamente os congelados após desenvolvimento, sem alterar prompts/gabaritos. Estado modificado no manifesto: `False`.
 - Conjunto versão 1.0.0, SHA256 `6a42eeb54169b15751eec3ff2e7657f52cdab96dc674dbaa7be16bc5c620bc2c`.
 - Fontes SHA256 agregado `d46a1a6fbb6c79507704cc03ff8aa6fe5db48c1788fb588e7f1d2442d7b0d860`.
 - Base SHA256 agregado `d4f6623f1de2d8050ca3901b231ff00e05f1627bb09ecf8f7a7f0db86578cf6d`. Hashes agregados usam SHA256 de `evaluation.runner.dump` (UTF-8, chaves ordenadas, indentação 2).
@@ -476,7 +476,7 @@ Rodada completa, 24/25 casos registrados aprovados; 25 planejados. Exit code `0`
 
 ### Identificação
 
-- Fontes: `1cc91970c242267c4c1e88db72ece3a7ed844c11`, checkout isolado `/workspace/pac_privado-gerencial`, branch `codex/gerencial-verificacao`. Checkout limpo no início; somente este relatório é publicado.
+- Fontes: `62fab48546414c4219bb1cb799f6b54cf23dca0f`, checkout isolado `/workspace/pac_privado-gerencial`, branch `codex/gerencial-verificacao`. Checkout limpo no início; somente este relatório é publicado.
 - Rodada `20261012T193635Z-d9656c6a`, artefatos locais ignorados `/workspace/pac_privado-gerencial/.local/evaluation/20261012T193635Z-d9656c6a`. Início 2026-10-12T16:36:35.542381-03:00.
 - Conjunto `managerial-v1`, `evaluation/managerial-cases-v1.json`, SHA256 `cdb71fa885cd2f66e1251dbe5717b133a8079afa132592f2a5c5b7765c9da863`.
 - Hash agregado dos fontes `225d69d316a15ed84fae9dd188f628cb9b5e819865ae33ca4e8f1b95892fcdf5`; base comparativa `dfdc635ddc05e8fbda1cbe2b132c3b505bb5fb29dfd50b95106e086a29e03725`. Agregados são SHA256 de `evaluation.runner.dump` UTF-8.
@@ -608,7 +608,7 @@ Resultado esperado sintético:
 
 ### Preservação e limites
 
-`database_after.unchanged=true`; hashes/contagens iguais ao snapshot inicial. Bot comparativo manteve os mesmos processos/configuração, sem restart ou mensagem proativa. Base e fontes `59c9eb8`, `.env` original e evidências acadêmicas preservados. Nenhum teste gerencial reservado foi executado; aguardará revisão/congelamento separado. A autorização condicional posterior exigia 25/25 aprovados para reservado/deploy; D38 impede essa continuação. A revisão `85ac8eb` mencionada pelo coordenador não foi aplicada durante esta rodada, e o bot não foi atualizado. Nenhum ganho é atribuído ao classificador. Os resultados desta base/versão não se misturam às métricas acadêmicas antigas. Outubro completo é cenário futuro sintético, status 31/10/2026. Revisão automática técnica não equivale a feedback de gestor.
+`database_after.unchanged=true`; hashes/contagens iguais ao snapshot inicial. Bot comparativo manteve os mesmos processos/configuração, sem restart ou mensagem proativa. Base e fontes `04a642b`, `.env` original e evidências acadêmicas preservados. Nenhum teste gerencial reservado foi executado; aguardará revisão/congelamento separado. A autorização condicional posterior exigia 25/25 aprovados para reservado/deploy; D38 impede essa continuação. A revisão `4f23791` mencionada pelo coordenador não foi aplicada durante esta rodada, e o bot não foi atualizado. Nenhum ganho é atribuído ao classificador. Os resultados desta base/versão não se misturam às métricas acadêmicas antigas. Outubro completo é cenário futuro sintético, status 31/10/2026. Revisão automática técnica não equivale a feedback de gestor.
 
 Hashes dos artefatos brutos locais, mantidos ignorados:
 
@@ -653,7 +653,7 @@ arredondadas. O último mês parcial recebe aviso.
 
 ### Evidências e limites
 
-- Base de código anterior: `583080dc98e95c8c1096671cb482ac244a6253bb`.
+- Base de código anterior: `5f95dba66dececa08529ce2e3ac7dfa2849896fc`.
 - Diagnóstico anterior com a pergunta isolada: plano `comparacao/mes` válido,
   seis requisições Gemini e resposta com detalhamento de campos sem conclusão.
   O esclarecimento do print é compatível com a barreira de validação identificada;
@@ -682,7 +682,7 @@ produto não modifica resultados de experimentos congelados anteriores.
 
 ### Implantação e confirmação humana
 
-Código implantado: `686b21cd7d1e6da32d234edc832488c0efb0d54b`, publicado na
+Código implantado: `8dab5668273ed10660d0272ec5000df3588cfff3`, publicado na
 branch `codex/comparacao-mensal`. O checkout ativo continua em
 `/workspace/pac_privado-periodos`, atualizado por fast-forward; o runtime anterior
 foi encerrado antes do novo início. Main não recebeu merge.
@@ -693,7 +693,7 @@ foi encerrado antes do novo início. Main não recebeu merge.
   desabilitado. Nenhuma mensagem Telegram proativa foi enviada.
 - Fingerprints original/comparativo conferidos novamente após implantação e
   iguais aos manifests anteriores.
-- Rollback privado preserva commit `583080dc98e95c8c1096671cb482ac244a6253bb`
+- Rollback privado preserva commit `5f95dba66dececa08529ce2e3ac7dfa2849896fc`
   e supervisor anterior, sem copiar credenciais.
 - Arthur enviou `/comecar` e repetiu a pergunta no Telegram; confirmou neste chat
   “Respondeu corretamente”. Essa é a evidência humana de entrega; não se afirma
@@ -705,7 +705,7 @@ foi encerrado antes do novo início. Main não recebeu merge.
 
 Primeira rodada real da reavaliação definida em [avaliação](avaliacao.md#reavaliação-no-perfil-autopecas-protocolo-declarado-antes-da-rodada), executada antes de qualquer correção.
 
-**Configuração (do manifesto).** Código no commit `8635ce7` (`git_dirty: false`), conjunto 3.0.0 (SHA256 `4fca7b2e…`), modelo `gemini-3.5-flash-lite`, classificador de intenções ligado, intervalo de 60 s, perfil `autopecas` (seed 42, 100 clientes, jan/2025–out/2026). A verificação final da base confirmou que ela não mudou (`database_after.unchanged: true`).
+**Configuração (do manifesto).** Código no commit `9b6e71b` (`git_dirty: false`), conjunto 3.0.0 (SHA256 `4fca7b2e…`), modelo `gemini-3.5-flash-lite`, classificador de intenções ligado, intervalo de 60 s, perfil `autopecas` (seed 42, 100 clientes, jan/2025–out/2026). A verificação final da base confirmou que ela não mudou (`database_after.unchanged: true`).
 
 **Resultado.** Rodada completa (20 de 20 casos, sem parada): *execution accuracy* **14/16 (87,5%)**, esclarecimentos 3/3, pedido não suportado 1/1, latência média de agente e banco de 2.467 ms (sem Telegram). O critério declarado (pelo menos 12 de 16) foi atendido. Falhas: D04 e D08.
 
@@ -722,7 +722,7 @@ Primeira rodada real da reavaliação definida em [avaliação](avaliacao.md#rea
 
 Segunda rodada de desenvolvimento, depois das correções da Emenda 1.
 
-**Configuração (do manifesto).** Código no commit `14287a3` (`git_dirty: false`), conjunto 3.1.0 (SHA256 `e4c8b430…`), modelo `gemini-3.5-flash-lite`, classificador de intenções ligado, intervalo de 60 s, mesma base da rodada 1 (`database_after.unchanged: true`).
+**Configuração (do manifesto).** Código no commit `21f9a8b` (`git_dirty: false`), conjunto 3.1.0 (SHA256 `e4c8b430…`), modelo `gemini-3.5-flash-lite`, classificador de intenções ligado, intervalo de 60 s, mesma base da rodada 1 (`database_after.unchanged: true`).
 
 **Resultado.** Rodada completa (20 de 20 casos): *execution accuracy* **16/16 (100%)**, esclarecimentos 3/3, pedido não suportado 1/1, latência média de agente e banco de 2.934 ms (rodada 1: 2.467 ms), nenhuma falha. D04 respondeu R$ 7.558.967,33, igual à referência; D08 passou com o gabarito 3.1.0.
 
@@ -733,13 +733,13 @@ Segunda rodada de desenvolvimento, depois das correções da Emenda 1.
 | Não suportado | 1/1 | 1/1 |
 | Falhas | D04, D08 | nenhuma |
 
-**Como ler.** Este resultado **não é uma estimativa independente**: o agente e o gabarito foram corrigidos a partir das falhas deste mesmo conjunto de desenvolvimento. Cada caso rodou uma vez e o Gemini não é determinístico (o D04 variou nas repetições do diagnóstico). Mostra apenas que as falhas encontradas foram resolvidas. A medida sem viés vem dos testes reservados, que seguem intocados nesta data e serão rodados uma única vez com o código congelado em `14287a3`.
+**Como ler.** Este resultado **não é uma estimativa independente**: o agente e o gabarito foram corrigidos a partir das falhas deste mesmo conjunto de desenvolvimento. Cada caso rodou uma vez e o Gemini não é determinístico (o D04 variou nas repetições do diagnóstico). Mostra apenas que as falhas encontradas foram resolvidas. A medida sem viés vem dos testes reservados, que seguem intocados nesta data e serão rodados uma única vez com o código congelado em `21f9a8b`.
 
 ## Reavaliação no perfil autopecas — teste reservado do conjunto A (3.1.0, 09/11/2026)
 
 Uma única rodada, executada depois do congelamento e sem nenhuma correção posterior.
 
-**Configuração (do manifesto).** Commit `0cbe39d` (`git_dirty: false`; difere do `14287a3` apenas por este registro em `docs/`, sem mudança no agente), conjunto 3.1.0 (SHA256 `e4c8b430…`), partição `test`, modelo `gemini-3.5-flash-lite`, classificador ligado, intervalo de 60 s, base inalterada ao final.
+**Configuração (do manifesto).** Commit `708f0bf` (`git_dirty: false`; difere do `21f9a8b` apenas por este registro em `docs/`, sem mudança no agente), conjunto 3.1.0 (SHA256 `e4c8b430…`), partição `test`, modelo `gemini-3.5-flash-lite`, classificador ligado, intervalo de 60 s, base inalterada ao final.
 
 **Resultado.** Rodada completa (20 de 20): *execution accuracy* **12/16 (75%)**, esclarecimentos 2/3, pedido não suportado 1/1, latência média de agente e banco de 2.551 ms. O critério (pelo menos 12 de 16) foi atendido no limite. Falhas: T04, T05, T08, T10 e T18.
 
@@ -755,7 +755,7 @@ Pelo protocolo, as cinco contam como falha; T08 e T18 não foram reclassificadas
 
 ## Reavaliação no perfil autopecas — teste reservado do conjunto B (managerial-v1, T21–T30, 09/11/2026)
 
-Uma única rodada, logo depois da anterior, no mesmo commit `0cbe39d` e sem correção posterior. Conjunto `managerial-v1` (SHA256 `cdb71fa8…`), base inalterada.
+Uma única rodada, logo depois da anterior, no mesmo commit `708f0bf` e sem correção posterior. Conjunto `managerial-v1` (SHA256 `cdb71fa8…`), base inalterada.
 
 **Resultado.** 10 de 10 casos: *execution accuracy* **6/8 (75%)**, esclarecimento 1/1, pedido não suportado 1/1, latência média de 2.379 ms. O critério (pelo menos 6 de 8) foi atendido no limite. Falhas: T26 e T28.
 
@@ -786,7 +786,7 @@ Feita depois de registrar os reservados, por decisão do responsável. **Contami
 
 Medida da versão **corrigida** do agente, em casos escritos depois das correções. Uma única execução, sem nenhuma alteração posterior.
 
-**Configuração (do manifesto).** Commit `f4ab7e6` (`git_dirty: false`), conjunto `cases-autopecas-reservado-2.json` 1.0.0 (SHA256 `45d5b120…`), partição `test` (T41–T60), modelo `gemini-3.5-flash-lite`, classificador ligado, intervalo de 60 s, base inalterada ao final.
+**Configuração (do manifesto).** Commit `7e13ab2` (`git_dirty: false`), conjunto `cases-autopecas-reservado-2.json` 1.0.0 (SHA256 `45d5b120…`), partição `test` (T41–T60), modelo `gemini-3.5-flash-lite`, classificador ligado, intervalo de 60 s, base inalterada ao final.
 
 **Resultado.** 20 de 20 casos: *execution accuracy* **13/16 (81%)**, esclarecimentos 3/3, pedido não suportado 1/1, latência média de agente e banco de 2.813 ms. O critério declarado (pelo menos 12 de 16) foi atendido. Falhas: T48, T52 e T53.
 
@@ -807,15 +807,15 @@ Pelo protocolo as três contam como falha; T52 e T53 não foram reclassificadas,
 
 ## Medida do classificador de intenções no conjunto C (10/11/2026)
 
-Segue o protocolo declarado antes das rodadas em [avaliação](avaliacao.md). Conjunto C (T41–T60, SHA256 `45d5b120…`), mesmo intervalo (60 s), modelo e base; agente do commit `f4ab7e6` na rodada 1 e do `ce44f07` nas demais (diferem só por um rótulo de renderização, fora da pontuação). Base inalterada ao final de todas.
+Segue o protocolo declarado antes das rodadas em [avaliação](avaliacao.md). Conjunto C (T41–T60, SHA256 `45d5b120…`), mesmo intervalo (60 s), modelo e base; agente do commit `7e13ab2` na rodada 1 e do `5474450` nas demais (diferem só por um rótulo de renderização, fora da pontuação). Base inalterada ao final de todas.
 
 **Rodadas válidas.**
 
 | Rodada | Classificador | Execução | Respostas corretas |
 |---|---|---|---|
-| 1 (`f4ab7e6`) | ligado | completa, 20/20 | 13/16 |
-| 2 (`ce44f07`) | **desligado** | **interrompida** por `provider_error_503` no T58 (18/20; T59 e T60 não rodaram) | 13/16 nos 16 casos de resposta, que rodaram todos; sem taxa oficial |
-| 3 (`ce44f07`) | ligado (repetição) | completa, 20/20 | 14/16 |
+| 1 (`7e13ab2`) | ligado | completa, 20/20 | 13/16 |
+| 2 (`5474450`) | **desligado** | **interrompida** por `provider_error_503` no T58 (18/20; T59 e T60 não rodaram) | 13/16 nos 16 casos de resposta, que rodaram todos; sem taxa oficial |
+| 3 (`5474450`) | ligado (repetição) | completa, 20/20 | 14/16 |
 
 **Tentativas interrompidas, registradas por completude.** Antes das rodadas 2 e 3, duas tentativas pararam por `provider_error_503` do Gemini (desligado: 8 casos; ligado: 4 casos) e a rodada 2 acima também parou. Nenhum resultado das interrompidas entra nas contas; os casos afetados pelo 503 (T48 na primeira tentativa desligada, T44 na ligada, T58 na rodada 2) não foram contados como falha do agente. Depois de uma chamada de teste ao Gemini, as rodadas foram refeitas do zero.
 
@@ -838,9 +838,9 @@ Segue o protocolo declarado antes das rodadas em [avaliação](avaliacao.md). Co
 
 ## Regressão da minimização de dados no conjunto C (12/11/2026)
 
-**Motivo.** O commit `3cf989c` passou a não enviar ao Gemini as linhas devolvidas pelo banco no caminho de SQL livre (`SEND_ROWS_TO_MODEL=false`) e acrescentou duas linhas ao prompt do executor. Esta rodada verifica se isso alterou o acerto. Não é uma medida nova de generalização: o conjunto C já havia sido executado em 09/11 e 10/11.
+**Motivo.** O commit `e4f1938` passou a não enviar ao Gemini as linhas devolvidas pelo banco no caminho de SQL livre (`SEND_ROWS_TO_MODEL=false`) e acrescentou duas linhas ao prompt do executor. Esta rodada verifica se isso alterou o acerto. Não é uma medida nova de generalização: o conjunto C já havia sido executado em 09/11 e 10/11.
 
-**Condições.** Commit `3cf989cff22e` (árvore limpa), conjunto C 1.0.0 (`45d5b1204532`), partição de teste T41–T60, base `autopecas` (100 clientes, seed 42), classificador de intenções ligado, `--interval 60`, uma execução. A base não mudou (`database_after.unchanged: true`). Evidências em `.local/evaluation/20261112T224935Z-c2650f99`.
+**Condições.** Commit `e4f193849873` (árvore limpa), conjunto C 1.0.0 (`45d5b1204532`), partição de teste T41–T60, base `autopecas` (100 clientes, seed 42), classificador de intenções ligado, `--interval 60`, uma execução. A base não mudou (`database_after.unchanged: true`). Evidências em `.local/evaluation/20261112T224935Z-c2650f99`.
 
 **Resultado.** 20 de 20 casos: *execution accuracy* **13/16 (81%)**, esclarecimentos 3/3, pedido não suportado 1/1, latência média de agente e banco de 2.727 ms. O critério (pelo menos 12 de 16) foi atendido. As falhas são as mesmas de 09/11, pelos mesmos motivos: T48 (formato do ranking), T52 e T53 (esclarecimento por "total/soma de pedidos" ambíguo).
 

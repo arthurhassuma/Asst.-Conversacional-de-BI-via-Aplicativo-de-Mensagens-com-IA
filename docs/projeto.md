@@ -150,7 +150,7 @@ Na data da implementação, 12/10/2026: ano atual é 01/01/2026–12/10/2026; a 
 
 _Origem: `docs/projeto.md` (consolidado em 2026-11-09)._
 
-Alteração posterior ao congelamento `ed38382`, solicitada em 12/10/2026 após teste humano no bot.
+Alteração posterior ao congelamento `04a34c5`, solicitada em 12/10/2026 após teste humano no bot.
 
 Percentuais são exibidos com exatamente duas casas decimais e arredondamento decimal HALF_UP, incluindo variação, participação e taxa de resolução. Exemplo: 187,8237825408560075% → 187,82%. O arredondamento afeta somente texto, nunca células SQL, cálculos, referências, traces ou dados armazenados. NULL continua “não informado”; percentuais próximos de zero não exibem zero negativo.
 

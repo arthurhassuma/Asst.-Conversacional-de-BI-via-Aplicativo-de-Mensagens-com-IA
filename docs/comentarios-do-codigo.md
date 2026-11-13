@@ -1,7 +1,7 @@
 # Comentários e docstrings do código, por função
 
 Este documento reúne, **função por função**, os comentários (`#`) e as docstrings que existiam no código-fonte
-até a versão **v1.0.1** (commit `81778f8`). Eles foram removidos do código; o raciocínio que registravam
+até a versão **v1.0.1** (commit `0ebfcae`). Eles foram removidos do código; o raciocínio que registravam
 está aqui, ao lado do nome e da assinatura de cada função ou classe.
 
 ## Como ler
@@ -10,8 +10,8 @@ está aqui, ao lado do nome e da assinatura de cada função ou classe.
   arquivos SQL em `db/`. Foram mantidos os marcadores que têm efeito sobre ferramentas (`# fmt: skip`) e os comentários
   de arquivos de configuração (`.env.example`, `.github/workflows/tests.yml`, `.gitignore`), que fazem parte
   da configuração e não do código.
-- **Números de linha** referem-se aos arquivos **antes** da remoção (commit `81778f8`). Para ver o texto original no
-  contexto, use `git show 81778f8:caminho/do/arquivo.py`.
+- **Números de linha** referem-se aos arquivos **antes** da remoção (commit `0ebfcae`). Para ver o texto original no
+  contexto, use `git show 0ebfcae:caminho/do/arquivo.py`.
 - **Cada entrada** mostra o tipo (*Docstring* ou *Comentário*), a linha, o texto original e, nos comentários, o trecho de código
   que ele explica (**Trecho comentado**).
 - **Efeito sobre o comportamento.** A remoção não altera a lógica: a comparação das árvores sintáticas (AST) antes e depois

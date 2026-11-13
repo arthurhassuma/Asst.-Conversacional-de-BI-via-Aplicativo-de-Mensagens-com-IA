@@ -111,7 +111,7 @@ _Origem: `docs/verificacoes.md` (consolidado em 2026-11-09)._
 
 ### Código e ambiente
 
-Fonte: `arthurhassuma/pac_privado`, base `31ad3a4`, branch `codex/alinhamento-proposta`. Clone em `C:/Users/arthu/PAC - TCC/pac_privado`; arquivos da cópia anterior preservados. Proposta PDF e relatório DOCX já estão versionados em `docs/`.
+Fonte: `arthurhassuma/pac_privado`, base `7aef467`, branch `codex/alinhamento-proposta`. Clone em `C:/Users/arthu/PAC - TCC/pac_privado`; arquivos da cópia anterior preservados. Proposta PDF e relatório DOCX já estão versionados em `docs/`.
 
 Usado o ambiente Python 3.13.1 existente na pasta superior e o cluster PostgreSQL 16.14 dedicado do projeto, porta 55439. O login de teste foi `readonly_agent`; a URL foi carregada em memória, sem impressão de credenciais. Não foi preciso instalar dependências nem copiar `.env` para o clone.
 
@@ -159,7 +159,7 @@ Data: 11/10/2026. O usuário autorizou continuar além do escopo original, até 
 
 ### Versão integrada
 
-O commit `8b11f2d9767caa3329b893e069930163c1830dd0`, branch `codex/avaliacao-s7-s11`, integra a versão funcional em nuvem `72469bb` com as proteções da revisão anterior `383de6b`. O PR de rascunho [#2](https://github.com/arthurhassuma/pac_privado/pull/2) reúne as alterações; nenhum merge em main foi feito.
+O commit `fc64b0b8fa3e1d5468b7bb08380452b43d5619a5`, branch `codex/avaliacao-s7-s11`, integra a versão funcional em nuvem `7fa6d97` com as proteções da revisão anterior `17ccbda`. O PR de rascunho [#2](https://github.com/arthurhassuma/pac_privado/pull/2) reúne as alterações; nenhum merge em main foi feito.
 
 Foi implementado o conjunto de 40 casos (20 desenvolvimento, 20 teste reservado), com 34 consultas SQL de referência e comparação exata dos resultados. O agente registra plano, tentativas, resultado selecionado, modelo resolvido e tokens por chamada, sem estado de rastreio compartilhado entre usuários. O executor preserva checkpoints, interrompe em falhas externas e invalida taxas quando a base muda ou sua verificação final falha.
 
@@ -167,7 +167,7 @@ Foi implementado o conjunto de 40 casos (20 desenvolvimento, 20 teste reservado)
 
 - PostgreSQL 16 local: as 34 consultas de referência executaram sem erro e sem truncamento. O comando `python -m scripts.evaluate validate --env-file ../.env` confirmou o mesmo.
 - Suíte local completa antes da última proteção: 106 testes passaram, incluindo PostgreSQL real. Depois da proteção final, os 12 testes do módulo de avaliação passaram.
-- [GitHub Actions, execução 38150606149](https://github.com/arthurhassuma/pac_privado/actions/runs/38150606149): **107 testes passaram**, lint aprovado, preparação e validação da base PostgreSQL 16 aprovadas. Commit executado: `8b11f2d`.
+- [GitHub Actions, execução 38150606149](https://github.com/arthurhassuma/pac_privado/actions/runs/38150606149): **107 testes passaram**, lint aprovado, preparação e validação da base PostgreSQL 16 aprovadas. Commit executado: `fc64b0b`.
 - Revisão independente identificou e orientou correções para a coluna auxiliar `registros`, o rótulo genérico de valores médios, a classificação de falhas de transporte e a invalidação da rodada quando a confirmação final do banco falha.
 
 Esses testes comprovam propriedades de engenharia. Não comprovam a meta acadêmica de acurácia, a latência Telegram ou aceitação por um gestor.
@@ -190,11 +190,11 @@ Com base na lacuna de evidência observada, foi acrescentada classificação seg
 
 #### Desenvolvimento concluído e congelamento
 
-A [terceira rodada de desenvolvimento](experimentos.md#desenvolvimento--rodada-3-11102026), `20261011T161317Z-1c15b47d`, concluiu 20/20 casos na versão `59c9eb8fa0b73444e770effd3e3e80724049164b`, com intervalo de 60 segundos. Foram aprovadas 16/16 respostas (execution accuracy de 100%) e 4/4 perguntas de esclarecimento (clarification accuracy de 100%). Não houve erro externo ou semântico; não foi necessário alterar prompts. As rodadas incompletas anteriores continuam preservadas e sem taxas oficiais.
+A [terceira rodada de desenvolvimento](experimentos.md#desenvolvimento--rodada-3-11102026), `20261011T161317Z-1c15b47d`, concluiu 20/20 casos na versão `04a642bfb740bc9625437c2e47ec828cfdd73cf3`, com intervalo de 60 segundos. Foram aprovadas 16/16 respostas (execution accuracy de 100%) e 4/4 perguntas de esclarecimento (clarification accuracy de 100%). Não houve erro externo ou semântico; não foi necessário alterar prompts. As rodadas incompletas anteriores continuam preservadas e sem taxas oficiais.
 
 O JSON publicado foi conferido contra seus 20 registros: 21 turnos, 45 requisições e média de 1,733 s para agente e banco. O hash do conjunto coincide com o arquivo local; os fontes de aplicação, avaliação, scripts e banco permanecem idênticos à versão executada. O ambiente de origem validou os hashes dos artefatos brutos, a base inalterada, 110 testes de engenharia, lint e 34 referências SQL antes da rodada. Esses resultados de desenvolvimento não substituem teste reservado.
 
-Em continuidade autorizada pelo usuário, foram congelados os fontes `59c9eb8`, o conjunto v1.0.0 (SHA256 `6a42eeb54169b15751eec3ff2e7657f52cdab96dc674dbaa7be16bc5c620bc2c`), o modelo `gemini-3.5-flash-lite`, os limites e a base da terceira rodada. Uma única execução de T01–T20 foi realizada no ambiente configurado, mantendo o intervalo de 60 segundos e parada em qualquer erro externo. Nenhuma correção será orientada pelo teste reservado sem declarar contaminação e preparar outra amostra independente.
+Em continuidade autorizada pelo usuário, foram congelados os fontes `04a642b`, o conjunto v1.0.0 (SHA256 `6a42eeb54169b15751eec3ff2e7657f52cdab96dc674dbaa7be16bc5c620bc2c`), o modelo `gemini-3.5-flash-lite`, os limites e a base da terceira rodada. Uma única execução de T01–T20 foi realizada no ambiente configurado, mantendo o intervalo de 60 segundos e parada em qualquer erro externo. Nenhuma correção será orientada pelo teste reservado sem declarar contaminação e preparar outra amostra independente.
 
 #### Teste reservado concluído
 
@@ -219,7 +219,7 @@ A [reprodução Docker isolada](#verificação-de-reprodução-para-entrega-fina
 
 _Origem: `docs/verificacoes.md` (consolidado em 2026-11-09)._
 
-Escopo: cenário sintético de janeiro de 2025 a outubro de 2026, seed 42, 100 clientes. Não altera os resultados acadêmicos congelados na versão `59c9eb8`.
+Escopo: cenário sintético de janeiro de 2025 a outubro de 2026, seed 42, 100 clientes. Não altera os resultados acadêmicos congelados na versão `04a642b`.
 
 ### PostgreSQL local
 
@@ -256,7 +256,7 @@ A [verificação em Docker, Gemini e Telegram](#verificação-e-ativação-da-ba
 
 _Origem: `docs/verificacoes.md` (consolidado em 2026-11-09)._
 
-11/10/2026 (America/Sao_Paulo). Fonte preparada: `11f8ecf19b241bdece42dd04e3195b9405d1e9b4`, em checkout separado `/workspace/pac_privado-comparativo`. Evidências publicadas somente na branch `codex/base-comparativa-verificacao`, criada a partir dessa versão; o branch de apresentação não foi alterado.
+11/10/2026 (America/Sao_Paulo). Fonte preparada: `04ebd7291bf87a45b7bb10c8b6ca7372f7cdc2ac`, em checkout separado `/workspace/pac_privado-comparativo`. Evidências publicadas somente na branch `codex/base-comparativa-verificacao`, criada a partir dessa versão; o branch de apresentação não foi alterado.
 
 ### Carga e identidade
 
@@ -326,7 +326,7 @@ Runtime local: `.local/runtime-manager.py`; estado `.local/runtime-state.json`; 
 
 ### Preservação e limites
 
-A base dos experimentos manteve exatamente o fingerprint anterior; o checkout congelado `59c9eb8` e seus hashes de fontes continuam intactos. O `.env` original permaneceu byte a byte igual. As rodadas acadêmicas e seus artefatos não foram alterados. Apenas os processos desse bot foram substituídos pela configuração comparativa autorizada.
+A base dos experimentos manteve exatamente o fingerprint anterior; o checkout congelado `04a642b` e seus hashes de fontes continuam intactos. O `.env` original permaneceu byte a byte igual. As rodadas acadêmicas e seus artefatos não foram alterados. Apenas os processos desse bot foram substituídos pela configuração comparativa autorizada.
 
 Outubro/2026 contém o mês inteiro como **cenário futuro sintético** em relação a 11/10/2026; status representam uma fotografia em **31/10/2026**. Não são fatos observados de uma empresa real.
 
@@ -340,12 +340,12 @@ Data: 11/10/2026 (America/Sao_Paulo). Verificações executadas no ambiente em n
 
 ### Identidade conferida
 
-- Checkout de execução isolado: `/workspace/pac_privado-desenvolvimento-rodada3`, HEAD destacado em `59c9eb8fa0b73444e770effd3e3e80724049164b`.
+- Checkout de execução isolado: `/workspace/pac_privado-desenvolvimento-rodada3`, HEAD destacado em `04a642bfb740bc9625437c2e47ec828cfdd73cf3`.
 - Todos os hashes de aplicação, avaliação, scripts e SQL coincidem com o manifesto da rodada3 `20261011T161317Z-1c15b47d`; os fontes continuam idênticos após os checks. Relatórios locais não rastreados são apenas evidências previamente publicadas, não mudanças de produto.
 - Conjunto v1.0.0: SHA256 `6a42eeb54169b15751eec3ff2e7657f52cdab96dc674dbaa7be16bc5c620bc2c`.
 - Fontes, hash agregado: `d46a1a6fbb6c79507704cc03ff8aa6fe5db48c1788fb588e7f1d2442d7b0d860`.
 - Base congelada, hash agregado: `d4f6623f1de2d8050ca3901b231ff00e05f1627bb09ecf8f7a7f0db86578cf6d`. Agregados usam SHA256 de `evaluation.runner.dump` (UTF-8, chaves ordenadas, indentação 2).
-- A versão documental `13ff665a49f7cf0b0143e034f7ee4f1be8d37cfd` foi obtida e inspecionada sem mudar HEAD: seus fontes congelados e workflow são idênticos aos de `59c9eb8`. Seu commit imediato altera apenas documentação; a diferença acumulada inclui relatórios de evidências.
+- A versão documental `f5b0a953a9dc0ecfb782bf94d93824c78aefa1c5` foi obtida e inspecionada sem mudar HEAD: seus fontes congelados e workflow são idênticos aos de `04a642b`. Seu commit imediato altera apenas documentação; a diferença acumulada inclui relatórios de evidências.
 
 ### Docker/Compose e isolamento
 
@@ -387,11 +387,11 @@ O `pip check` também passou antes da reprodução. O aviso de cache não gravá
 
 ### Workflow da versão documental
 
-O workflow `.github/workflows/tests.yml` de `13ff665` foi comparado byte a byte com o da versão congelada: idêntico. SHA256 `05f301e538abf692f0cabe55a84d3b6fbe1b5300e1d061db2ed79bc5ed259f0d`.
+O workflow `.github/workflows/tests.yml` de `f5b0a95` foi comparado byte a byte com o da versão congelada: idêntico. SHA256 `05f301e538abf692f0cabe55a84d3b6fbe1b5300e1d061db2ed79bc5ed259f0d`.
 
 Foi conferido que ele prepara PostgreSQL 16 descartável, usa Python 3.13, instala `requirements-lock.txt`, executa `pip check`, lint, init/seed/validate e `pytest -q --strict-markers`. A sequência de checks de banco, lint e testes foi reproduzida localmente nesta verificação, além das 34 referências SQL.
 
-A consulta read-only `gh run list --repo arthurhassuma/pac_privado --commit 13ff665a49f7cf0b0143e034f7ee4f1be8d37cfd --json databaseId,headSha,status,conclusion,url --limit 10` retornou **Forbidden** no acesso à API GitHub. Portanto, a aprovação remota informada pelo coordenador não foi confirmada independentemente aqui; nenhum workflow foi disparado. O acesso Git para obter código funcionou. Não se deve apresentar a reprodução local como execução GitHub Actions observada.
+A consulta read-only `gh run list --repo arthurhassuma/pac_privado --commit f5b0a953a9dc0ecfb782bf94d93824c78aefa1c5 --json databaseId,headSha,status,conclusion,url --limit 10` retornou **Forbidden** no acesso à API GitHub. Portanto, a aprovação remota informada pelo coordenador não foi confirmada independentemente aqui; nenhum workflow foi disparado. O acesso Git para obter código funcionou. Não se deve apresentar a reprodução local como execução GitHub Actions observada.
 
 ### Preservação e limitações
 
@@ -412,7 +412,7 @@ Plano aprovado pelo usuário, executado pelo próprio agente em checkout isolado
 
 Implementados: corpus supervisionado por grupos, treino TF-IDF/regressão logística, exportação JSON, inferência sem bibliotecas de treino, sugestão opcional de exemplos de treino, contrato gerencial, comparação/contribuição/séries/rankings/participação/desvios/fluxos, renderer PT-BR com emojis, conjunto gerencial independente, documentação e CI. As quatro camadas, duas tools, allowlist SELECT, role readonly, timeout, limite e autocorreção permanecem.
 
-Treinamento real: 280 formulações sintéticas em 70 cenários, divididos por grupo em 196/28/56 textos (49/7/14 grupos). Artefato congelado em `935aa4b` antes de executar o teste uma única vez. Validação bruta 12/28; teste bruto 48/56, macro F1 0,8. Classe operacional 0/8 no teste. Limiar 0,7 teve cobertura aceita zero em validação e teste. Por essa evidência da validação, o classificador fica desligado por padrão. Não há benefício demonstrado para o agente. [Resultados completos](dados/treinamento-intencoes-resultados-v1.json).
+Treinamento real: 280 formulações sintéticas em 70 cenários, divididos por grupo em 196/28/56 textos (49/7/14 grupos). Artefato congelado em `ab40a5f` antes de executar o teste uma única vez. Validação bruta 12/28; teste bruto 48/56, macro F1 0,8. Classe operacional 0/8 no teste. Limiar 0,7 teve cobertura aceita zero em validação e teste. Por essa evidência da validação, o classificador fica desligado por padrão. Não há benefício demonstrado para o agente. [Resultados completos](dados/treinamento-intencoes-resultados-v1.json).
 
 Verificação local mais recente: **188 testes aprovados, sem integrações puladas, em 22,18 s**, PostgreSQL 16 real e APIs externas simuladas. Ruff aprovado. `pip check`: nenhuma dependência quebrada. Validação do corpus confirmou sete classes de 40 formulações e 70 grupos. Um processo com imports de sklearn/numpy/scipy explicitamente bloqueados importou o agente e carregou o modelo JSON; não houve chamada externa nessa prova.
 
@@ -426,11 +426,11 @@ O CI identificou mais dois testes que presumiam faturamento em 2026 no perfil or
 
 ### Situação externa
 
-Rodada real de desenvolvimento iniciada no ambiente já configurado, com classificador desligado, fonte `1cc9197`, base comparativa isolada e intervalo de 60 segundos. Resultados finais, identificação do modelo, tokens e fingerprints serão importados do relatório sanitizado do ambiente conectado. Esta página não antecipa taxas de uma rodada incompleta.
+Rodada real de desenvolvimento iniciada no ambiente já configurado, com classificador desligado, fonte `62fab48`, base comparativa isolada e intervalo de 60 segundos. Resultados finais, identificação do modelo, tokens e fingerprints serão importados do relatório sanitizado do ambiente conectado. Esta página não antecipa taxas de uma rodada incompleta.
 
 Congelamento gerencial, novo reservado e atualização do bot ainda estão em andamento. O bot comparativo anterior permanece preservado enquanto a avaliação é concluída. Confirmação de `/health`, autenticação Telegram e polling não substitui uma mensagem humana para comprovar entrega e continuidade.
 
-Os resultados antigos `59c9eb8` não foram repetidos ou alterados. Outubro/2026 inteiro é cenário sintético e os status correspondem a 31/10/2026; não representam fatos observados de uma empresa real. Aceite do gestor é o anteriormente declarado pelo usuário, sem síntese de feedback; não foi inventada nova validação qualitativa.
+Os resultados antigos `04a642b` não foram repetidos ou alterados. Outubro/2026 inteiro é cenário sintético e os status correspondem a 31/10/2026; não representam fatos observados de uma empresa real. Aceite do gestor é o anteriormente declarado pelo usuário, sem síntese de feedback; não foi inventada nova validação qualitativa.
 
 ### Material da apresentação
 

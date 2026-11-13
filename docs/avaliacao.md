@@ -99,7 +99,7 @@ O manifesto registra fonte, dataset, modelo configurado, flag do classificador, 
 
 Reportar separadamente acerto de respostas, esclarecimentos e explicações de limites. Latência mede agente/banco, sem transporte Telegram. Revisar também legibilidade, períodos mostrados, avisos de parcialidade, fidelidade dos dígitos e ausência de causalidade inventada. Uma resposta numericamente correta não comprova sozinha texto útil ao gestor; revisão técnica não equivale a validação qualitativa humana.
 
-Depois de ajustes baseados em desenvolvimento, congelar versão, dataset e banco antes do reservado. Se resultados reservados orientarem mudanças, declarar contaminação e usar um novo conjunto independente para uma conclusão posterior. Preservar a versão e as métricas antigas `59c9eb8`.
+Depois de ajustes baseados em desenvolvimento, congelar versão, dataset e banco antes do reservado. Se resultados reservados orientarem mudanças, declarar contaminação e usar um novo conjunto independente para uma conclusão posterior. Preservar a versão e as métricas antigas `04a642b`.
 
 ## Guia de perguntas para o gestor
 
@@ -154,7 +154,7 @@ _Origem: `docs/avaliacao.md` (consolidado em 2026-11-09)._
 
 Executado em 12/10/2026. Modelo local TF-IDF (palavras/bigramas) + regressão logística. O Gemini não teve seus pesos alterados. Corpus integralmente sintético: 280 formulações em 70 grupos semânticos; 196 treino, 28 validação, 56 teste. São 49 grupos no treino, sete na validação e 14 no teste; as formulações de cada grupo são correlacionadas. Quatro formulações do mesmo cenário permanecem juntas. Rótulos revisados tecnicamente, sem alegar revisão externa por gestores.
 
-O vocabulário/IDF e os coeficientes foram ajustados apenas no treino. C selecionado: 0.5; limiar: 0.7; 625 características. Artefato congelado em 935aa4b antes de executar o teste uma vez. Classes e matrizes completas estão em [resultados JSON](dados/treinamento-intencoes-resultados-v1.json).
+O vocabulário/IDF e os coeficientes foram ajustados apenas no treino. C selecionado: 0.5; limiar: 0.7; 625 características. Artefato congelado em ab40a5f antes de executar o teste uma vez. Classes e matrizes completas estão em [resultados JSON](dados/treinamento-intencoes-resultados-v1.json).
 
 | Medida | Validação | Teste reservado |
 |---|---:|---:|
@@ -215,10 +215,10 @@ gestor foi usada, e o bot não treina com conversas.
 ### Protocolo
 
 [`training/protocol-v2.json`](../training/protocol-v2.json) foi commitado **antes** de qualquer
-treino (`9c8714f`), com o critério de uso: no teste reservado, **precisão das sugestões aceitas de
+treino (`6eb9046`), com o critério de uso: no teste reservado, **precisão das sugestões aceitas de
 pelo menos 0,90 e cobertura de pelo menos 0,50**. O classificador só seria ligado se os dois valores
 fossem atingidos. C e limiar foram escolhidos somente pela validação, e o modelo foi congelado em
-commit (`4072831`) antes de o teste ser aberto, uma única vez.
+commit (`85674c4`) antes de o teste ser aberto, uma única vez.
 
 #### Emenda, feita antes do teste
 
@@ -420,7 +420,7 @@ O [teste reservado](experimentos.md#teste-reservado--11102026) aprovou 16/16 res
 
 A tabela e os registros abaixo preservam a revisão anterior à ampliação de escopo e não representam o status atual da avaliação.
 
-Revisão em 10/10/2026. Fonte: `Asst. Conversacional de BI via Aplicativo de Mensagens com IA N3.pdf`, cinco páginas, preservado neste diretório. Base de código: `arthurhassuma/pac_privado`, commit `31ad3a4`, com os ajustes desta revisão.
+Revisão em 10/10/2026. Fonte: `Asst. Conversacional de BI via Aplicativo de Mensagens com IA N3.pdf`, cinco páginas, preservado neste diretório. Base de código: `arthurhassuma/pac_privado`, commit `7aef467`, com os ajustes desta revisão.
 
 O PDF é uma referência acadêmica, não uma autorização para alterar o escopo. Prevalecem as decisões posteriores do usuário: migração para Gemini e desenvolvimento até as Fases 0–3. As metas experimentais não são critérios já comprovados pelos testes de engenharia.
 
@@ -512,7 +512,7 @@ A taxa da 3.0.0 (14/16) continua sendo a medida oficial daquela rodada. A rodada
 
 Nenhum resultado reservado orientou correção, então os dois seguem independentes. O desenvolvimento (16/16) não é independente, porque o agente e o gabarito foram ajustados a partir dele. Detalhes e classificação das sete falhas em [experimentos](experimentos.md#reavaliação-no-perfil-autopecas--teste-reservado-do-conjunto-a-310-09112026).
 
-**Emenda 2 (após os reservados, 09/11/2026): contaminação declarada.** Por decisão do responsável, as falhas T04, T05 e T10 do reservado do conjunto A foram corrigidas (ver [experimentos](experimentos.md#correção-das-falhas-do-reservado-do-conjunto-a-09112026)). Como as correções nasceram dessas falhas, o reservado do conjunto A (T01–T20) **deixa de ser independente** para a versão corrigida do agente; os 12/16 continuam sendo a medida oficial da versão `0cbe39d`. O reservado gerencial (T21–T30) não orientou nenhuma correção, e seus 6/8 também valem só para a versão `0cbe39d`. Uma conclusão sobre a versão corrigida exige uma partição nova de casos; o conjunto C, abaixo, foi criado para isso e rodado uma vez.
+**Emenda 2 (após os reservados, 09/11/2026): contaminação declarada.** Por decisão do responsável, as falhas T04, T05 e T10 do reservado do conjunto A foram corrigidas (ver [experimentos](experimentos.md#correção-das-falhas-do-reservado-do-conjunto-a-09112026)). Como as correções nasceram dessas falhas, o reservado do conjunto A (T01–T20) **deixa de ser independente** para a versão corrigida do agente; os 12/16 continuam sendo a medida oficial da versão `708f0bf`. O reservado gerencial (T21–T30) não orientou nenhuma correção, e seus 6/8 também valem só para a versão `708f0bf`. Uma conclusão sobre a versão corrigida exige uma partição nova de casos; o conjunto C, abaixo, foi criado para isso e rodado uma vez.
 
 **Conjunto C: partição reservada nova, para a versão corrigida (declarada em 09/11/2026, antes de qualquer rodada).** `evaluation/cases-autopecas-reservado-2.json`, versão 1.0.0, SHA256 `45d5b1204532ca46118dbeb4862e8d533dff7e053cbdf77301198c60f0ade15e`, casos T41–T60 (partição `test`). Vinte casos com as mesmas categorias e a mesma distribuição do reservado original do conjunto A (16 respostas, 3 esclarecimentos, 1 pedido não suportado), em instâncias novas: nenhuma pergunta repete as do conjunto A, as datas ficam dentro da faixa carregada (exceto os casos de ausência) e os 17 SQL de referência foram executados contra a base antes do congelamento. Foram escritos depois das correções, sem consultar resultados de rodadas do agente corrigido, e por quem conhecia as falhas anteriores.
 
@@ -520,11 +520,11 @@ Nenhum resultado reservado orientou correção, então os dois seguem independen
 - **Execução.** Uma única vez, depois de congelar o código no commit que contém este protocolo e o conjunto: `python -m scripts.evaluate run --live --dataset evaluation/cases-autopecas-reservado-2.json --split test --interval 60 --limit 20 --env-file .local/avaliacao.env`. Mesma configuração das rodadas anteriores (modelo `gemini-3.5-flash-lite`, classificador ligado, sem repetição automática). Se as falhas orientarem novas correções, o conjunto C também será declarado contaminado.
 - **Limite declarado.** Por espelhar as categorias do conjunto A, o conjunto C inclui instâncias de filtro por modalidade (T44), agrupamento (T45) e média (T50), categorias das falhas corrigidas. Elas medem se a correção generaliza, não se o agente é bom em geral; o resultado por categoria deve ser lido assim. Os 20 casos não dão intervalo de confiança estreito: 12 de 16 e 16 de 16 não se distinguem com segurança.
 
-**Resultado do conjunto C (09/11/2026, commit `f4ab7e6`, uma execução).** *Execution accuracy* **13/16 (81%)**, esclarecimentos 3/3, pedido não suportado 1/1; critério (≥ 12/16) atendido. Falhas T48 (formato do ranking), T52 e T53 (esclarecimento de medida para "total de pedidos" e "soma dos pedidos", redação ambígua dos casos). Nenhuma correção foi feita depois da rodada, então o conjunto C segue sem contaminação. Detalhes em [experimentos](experimentos.md#reavaliação-no-perfil-autopecas--conjunto-c-partição-reservada-nova-100-09112026).
+**Resultado do conjunto C (09/11/2026, commit `7e13ab2`, uma execução).** *Execution accuracy* **13/16 (81%)**, esclarecimentos 3/3, pedido não suportado 1/1; critério (≥ 12/16) atendido. Falhas T48 (formato do ranking), T52 e T53 (esclarecimento de medida para "total de pedidos" e "soma dos pedidos", redação ambígua dos casos). Nenhuma correção foi feita depois da rodada, então o conjunto C segue sem contaminação. Detalhes em [experimentos](experimentos.md#reavaliação-no-perfil-autopecas--conjunto-c-partição-reservada-nova-100-09112026).
 
 **Medida do classificador de intenções (declarada em 10/11/2026, antes das rodadas).** Pergunta: o classificador de intenções, ligado por padrão, muda a taxa de acerto do agente? Até aqui só se sabia que ele não é o único responsável por erros (D04) e que ajuda a sugerir exemplos; o efeito nas respostas nunca foi medido.
 
-- **Conjunto e versão.** Conjunto C (T41–T60, SHA256 `45d5b120…`), partição `test`, com o agente do commit em que este protocolo está, que só difere do `f4ab7e6` por um rótulo de renderização (colunas UF, modalidade, segmento e cidade) que não entra na pontuação. O conjunto C já foi rodado uma vez com o classificador ligado (13/16).
+- **Conjunto e versão.** Conjunto C (T41–T60, SHA256 `45d5b120…`), partição `test`, com o agente do commit em que este protocolo está, que só difere do `7e13ab2` por um rótulo de renderização (colunas UF, modalidade, segmento e cidade) que não entra na pontuação. O conjunto C já foi rodado uma vez com o classificador ligado (13/16).
 - **Rodadas.** Três ao todo, mesmo intervalo (60 s), modelo e base: (1) ligado, a rodada já feita; (2) **desligado** (`INTENT_CLASSIFIER_ENABLED=false`); (3) **ligado de novo**, só para estimar a variação do próprio Gemini entre execuções idênticas.
 - **Regra de leitura (fixada antes).** Com 16 respostas e um modelo não determinístico, a diferença entre desligado e ligado só será descrita como indício de efeito se for de pelo menos 3 casos **e** maior que a diferença entre as duas rodadas com o classificador ligado. Caso contrário, o resultado é "sem efeito mensurável nesta amostra", sem afirmar que o classificador não faz diferença. Será reportada também a tabela caso a caso.
 - **Sem ajustes.** Nenhuma correção de código ou de conjunto será feita a partir dessas rodadas; elas não contaminam o conjunto C porque nada é alterado depois.

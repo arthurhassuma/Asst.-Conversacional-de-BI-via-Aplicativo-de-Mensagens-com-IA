@@ -4,6 +4,8 @@ Este guia permite que outra pessoa refaça, passo a passo, as verificações do 
 resultados. Cada etapa traz o comando, o resultado esperado e o que foi **de fato medido** na
 verificação de 10/11/2026 (versão `v1.0.1`). O que não pôde ser verificado está marcado como tal.
 
+> **Sobre os hashes de commit.** Este repositório foi publicado em 12/11/2026 com o histórico reescrito (sem documentos internos de processo e sem os trailers de co-autoria), então os hashes mudaram. Os citados nos arquivos `.md` já foram convertidos para este histórico. Hashes em arquivos `.json` de evidência (`docs/dados/`), nos relatórios DOCX/PDF e nas apresentações são os do repositório privado original. O código e os conjuntos de avaliação são os mesmos; a equivalência de `v1.0.1` aqui está na tag de mesmo nome.
+
 Há três caminhos, do mais barato ao mais caro:
 
 | Caminho | O que reproduz | Precisa de Gemini? | Duração |
@@ -166,7 +168,7 @@ Resultados observados nesta versão (uma execução cada, não reproduzíveis ex
 
 | Conjunto | Respostas corretas | Critério |
 |---|---|---|
-| C, partição nova (T41–T60), medido em `f4ab7e6` (difere da `v1.0.1` só por rótulos de renderização) | 13/16 (14/16 em uma repetição) | ao menos 12/16 |
+| C, partição nova (T41–T60), medido em `7e13ab2` (difere da `v1.0.1` só por rótulos de renderização) | 13/16 (14/16 em uma repetição) | ao menos 12/16 |
 | A reservado, versão anterior às correções | 12/16 | ao menos 12/16 |
 | Gerencial reservado, versão anterior às correções | 6/8 | ao menos 6/8 |
 

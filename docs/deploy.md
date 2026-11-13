@@ -40,7 +40,7 @@ de novos arquivos antes de cada publicação.
 - `ruff check app scripts tests` passou; `pip check` não encontrou conflitos.
 - O PostgreSQL temporário foi encerrado após os testes; arquivos locais ignorados
   foram preservados para retomada.
-- A árvore publicada no commit de importação `68d55baf67729448aba1912742c7927b06662d35`
+- A árvore publicada no commit de importação `f83b83339ac08b2e361e804cda9f56bff1e0ee67`
   coincide com a árvore local: `05f3617031142b61cecd6043ca73b71f1244e4e1`.
 
 O registro em [Verificação da entrega — Fases 0–3](verificacoes.md#verificação-da-entrega--fases-03) descreve a primeira entrega, anterior à migração
@@ -76,9 +76,9 @@ _Origem: `docs/deploy.md` (consolidado em 2026-11-09)._
 ### Conferência anterior à publicação, realizada em 02/11/2026
 
 A consulta Git read-only ao origin confirmou main em
-`a971546f25adbf996bfc1279637042125b6a4882`. Os cinco arquivos de runtime/Compose/
+`cff0f819b81387ffe2342b61fb6c1fb376e499e7`. Os cinco arquivos de runtime/Compose/
 configuração não existem nessa árvore. Não há commit remoto desses arquivos
-nessa main no momento da consulta. O commit a971546 é datado de 12/10 no Git;
+nessa main no momento da consulta. O commit cff0f81 é datado de 12/10 no Git;
 13/10 é a data da preparação e implantação do pacote, não a data desse commit.
 
 O ZIP enviado pelo usuário tem 123813 bytes e SHA256
@@ -148,14 +148,14 @@ os da VM estão em UTC, por isso o nome dos backups já marca 08/11.
 
 | Rodada | PR | Commit | Merge na `main` | Conteúdo |
 |---|---|---|---|---|
-| 1 | #8 | `6125efe` | `2ac4127` | Formato de respostas, vocabulário de autopeças, perfil `autopecas` |
-| 2 e 3 | #11 | `35fe6d9` | `f193e94` | Taxa de resolução da pós-venda, resposta de valor único, total filtrado |
-| 2 e 3 | #12 | `496fc7e` | `2974dad` | Substantivo repetido nos totais de ocorrências |
-| 4 | #15 | `fb1f611` | `4a482ca` | Intervalos de datas e mês fixado na conversa |
-| 4 | #16 | `46bfb7b` | `640f847` | Taxa de resolução em porcentagem; respostas agrupadas sem falha |
-| 4 | #17 | `471b57a` | `0db3a33` | Escopo de CTE no filtro de SQL; polling que não trava |
-| 5 | #19 | `f6df14a` | `ca2e83e` | Classificador de intenções v2 (autopeças), avaliado e ligado por padrão |
-| 5 | #20 | `4292e39` | `8146065` | Entrypoint do container passa a respeitar `INTENT_CLASSIFIER_ENABLED` |
+| 1 | #8 | `e1ca11c` | `9efe0ea` | Formato de respostas, vocabulário de autopeças, perfil `autopecas` |
+| 2 e 3 | #11 | `be9172d` | `df77315` | Taxa de resolução da pós-venda, resposta de valor único, total filtrado |
+| 2 e 3 | #12 | `78e1c79` | `fa087ed` | Substantivo repetido nos totais de ocorrências |
+| 4 | #15 | `6b4b278` | `9c73500` | Intervalos de datas e mês fixado na conversa |
+| 4 | #16 | `9f2e3ed` | `9b8cbbe` | Taxa de resolução em porcentagem; respostas agrupadas sem falha |
+| 4 | #17 | `3a490c6` | `05aaa1f` | Escopo de CTE no filtro de SQL; polling que não trava |
+| 5 | #19 | `0734fb1` | `1d3ec80` | Classificador de intenções v2 (autopeças), avaliado e ligado por padrão |
+| 5 | #20 | `0e9fea7` | `64e4c8f` | Entrypoint do container passa a respeitar `INTENT_CLASSIFIER_ENABLED` |
 
 Mudanças documentadas no [README](../README.md) (seção do perfil `autopecas`), no
 [dicionário de dados](projeto.md#dicionário-de-dados) e no [guia da Oracle](../deploy/oracle/README.md).
@@ -321,7 +321,7 @@ efeito, depois da correção do entrypoint).
 ### Rodada 6: estado durável (09/11/2026)
 
 Objetivo: eliminar a perda de updates aceitos e a repetição de respostas após reinício, e permitir
-mais de um worker. O código está no commit `7298341` (PR desta rodada); a descrição técnica está em
+mais de um worker. O código está no commit `af145fa` (PR desta rodada); a descrição técnica está em
 [projeto.md](projeto.md#estado-durável-da-execução-09112026).
 
 **Execução (conferida por capturas de tela do responsável, por volta das 18:14 de 09/11/2026):**
@@ -354,13 +354,13 @@ o update pode repetir a resposta.
 
 **Reversão:** remover a linha `STATE_DATABASE_URL` de `application.env` e recriar `backend polling`
 volta ao modo em memória; as tabelas do schema `estado` ficam inertes. Para o código anterior,
-`git show bc9dab7:<arquivo>` e reconstruir com `--no-cache`.
+`git show 6499370:<arquivo>` e reconstruir com `--no-cache`.
 
 ### Rodada 7: agente corrigido após a reavaliação (10/11/2026)
 
 Objetivo: colocar na VM as correções de interpretação feitas depois dos testes reservados (T04, T05 e
 T10; ver [experimentos](experimentos.md#correção-das-falhas-do-reservado-do-conjunto-a-09112026)). O
-código está no commit `7a3202b` (main). Só quatro arquivos de execução mudaram desde a rodada 6:
+código está no commit `92deab2` (main). Só quatro arquivos de execução mudaram desde a rodada 6:
 `app/analysis_contract.py`, `app/bi_agent.py`, `app/database_tools.py` e `app/prompts.py`. Sem
 mudança de banco, de dependências nem de variáveis de ambiente.
 
@@ -372,7 +372,7 @@ mudança de banco, de dependências nem de variáveis de ambiente.
 
 **Verificação na VM (observada):**
 
-- Rótulo da imagem `org.opencontainers.image.revision` = `7a3202bfd03f9cc64567f5facc3dc274aca8fd1f`.
+- Rótulo da imagem `org.opencontainers.image.revision` = `92deab2b39a8942acb63ef2d800031ff95e09d48`.
 - `/health` com `"estado_duravel":true`; `backend` saudável, `polling` iniciado, `db` com dois dias de
   uptime (não foi recriado); log sem erros.
 - Telegram, pergunta "Quantos clientes foram cadastrados em 2023 em cada UF?": respondeu a contagem
@@ -388,16 +388,16 @@ testadas na VM são as mesmas que originaram as correções, então confirmam o 
 geral (a medida de generalização é o conjunto C: 13/16).
 
 **Reversão:** o banco não foi tocado. Para o código anterior, reenviar os quatro arquivos de
-`git show 527bd7b:<arquivo>` (a versão da rodada 6) e reconstruir com `--no-cache`.
+`git show deadacf:<arquivo>` (a versão da rodada 6) e reconstruir com `--no-cache`.
 
 ### Rodada 8: rótulos fixos para colunas de categoria (10/11/2026)
 
 Objetivo: trocar o rótulo genérico "Campo" por UF, Modalidade, Segmento e Cidade nas respostas
-agrupadas. Código no commit `61c4871` (main); só `app/rendering.py` mudou desde a rodada 7. Sem
+agrupadas. Código no commit `b575190` (main); só `app/rendering.py` mudou desde a rodada 7. Sem
 mudança de banco, dependências ou variáveis.
 
 **Execução (conferida por capturas de tela do responsável, madrugada de 10/11/2026):** `scp` de
-`app/rendering.py`; `SOURCE_COMMIT.txt` com o hash curto `61c4871`; `docker build --no-cache`
+`app/rendering.py`; `SOURCE_COMMIT.txt` com o hash curto `b575190`; `docker build --no-cache`
 (235 s); `up -d --force-recreate backend polling`.
 
 **Verificação na VM (observada):** `db`, `backend` saudáveis e `polling` iniciado; `/health` com
@@ -407,9 +407,9 @@ rodada 7.
 
 **Não verificado:** o rótulo da imagem não foi consultado com `docker image inspect`; como o
 `SOURCE_COMMIT.txt` recebeu o hash curto, o rótulo `org.opencontainers.image.revision` deve ser
-`61c4871`, não o hash completo da rodada 7.
+`b575190`, não o hash completo da rodada 7.
 
-**Reversão:** reenviar `app/rendering.py` de `git show 7a3202b:app/rendering.py` e reconstruir com
+**Reversão:** reenviar `app/rendering.py` de `git show 92deab2:app/rendering.py` e reconstruir com
 `--no-cache`.
 
 ### Antes e depois (mesmas perguntas do teste de 05/11)
@@ -450,9 +450,9 @@ rodada 7.
     ponto de retorno mais recente.
   - Os três nomes, tamanhos e horários foram conferidos com `ls -lh` na VM (observado).
   - Restaurar num banco novo, conforme o guia da Oracle.
-- Código: reenviar os arquivos de um commit anterior (`git show 3e43545:<arquivo>` para antes
-  do PR #8; `git show 6125efe:<arquivo>` para o estado da rodada 1; `git show 2974dad:<arquivo>`
-  para o estado anterior à rodada 4; `git show 778b45d:<arquivo>` para o anterior à rodada 5),
+- Código: reenviar os arquivos de um commit anterior (`git show 5666429:<arquivo>` para antes
+  do PR #8; `git show e1ca11c:<arquivo>` para o estado da rodada 1; `git show fa087ed:<arquivo>`
+  para o estado anterior à rodada 4; `git show 2dba4a8:<arquivo>` para o anterior à rodada 5),
   reconstruir com `--no-cache` e recriar backend/polling.
 - Guardar os backups até a apresentação.
 - Para a rodada 6 (estado durável) valem as instruções de reversão da própria seção.

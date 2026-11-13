@@ -392,7 +392,7 @@ teste e 52 o exigem (não foram rodados com o banco de teste completo nesta data
 **Prática usada:** primeiro um teste que **falha** reproduzindo o defeito, depois a correção. Nos PRs
 desta semana, os testes novos foram confirmados como falhando sem a correção.
 
-#### 12.2 Avaliação real com o Gemini (outubro de 2026, versão congelada `59c9eb8`)
+#### 12.2 Avaliação real com o Gemini (outubro de 2026, versão congelada `04a642b`)
 | Conjunto | Resultado | Observação |
 |---|---|---|
 | 40 casos originais: 20 de desenvolvimento | **20/20** na 3ª rodada | Antes houve rodadas parciais e diagnósticos |
