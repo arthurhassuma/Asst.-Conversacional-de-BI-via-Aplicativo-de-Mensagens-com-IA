@@ -76,11 +76,11 @@ VM Oracle `VM.Standard.E2.1.Micro` (1 OCPU, 1 GB de RAM), Ubuntu 24.04, Docker C
 | Primeira atualização, manual (`systemctl start pac-update.service`) | 01:26:15 a 01:27:17; revisão `4fd644916a9c0822be63995b53a747b0d9892e25`; backend `Healthy` em cerca de 40 s; banco não recriado; o bot respondeu depois |
 | Perguntas pelo Telegram depois da troca | modelo fixo (faturamento de janeiro de 2025) e SQL livre (faturamento de Jaraguá do Sul e cadastros por UF) responderam |
 | Ciclo automático: commit `ca4a991` → `PAC checks` e `CodeQL` verdes → `Release` (build e promoção) → VM | a VM baixou a imagem às 01:43:11 e concluiu às 01:44:22 (1 min 11 s), sem nenhum comando manual; `/var/lib/pac-update/deployed-revision` ficou com `ca4a9919866d84eeba389fc008b566e4110ac63d` |
+| Reinício da VM (`sudo reboot`, por atualização de kernel pendente) | depois de 1 min ligada, Docker e `pac-update.timer` ativos; os três contêineres (`db`, `backend`, `polling`) voltaram sozinhos, há 38 s, com `backend` e `db` `healthy`; `/health` respondeu (`estado_duravel: true`); a revisão aplicada continuou `7c55b54958f036920f53e2d1526b2407006fdb92`; pico de carga de 4,48 no primeiro minuto, em 1 OCPU |
 
 Limites da validação:
 
 - O ramo de **reversão** só foi exercitado nos testes com `docker` e `curl` simulados; não houve falha real na VM.
-- A VM **não foi reiniciada** com o timer ligado depois da instalação.
 - O ambiente `production` não tem revisor configurado, então a promoção é automática.
 - Todo commit na `main` que passa no CI gera um deploy, inclusive os que só mudam documentação.
 - Em 12/11/2026 a pasta do projeto na VM foi renomeada de `~/pac_privado` para `~/assistente-bi`; o nome do projeto do Compose (`pac-bi-24h`) não mudou e não deve mudar, para não perder o volume do banco.
