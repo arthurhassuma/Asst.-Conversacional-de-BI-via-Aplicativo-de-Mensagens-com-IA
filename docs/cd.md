@@ -65,7 +65,25 @@ Depois de qualquer atualização, envie uma pergunta conhecida pelo Telegram: `/
 
 Verificado em `tests/test_deploy_update.py`, com `docker` e `curl` simulados: não faz nada se a imagem não mudou; mantém a imagem anterior; volta a ela se o Compose ou o `/health` falharem; não repete uma imagem que falhou; ignora execuções concorrentes; mantém a versão atual se o GHCR estiver fora do ar.
 
-Não foi verificado em uma VM real: a primeira execução na VM é o teste de ponta a ponta. O Compose recria os contêineres quando o ID da imagem muda, e há um intervalo curto sem resposta do bot durante a troca. Uma VM com 1 GB de RAM baixa a imagem sem construí-la, o que é mais leve do que o fluxo manual anterior (`docker build --no-cache`).
+O Compose recria os contêineres quando o ID da imagem muda, e há um intervalo curto sem resposta do bot durante a troca (o Telegram guarda as mensagens pendentes). Uma VM com 1 GB de RAM baixa a imagem sem construí-la, o que é mais leve do que o fluxo manual anterior (`docker build --no-cache`).
+
+## Validação na VM real (12/11/2026)
+
+VM Oracle `VM.Standard.E2.1.Micro` (1 OCPU, 1 GB de RAM), Ubuntu 24.04, Docker Compose, projeto `pac-bi-24h`. Os horários abaixo estão em UTC; em Brasília ainda era 12/11/2026.
+
+| Evento | Resultado |
+|---|---|
+| Primeira atualização, manual (`systemctl start pac-update.service`) | 01:26:15 a 01:27:17; revisão `4fd644916a9c0822be63995b53a747b0d9892e25`; backend `Healthy` em cerca de 40 s; banco não recriado; o bot respondeu depois |
+| Perguntas pelo Telegram depois da troca | modelo fixo (faturamento de janeiro de 2025) e SQL livre (faturamento de Jaraguá do Sul e cadastros por UF) responderam |
+| Ciclo automático: commit `ca4a991` → `PAC checks` e `CodeQL` verdes → `Release` (build e promoção) → VM | a VM baixou a imagem às 01:43:11 e concluiu às 01:44:22 (1 min 11 s), sem nenhum comando manual; `/var/lib/pac-update/deployed-revision` ficou com `ca4a9919866d84eeba389fc008b566e4110ac63d` |
+
+Limites da validação:
+
+- O ramo de **reversão** só foi exercitado nos testes com `docker` e `curl` simulados; não houve falha real na VM.
+- A VM **não foi reiniciada** com o timer ligado depois da instalação.
+- O ambiente `production` não tem revisor configurado, então a promoção é automática.
+- Todo commit na `main` que passa no CI gera um deploy, inclusive os que só mudam documentação.
+- Em 12/11/2026 a pasta do projeto na VM foi renomeada de `~/pac_privado` para `~/assistente-bi`; o nome do projeto do Compose (`pac-bi-24h`) não mudou e não deve mudar, para não perder o volume do banco.
 
 ## Segurança
 
@@ -73,5 +91,3 @@ Não foi verificado em uma VM real: a primeira execução na VM é o teste de po
 - A imagem não contém segredos: as credenciais ficam em `private/*.env` na VM, montadas em tempo de execução.
 - `workflow_run` só dispara para `push` na `main` com `PAC checks` verde; pull requests não publicam imagem.
 - O deploy manual por `scp`, descrito em `deploy/oracle/README.md`, fica documentado apenas como recuperação de emergência.
-
-Realizado dia 12/11/2026

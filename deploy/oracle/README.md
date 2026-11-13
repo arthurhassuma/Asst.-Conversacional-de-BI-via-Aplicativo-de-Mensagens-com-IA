@@ -287,3 +287,5 @@ evidência em [registro da hospedagem](../../docs/deploy.md#hospedagem-oracle-en
 ## Entrega contínua
 
 A atualização da VM por `scp` descrita acima é o procedimento manual de recuperação. O fluxo normal é o pipeline `Release` (GitHub Actions), que publica a imagem no GHCR, e o `pac-update.timer` na VM, que a busca e volta à versão anterior se o `/health` falhar. Veja `docs/cd.md`.
+
+Na VM, a pasta do projeto passou de `~/pac_privado` para `~/assistente-bi` em 12/11/2026. Os trechos deste arquivo que citam `~/pac_privado` descrevem a implantação anterior a essa data.
