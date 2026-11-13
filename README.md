@@ -218,7 +218,7 @@ python -m pytest -q
 python -m ruff check app scripts tests evaluation training
 ```
 
-A suíte tem 337 testes (285 passam sem banco de teste e 52 dependem dele); os que dependem de PostgreSQL são marcados como skipped sem `TEST_DATABASE_URL` (negócio) e `TEST_STATE_ADMIN_URL` (estado durável: URL administrativa de um banco **de teste**, cujo schema `estado` e role `app_estado` são recriados). Para executá-la inteira contra a base sintética carregada, sem exibir a senha:
+A suíte tem 349 testes (297 passam sem banco de teste e 52 dependem dele); os que dependem de PostgreSQL são marcados como skipped sem `TEST_DATABASE_URL` (negócio) e `TEST_STATE_ADMIN_URL` (estado durável: URL administrativa de um banco **de teste**, cujo schema `estado` e role `app_estado` são recriados). Para executá-la inteira contra a base sintética carregada, sem exibir a senha:
 
 ```powershell
 python -c "import os,pytest; from app.config import Settings; os.environ['TEST_DATABASE_URL']=Settings().database_url.get_secret_value(); raise SystemExit(pytest.main(['-q']))"

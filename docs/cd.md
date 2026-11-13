@@ -6,7 +6,7 @@ O deploy não usa SSH nem `scp`. O pipeline testa, constrói e publica a imagem;
 push na main
    │
    ▼
-PAC checks (ruff, 341 testes com Postgres, corpus)        ── falhou? para aqui
+PAC checks (ruff, 349 testes com Postgres, corpus)        ── falhou? para aqui
    │ sucesso
    ▼
 Release / build ── constrói a imagem, publica ghcr.io/arthurhassuma/pac-bi-assistant:sha-<commit>
