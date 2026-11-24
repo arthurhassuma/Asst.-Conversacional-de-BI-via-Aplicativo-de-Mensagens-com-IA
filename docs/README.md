@@ -14,6 +14,7 @@
 - [observabilidade.md](observabilidade.md): logs, métricas `/metrics`, alertas e limites.
 - [cd.md](cd.md): entrega contínua (pipeline, promoção para produção e atualização da VM sem SSH).
 - [apresentacao.md](apresentacao.md): guia de estudo, roteiro de demonstração e de entrega.
+- [poster/poster.pdf](poster/poster.pdf): pôster do projeto (pré-visualização em `poster/poster.png`).
 - [relatorio-final-pac-viii.md](relatorio-final-pac-viii.md): fonte textual do relatório final.
 - `entregaveis/`: relatórios (DOCX/PDF), proposta e apresentação (PPTX/PDF).
 - `dados/`: resultados em JSON, consultas SQL e corpora de treinamento.
